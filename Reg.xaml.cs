@@ -43,9 +43,9 @@ namespace tadar
 
         void f_BoxTextChanged(object sender, TextChangedEventArgs e)
         {
-            
-                if (f_Box.Text == "")
-                {
+
+            /*if (f_Box.Text == "")
+            {
                 // Create an ImageBrush.
                 ImageBrush textImageBrush = new ImageBrush();
                 textImageBrush.ImageSource =
@@ -62,12 +62,9 @@ namespace tadar
 
                 f_Box.Background = Brushes.White;
                 f_Box.Foreground = Brushes.Black;
-             }
-
-
-            
-            
+            }*/
         }
+
         void name_boxTextChanged(object sender, TextChangedEventArgs e)
         {
 
@@ -203,5 +200,15 @@ namespace tadar
             
         }
 
+        private void f_Box_GotFocus(object sender, RoutedEventArgs e)
+        {
+            (sender as TextBox).Text = ""; 
+        }
+
+        private void f_Box_LostFocus(object sender, RoutedEventArgs e)
+        {
+
+            (sender as TextBox).Text = "123";
+        }
     }
 }

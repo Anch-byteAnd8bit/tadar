@@ -54,12 +54,8 @@
                  FontSize="24"
                  Width="500" Height="45" 
                  HorizontalAlignment="Center"
-                 VerticalAlignment="Center" TextAlignment="Left" MaxLines="1" MaxLength="57" UndoLimit="20" SelectionOpacity="-4" AutoWordSelection="True"
-                 >
-            <TextBox.Background>
-                <ImageBrush ImageSource ="/famil.jpg" AlignmentX="Left" Stretch="UniformToFill" TileMode="FlipY" />
-            </TextBox.Background>
-        </TextBox>
+                 VerticalAlignment="Center" TextAlignment="Left" MaxLines="1" MaxLength="57" UndoLimit="20" SelectionOpacity="-4" AutoWordSelection="True" Background="White" Text="123" GotFocus="f_Box_GotFocus" LostFocus="f_Box_LostFocus"
+                 />
 
 
 
@@ -211,7 +207,7 @@
                 HorizontalAlignment="Center" 
                 Width="300"  Height="70" VerticalAlignment="Center"
                 />
-        
+
 
 
 
