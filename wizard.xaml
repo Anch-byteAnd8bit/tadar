@@ -1,0 +1,44 @@
+﻿<Page x:Class="tadar.wizard"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:tadar"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="wizard">
+
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BTV"/>
+       
+        <DataTemplate DataType="{x:Type local:SingleInputVM}">
+            <DockPanel LastChildFill="True">
+                <TextBlock Text="{Binding Prompt}" DockPanel.Dock="Top"/>
+                <TextBox Text="{Binding Input, Mode=TwoWay}" />
+            </DockPanel>
+        </DataTemplate>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+       
+        <ContentPresenter Content="{Binding CurrentPage}" />
+
+       
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="1">
+          
+            <Button Command="{Binding OnNext}" Margin="10"
+                    Visibility="{Binding OnNext.CanExecuteProperty,
+                                         Converter={StaticResource BTV}}">
+                Next
+            </Button>
+            <Button Command="{Binding OnFinish}" Margin="10"
+                    Visibility="{Binding OnFinish.CanExecuteProperty,
+                                         Converter={StaticResource BTV}}">
+                Finish
+            </Button>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="famil.jpg" />
+    <None Remove="pic\famil.jpg" />
+    <None Remove="pic\login.jpg" />
+    <None Remove="pic\mail101.jpg" />
+    <None Remove="pic\name101.jpg" />
+    <None Remove="pic\otches.jpg" />
+    <None Remove="pic\pass.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="xNet">
+      <HintPath>xNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="famil.jpg" />
+    <Resource Include="pic\famil.jpg" />
+    <Resource Include="pic\login.jpg" />
+    <Resource Include="pic\mail101.jpg" />
+    <Resource Include="pic\name101.jpg" />
+    <Resource Include="pic\otches.jpg" />
+    <Resource Include="pic\pass.jpg" />
+  </ItemGroup>
+
+</Project>

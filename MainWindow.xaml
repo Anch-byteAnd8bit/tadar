@@ -1,0 +1,49 @@
+﻿<Window x:Class="tadar.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:tadar"
+        
+        xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        
+        mc:Ignorable="d"
+        Title="MainWindow" Height="1080" Width="1950">
+    <Window.Resources>
+
+    </Window.Resources>
+
+    <Grid ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="53*"></RowDefinition>
+            <RowDefinition Height="948*"></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+            <ColumnDefinition Width="60*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+
+        <Button x:Name="back_but" 
+                HorizontalAlignment="Left"
+                Click="back_click"
+                Grid.Column="0" Grid.Row="0"
+                Content="назад" 
+                Foreground="White"
+                FontSize="30" Width="107"/>
+
+
+        <Frame x:Name="Base_frame" 
+               NavigationUIVisibility='Hidden'
+               ContentRendered="Main_frame_content_rend" 
+               Grid.Column="1"
+               Grid.RowSpan="2"
+               Content=""
+               Margin="0,0,0,0" />
+
+    </Grid>
+
+
+</Window>
