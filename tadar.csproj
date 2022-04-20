@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="famil.jpg" />
     <None Remove="pic\famil.jpg" />
     <None Remove="pic\login.jpg" />
     <None Remove="pic\mail101.jpg" />
@@ -17,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="4.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
@@ -27,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="famil.jpg" />
     <Resource Include="pic\famil.jpg" />
     <Resource Include="pic\login.jpg" />
     <Resource Include="pic\mail101.jpg" />

@@ -3,21 +3,21 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:tadar"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="Base_page">
 
-    <Grid x:Name="gris_ent" Background="#0395D3" ShowGridLines="False">
+    <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False">
         <Grid.RowDefinitions>
-            <RowDefinition Height="97*"></RowDefinition>
-            <RowDefinition Height="35*" ></RowDefinition>
-            <RowDefinition Height="64*" ></RowDefinition>
-            <RowDefinition Height="35*" ></RowDefinition>
-            <RowDefinition Height="64*" ></RowDefinition>
-            <RowDefinition Height="41*" ></RowDefinition>
-            <RowDefinition Height="44*" ></RowDefinition>
-            <RowDefinition Height="134*" ></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*" ></RowDefinition>
+            <RowDefinition Height="*" ></RowDefinition>
+            <RowDefinition Height="*" ></RowDefinition>
+            <RowDefinition Height="*" ></RowDefinition>
+            <RowDefinition Height="*" ></RowDefinition>
+            <RowDefinition Height="*" ></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="21*"></ColumnDefinition>
@@ -28,26 +28,11 @@
 
 
 
-        <TextBlock 
-            Grid.Row="1"
-            Grid.Column="1"
-            Text="Логин"
-            FontSize="40"
-            Foreground="White"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center" Height="54" Width="126" FontWeight="Bold"
-            />
-        <TextBlock 
-            Grid.Row="3"
-            Grid.Column="1"
-            Text="Пароль"
-             VerticalAlignment="Center"
-            FontSize="40"
-            Foreground="White"
-            HorizontalAlignment="Center" Height="54" Width="160" FontWeight="Bold"
-            />
+       
+        
         <TextBox 
             x:Name="logbox"
+            materialDesign:HintAssist.Hint="Введите логин" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             Grid.Column="1"
                  HorizontalAlignment="Center"
                  VerticalAlignment="Center"
@@ -55,31 +40,32 @@
                  Background="White"
                  Grid.Row="2"
                  Text=""
-                 FontSize="36"
+                 FontSize="25"
                  TextWrapping="Wrap"
                  Width="550" Height="76" />
 
         <PasswordBox 
             x:Name="pswbox"
             PasswordChar="$"
-            
+            materialDesign:HintAssist.Hint="Введите пароль" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
             Grid.Column="1" 
             HorizontalAlignment="Center" 
-            Grid.Row="4" 
+            Grid.Row="3" 
             VerticalAlignment="Center"
             Width="550" Height="74"
             CaretBrush="Black"
             Background="White"
-             FontSize="36"/>
+             FontSize="25"/>
 
-        <Button Style="{DynamicResource RoundedButton}" x:Name="ent"
+        <Button  Style="{StaticResource MaterialDesignFlatMidBgButton}"
+             materialDesign:ButtonAssist.CornerRadius="25" x:Name="ent"
                
                 Click="enter_Click"
                 Grid.Column="1"
-                Grid.Row="6"
+                Grid.Row="4"
                 Content="Войти"
                 HorizontalAlignment="Center" 
-                Width="350" Margin="0,6,0,6" 
+                Width="300" FontSize="24" Height="45"  
                 />
 
        

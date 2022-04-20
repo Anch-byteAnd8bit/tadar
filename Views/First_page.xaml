@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:tadar"
       
       
@@ -10,13 +11,13 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="First_page">
 
-    <Grid x:Name="grid_first" Background="#0395D3" ShowGridLines="False">
+    <Grid x:Name="grid_first" Background="#FFA25DED" ShowGridLines="False">
         <Grid.RowDefinitions>
-            <RowDefinition Height="151*"></RowDefinition>
-            <RowDefinition Height="59*"></RowDefinition>
-            <RowDefinition Height="24*"></RowDefinition>
-            <RowDefinition Height="59*"></RowDefinition>
-            <RowDefinition Height="154*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -24,7 +25,8 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Button Style="{DynamicResource RoundedButton}" x:Name="ent"
+        <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
+             materialDesign:ButtonAssist.CornerRadius="25" x:Name="ent"
                
                 Click="ent_Click"
                 Grid.Column="1"
@@ -32,32 +34,35 @@
                 Content="Вход"
                 HorizontalAlignment="Center" 
                 Width="267"
-                Height="59" 
+                Height="40" 
                 />
         <Button x:Name="reg" 
-                Style="{DynamicResource RoundedButton}"
+                Style="{StaticResource MaterialDesignFlatMidBgButton}"
+             materialDesign:ButtonAssist.CornerRadius="25"
                 Click="reg_Click"
                 Grid.Column="1" Grid.Row="3"
                 Content="Регистрация"
-                HorizontalAlignment="Center" Margin="0,0,0,0" 
+                HorizontalAlignment="Center" 
                 Width="267"
-                Height="59"/>
+                Height="40"/>
         <Button x:Name="menu" 
-                Style="{DynamicResource RoundedButton}"
+                Style="{StaticResource MaterialDesignFlatMidBgButton}"
+             materialDesign:ButtonAssist.CornerRadius="25"
                 Click="menu_Click"
-                Grid.Column="0" Grid.Row="3"
+                Grid.Column="0" Grid.Row="1"
                 Content="Меню"
                 HorizontalAlignment="Center" Margin="0,0,0,0" 
                 Width="267"
-                Height="59"/>
+                Height="45"/>
         <Button x:Name="api" 
-                Style="{DynamicResource RoundedButton}"
+                Style="{StaticResource MaterialDesignFlatMidBgButton}"
+             materialDesign:ButtonAssist.CornerRadius="25"
                 Click="api_Click"
-                Grid.Column="1" Grid.Row="4"
+                Grid.Column="0" Grid.Row="3"
                 Content="checknetwork"
                 HorizontalAlignment="Center" Margin="0,0,0,0" 
                 Width="267"
-                Height="59"/>
+                Height="45"/>
 
 
 

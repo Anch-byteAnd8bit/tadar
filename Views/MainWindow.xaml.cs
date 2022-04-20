@@ -24,8 +24,8 @@ namespace tadar
         public MainWindow()
         {
             InitializeComponent();
-            First_Window first_window = new First_Window();
-            first_window.Show();
+           
+            
             Base_frame.Navigate(new First_page());
             First.Base_frame = Base_frame;
         }
@@ -49,15 +49,6 @@ namespace tadar
 
 
     }
-    //public class Phone
-    //    {
-    //        public string Name { get; set; }
-    //        public int Price { get; set; }
-
-    //        public override string ToString()
-    //        {
-    //            return $"Смартфон {this.Name}; цена: {this.Price}";
-    //        }
-    //    }
+    
   
 }

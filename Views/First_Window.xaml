@@ -1,0 +1,31 @@
+﻿<Window x:Class="tadar.First_Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:tadar"
+        mc:Ignorable="d"
+        Title="First_Window" Height="450" Width="800">
+    <Grid ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="53*"></RowDefinition>
+            <RowDefinition Height="948*"></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="13*"></ColumnDefinition>
+            <ColumnDefinition Width="187*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+
+        <Button x:Name="back2_but" 
+                HorizontalAlignment="Center"
+                Click="back_click" Grid.Row="0"
+                Content="назад" 
+                Foreground="White"
+                FontSize="10" Width="50" Margin="0,0,0,0"  />
+
+        <Frame x:Name="Frame_On" Margin="0,0,0,411" Grid.RowSpan="2"/>
+
+    </Grid>
+</Window>

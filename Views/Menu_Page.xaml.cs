@@ -20,18 +20,35 @@ namespace tadar
     /// </summary>
     public partial class Menu_Page : Page
     {
+        
+        
         public Menu_Page()
         {
             InitializeComponent();
+            List<users> users = new List<users>()
+            {
+                new users("Anna", "Chu", 3),
+                new users("Sasha", "Рихтер", 222),
+                new users("Bright", "Vachirawit", 24)
+            };
+
+            usersecvm viewModel = new usersecvm(users); // Создали ViewModel
+             
+
+
+
         }
-        private void akk_Click(object sender, RoutedEventArgs e)
+
+
+
+    private void akk_Click(object sender, RoutedEventArgs e)
         {
             First.Base_frame.Navigate(new Ent_page());
             //открытие новой страницы с вводом логина и пароля 
         }
         private void test_Click(object sender, RoutedEventArgs e)
         {
-            First.Base_frame.Navigate(new Ent_page());
+            First.Base_frame.Navigate(new ListTest_Page());
             //открытие новой страницы с вводом логина и пароля 
         }
         private void selftest_Click(object sender, RoutedEventArgs e)
@@ -51,12 +68,12 @@ namespace tadar
         }
         private void make_test_Click(object sender, RoutedEventArgs e)
         {
-            First.Base_frame.Navigate(new Ent_page());
+            First.Base_frame.Navigate(new DoWork_Page());
             //открытие новой страницы с вводом логина и пароля 
         }
         private void class_Click(object sender, RoutedEventArgs e)
         {
-            First.Base_frame.Navigate(new wizard());
+            //First.Base_frame.Navigate(new wizard());
             //открытие новой страницы с вводом логина и пароля 
         }
         

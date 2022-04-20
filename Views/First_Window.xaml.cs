@@ -22,24 +22,24 @@ namespace tadar
         public First_Window()
         {
             InitializeComponent();
-            //Frame_On.Navigate(new First_page());
-            //First.Frame_On = Frame_On;
+            Frame_On.Navigate(new First_page());
+            First.Frame_On = Frame_On;
         }
 
-        //private void back_click(object sender, RoutedEventArgs e)
-        //{
-        //    First.Frame_On.GoBack();
-        //}
-        //private void Main_frame_content_rend(object sender, EventArgs e)
-        //{
-        //    if (Frame_On.CanGoBack)
-        //    {
-        //        back2_but.Visibility = Visibility.Visible;
-        //    }
-        //    else
-        //    {
-        //        back2_but.Visibility = Visibility.Hidden;
-        //    }
-        //}
+        private void back_click(object sender, RoutedEventArgs e)
+        {
+            First.Frame_On.GoBack();
+        }
+        private void Main_frame_content_rend(object sender, EventArgs e)
+        {
+            if (Frame_On.CanGoBack)
+            {
+                back2_but.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                back2_but.Visibility = Visibility.Hidden;
+            }
+        }
     }
 }

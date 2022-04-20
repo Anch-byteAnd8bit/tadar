@@ -1,0 +1,176 @@
+﻿<Page x:Class="tadar.Reg"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:tadar"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="Reg">
+  
+   
+
+    <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*" ></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*" ></RowDefinition>
+            <RowDefinition Height="*" ></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*" ></RowDefinition>
+            <RowDefinition Height="*" ></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*" ></RowDefinition>
+            <RowDefinition Height="*" ></RowDefinition>
+
+
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+
+        </Grid.ColumnDefinitions>
+
+
+
+
+
+        <TextBlock
+            Text="Регистрация"
+            FontSize="30"
+            Foreground="White"
+            FontWeight="DemiBold"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center" Height="40" Width="176" 
+            />
+
+
+        <TextBox Name="f_Box" 
+                 Grid.Row="1" 
+                 materialDesign:HintAssist.Hint="Введите фамилию" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 FontSize="16"
+                 Width="500" Height="45" 
+                 Background="White" MaxLines="1" MaxLength="57" TextAlignment="Center"
+                 AutoWordSelection="True" 
+                   Foreground="Black"
+                 />
+
+        <TextBox 
+            x:Name="name_box"
+            Grid.Row="2"
+                  materialDesign:HintAssist.Hint="Введите имя" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 FontSize="16"
+                 Width="500" Height="45" 
+                 Background="White" MaxLines="1" MaxLength="57" TextAlignment="Center"
+                 AutoWordSelection="True" 
+                Foreground="Black"
+           />
+
+
+        <TextBox 
+            x:Name="secname_box"
+            Grid.Row="3"
+                 materialDesign:HintAssist.Hint="Введите отчество" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 FontSize="16"
+                 Width="500" Height="45" 
+                 Background="White" MaxLines="1" MaxLength="57" TextAlignment="Center"
+                 AutoWordSelection="True" 
+                   Foreground="Black"  />
+
+
+        <DatePicker
+       Width="500" Height="50" x:Name="birth" Grid.Row="4"  Background="White"
+        materialDesign:HintAssist.Hint="Введите дату рождения"
+          materialDesign:TextFieldAssist.HasClearButton="True"
+         Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+        
+        
+
+
+        <TextBox 
+            x:Name="mailbox"
+             Grid.Row="5"
+                materialDesign:HintAssist.Hint="Введите e-mail" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 FontSize="16"
+                 Width="500" Height="45" 
+                 Background="White" MaxLines="1" MaxLength="57" TextAlignment="Center"
+                 AutoWordSelection="True" 
+                   Foreground="Black"/>
+
+
+        <TextBox 
+            x:Name="logbox"
+            Grid.Row="6"
+                 materialDesign:HintAssist.Hint="Введите логин" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 FontSize="16"
+                 Width="500" Height="45" 
+                 Background="White" MaxLines="1" MaxLength="57" TextAlignment="Center"
+                 AutoWordSelection="True" 
+                   Foreground="Black"/>
+
+
+
+
+        <PasswordBox 
+            x:Name="pswbox"
+            Grid.Row="7" 
+            PasswordChar="$" CaretBrush="Black"
+             materialDesign:HintAssist.Hint="Введите пароль" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" 
+             FontSize="16"
+             Width="500" Height="45" 
+              Background="White"  
+               Foreground="Black"  />
+
+
+
+        <ComboBox 
+            Name="gender" Grid.Row="8" Height="45" Width="500" Background="White"
+             HorizontalAlignment="Center"
+            
+           
+            VerticalAlignment="Center"
+           HorizontalContentAlignment="Left"
+             FontSize="16"
+             materialDesign:HintAssist.Hint="Пол"
+            VerticalContentAlignment="Bottom">
+            <ComboBoxItem
+             Content="Женский" />
+            <ComboBoxItem
+                Content="Мужской" />
+        </ComboBox>
+
+
+       
+        <Button 
+            Style="{StaticResource MaterialDesignFlatMidBgButton}"
+             materialDesign:ButtonAssist.CornerRadius="25"
+                Click="reg_Click"
+                Grid.Row="10"
+                Content="Зарегистрироваться"
+                HorizontalAlignment="Center" 
+                Width="220"  Height="50" VerticalAlignment="Center"
+                />
+
+        <CheckBox Grid.Row="9" HorizontalAlignment="Center"
+         Style="{StaticResource MaterialDesignFilterChipCheckBox}"
+                  Background="White"
+             IsChecked="False"
+            Content="Я согласен на обработку данных" />
+        
+        <!--<CheckBox 
+            x:Name="sogl"
+            Content="Согласен на обработку данных"
+            
+            Height="48" 
+            VerticalAlignment="Center"
+            Width="81" />-->
+
+
+
+
+
+    </Grid>
+</Page>

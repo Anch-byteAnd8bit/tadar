@@ -24,25 +24,25 @@ namespace tadar
         {
             InitializeComponent();
             //Journ.DataContext = custDataTable;
-            journclass.ItemsSource = LoadCollectionData();
+            //journclass.ItemsSource = LoadCollectionData();
         }
         
 
-        void AddTab(object sender, RoutedEventArgs e)
-        {
-            markofclass.Items.Add(new TabItem
-            {
-                Header = new TextBlock { Text = "Ноутбуки" }, // установка заголовка вкладки
-               ///* Content = notesList /*// установка содержимого вкладки
-               /////добавление в базу
-            });
-        }
-        void RemTab(object sender, RoutedEventArgs e)
-        {
+        //void AddTab(object sender, RoutedEventArgs e)
+        //{
+        //    markofclass.Items.Add(new TabItem
+        //    {
+        //        Header = new TextBlock { Text = "Ноутбуки" }, // установка заголовка вкладки
+        //       ///* Content = notesList /*// установка содержимого вкладки
+        //       /////добавление в базу
+        //    });
+        //}
+        //void RemTab(object sender, RoutedEventArgs e)
+        //{
             
-               markofclass.Items.Remove(markofclass.SelectedItem);
-            //удаление из базы
-        }
+        //       markofclass.Items.Remove(markofclass.SelectedItem);
+        //    //удаление из базы
+        //}
 
         //private void btnAdd_Click(object sender, RoutedEventArgs e)
         //{
