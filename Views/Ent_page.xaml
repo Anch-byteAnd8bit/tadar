@@ -6,7 +6,7 @@
        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:tadar"
       mc:Ignorable="d" 
-      d:DesignHeight="1080" d:DesignWidth="1920"
+      d:DesignHeight="700" d:DesignWidth="900"
       Title="Base_page">
 
     <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False">
@@ -20,9 +20,9 @@
             <RowDefinition Height="*" ></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="21*"></ColumnDefinition>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
             <ColumnDefinition Width="58*"></ColumnDefinition>
-            <ColumnDefinition Width="21*"></ColumnDefinition>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
 
@@ -40,9 +40,9 @@
                  Background="White"
                  Grid.Row="2"
                  Text=""
-                 FontSize="25"
+                 FontSize="20"
                  TextWrapping="Wrap"
-                 Width="550" Height="76" />
+                 Width="550" Height="55" />
 
         <PasswordBox 
             x:Name="pswbox"
@@ -52,10 +52,10 @@
             HorizontalAlignment="Center" 
             Grid.Row="3" 
             VerticalAlignment="Center"
-            Width="550" Height="74"
+            Width="550" Height="55"
             CaretBrush="Black"
             Background="White"
-             FontSize="25"/>
+             FontSize="20"/>
 
         <Button  Style="{StaticResource MaterialDesignFlatMidBgButton}"
              materialDesign:ButtonAssist.CornerRadius="25" x:Name="ent"

@@ -25,18 +25,6 @@ namespace tadar
         public Menu_Page()
         {
             InitializeComponent();
-            List<users> users = new List<users>()
-            {
-                new users("Anna", "Chu", 3),
-                new users("Sasha", "Рихтер", 222),
-                new users("Bright", "Vachirawit", 24)
-            };
-
-            usersecvm viewModel = new usersecvm(users); // Создали ViewModel
-             
-
-
-
         }
 
 

@@ -28,7 +28,9 @@ namespace tadar
             
             Base_frame.Navigate(new First_page());
             First.Base_frame = Base_frame;
-        }
+          
+   
+}
 
 
         private void back_click(object sender, RoutedEventArgs e)

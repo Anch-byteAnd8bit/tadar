@@ -20,10 +20,18 @@ namespace tadar
     /// </summary>
     public partial class ListTest_Page : Page
     {
+        usersecvm uservm;
         public ListTest_Page()
         {
             InitializeComponent();
+            tascks.DataContext = uservm = new usersecvm();
+            changetask.DataContext = uservm;
+
+
         }
+
+
+        
 
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

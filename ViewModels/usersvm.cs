@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace tadar
 {
-    class usersvm: ViewModelBase
+    class userViewModel : ViewModelBase
     {
-        public users user;
-        public usersvm (users user)
+        public user user;
+
+        public userViewModel(user user)
         {
             this.user = user;
         }
@@ -44,6 +45,7 @@ namespace tadar
             }
         }
 
+     
 
     }
 }

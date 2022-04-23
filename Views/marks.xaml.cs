@@ -20,12 +20,15 @@ namespace tadar
     /// </summary>
     public partial class marks : Page
     {
+        usersecvm uservm;
         public marks()
         {
             InitializeComponent();
+            nows.DataContext = uservm = new usersecvm(); 
             //Journ.DataContext = custDataTable;
             //journclass.ItemsSource = LoadCollectionData();
-        }
+            
+    }
         
 
         //void AddTab(object sender, RoutedEventArgs e)

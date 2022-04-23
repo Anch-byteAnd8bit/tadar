@@ -12,4 +12,14 @@ namespace tadar
         public static Frame Base_frame { get; set; }
         public static Frame Frame_On { get; set; }
     }
-}
+    
+    
+        
+
+   
+
+        
+    
+       
+          
+   }

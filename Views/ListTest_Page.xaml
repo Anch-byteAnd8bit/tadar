@@ -4,9 +4,11 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:local="clr-namespace:tadar"
+     
+      xmlns:local="clr-namespace:tadar.ViewModels" xmlns:tadar="clr-namespace:tadar" d:DataContext="{d:DesignInstance Type=tadar:usersecvm}"
+      
       mc:Ignorable="d" 
-      d:DesignHeight="1080" d:DesignWidth="1920"
+      d:DesignHeight="700" d:DesignWidth="900"
       Title="Задания">
 
 
@@ -95,117 +97,44 @@
             </Grid>
         </materialDesign:Card>
 
-        <materialDesign:Card
-            x:Name="work1"
-            Grid.Row="1"
-            Grid.Column="2"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-             Background="#FF4A148C"
-             Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-            Padding="0"
-            Height="100"
-            Width="450">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition
-                         Height="Auto" />
-                    <RowDefinition
-                          Height="Auto" />
-                    <RowDefinition
-                         Height="Auto" />
-                </Grid.RowDefinitions>
-                <TextBlock
-                     Grid.Row="0"
-                       Margin="16 16 16 4"
-                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                    Text="Задание Название Хакасский язык" />
-                <Separator
-             Grid.Row="1"
-             Style="{StaticResource MaterialDesignLightSeparator}" />
-                <TextBlock
-                  Grid.Row="2"
-                   Margin="16 0 16 8"
-                  VerticalAlignment="Center"
-                  HorizontalAlignment="Left"
-               Style="{StaticResource MaterialDesignBody2TextBlock}"
-              Text="March 19, 2016" />
-                <StackPanel
-                  Grid.Row="2"
-              Orientation="Horizontal"
-                 Margin="16 0 16 8"
-             HorizontalAlignment="Right">
+        
 
-                    <materialDesign:PopupBox
-        HorizontalAlignment="Right"
-        Style="{StaticResource MaterialDesignToolForegroundPopupBox}"
-        Padding="0 0 0 0">
-                        <StackPanel>
-                            <Button
-            Content="More" />
-                            <Button
-            Content="Options" />
+
+        <ListView Grid.Row="1" Grid.Column="4" x:Name="tascks" ItemsSource="{Binding UsersList}" IsSynchronizedWithCurrentItem="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Bisque" BorderThickness="1" Margin="10">
+                        <StackPanel Margin="10">
+                            <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Surname}" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Осталось:" />
+                                <TextBlock Text="{Binding Age, Mode=TwoWay}" FontWeight="Bold" Margin="10,0"/>
+                                <TextBlock Text="шт" />
+                            </StackPanel>
                         </StackPanel>
-                    </materialDesign:PopupBox>
-                </StackPanel>
-            </Grid>
-        </materialDesign:Card>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
-        <materialDesign:Card
-            x:Name="work2"
-            Grid.Row="1"
-            Grid.Column="4"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-             Background="#FF4A148C"
-             Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-            Padding="0"
-            Height="100"
-            Width="450">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition
-                         Height="Auto" />
-                    <RowDefinition
-                          Height="Auto" />
-                    <RowDefinition
-                         Height="Auto" />
-                </Grid.RowDefinitions>
-                <TextBlock
-                     Grid.Row="0"
-                       Margin="16 16 16 4"
-                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                    Text="Задание Название Хакасский язык" />
-                <Separator
-             Grid.Row="1"
-             Style="{StaticResource MaterialDesignLightSeparator}" />
-                <TextBlock
-                  Grid.Row="2"
-                   Margin="16 0 16 8"
-                  VerticalAlignment="Center"
-                  HorizontalAlignment="Left"
-               Style="{StaticResource MaterialDesignBody2TextBlock}"
-              Text="March 19, 2016" />
-                <StackPanel
-                  Grid.Row="2"
-              Orientation="Horizontal"
-                 Margin="16 0 16 8"
-             HorizontalAlignment="Right">
+        <ContentControl Grid.Column="2" Grid.Row="1" x:Name="changetask" Content="{Binding UsersList}">
+            <ContentControl.ContentTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Bisque" BorderThickness="1" Margin="10">
+                        <StackPanel Margin="10">
+                            <TextBlock Text="Название:" />
+                            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
 
-                    <materialDesign:PopupBox
-        HorizontalAlignment="Right"
-        Style="{StaticResource MaterialDesignToolForegroundPopupBox}"
-        Padding="0 0 0 0">
-                        <StackPanel>
-                            <Button
-            Content="More" />
-                            <Button
-            Content="Options" />
+                            <TextBlock Text="Автор:"/>
+                            <TextBox Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
+
+                            
                         </StackPanel>
-                    </materialDesign:PopupBox>
-                </StackPanel>
-            </Grid>
-        </materialDesign:Card>
+                    </Border>
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
 
     </Grid>
 </Page>
