@@ -20,13 +20,13 @@ namespace tadar
     /// </summary>
     public partial class ListTest_Page : Page
     {
-        usersecvm uservm;
+        UserSecViewModel uservm;
         public ListTest_Page()
         {
             InitializeComponent();
-            tascks.DataContext = uservm = new usersecvm();
-            changetask.DataContext = uservm;
-
+            tascks.DataContext = uservm = new UserSecViewModel();
+            //changetask.DataContext = uservm;
+            //tas.DataContext = uservm = new usersecvm();
 
         }
 

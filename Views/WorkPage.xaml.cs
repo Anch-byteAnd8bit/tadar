@@ -20,9 +20,13 @@ namespace tadar
     /// </summary>
     public partial class Work_Page : Page
     {
+        UserSecViewModel uservm;
         public Work_Page()
         {
             InitializeComponent();
+            tascks.DataContext = uservm = new UserSecViewModel();
+            changetask.DataContext = uservm;
+            tas.DataContext = uservm = new UserSecViewModel();
         }
     }
 }

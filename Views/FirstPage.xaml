@@ -54,19 +54,14 @@
                 HorizontalAlignment="Center" Margin="0,0,0,0" 
                 Width="267"
                 Height="45"/>
-        <Button x:Name="api" 
+        <Button x:Name="btnApi" 
                 Style="{StaticResource MaterialDesignFlatMidBgButton}"
              materialDesign:ButtonAssist.CornerRadius="25"
-                Click="api_Click"
+                
                 Grid.Column="0" Grid.Row="3"
                 Content="checknetwork"
                 HorizontalAlignment="Center" Margin="0,0,0,0" 
                 Width="267"
-                Height="45"/>
-
-
-
-       
-
+                Height="45" Cursor="Hand" Click="api_ClickAsync"/>
     </Grid>
 </Page>
