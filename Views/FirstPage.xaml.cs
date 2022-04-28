@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Tadar.Helpers;
 
-namespace tadar
+namespace Tadar
 {
     /// <summary>
     /// Логика взаимодействия для First_page.xaml

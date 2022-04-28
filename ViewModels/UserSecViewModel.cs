@@ -5,10 +5,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using tadar.Models;
-using tadar.ViewModels;
+using Tadar.Models;
+using Tadar.ViewModels;
 
-namespace tadar
+namespace Tadar.ViewModels
 {
     class UserSecViewModel: ViewModelBase
     {

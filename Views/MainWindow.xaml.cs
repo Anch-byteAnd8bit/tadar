@@ -2,7 +2,7 @@
 using System.Windows;
 
 
-namespace tadar
+namespace Tadar
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

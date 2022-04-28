@@ -12,8 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tadar.ViewModels;
 
-namespace tadar
+namespace Tadar
 {
     /// <summary>
     /// Логика взаимодействия для Work_Page.xaml

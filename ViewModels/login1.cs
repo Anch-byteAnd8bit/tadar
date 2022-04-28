@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace tadar.ViewModels
+namespace Tadar.ViewModels
 {
     class login1
     {

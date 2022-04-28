@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using tadar.Models;
+using Tadar.Models;
 
-namespace tadar.ViewModels
+namespace Tadar.ViewModels
 {
     class WorkViewModel: ViewModelBase
     {

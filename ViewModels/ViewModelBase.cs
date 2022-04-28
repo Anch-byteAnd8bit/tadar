@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace tadar
+namespace Tadar
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {
-        protected nsAPI.API api;
+        protected static nsAPI.API api;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

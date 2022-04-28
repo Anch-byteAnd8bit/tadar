@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Helpers;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using nsAPI.Entities;
 using nsAPI.Methods;
@@ -6,33 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace nsAPI
 {
-    public enum TypeMethod
-    {
-        // USERS
-        USERS_GET = 100,
-        USERS_DELETE = 101,
-        USERS_AUTH = 102,
-        USERS_REG = 103,
-        // CLASSES
-        CLASSES_GET = 200,
-        // JOURNALS
-        JOURNALS_GET = 300,
-        // TESTS
-        TESTS_GET = 400,
-        // CLIENT
-        CLIENT_AUTH = 700,
-        // References Books
-        GENDERS_GET = 600
-    }
-
-
     public class API
     {
         //public int CountUsers = 10;
@@ -46,11 +24,9 @@ namespace nsAPI
         /// <summary>
         /// Путь для хранения файла данных о текущем пользователе.
         /// </summary>
-        private const string pathAccessToken = "user\\ukru";
-
-        // Ссылка для запросов.
-        //private const string apiURL = "http://api.great-duet.ru/";
-
+        private string pathAccessToken = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "Tadar\\user\\ukru");
+        //private string pathAccessToken = Path.Combine(Xamarin.Essentials.FileSystem.AppDataDirectory, "Tadar\\user\\ukru");
+        
         // Ключ, который формирует сервер, для доступа к запросам.
         private string api_token = string.Empty; // AT
         // Идентификатор текущего пользователя.
@@ -78,13 +54,17 @@ namespace nsAPI
             {
                 if (File.Exists(pathAccessToken))
                 {
-                    LoadUserDataFromFile();
+                    LoadUserDataFromFileAsync();
+                }
+                else
+                {
+                    Log.Write("При попытке считать из файла пользователя произошла ошибка:\n" +
+                        "Не найден файл с данными пользователя.");
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("При попытке считать из файла пользователя произошла ошибка:");
-                Console.WriteLine(e.Message);
+                Log.Write("При попытке считать из файла пользователя произошла ошибка: \n" + e.Message);
             }
         }
 
@@ -101,7 +81,7 @@ namespace nsAPI
             else
             {
                 // Пробуем загрузить ключ из файла.
-                LoadUserDataFromFile();
+                LoadUserDataFromFileAsync();
                 // Рекурсивно взываем себя.
                 return getAccessToken();
             }
@@ -116,21 +96,16 @@ namespace nsAPI
         {
             // При успехе, будет содержать ключ доступа к серверу.
             var accessToken = await users.RegAsync(user);
-            if (accessToken != null)
-            {
-                // Сохраняем токен пользователя.
-                api_token = accessToken.Token;
-                // Сохраняем ID пользователя.
-                id_user = accessToken.UserID;
-                // Сохраняем токен в файл с перезаписью существующего файла.
-                SaveUserDataToFile(true);
-                // Загружаем информацию о пользователе с сервера.
-                MainUser = GetUserById(accessToken.UserID);
-                // Успех!
-                return true;
-            }
-            // Если полученная строка незнакома.
-            return false;
+            // Сохраняем токен пользователя.
+            api_token = accessToken.Token;
+            // Сохраняем ID пользователя.
+            id_user = accessToken.UserID;
+            // Сохраняем токен в файл с перезаписью существующего файла.
+            SaveUserDataToFileAsync(true);
+            // Загружаем информацию о пользователе с сервера.
+            MainUser = await GetUserByIdAsync(accessToken.UserID);
+            // Успех!
+            return true;
         }
 
         
@@ -139,24 +114,20 @@ namespace nsAPI
         /// </summary>
         /// <param name="user">Объект с данными для авторизации пользователя</param>
         /// <returns>True - при успешной авторизации</returns>
-        public bool UserAuth(UserForAuthorization user)
+        public async Task<bool> UserAuthAsync(UserForAuthorization user)
         {
             // При успехе, будет содержать ключ доступа к серверу.
-            AccessToken accessToken;
-            if (users.TryAuth(user, out accessToken))
-            {
-                // Сохраняем токен пользователя.
-                api_token = accessToken.Token;
-                // Сохраняем ID пользователя.
-                id_user = accessToken.UserID;
-                // Сохраняем в файл с перезаписью существующего файла.
-                SaveUserDataToFile(true);
-                // Загружаем информацию о пользователе с сервера.
-                MainUser = GetUserById(accessToken.UserID);
-                // Успех!
-                return true;
-            }
-            return false;
+            AccessToken accessToken = await users.AuthAsync(user);
+            // Сохраняем токен пользователя.
+            api_token = accessToken.Token;
+            // Сохраняем ID пользователя.
+            id_user = accessToken.UserID;
+            // Сохраняем в файл с перезаписью существующего файла.
+            SaveUserDataToFileAsync(true);
+            // Загружаем информацию о пользователе с сервера.
+            MainUser = await GetUserByIdAsync(accessToken.UserID);
+            //
+            return true;
         }
 
 
@@ -165,10 +136,9 @@ namespace nsAPI
         /// </summary>
         /// <param name="login">Строка логина</param>
         /// <param name="pass">Строка пароля</param>
-        /// <returns>true - при успешной авторизации.</returns>
-        public bool UserAuth(string login, string pass)
+        public async Task<bool> UserAuthAsync(string login, string pass)
         {
-            return UserAuth(new UserForAuthorization
+            return await UserAuthAsync(new UserForAuthorization
             {
                 Login = login,
                 Pass = pass
@@ -181,12 +151,17 @@ namespace nsAPI
         /// <param name="count">Кол-во пользователей. Макс: 50</param>
         /// <param name="shift">Смещение, относительно первого найденного.</param>
         /// <returns>Информация о пользователях.</returns>
-        public List<RegisteredUser> FindUsers(string searchName = null, string searchMName = null, string searchSurname = null)
+        public async Task<List<RegisteredUser>> FindUsersAsync(string searchName = null, string searchMName = null, string searchSurname = null)
         {
             // Пробуем найти пользователей.
-           return users.Find(api_token, searchName, searchMName, searchSurname);
+           return await users.FindAsync(api_token, searchName, searchMName, searchSurname);
         }
 
+        /// <summary>
+        /// TODO:
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
         public List<RegisteredUser> NextUsers(int count)
         {
             return null;
@@ -197,65 +172,48 @@ namespace nsAPI
         /// </summary>
         /// <param name="userIds">ID пользователей.</param>
         /// <returns>Информация о пользователях.</returns>
-        public List<RegisteredUser> GetUsersById(string[] userIds)
-        {
-            if (userIds == null || userIds.Count()<=0)
-            {
-                return null;
-            }
-            return users.ById(api_token, userIds);
-        }
+        public async Task<List<RegisteredUser>> GetUsersByIdAsync(string[] userIds) => 
+            await users.ByIdAsync(api_token, userIds);
 
         /// <summary>
         /// Получение информации о пользователе с заданным ID
         /// </summary>
-        public RegisteredUser GetUserById(string userId)
-        {
-            if (string.IsNullOrEmpty(userId))
-            {
-                return null;
-            }
-            return users.ById(api_token, userId);
-        }
+        public async Task<RegisteredUser> GetUserByIdAsync(string userId) =>
+            await users.ByIdAsync(api_token, userId);
 
         /// <summary>
         /// Запрашивает у сервера список полов.
         /// </summary>
         /// <returns></returns>
-        public List<Gender> GetGenders()
-        {
-            List<Gender> genders;
-            if (null == (genders = refBooks.GetListGenders()))
-            {
-                Console.WriteLine("Ошибка при получении списка полов!");
-            }
-            return genders;
-        }
+        public async Task<List<Gender>> GetGendersAsync() =>
+            await refBooks.GetListGendersAsync();
 
         /// <summary>
         /// Сохраняет access_token и другие данные о пользователе в файл.
         /// </summary>
-        public void SaveUserDataToFile(bool rewrite)
+        public void SaveUserDataToFileAsync(bool rewrite)
         {
             // Проверяем, что папка user существует, если нет, то создаем её.
-            if (!Directory.Exists("user")) Directory.CreateDirectory("user");
+            if (!Directory.Exists(Path.GetDirectoryName(pathAccessToken))) Directory.CreateDirectory(Path.GetDirectoryName(pathAccessToken));
             // Проверяем, отсутствует ли файл токена или указан флаг перезаписи.
             if (!File.Exists(pathAccessToken) || rewrite)
             {
                 // Открываем файл токена (попутно создаем, если файла не было).
                 using (var sw = new StreamWriter(pathAccessToken))
                 {
-                    // Шифруем токен и пишем в файл.
-                    sw.WriteLine(Encryption.TripleDesHelper.EncryptString(api_token));
-                    // Шифруем идентификатор и пишем в файл.
-                    sw.WriteLine(Encryption.TripleDesHelper.EncryptString(id_user));
+                    // Шифруем токен и идентификатор.
+                    string encToken = Encryption.TripleDesHelper.EncryptString(api_token);
+                    string encId = Encryption.TripleDesHelper.EncryptString(id_user);
+                    // Пишем в файл.
+                    sw.WriteLine(encToken);
+                    sw.WriteLine(encId);
                 }
             }
             // Если файл уже существует, а флаг перезаписи не был задан, то ошибка!
             else
             {
                 // Ошибка!
-                throw new Exception("File of UserData already exist");
+                throw new IOException("File of UserData already exist");
             }
         }
 
@@ -263,31 +221,34 @@ namespace nsAPI
         /// Загружает access_token и другие данные о пользователе из файла.
         /// </summary>
         /// <returns></returns>
-        public bool LoadUserDataFromFile()
+        public bool LoadUserDataFromFileAsync()
         {
             if (File.Exists(pathAccessToken))
             {
                 using (var sw = new StreamReader(pathAccessToken))
                 {
-                    api_token = Encryption.TripleDesHelper.DecryptString(sw.ReadLine());
-                    id_user = Encryption.TripleDesHelper.DecryptString(sw.ReadLine());
+                    api_token = sw.ReadLine();
+                    id_user = sw.ReadLine();
+
+                    api_token = Encryption.TripleDesHelper.DecryptString(api_token);
+                    id_user =  Encryption.TripleDesHelper.DecryptString(id_user);
                     return true;
                 }
             }
             else
             {
-                throw new Exception("File of UserData not found");
-                //log("File of acctok not found");
+                throw new IOException("File of UserData not found");
             }
             //return false;
         }
 
-        public bool ClassReg(ClassroomForReg classroom, out RegisteredClassroom registeredClass)
-        {
-            // Попытка регистрации.
-            return classrooms.TryReg(api_token, classroom, out registeredClass);
-        }
-
+        /// <summary>
+        /// Создание нового класа.
+        /// </summary>
+        /// <param name="classroom"></param>
+        /// <returns></returns>
+        public async Task<RegisteredClassroom> ClassRegAsync(ClassroomForReg classroom) =>
+            await classrooms.RegAsync(api_token, classroom);
     }
 
     static class helper

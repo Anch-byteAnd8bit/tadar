@@ -14,22 +14,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tadar.ViewModels;
 
-namespace tadar
+namespace Tadar
 {
     /// <summary>
     /// Логика взаимодействия для Reg.xaml
     /// </summary>
     public partial class Reg : Page
     {
-        API api;
         public Reg()
         {
             InitializeComponent();
-            api = new API();
+            DataContext = new RegViewModel();
         }
 
-        private async void reg_ClickAsync(object sender, RoutedEventArgs e)
+        /*private async void reg_ClickAsync(object sender, RoutedEventArgs e)
         {
             UserForRegistration userreg = new UserForRegistration();
             //// регистрация добавление данных в бд и переход на новую страницу
@@ -129,13 +129,6 @@ namespace tadar
                 }
                 First.Base_frame.Navigate(new Menu_Page(userreg));
             }
-           
-
-        }
-
-       
-       
-
-
+        }*/
     }
 }

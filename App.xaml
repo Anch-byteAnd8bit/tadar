@@ -1,7 +1,7 @@
-﻿<Application x:Class="tadar.App"
+﻿<Application x:Class="Tadar.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:tadar"
+             xmlns:local="clr-namespace:Tadar"
              StartupUri="Views/MainWindow.xaml">
     <!--<Application.Resources>
         <ResourceDictionary>

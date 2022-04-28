@@ -11,7 +11,7 @@ namespace nsAPI.Entities
     public partial class ErrorInfo
     {
         [JsonProperty("type")]
-        public long Type { get; set; }
+        public int Type { get; set; }
 
         [JsonProperty("message")]
         public string Message { get; set; }

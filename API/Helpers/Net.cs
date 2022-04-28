@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.Text;
 using System.Web;
 
-namespace nsAPI.Helpers
+namespace Helpers
 {
     public static class UserAgent
     {

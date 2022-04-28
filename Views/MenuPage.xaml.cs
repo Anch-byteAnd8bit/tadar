@@ -13,22 +13,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tadar.ViewModels;
 
-namespace tadar
+namespace Tadar
 {
     /// <summary>
     /// Логика взаимодействия для Menu_Page.xaml
     /// </summary>
     public partial class Menu_Page : Page
     {
-        UserForRegistration user;
-        UserSecViewModel uservm;
-        public Menu_Page(UserForRegistration userreg)
+        MenuViewModel menuViewModel;
+        public Menu_Page()
         {
             InitializeComponent();
-
-            user = userreg;
-            fullname.DataContext = user;
+            fullname.DataContext = menuViewModel  = new MenuViewModel();
         }
 
 

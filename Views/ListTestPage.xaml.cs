@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace tadar
+namespace Tadar
 {
     /// <summary>
     /// Логика взаимодействия для ListTest_Page.xaml
