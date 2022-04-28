@@ -4,6 +4,7 @@ using nsAPI.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Controls;
 using Tadar.Helpers;
 using Tadar.Views;
 
@@ -24,7 +25,7 @@ namespace Tadar.ViewModels
             // Создаем команду для кнопки. Выполняться при нажатии будет
             // OnSave, а проверять доступна ли кнопка для нажатия,
             // будет метод ValidateSave
-            RegCommand = new RelayCommand(OnSave, ValidateSave);
+            RegCommand = new Command(OnSave, ValidateSave);
             // Получаем список полов от сервера.
             GettingGenders();
         }
@@ -45,10 +46,11 @@ namespace Tadar.ViewModels
         /// Список полов.
         /// </summary>
         private List<Gender> genders;
+
         /// <summary>
         /// Команда для кнопки регистрации.
         /// </summary>
-        public RelayCommand RegCommand { get; set; }
+        public Command RegCommand { get; set; }
 
         /// <summary>
         /// Свойство фамилия.
@@ -66,6 +68,12 @@ namespace Tadar.ViewModels
                 OnPropertyChanged(nameof(Surname));
             }
         }
+
+        /// <summary>
+        /// Количетсво символов в пароле.
+        /// </summary>
+        public int SecurePasswordLength { get; set; }
+
 
         /// <summary>
         /// Свойство имя.
@@ -108,18 +116,7 @@ namespace Tadar.ViewModels
                 OnPropertyChanged(nameof(Login));
             }
         }
-        /// <summary>
-        /// Свойства пароль.
-        /// </summary>
-        public string Password
-        {
-            get => userreg.Pass;
-            set
-            {
-                userreg.Pass = value;
-                OnPropertyChanged(nameof(Password));
-            }
-        }
+
         /// <summary>
         /// Свойство email.
         /// </summary>
@@ -162,7 +159,7 @@ namespace Tadar.ViewModels
                 // Если такой элемент в списке не найден, то возвращаем первый элемент
                 // из списка.
                 return
-                    Genders.SingleOrDefault(el=>el.ID == userreg.GenderID) ?? Genders[0];
+                    Genders.SingleOrDefault(el=>el.ID == userreg.GenderID)?? Genders[0];
             }
             set
             {
@@ -234,25 +231,7 @@ namespace Tadar.ViewModels
                 //f_Box.BorderBrush = Brushes.Transparent;
             }
 
-            if (string.IsNullOrWhiteSpace(userreg.Pass))
-            {
-                //pswbox.ToolTip = "Введите пароль!";
-                //pswbox.BorderBrush = Brushes.Red;
-                isGood = false;
-            }
-            else
-            {
-                //pswbox.ToolTip = null;
-                //pswbox.BorderBrush = Brushes.Transparent;
-            }
-
-            if (string.IsNullOrWhiteSpace(userreg.Pass))
-            {
-                //pswbox.ToolTip = "Введите пароль!";
-                //pswbox.BorderBrush = Brushes.Red;
-                isGood = false;
-            }
-            else if (userreg.Pass.Length < 6)
+            if (SecurePasswordLength < 6)
             {
                 //pswbox.ToolTip = "Слишком короткий пароль!";
                 //pswbox.BorderBrush = Brushes.Red;
@@ -303,6 +282,7 @@ namespace Tadar.ViewModels
             {
                 //logbox.ToolTip = "Введите логин!";
                 //logbox.BorderBrush = Brushes.Red;
+                isGood = false;
             }
             else
             {
@@ -313,15 +293,34 @@ namespace Tadar.ViewModels
             return isGood;
         }
 
-        public void OnSave()
+        public void OnSave(object PassElem)
         {
-            var res1 = api.UserRegAsync(userreg).Result;
-            if (res1)
+            // Получаем пароль.
+            userreg.Pass = (PassElem as PasswordBox).Password;
+            // Вызываем асинхронно пароль.
+            SaveAsync();
+            // TODO: блокируем кнопку регистрации и все элементы ввода. Можно добавить
+            // символ выполенния операции...
+
+        }
+
+        private async void SaveAsync()
+        {
+            // Во время любой операции с сервером может вылезти ошибка!
+            try
             {
-                Log.Write(api.MainUser.ID + ": " + api.MainUser.Login + " ("
-                    + api.MainUser.Surname + " " + api.MainUser.Name + ")");
+                if (await api.UserRegAsync(userreg))
+                {
+                    Log.Write(api.MainUser.ID + ": " + api.MainUser.Login + " ("
+                        + api.MainUser.Surname + " " + api.MainUser.Name + ")");
+                }
+                Models.First.Base_frame.Navigate(new MenuPage());
             }
-            Models.First.Base_frame.Navigate(new MenuPage());
+            // TODO: надо потом определять тип ошибки и выводить соотвествующие сообщения...
+            catch (Exception ex)
+            {
+                Log.Write(ex);
+            }
         }
     }
 }

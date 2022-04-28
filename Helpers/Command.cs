@@ -11,12 +11,12 @@ namespace Tadar.Helpers
     /// default return value for the CanExecute
     /// method is 'true'.
     /// </summary>
-    public class RelayCommand : ICommand
+    public class Command : ICommand
     {
         #region Fields
 
         readonly Action<object> _execute;
-        readonly Predicate<object> _canExecute;
+        readonly Func<bool> _canExecute;
 
         #endregion // Fields
 
@@ -26,7 +26,7 @@ namespace Tadar.Helpers
         /// Creates a new command that can always execute.
         /// </summary>
         /// <param name="execute">The execution logic.</param>
-        public RelayCommand(Action<object> execute)
+        public Command(Action<object> execute)
             : this(execute, null)
         {
         }
@@ -37,12 +37,14 @@ namespace Tadar.Helpers
         /// <param name="execute">The execution logic.</param>
         /// <param name="canExecute">The execution status logic.</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public RelayCommand(Action execute, Func<bool> canExecute) : this(o => execute(), o => canExecute())
+        public Command(Action<object> execute, Func<bool> canExecute) //: this(o => execute(), o => canExecute())
         {
             if (execute == null)
                 throw new ArgumentNullException(nameof(execute));
             if (canExecute == null)
                 throw new ArgumentNullException(nameof(canExecute));
+            _execute = execute;
+            _canExecute = canExecute;
         }
 
         /// <summary>
@@ -50,14 +52,14 @@ namespace Tadar.Helpers
         /// </summary>
         /// <param name="execute">The execution logic.</param>
         /// <param name="canExecute">The execution status logic.</param>
-        public RelayCommand(Action<object> execute, Predicate<object> canExecute)
+        /*public Command(Action<object> execute, Predicate<object> canExecute)
         {
             if (execute == null)
-                throw new ArgumentNullException("execute");
+                throw new ArgumentNullException(nameof(execute));
 
             _execute = execute;
             _canExecute = canExecute;
-        }
+        }*/
 
         /*event EventHandler ICommand.CanExecuteChanged
         {
@@ -79,7 +81,8 @@ namespace Tadar.Helpers
         [DebuggerStepThrough]
         public bool CanExecute(object parameters)
         {
-            return _canExecute == null ? true : _canExecute(parameters);
+            // parameter
+            return _canExecute == null ? true : _canExecute();
         }
 
         public event EventHandler CanExecuteChanged

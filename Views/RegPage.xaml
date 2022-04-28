@@ -81,16 +81,12 @@
             Foreground="Black"
             Text="{Binding Middlename}"/>
 
-
         <DatePicker
             Width="500" Height="50" x:Name="birth" Grid.Row="4"  Background="White"
             materialDesign:HintAssist.Hint="Введите дату рождения"
             materialDesign:TextFieldAssist.HasClearButton="True"
             Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
             Text="{Binding BDate}"/>
-        
-        
-
 
         <TextBox 
             x:Name="mailbox"
@@ -104,7 +100,7 @@
             TextAlignment="Center"
             AutoWordSelection="True" 
             Foreground="Black"
-            Text="{Binding Email}"/>
+            Text="{Binding Email, Mode=TwoWay}"/>
 
 
         <TextBox 
@@ -119,28 +115,19 @@
             TextAlignment="Center"
             AutoWordSelection="True" 
             Foreground="Black"
-            Text="{Binding Login}"/>
-        <TextBox
-            x:Name="pswbox"
-            Grid.Row="7" 
-            
-            materialDesign:HintAssist.Hint="Введите пароль" 
-            FontSize="16"
-            Width="500" Height="45" 
-            Background="White"  
-            Foreground="Black"
-            Text="{Binding Password}"/>
+            Text="{Binding Login, Mode=TwoWay}"/>
         
-        <!--<PasswordBox 
+        <PasswordBox 
             x:Name="pswbox"
             Grid.Row="7" 
             PasswordChar="$" CaretBrush="Black"
-            materialDesign:HintAssist.Hint="Введите пароль" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" 
+            materialDesign:HintAssist.Hint="Введите пароль"
+            Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" 
             FontSize="16"
             Width="500" Height="45" 
             Background="White"  
-            Foreground="Black"
-            Password="{Binding Password}"/>-->
+            Foreground="Black" Cursor="Arrow"
+            PasswordChanged="pswbox_PasswordChanged"/>
 
         <ComboBox Name="gender"
                   Grid.Row="8"
@@ -154,13 +141,14 @@
                   VerticalContentAlignment="Bottom"
                   ItemsSource="{Binding Genders}"
                   DisplayMemberPath="Name"
-                  SelectedItem="{Binding SelectedGender}">
+                  SelectedItem="{Binding SelectedGender, Mode=TwoWay}">
         </ComboBox>
 
-        <Button 
+        <Button
             Style="{StaticResource MaterialDesignFlatMidBgButton}"
             materialDesign:ButtonAssist.CornerRadius="25"
             Command="{Binding RegCommand}"
+            CommandParameter="{Binding ElementName=pswbox}"
             Grid.Row="10"
             Content="Зарегистрироваться"
             HorizontalAlignment="Center" 

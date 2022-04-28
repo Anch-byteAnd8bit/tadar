@@ -29,6 +29,11 @@ namespace Tadar.Views
             DataContext = new RegViewModel();
         }
 
+        private void pswbox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            (DataContext as RegViewModel).SecurePasswordLength = pswbox.SecurePassword.Length;
+        }
+
         /*private async void reg_ClickAsync(object sender, RoutedEventArgs e)
         {
             UserForRegistration userreg = new UserForRegistration();
