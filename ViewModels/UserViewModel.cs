@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tadar
+namespace Tadar.ViewModels
 {
-    class UserViewModel : ViewModelBase
+    class UserViewModel : BaseViewModel
     {
         public UserForRegistration user;
 

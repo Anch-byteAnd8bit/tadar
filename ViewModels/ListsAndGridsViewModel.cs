@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tadar
+namespace Tadar.ViewModels
 {
-    public class ListsAndGridsViewModel : ViewModelBase
+    public class ListsAndGridsViewModel : BaseViewModel
     {
         public ListsAndGridsViewModel()
         {

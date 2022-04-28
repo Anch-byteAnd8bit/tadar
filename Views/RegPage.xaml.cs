@@ -16,7 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tadar.ViewModels;
 
-namespace Tadar
+namespace Tadar.Views
 {
     /// <summary>
     /// Логика взаимодействия для Reg.xaml

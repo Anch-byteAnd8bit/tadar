@@ -32,6 +32,20 @@ namespace Tadar.Helpers
         }
 
         /// <summary>
+        /// Creates a new command that can always execute.
+        /// </summary>
+        /// <param name="execute">The execution logic.</param>
+        /// <param name="canExecute">The execution status logic.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public RelayCommand(Action execute, Func<bool> canExecute) : this(o => execute(), o => canExecute())
+        {
+            if (execute == null)
+                throw new ArgumentNullException(nameof(execute));
+            if (canExecute == null)
+                throw new ArgumentNullException(nameof(canExecute));
+        }
+
+        /// <summary>
         /// Creates a new command.
         /// </summary>
         /// <param name="execute">The execution logic.</param>
@@ -45,7 +59,7 @@ namespace Tadar.Helpers
             _canExecute = canExecute;
         }
 
-        event EventHandler ICommand.CanExecuteChanged
+        /*event EventHandler ICommand.CanExecuteChanged
         {
             add
             {
@@ -56,7 +70,7 @@ namespace Tadar.Helpers
             {
                 throw new NotImplementedException();
             }
-        }
+        }*/
 
         #endregion // Constructors
 

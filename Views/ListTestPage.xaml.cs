@@ -12,8 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tadar.Models;
+using Tadar.ViewModels;
 
-namespace Tadar
+namespace Tadar.Views
 {
     /// <summary>
     /// Логика взаимодействия для ListTest_Page.xaml
@@ -30,14 +32,11 @@ namespace Tadar
 
         }
 
-
-        
-
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             {
-                First.Base_frame.Navigate(new Work_Page());
                 //открытие новой страницы с вводом логина и пароля 
+                First.Base_frame.Navigate(new PerfomingWorkPage());
             }
         }
     }

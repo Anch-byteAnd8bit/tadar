@@ -7,7 +7,7 @@ using Tadar;
 
 namespace Tadar.ViewModels
 {
-    class MenuViewModel : ViewModelBase
+    class MenuViewModel : BaseViewModel
     {
         public MenuViewModel()
         {

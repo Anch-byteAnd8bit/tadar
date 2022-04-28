@@ -4,37 +4,88 @@ using nsAPI.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Tadar;
 using Tadar.Helpers;
+using Tadar.Views;
 
-namespace Tadar
+namespace Tadar.ViewModels
 {
-    public class RegViewModel : ViewModelBase
+    public class RegViewModel : BaseViewModel
     {
+        public RegViewModel()
+        {
+            api = new API();
+            userreg = new UserForRegistration()
+            {
+                // Это надо делать, т.к. это свойство влияет на элемент интерфейса
+                // и если оно не задано, то элементу будет задаваться значение null
+                // что приведет к ошибке.
+                BDate = DateTime.Now.ToString("d")
+            };
+            // Создаем команду для кнопки. Выполняться при нажатии будет
+            // OnSave, а проверять доступна ли кнопка для нажатия,
+            // будет метод ValidateSave
+            RegCommand = new RelayCommand(OnSave, ValidateSave);
+            // Получаем список полов от сервера.
+            GettingGenders();
+        }
+
+        /// <summary>
+        /// Асинхронный метод получения списка полов от сервера.
+        /// </summary>
+        private async void GettingGenders()
+        {
+            Genders = await api.GetGendersAsync();
+        }
+
+        /// <summary>
+        /// Модель данных - пользотваель длля регистрации.
+        /// </summary>
         private UserForRegistration userreg;
+        /// <summary>
+        /// Список полов.
+        /// </summary>
         private List<Gender> genders;
+        /// <summary>
+        /// Команда для кнопки регистрации.
+        /// </summary>
         public RelayCommand RegCommand { get; set; }
 
+        /// <summary>
+        /// Свойство фамилия.
+        /// </summary>
         public string Surname
         {
+            // Когда надо вернуть фамилию.
             get => userreg.Surname;
+            // Когда надо задать фамилию.
             set
             {
+                // Присваиваем новое значение фамилии.
                 userreg.Surname = value;
+                // Уведомляем форму, что свойство "Surname" изменилось.
                 OnPropertyChanged(nameof(Surname));
             }
         }
 
+        /// <summary>
+        /// Свойство имя.
+        /// </summary>
         public string Name
         {
+            // Получить.
             get => userreg.Name;
+            // Задать.
             set
             {
                 userreg.Name = value;
+                // Уведомление.
                 OnPropertyChanged(nameof(Name));
             }
         }
+
+        /// <summary>
+        /// Свойство отчество.
+        /// </summary>
         public string Middlename
         {
             get => userreg.Middlename;
@@ -44,6 +95,10 @@ namespace Tadar
                 OnPropertyChanged(nameof(Middlename));
             }
         }
+
+        /// <summary>
+        /// Свойство логин.
+        /// </summary>
         public string Login
         {
             get => userreg.Login;
@@ -53,6 +108,9 @@ namespace Tadar
                 OnPropertyChanged(nameof(Login));
             }
         }
+        /// <summary>
+        /// Свойства пароль.
+        /// </summary>
         public string Password
         {
             get => userreg.Pass;
@@ -62,6 +120,9 @@ namespace Tadar
                 OnPropertyChanged(nameof(Password));
             }
         }
+        /// <summary>
+        /// Свойство email.
+        /// </summary>
         public string Email
         {
             get => userreg.Email;
@@ -71,49 +132,67 @@ namespace Tadar
                 OnPropertyChanged(nameof(Email));
             }
         }
+
+        /// <summary>
+        /// Свойство список полов.
+        /// </summary>
         public List<Gender> Genders
         {
             get => genders;
+            // Задать новый список.
             set
             {
+                // Получаем ноый список.
                 genders = value;
+                // Уведомляем форму о новом списке.
                 OnPropertyChanged(nameof(Genders));
+                // Задаем новый выбранный жлемент из списка.
                 SelectedGender = Genders[0];
             }
         }
-
+        /// <summary>
+        /// Свойства выбранный элемент из списка полов "Genders"
+        /// </summary>
         public Gender SelectedGender
         {
             get
             {
-                return 
-                    Genders.SingleOrDefault(el=>el.ID == userreg.GenderID);
+                // Ищем в списке полов, объект, у которого свойства ID совпдает с
+                // со свйоством GenderID у регистрируемого пользователя.
+                // Если такой элемент в списке не найден, то возвращаем первый элемент
+                // из списка.
+                return
+                    Genders.SingleOrDefault(el=>el.ID == userreg.GenderID) ?? Genders[0];
             }
             set
             {
-                Gender g = Genders.SingleOrDefault(el => el == value)??Genders[0];
-                userreg.GenderID = g.ID;
+                // Если есть элемент в списке полов, который равен задавемому элементу...
+                if (Genders.Exists(el => el == value))
+                {
+                    // ...присваиваем его ID полу регистрируемого пользователя.
+                    userreg.GenderID = value.ID;
+                }
+                // Иначе, полу регистрируемого пользователя
+                // присваиваем ID первого элемент списка.
+                else userreg.GenderID = Genders[0].ID;
+                // Уведомляем интфрейс о том, что это свйоство было изменено.
                 OnPropertyChanged(nameof(SelectedGender));
             }
         }
 
+        /// <summary>
+        /// Свойства дата рождения.
+        /// </summary>
         public DateTime BDate
         {
             get => DateTime.Parse(userreg.BDate);
             set
             {
+                // Задавемое значение конвертируем в формат DateTime.
                 userreg.BDate = value.ToString("d");
+                // Уведомление.
                 OnPropertyChanged(nameof(BDate));
             }
-        }
-
-
-        public RegViewModel()
-        {
-            api = new API();
-            userreg = new UserForRegistration();
-            RegCommand = new RelayCommand(OnSave);
-
         }
 
         //// регистрация добавление данных в бд и переход на новую страницу
@@ -124,6 +203,10 @@ namespace Tadar
         userreg.Email = mailbox.Text;
         userreg.Pass = pswbox.Password;*/
 
+        /// <summary>
+        /// Валидация - проверка на правильность введенных данных.
+        /// </summary>
+        /// <returns>true - если данные ввдедены правлиьно</returns>
         private bool ValidateSave()
         {
             bool isGood = true;
@@ -205,7 +288,7 @@ namespace Tadar
                 //secname_box.BorderBrush = Brushes.Transparent;
             }
 
-            if (userreg.Email.Length < 5 || !userreg.Email.Contains("@") || !userreg.Email.Contains("."))
+            if (string.IsNullOrWhiteSpace(userreg.Email) || userreg.Email.Length < 5 || !userreg.Email.Contains("@") || !userreg.Email.Contains("."))
             {
                 //mailbox.ToolTip = "Введите e-mail!";
                 //mailbox.BorderBrush = Brushes.Red;
@@ -230,7 +313,7 @@ namespace Tadar
             return isGood;
         }
 
-        public void OnSave(object obj)
+        public void OnSave()
         {
             var res1 = api.UserRegAsync(userreg).Result;
             if (res1)
@@ -238,7 +321,7 @@ namespace Tadar
                 Log.Write(api.MainUser.ID + ": " + api.MainUser.Login + " ("
                     + api.MainUser.Surname + " " + api.MainUser.Name + ")");
             }
-            First.Base_frame.Navigate(new Menu_Page());
+            Models.First.Base_frame.Navigate(new MenuPage());
         }
     }
 }

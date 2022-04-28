@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows;
+using Tadar.Models;
 
-
-namespace Tadar
+namespace Tadar.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -13,12 +13,12 @@ namespace Tadar
         {
             InitializeComponent();
 
-            Base_frame.Navigate(new First_page());
+            Base_frame.Navigate(new FirstPage());
             First.Base_frame = Base_frame;
         }
 
 
-        private void back_click(object sender, RoutedEventArgs e)
+        private void Back_click(object sender, RoutedEventArgs e)
         {
             First.Base_frame.GoBack();
         }
