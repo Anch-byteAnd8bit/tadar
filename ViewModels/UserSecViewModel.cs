@@ -1,4 +1,5 @@
-﻿using System;
+﻿using nsAPI.Entities;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -17,10 +18,17 @@ namespace tadar
         public ObservableCollection<MarkViewModel> MarksList1 { get; set; }
         public ObservableCollection<MarkViewModel> MarksList2 { get; set; }
         public ObservableCollection<MarkViewModel> MarksList3 { get; set; }
-        public UserSecViewModel(List<User> users)
-        {
-            //UsersList = new ObservableCollection<userViewModel>(users.Select(b => new userViewModel(b)));
-        }
+        public UserForRegistration userregis { get; set; }
+        public UserSecViewModel(UserForRegistration userregis)
+        { }
+       
+
+
+        //public UserSecViewModel(List<User> users)
+
+        //{
+        //    //UsersList = new ObservableCollection<userViewModel>(users.Select(b => new userViewModel(b)));
+        //}
         public UserSecViewModel(List<Work> works)
         {}
         public UserSecViewModel(List<Mark> marks)
@@ -42,30 +50,30 @@ namespace tadar
             //UsersList = new ObservableCollection<userViewModel>(users.Select(b => new userViewModel(b)));
            
 
-            UsersList = new ObservableCollection<UserViewModel>
-            {
-                new UserViewModel(
-                new User {
-                    Age=22,
-                    Name="Anna",
-                    Surname="Chu",
-                     Marks = new List<Mark> { Ko, Ko1 }
-                }),
-                new UserViewModel(
-                new User {
-                    Age=31,
-                    Name="Sasha",
-                    Surname="Rog",
-                    Marks = new List<Mark> { Ko, Ko1 }
-                }),
-                new UserViewModel(
-                new User {
-                    Age=110,
-                    Name="Annanai",
-                    Surname="Chuvash",
-                    Marks = new List<Mark> { Ko, Ko1 }
-                })
-            };
+            //UsersList = new ObservableCollection<UserViewModel>
+            //{
+            //    new UserViewModel(
+            //    new User {
+            //        Age=22,
+            //        Name="Anna",
+            //        Surname="Chu",
+            //         Marks = new List<Mark> { Ko, Ko1 }
+            //    }),
+            //    new UserViewModel(
+            //    new User {
+            //        Age=31,
+            //        Name="Sasha",
+            //        Surname="Rog",
+            //        Marks = new List<Mark> { Ko, Ko1 }
+            //    }),
+            //    new UserViewModel(
+            //    new User {
+            //        Age=110,
+            //        Name="Annanai",
+            //        Surname="Chuvash",
+            //        Marks = new List<Mark> { Ko, Ko1 }
+            //    })
+            //};
 
 
 

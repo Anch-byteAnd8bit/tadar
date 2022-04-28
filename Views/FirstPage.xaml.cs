@@ -32,7 +32,7 @@ namespace tadar
         }
         private void menu_Click(object sender, RoutedEventArgs e)
         {
-            First.Base_frame.Navigate(new Menu_Page());
+            //First.Base_frame.Navigate(new Menu_Page());
             //открытие новой страницы с вводом логина и пароля 
         }
        

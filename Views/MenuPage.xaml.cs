@@ -1,4 +1,5 @@
-﻿using System;
+﻿using nsAPI.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,11 +21,14 @@ namespace tadar
     /// </summary>
     public partial class Menu_Page : Page
     {
-        
-        
-        public Menu_Page()
+        UserForRegistration user;
+        UserSecViewModel uservm;
+        public Menu_Page(UserForRegistration userreg)
         {
             InitializeComponent();
+
+            user = userreg;
+            fullname.DataContext = user;
         }
 
 

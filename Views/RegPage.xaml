@@ -147,7 +147,7 @@
         <Button 
             Style="{StaticResource MaterialDesignFlatMidBgButton}"
              materialDesign:ButtonAssist.CornerRadius="25"
-                Click="reg_Click"
+                Click="reg_ClickAsync"
                 Grid.Row="10"
                 Content="Зарегистрироваться"
                 HorizontalAlignment="Center" 

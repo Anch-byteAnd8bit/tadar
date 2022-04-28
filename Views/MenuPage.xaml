@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:local="clr-namespace:tadar" d:DataContext="{d:DesignInstance Type=local:usersvm}"
+      xmlns:local="clr-namespace:tadar" d:DataContext="{d:DesignInstance Type=local:UserViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="900"
       Title="Menu_Page">
@@ -113,14 +113,15 @@
                 HorizontalAlignment="Center" 
                 Width="300" FontSize="25" 
                 />
-        
-        
-       
-            
-            
-            <TextBlock Grid.Column="1"
+
+
+
+
+
+        <TextBlock x:Name="fullname" 
+            Grid.Column="1"
                 Grid.Row="0"
-                Text="Имя Фамилия" 
+                Text="{Binding user.Name}" 
                   />
            
       

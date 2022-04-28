@@ -9,6 +9,8 @@ namespace tadar
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {
+        protected nsAPI.API api;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged(string propertyName)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using nsAPI.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,9 @@ namespace tadar
 {
     class UserViewModel : ViewModelBase
     {
-        public User user;
+        public UserForRegistration user;
 
-        public UserViewModel(User user)
+        public UserViewModel(UserForRegistration user)
         {
             this.user = user;
         }
@@ -35,24 +36,62 @@ namespace tadar
             }
         }
 
-        public int Age
+        public string BDate
         {
-            get { return user.Age; }
+            get { return user.BDate; }
             set
             {
-                user.Age = value;
-                OnPropertyChanged("Age");
+                user.BDate = value;
+                OnPropertyChanged("BDate");
             }
         }
-        //public string Marks
-        //{
-        //    get { return user.Marks; }
-        //    set
-        //    {
-        //        user.Marks.Add(value);
-        //        OnPropertyChanged("Age");
-        //    }
-        //}
+        public string Middlename
+        {
+            get { return user.Middlename; }
+            set
+            {
+                user.Middlename = value;
+                OnPropertyChanged("Middlename");
+            }
+        }
+        public string Login
+        {
+            get { return user.Login; }
+            set
+            {
+                user.Login = value;
+                OnPropertyChanged("Login");
+            }
+        }
+        public string Email
+        {
+            get { return user.Email; }
+            set
+            {
+                user.Email = value;
+                OnPropertyChanged("Email");
+            }
+        }
+        public string Pass
+        {
+            get { return user.Pass; }
+            set
+            {
+                user.Pass = value;
+                OnPropertyChanged("Pass");
+            }
+        }
+
+        public string Gender
+        {
+            get { return user.GenderID; }
+            set
+            {
+                user.GenderID = value;
+                OnPropertyChanged("GenderID");
+            }
+        }
+
 
 
     }
