@@ -10,11 +10,10 @@ namespace Tadar.Views
     /// </summary>
     public partial class MenuPage : Page
     {
-        MenuViewModel menuViewModel;
         public MenuPage()
         {
             InitializeComponent();
-            fullname.DataContext = menuViewModel  = new MenuViewModel();
+            DataContext = new MenuViewModel();
         }
 
 
@@ -39,11 +38,11 @@ namespace Tadar.Views
             First.Base_frame.Navigate(new Ent_page());
             //открытие новой страницы с вводом логина и пароля 
         }
-        private void mark_Click(object sender, RoutedEventArgs e)
-        {
-            First.Base_frame.Navigate(new marks());
-            //открытие новой страницы с вводом логина и пароля 
-        }
+        //private void mark_Click(object sender, RoutedEventArgs e)
+        //{
+        //    First.Base_frame.Navigate(new marks());
+        //    //открытие новой страницы с вводом логина и пароля 
+        //}
         private void make_test_Click(object sender, RoutedEventArgs e)
         {
             First.Base_frame.Navigate(new DoWorkPage());
@@ -51,7 +50,7 @@ namespace Tadar.Views
         }
         private void class_Click(object sender, RoutedEventArgs e)
         {
-            //First.Base_frame.Navigate(new wizard());
+            First.Base_frame.Navigate(new AddToClassPage());
             //открытие новой страницы с вводом логина и пароля 
         }
         

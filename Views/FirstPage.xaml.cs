@@ -31,8 +31,13 @@ namespace Tadar.Views
         }
         private void menu_Click(object sender, RoutedEventArgs e)
         {
-            //открытие новой страницы с вводом логина и пароля 
+
             //First.Base_frame.Navigate(new Menu_Page());
+        }
+        private void list_Click(object sender, RoutedEventArgs e)
+        {
+            
+            First.Base_frame.Navigate(new AddToClassPage());
         }
 
         /// <summary>
@@ -65,6 +70,11 @@ namespace Tadar.Views
             }
             
             MessageBox.Show(string.Join(" ", (await api.GetGendersAsync()).Select(e => e.Name)));
+        }
+
+        private void test_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

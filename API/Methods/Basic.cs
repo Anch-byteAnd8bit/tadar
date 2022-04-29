@@ -26,8 +26,8 @@ namespace nsAPI.Methods
     abstract class Basic
     {
         // Ссылка для запросов.
-        //protected readonly string apiURL = "http://api.great-duet.localhost/";
-        protected readonly string apiURL = "http://api.great-duet.ru/";
+        protected readonly string apiURL = "http://api.great-duet.localhost/";
+        //protected readonly string apiURL = "http://api.great-duet.ru/";
 
         /// <summary>
         /// Вспопогмательная строка при POST-запросах.

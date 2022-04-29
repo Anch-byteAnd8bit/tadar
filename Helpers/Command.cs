@@ -41,8 +41,8 @@ namespace Tadar.Helpers
         {
             if (execute == null)
                 throw new ArgumentNullException(nameof(execute));
-            if (canExecute == null)
-                throw new ArgumentNullException(nameof(canExecute));
+            /*if (canExecute == null)
+                throw new ArgumentNullException(nameof(canExecute));*/
             _execute = execute;
             _canExecute = canExecute;
         }

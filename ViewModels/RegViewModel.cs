@@ -4,6 +4,7 @@ using nsAPI.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using Tadar.Helpers;
 using Tadar.Views;
@@ -20,7 +21,8 @@ namespace Tadar.ViewModels
                 // Это надо делать, т.к. это свойство влияет на элемент интерфейса
                 // и если оно не задано, то элементу будет задаваться значение null
                 // что приведет к ошибке.
-                BDate = DateTime.Now.ToString("d")
+                BDate = DateTime.Now.ToString("d"),
+                GenderID = "1"
             };
             // Создаем команду для кнопки. Выполняться при нажатии будет
             // OnSave, а проверять доступна ли кнопка для нажатия,
@@ -28,6 +30,13 @@ namespace Tadar.ViewModels
             RegCommand = new Command(OnSave, ValidateSave);
             // Получаем список полов от сервера.
             GettingGenders();
+            //
+
+            Genders = new List<Gender>()
+            {
+                new Gender{ ID = "1", Name = "123"},
+                new Gender{ ID = "2", Name = "Ve;crjq"},
+            };
         }
 
         /// <summary>
@@ -317,6 +326,17 @@ namespace Tadar.ViewModels
                 Models.First.Base_frame.Navigate(new MenuPage());
             }
             // TODO: надо потом определять тип ошибки и выводить соотвествующие сообщения...
+            catch (ErrorResponseException ex)
+            {
+                switch (ex.ErrCode)
+                {
+                    case 101:
+                        MessageBox.Show("is registered");
+                        break;
+                    default:
+                        break;
+                }
+            }
             catch (Exception ex)
             {
                 Log.Write(ex);

@@ -154,7 +154,7 @@ namespace nsAPI
         public async Task<List<RegisteredUser>> FindUsersAsync(string searchName = null, string searchMName = null, string searchSurname = null)
         {
             // Пробуем найти пользователей.
-           return await users.FindAsync(api_token, searchName, searchMName, searchSurname);
+            return await users.FindAsync(api_token, searchName, searchMName, searchSurname);
         }
 
         /// <summary>

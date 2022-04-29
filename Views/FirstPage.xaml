@@ -34,7 +34,18 @@
                 Content="Вход"
                 HorizontalAlignment="Center" 
                 Width="267"
-                Height="40" 
+                Height="40" Cursor="Hand" 
+                />
+        <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
+             materialDesign:ButtonAssist.CornerRadius="25" x:Name="test"
+               
+                Click="list_Click"
+                Grid.Column="2"
+                Grid.Row="1"
+                Content="list"
+                HorizontalAlignment="Center" 
+                Width="267"
+                Height="40" Cursor="Hand" 
                 />
         <Button x:Name="reg" 
                 Style="{StaticResource MaterialDesignFlatMidBgButton}"
