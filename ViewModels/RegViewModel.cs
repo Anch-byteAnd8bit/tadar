@@ -24,10 +24,11 @@ namespace Tadar.ViewModels
                 BDate = DateTime.Now.ToString("d"),
                 GenderID = "1"
             };
+           RegCommand = new Command(OnSave, ValidateSave);
             // Создаем команду для кнопки. Выполняться при нажатии будет
             // OnSave, а проверять доступна ли кнопка для нажатия,
             // будет метод ValidateSave
-            
+
             // Получаем список полов от сервера.
             GettingGenders();
             //
@@ -37,8 +38,17 @@ namespace Tadar.ViewModels
                 new Gender{ ID = "1", Name = "123"},
                 new Gender{ ID = "2", Name = "Ve;crjq"},
             };
-        }
 
+        }
+       public bool isChecked=false;
+       public bool IsChecked { 
+            get => isChecked;
+            set 
+            {
+                isChecked = value;
+                OnPropertyChanged(nameof(isChecked)); 
+            }
+        }
         /// <summary>
         /// Асинхронный метод получения списка полов от сервера.
         /// </summary>
@@ -222,6 +232,7 @@ namespace Tadar.ViewModels
                 //birth.BorderBrush = Brushes.Transparent;
             }
 
+            
             if (string.IsNullOrWhiteSpace(userreg.Surname))
             {
                 //f_Box.ToolTip = "Введите фамилию!";
@@ -232,6 +243,12 @@ namespace Tadar.ViewModels
             {
                 //f_Box.ToolTip = null;
                 //f_Box.BorderBrush = Brushes.Transparent;
+            }
+            if (!IsChecked)
+            {
+                //f_Box.ToolTip = "Введите фамилию!";
+                //f_Box.BorderBrush = Brushes.Red;
+                isGood = false;
             }
 
             if (SecurePasswordLength < 6)

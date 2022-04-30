@@ -197,7 +197,7 @@
         <CheckBox Grid.Row="9" HorizontalAlignment="Center"
             Style="{StaticResource MaterialDesignFilterChipCheckBox}"
             Background="White"
-            IsChecked="False"
+            IsChecked="{Binding IsChecked}"
             Content="Я даю свое согласите на обработку персональных данных" />
         
        
