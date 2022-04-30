@@ -27,7 +27,7 @@ namespace Tadar.ViewModels
             // Создаем команду для кнопки. Выполняться при нажатии будет
             // OnSave, а проверять доступна ли кнопка для нажатия,
             // будет метод ValidateSave
-            RegCommand = new Command(OnSave, ValidateSave);
+            
             // Получаем список полов от сервера.
             GettingGenders();
             //
@@ -201,13 +201,7 @@ namespace Tadar.ViewModels
             }
         }
 
-        //// регистрация добавление данных в бд и переход на новую страницу
-        /*userreg.Surname = f_Box.Text;
-        userreg.Name = name_box.Text;
-        userreg.Middlename = secname_box.Text;
-        userreg.Login = logbox.Text;
-        userreg.Email = mailbox.Text;
-        userreg.Pass = pswbox.Password;*/
+        
 
         /// <summary>
         /// Валидация - проверка на правильность введенных данных.

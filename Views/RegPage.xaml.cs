@@ -1,9 +1,20 @@
-﻿using System.Windows;
+﻿using System.Globalization;
+using System.Windows;
 using System.Windows.Controls;
 using Tadar.ViewModels;
 
 namespace Tadar.Views
 {
+    public class NotEmptyValidationRule : ValidationRule
+    {
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            return string.IsNullOrWhiteSpace((value ?? "").ToString())
+                ? new ValidationResult(false, null)
+                : ValidationResult.ValidResult;
+        }
+    }
+
     /// <summary>
     /// Логика взаимодействия для Reg.xaml
     /// </summary>
@@ -19,6 +30,7 @@ namespace Tadar.Views
         {
             (DataContext as RegViewModel).SecurePasswordLength = pswbox.SecurePassword.Length;
         }
+
 
         /*private async void reg_ClickAsync(object sender, RoutedEventArgs e)
         {

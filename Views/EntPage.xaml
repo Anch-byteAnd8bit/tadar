@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:local="clr-namespace:Tadar"
+      xmlns:local="clr-namespace:Tadar" xmlns:viewmodels="clr-namespace:Tadar.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:EntViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="900"
       Title="Base_page">
@@ -39,14 +39,14 @@
                  Foreground="Black"
                  Background="White"
                  Grid.Row="2"
-                 Text=""
+                 Text="{Binding Login}"
                  FontSize="20"
                  TextWrapping="Wrap"
                  Width="550" Height="55" />
 
         <PasswordBox 
             x:Name="pswbox"
-            PasswordChar="$"
+            PasswordChar="*"
             materialDesign:HintAssist.Hint="Введите пароль" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
             Grid.Column="1" 
             HorizontalAlignment="Center" 
@@ -55,12 +55,13 @@
             Width="550" Height="55"
             CaretBrush="Black"
             Background="White"
-             FontSize="20"/>
+             FontSize="20" Cursor="Arrow"/>
 
         <Button  Style="{StaticResource MaterialDesignFlatMidBgButton}"
              materialDesign:ButtonAssist.CornerRadius="25" x:Name="ent"
                
-                Click="enter_Click"
+                Command="{Binding EntCommand}"
+            CommandParameter="{Binding ElementName=pswbox}"
                 Grid.Column="1"
                 Grid.Row="4"
                 Content="Войти"

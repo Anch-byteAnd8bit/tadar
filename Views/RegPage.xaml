@@ -4,7 +4,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:viewmodels="clr-namespace:Tadar.ViewModels"
+      xmlns:viewmodels="clr-namespace:Tadar.ViewModels" xmlns:rules="clr-namespace:Tadar.Views"
       d:DataContext="{d:DesignInstance Type=viewmodels:RegViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="900"
@@ -44,45 +44,68 @@
                  Grid.Row="1" 
                  materialDesign:HintAssist.Hint="Введите фамилию"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                 FontSize="16"
-                 Width="500" Height="45" 
+                 FontSize="14"
+                 Width="500" Height="40" 
                  Background="White"
                  MaxLines="1" MaxLength="57"
                  TextAlignment="Center"
                  AutoWordSelection="True"
-                 Foreground="Black"
-                 Text="{Binding Surname}" />
+                 Foreground="Black" Cursor="Arrow">
+            <TextBox.Text>
+                <Binding Path="Surname" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <rules:NotEmptyValidationRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
         <TextBox 
             x:Name="name_box"
             Grid.Row="2"
             materialDesign:HintAssist.Hint="Введите имя"
             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-            FontSize="16"
-            Width="500" Height="45" 
+            FontSize="14"
+            Width="500" Height="40" 
             Background="White"
             MaxLines="1" MaxLength="57"
             TextAlignment="Center"
             AutoWordSelection="True"
             Foreground="Black"
-            Text="{Binding Name}" />
+            >
+            <TextBox.Text>
+                <Binding Path="Name" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <rules:NotEmptyValidationRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         
         <TextBox 
             x:Name="secname_box"
             Grid.Row="3"
             materialDesign:HintAssist.Hint="Введите отчество"
             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-            FontSize="16"
-            Width="500" Height="45" 
+            FontSize="14"
+            Width="500" Height="40" 
             Background="White"
             MaxLines="1" MaxLength="57"
             TextAlignment="Center"
             AutoWordSelection="True" 
             Foreground="Black"
-            Text="{Binding Middlename}"/>
+            >
+            <TextBox.Text>
+                <Binding Path="Middlename" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <rules:NotEmptyValidationRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
         <DatePicker
-            Width="500" Height="50" x:Name="birth" Grid.Row="4"  Background="White"
+            Width="500" Height="45" x:Name="birth" Grid.Row="4"  Background="White"
             materialDesign:HintAssist.Hint="Введите дату рождения"
             materialDesign:TextFieldAssist.HasClearButton="True"
             Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
@@ -93,14 +116,21 @@
             Grid.Row="5"
             materialDesign:HintAssist.Hint="Введите e-mail"
             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-            FontSize="16"
-            Width="500" Height="45" 
+            FontSize="14"
+            Width="500" Height="40" 
             Background="White"
             MaxLines="1" MaxLength="57"
             TextAlignment="Center"
             AutoWordSelection="True" 
-            Foreground="Black"
-            Text="{Binding Email, Mode=TwoWay}"/>
+            Foreground="Black">
+            <TextBox.Text>
+                <Binding Path="Email" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <rules:NotEmptyValidationRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
 
         <TextBox 
@@ -108,35 +138,43 @@
             Grid.Row="6"
             materialDesign:HintAssist.Hint="Введите логин"
             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-            FontSize="16"
-            Width="500" Height="45" 
+            FontSize="14"
+            Width="500" Height="40" 
             Background="White"
             MaxLines="1" MaxLength="57"
             TextAlignment="Center"
             AutoWordSelection="True" 
             Foreground="Black"
-            Text="{Binding Login, Mode=TwoWay}"/>
+            >
+            <TextBox.Text>
+                <Binding Path="Login" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <rules:NotEmptyValidationRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         
         <PasswordBox 
             x:Name="pswbox"
             Grid.Row="7" 
-            PasswordChar="$" CaretBrush="Black"
+            PasswordChar="*" CaretBrush="Black"
             materialDesign:HintAssist.Hint="Введите пароль"
             Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" 
-            FontSize="16"
-            Width="500" Height="45" 
+            FontSize="14"
+            Width="500" Height="40" 
             Background="White"  
             Foreground="Black" Cursor="Arrow"
             PasswordChanged="pswbox_PasswordChanged"/>
 
         <ComboBox Name="gender"
                   Grid.Row="8"
-                  Height="45" Width="500"
+                  Height="40" Width="500"
                   Background="White"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Center"
                   HorizontalContentAlignment="Left"
-                  FontSize="16"
+                  FontSize="14"
                   materialDesign:HintAssist.Hint="Пол"
                   VerticalContentAlignment="Bottom"
                   ItemsSource="{Binding Genders}"
@@ -160,15 +198,9 @@
             Style="{StaticResource MaterialDesignFilterChipCheckBox}"
             Background="White"
             IsChecked="False"
-            Content="Я согласен на обработку данных" />
+            Content="Я даю свое согласите на обработку персональных данных" />
         
-        <!--<CheckBox 
-            x:Name="sogl"
-            Content="Согласен на обработку данных"
-            
-            Height="48" 
-            VerticalAlignment="Center"
-            Width="81" />-->
+       
 
     </Grid>
 </Page>

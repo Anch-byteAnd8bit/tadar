@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tadar.ViewModels;
+using Tadar.Views;
 
 namespace Tadar
 {
@@ -23,16 +25,12 @@ namespace Tadar
         public Ent_page()
         {
             InitializeComponent();
+            DataContext = new EntViewModel();
         }
-       private void enter_Click(object sender, RoutedEventArgs e)
-        {
-            //функция для входа в акк---проверка лоигна пароля сверка с бд и переход на другую страницу
-            string login = logbox.Text;
-            string password = pswbox.Password;
-        //    if (studr.IsChecked==true)
-        //    {
-        //        studr.;
-        }
+       //private void enter_Click(object sender, RoutedEventArgs e)
+       // {
+       //     Models.First.Base_frame.Navigate(new MenuPage());
+       // }
 
         
         //} private void studrole(object sender, RoutedEventArgs e)
