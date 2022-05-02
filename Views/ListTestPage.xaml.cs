@@ -22,22 +22,14 @@ namespace Tadar.Views
     /// </summary>
     public partial class ListTest_Page : Page
     {
-        UserSecViewModel uservm;
+        
         public ListTest_Page()
         {
             InitializeComponent();
-            tascks.DataContext = uservm = new UserSecViewModel();
-            //changetask.DataContext = uservm;
-            //tas.DataContext = uservm = new usersecvm();
+            DataContext = new ListTestViewModel();
 
         }
 
-        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            {
-                //открытие новой страницы с вводом логина и пароля 
-                First.Base_frame.Navigate(new PerfomingWorkPage());
-            }
-        }
+    
     }
 }

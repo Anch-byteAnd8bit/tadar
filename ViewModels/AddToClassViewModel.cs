@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Helpers;
 using nsAPI.Entities;
+using Tadar.Helpers;
+using Tadar.Models;
+using Tadar.Views;
 
 namespace Tadar.ViewModels
 {
@@ -15,6 +18,7 @@ namespace Tadar.ViewModels
         public AddToClassViewModel()
         {
             LoadUsersAsync();
+            EnterClick = new Command(Enter_Click);
         }
         public async void LoadUsersAsync()
         {
@@ -33,7 +37,12 @@ namespace Tadar.ViewModels
             }
         }
         public ObservableCollection<RegisteredUser> UsersList { get; set; }
-        
+        public Command EnterClick { get; }
+        private void Enter_Click(object ob)
+        {
+            First.Base_frame.Navigate(new Ent_page());
+
+        }
         //public string Surname
         //{
         //    // Когда надо вернуть фамилию.

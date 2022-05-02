@@ -14,31 +14,41 @@
 
     <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False" >
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
             <RowDefinition Height="40*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+           
        
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="1"> DDDDDDDDDDD</TextBlock>
+        <TextBlock  Grid.Row="0"
+                   HorizontalAlignment="Center"
+                   Foreground="White"
+            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                   > Список классов</TextBlock>
 
-        <ListView ItemsSource="{Binding UsersList}" IsSynchronizedWithCurrentItem="True" Grid.Column="3"
-                Grid.Row="0">
+        <ListView ItemsSource="{Binding UsersList}" IsSynchronizedWithCurrentItem="True"
+                  materialDesign:ListBoxItemAssist.ShowSelection="False"
+                  Name="lv"
+                Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Bisque" BorderThickness="1" Margin="10">
-                        <StackPanel Margin="10">
-                            <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
-                            <TextBlock Text="{Binding Surname}" />
-                            <TextBlock Text="{Binding Middlename}" />
-                            <TextBlock Text="{Binding BDate}" />
-                        </StackPanel>
-                    </Border>
+
+                    <StackPanel Margin="10">
+                        <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Surname}" />
+                        <TextBlock Text="{Binding Middlename}" />
+                        <TextBlock Text="{Binding BDate}" />
+                        <Button
+                            Command="{Binding ElementName=lv, Path=DataContext.EnterClick}" CommandParameter="{Binding}">
+                            Войти в класс
+                        </Button>
+                    </StackPanel>
+
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
+       
     </Grid>
 </Page>

@@ -78,27 +78,27 @@ namespace Tadar.ViewModels
 
 
 
-            WorksList = new ObservableCollection<PerfomingWorkViewModel>
-            {
-                new PerfomingWorkViewModel(
-                new Work {
-                    Date= DateTime.Parse("25.05.2022"),
-                    Name="Подставьте падежные аффиксы",
-                    Description="Плюс перевод"
-                }),
-                new PerfomingWorkViewModel(
-                new Work {
-                    Date= DateTime.Parse("25.05.2022"),
-                    Name="Подставьте падежные аффиксы",
-                    Description="Плюс перевод"
-                }),
-                new PerfomingWorkViewModel(
-                new Work {
-                    Date= DateTime.Parse("25.05.2022"),
-                    Name="Подставьте падежные аффиксы",
-                    Description="Плюс перевод"
-                })
-            };
+            //WorksList = new ObservableCollection<PerfomingWorkViewModel>
+            //{
+            //    new PerfomingWorkViewModel(
+            //    new Work {
+            //        Date= DateTime.Parse("25.05.2022"),
+            //        Name="Подставьте падежные аффиксы",
+            //        Description="Плюс перевод"
+            //    }),
+            //    new PerfomingWorkViewModel(
+            //    new Work {
+            //        Date= DateTime.Parse("25.05.2022"),
+            //        Name="Подставьте падежные аффиксы",
+            //        Description="Плюс перевод"
+            //    }),
+            //    new PerfomingWorkViewModel(
+            //    new Work {
+            //        Date= DateTime.Parse("25.05.2022"),
+            //        Name="Подставьте падежные аффиксы",
+            //        Description="Плюс перевод"
+            //    })
+            //};
 
            
 

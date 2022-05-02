@@ -31,8 +31,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
                     
             </ResourceDictionary.MergedDictionaries>
-            
-               
+
+          
             
         </ResourceDictionary>
         </Application.Resources>

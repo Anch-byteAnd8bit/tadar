@@ -9,11 +9,11 @@ namespace Tadar.Views
     public partial class PerfomingWorkPage : Page
     {
         readonly PerfomingWorkViewModel perfomingWorkVM;
-        public PerfomingWorkPage()
+        public PerfomingWorkPage(nsAPI.Entities.RegisteredUser work)
         {
             InitializeComponent();
             // Привязка контекста к элементам на форме.
-            DataContext = perfomingWorkVM = new PerfomingWorkViewModel();
+            DataContext = perfomingWorkVM = new PerfomingWorkViewModel(work);
             
             /*tasks.DataContext = perfomingWorkVM = new PerfomingWorkViewModel();
             changetask.DataContext = uservm;

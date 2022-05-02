@@ -12,118 +12,184 @@
 
     <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False" >
         <Grid.RowDefinitions>
+            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
             <RowDefinition Height="40*"></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
             <RowDefinition Height="40*"></RowDefinition>
-            <RowDefinition Height="40*"></RowDefinition>
-            <RowDefinition Height="10*"></RowDefinition>
-            <RowDefinition Height="10*"></RowDefinition>
-            <RowDefinition Height="10*"></RowDefinition>
-            <RowDefinition Height="5*"></RowDefinition>
-            <!--<RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>-->
+            <RowDefinition Height="60*"></RowDefinition>
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"></ColumnDefinition>
-            <ColumnDefinition Width="15*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
-            <ColumnDefinition Width="15*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
-            <ColumnDefinition Width="15*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
-            <ColumnDefinition Width="15*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
-            <ColumnDefinition Width="15*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
+
         </Grid.ColumnDefinitions>
-        
-        <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
+
+        <TextBlock Grid.Column="1" Grid.Row="0" 
+            Text="{Binding Fullname}"
+                   Foreground="White"
+            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"/>
+
+
+       
+            
+                
+                <TextBlock Grid.Row="1"
+            Text="Мои классы:"
+                            Foreground="White"
+            Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+            VerticalAlignment="Top" />
+
+
+                <ListView ItemsSource="{Binding UsersList}" IsSynchronizedWithCurrentItem="True" Grid.Row="2"
+                  >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="1">
+
+                                <TextBlock
+                                    Foreground="White"
+           
+                                    Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                    Text="{Binding Surname}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+
+                <TextBlock Grid.Row="3" 
+            Text="Мои оценки:"
+          Foreground="White"
+            Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+            VerticalAlignment="Top" />
+
+                <ListView ItemsSource="{Binding UsersList}" IsSynchronizedWithCurrentItem="True" Grid.Row="4"
+               >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="1">
+                                <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                           Foreground="White"
+           
+                                           Text="{Binding Surname}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            
+       
+
+
+
+
+
+        <GroupBox
+            Background="White"
+            Grid.Row="5"
+             Header="Default Look"
+             Margin="10">
+            <Grid Background="White" ShowGridLines="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40*"></RowDefinition>
+                    <RowDefinition Height="40*"></RowDefinition>
+                    <RowDefinition Height="40*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
                 materialDesign:ButtonAssist.CornerRadius="25" x:Name="akk"
                 Height="45"
                 Command="{Binding AkkClick}"
-                Grid.Column="3"
-                Grid.Row="5"
-                Content="Аккаунт"
+                Grid.Column="0"
+                Grid.Row="2"
+                Content="Проверить тест"
                 HorizontalAlignment="Center" 
-                Width="300" FontSize="25" 
+                Width="255" FontSize="25" 
                 />
 
-     
 
 
-        <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
+
+                <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
              materialDesign:ButtonAssist.CornerRadius="25" x:Name="test"
                Height="45"
                 Command="{Binding TestClick}"
                 Grid.Column="1"
-                Grid.Row="3"
+                Grid.Row="0"
                 Content="Задания"
                 HorizontalAlignment="Center" 
-                Width="300" FontSize="25" 
+                Width="255" FontSize="25" 
                 />
-        <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
              materialDesign:ButtonAssist.CornerRadius="25" x:Name="selftest"
                Height="45"
                 Command="{Binding SelftestClick}"
-                Grid.Column="5"
-                Grid.Row="3"
+                Grid.Column="2"
+                Grid.Row="0"
                 Content="Самопроверка"
                 HorizontalAlignment="Center" 
-                Width="300" FontSize="25" 
+                Width="255" FontSize="25" 
                 />
-        <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
              materialDesign:ButtonAssist.CornerRadius="25" x:Name="game"
                Height="45"
                 Command="{Binding GameClick}"
-                Grid.Column="3"
-                Grid.Row="3"
+                Grid.Column="2"
+                Grid.Row="1"
                 Content="Игры"
                 HorizontalAlignment="Center" 
-                Width="300" FontSize="25" 
+                Width="255" FontSize="25" 
                 />
-        <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
              materialDesign:ButtonAssist.CornerRadius="25" x:Name="mark"
                Height="45"
                 Command="{Binding MarkClick}"
-                Grid.Column="1"
-                Grid.Row="4"
+                Grid.Column="0"
+                Grid.Row="0"
                 Content="Журнал"
                 HorizontalAlignment="Center" 
-                Width="300" FontSize="25" Cursor="Hand" 
+                Width="255" FontSize="25" Cursor="Hand" 
                 />
-        <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
              materialDesign:ButtonAssist.CornerRadius="25" x:Name="make_test"
                Height="45"
                 Command="{Binding MaketestClick}"
-                Grid.Column="3"
-                Grid.Row="4"
+                Grid.Column="0"
+                Grid.Row="1"
                 Content="Создать тест"
                 HorizontalAlignment="Center" 
-                Width="300" FontSize="25" 
+                Width="255" FontSize="25" 
                 />
-        <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
              materialDesign:ButtonAssist.CornerRadius="25" x:Name="class"
                Height="45"
                 Command="{Binding ClassClick}"
                 Grid.Column="1"
-                Grid.Row="5"
-                Content="Классы???"
+                Grid.Row="1"
+                Content="Классы"
                 HorizontalAlignment="Center" 
-                Width="300" FontSize="25" Cursor="Hand" 
+                Width="255" FontSize="25" Cursor="Hand" 
                 />
 
+            </Grid>
+        </GroupBox>
 
 
 
 
-        <TextBlock Grid.Column="1" Grid.Row="0"
-                   Text="{Binding Surname}"
-                   VerticalAlignment="Top" />
 
-        <TextBlock Grid.Column="1" Grid.Row="0"
-                   Text="{Binding Surname}"
-                   VerticalAlignment="Bottom" />
+
+
+
+
 
         <!--<ListView ItemsSource="{Binding UserList}" IsSynchronizedWithCurrentItem="True" Grid.Column="3"
                 Grid.Row="0">

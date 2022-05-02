@@ -4,16 +4,15 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-     
-      xmlns:local="clr-namespace:Tadar.ViewModels" xmlns:tadar="clr-namespace:Tadar" d:DataContext="{d:DesignInstance Type=tadar:UserSecViewModel}"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:viewmodels="clr-namespace:Tadar.ViewModels"
+      d:DataContext="{d:DesignInstance Type=viewmodels:ListTestViewModel}"
       
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="900"
       Title="Задания">
 
-
     
-
     <Grid Background="#FFA25DED" ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
@@ -35,84 +34,39 @@
             Foreground="White"
          Style="{StaticResource MaterialDesignHeadline4TextBlock}"
             Text="Задания" />
-        
-        
-     
 
-        <!--<materialDesign:Card
-            x:Name="work"
+
+
+
+
+        <ListView
             Grid.Row="1"
-            Grid.Column="0"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-             Background="#FF4A148C"
-             Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-            Padding="0"
-            Height="100"
-            Width="450">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition
-                         Height="Auto" />
-                    <RowDefinition
-                          Height="Auto" />
-                    <RowDefinition
-                         Height="Auto" />
-                </Grid.RowDefinitions>
-                <TextBlock
-                     Grid.Row="0"
-                       Margin="16 16 16 4"
-                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                    Text="Задание Название Хакасский язык" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" />
-                <Separator
-             Grid.Row="1"
-             Style="{StaticResource MaterialDesignLightSeparator}" />
-                <TextBlock
-                  Grid.Row="2"
-                   Margin="16 0 16 8"
-                  VerticalAlignment="Center"
-                  HorizontalAlignment="Left"
-               Style="{StaticResource MaterialDesignBody2TextBlock}"
-              Text="March 19, 2016" />
-                       <StackPanel
-                  Grid.Row="2"
-              Orientation="Horizontal"
-                 Margin="16 0 16 8"
-             HorizontalAlignment="Right">
-               
-                    <materialDesign:PopupBox
-        HorizontalAlignment="Right"
-        Style="{StaticResource MaterialDesignToolForegroundPopupBox}"
-        Padding="0 0 0 0">
-                        <StackPanel>
-                            <Button
-            Content="More" />
-                            <Button
-            Content="Options" />
-                        </StackPanel>
-                    </materialDesign:PopupBox>
-                </StackPanel>
-            </Grid>
-        </materialDesign:Card>-->
-
-        
-
-
-        <ListView Grid.Row="1" Grid.Column="1" x:Name="tascks" ItemsSource="{Binding WorksList}" IsSynchronizedWithCurrentItem="True">
+            Grid.Column="1" 
+            x:Name="lvs"
+            ItemsSource="{Binding TestsList}"
+            IsSynchronizedWithCurrentItem="True">
+                
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Bisque" BorderThickness="1" Margin="10">
-                        <StackPanel Margin="10">
-                            <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
-                            <TextBlock Text="{Binding Description}" />
-                            <TextBlock Text="{Binding Date}" />
-                        </StackPanel>
-                    </Border>
+                    
+                    <StackPanel
+                       
+                        Margin="20">
+                        
+                       
+                        <Button
+                            Command="{Binding ElementName=lvs, Path=DataContext.TestClick}" CommandParameter="{Binding}">
+                            <StackPanel>
+                            <TextBlock  Text="{Binding Name}" FontWeight="Bold" />
+                            <TextBlock Text="{Binding Surname}" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+     
 
-        
 
     </Grid>
 </Page>
