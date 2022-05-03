@@ -40,6 +40,7 @@
 
 
         <ListView
+            HorizontalAlignment="Center"
             Grid.Row="1"
             Grid.Column="1" 
             x:Name="lvs"
@@ -48,20 +49,19 @@
                 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    
-                    <StackPanel
-                       
-                        Margin="20">
-                        
-                       
-                        <Button
-                            Command="{Binding ElementName=lvs, Path=DataContext.TestClick}" CommandParameter="{Binding}">
-                            <StackPanel>
+                    <Button
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        Height="50"
+                        Width="600"
+                            Command="{Binding ElementName=lvs, Path=DataContext.TestClick}"
+                            CommandParameter="{Binding}"
+                        HorizontalContentAlignment="Left">
+                        <StackPanel>
                             <TextBlock  Text="{Binding Name}" FontWeight="Bold" />
                             <TextBlock Text="{Binding Surname}" />
-                            </StackPanel>
-                        </Button>
-                    </StackPanel>
+                        </StackPanel>
+                    </Button>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

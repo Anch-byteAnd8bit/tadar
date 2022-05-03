@@ -42,15 +42,18 @@
             Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
             VerticalAlignment="Top" />
 
-
-                <ListView ItemsSource="{Binding UsersList}" IsSynchronizedWithCurrentItem="True" Grid.Row="2"
+        <ScrollViewer Grid.Row="2">
+        <StackPanel Grid.Row="2" Background="White">
+                <ListView ItemsSource="{Binding UsersList}" 
+                          
+                          IsSynchronizedWithCurrentItem="True" Grid.Row="2"
                   >
-                    <ListView.ItemTemplate>
+            <ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="1">
+                    <StackPanel Margin="1">
 
                                 <TextBlock
-                                    Foreground="White"
+                                    Foreground="#FF673AB7"
            
                                     Style="{StaticResource MaterialDesignBody1TextBlock}"
                                     Text="{Binding Surname}" />
@@ -58,30 +61,34 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-
-
-                <TextBlock Grid.Row="3" 
+        </StackPanel>
+        </ScrollViewer>
+        <TextBlock Grid.Row="3" 
             Text="Мои оценки:"
           Foreground="White"
             Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
             VerticalAlignment="Top" />
 
-                <ListView ItemsSource="{Binding UsersList}" IsSynchronizedWithCurrentItem="True" Grid.Row="4"
+        <ScrollViewer Grid.Row="4">
+        <StackPanel Grid.Row="4" Background="White"> 
+                <ListView ItemsSource="{Binding UsersList}" 
+                          Background="White"
+                          IsSynchronizedWithCurrentItem="True" Grid.Row="4"
                >
-                    <ListView.ItemTemplate>
+            <ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="1">
+                    <StackPanel Margin="1">
                                 <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}"
-                                           Foreground="White"
-           
+                                           Foreground="#FF673AB7"
+                                            
                                            Text="{Binding Surname}" />
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+        </StackPanel>
+        </ScrollViewer>
 
-            
-       
 
 
 

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Helpers;
+using nsAPI.Entities;
+using System;
+using System.Collections.ObjectModel;
 using Tadar.Models;
 
 namespace Tadar.ViewModels
@@ -14,8 +17,31 @@ namespace Tadar.ViewModels
 
 
           this.work = work;
+          LoadUsersAsync();
 
         }
+
+
+        public async void LoadUsersAsync()
+        {
+            try
+            {
+                if (api == null)
+                {
+                    throw new Exception("api не создан!!!");
+                }
+                TestList = new ObservableCollection<RegisteredUser>(await api.FindUsersAsync());
+                OnPropertyChanged(nameof(TestList));
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex.Message);
+            }
+        }
+        public ObservableCollection<RegisteredUser> TestList { get; set; }
+
+
+
 
         //public PerfomingWorkViewModel(Work work)
         //{
