@@ -26,6 +26,7 @@ namespace Tadar
         {
             InitializeComponent();
             DataContext = new EntViewModel();
+            logbox.Focus();
         }
        //private void enter_Click(object sender, RoutedEventArgs e)
        // {
