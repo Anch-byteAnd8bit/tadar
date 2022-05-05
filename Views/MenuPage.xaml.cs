@@ -16,9 +16,6 @@ namespace Tadar.Views
             DataContext = new MenuViewModel();
         }
 
-        private void ScrollViewer_MouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
-        {
-
-        }
+        
     }
 }

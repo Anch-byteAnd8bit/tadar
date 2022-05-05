@@ -13,21 +13,22 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tadar.ViewModels;
-using Tadar.Views;
 
-namespace Tadar
+namespace Tadar.Views
 {
     /// <summary>
-    /// Логика взаимодействия для Base_page.xaml
+    /// Логика взаимодействия для Do14.xaml
     /// </summary>
-    public partial class Ent_page : Page
+    public partial class Do14 : Page
     {
-        public Ent_page()
+        public Do14()
         {
             InitializeComponent();
-            DataContext = new EntViewModel();
-            logbox.Focus();
+            DataContext = new Do14ViewModel();
+        
         }
-       
     }
+
+
+
 }

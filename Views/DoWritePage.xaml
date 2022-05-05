@@ -1,0 +1,224 @@
+﻿<Page x:Class="Tadar.Views.DoWritePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Tadar" xmlns:viewmodels="clr-namespace:Tadar.ViewModels"
+      
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="900"
+      Title="DoWritePage">
+
+    <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="70*" ></RowDefinition>
+            <RowDefinition Height="15*" ></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15*"></ColumnDefinition>
+            <ColumnDefinition Width="60*"></ColumnDefinition>
+            <ColumnDefinition Width="15*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+
+        <TextBlock
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Foreground="White"
+            Style="{StaticResource MaterialDesignHeadline4TextBlock}" Height="46" Width="498"
+            >
+            Создание письменного задания
+        </TextBlock>
+
+        <TextBlock 
+            Grid.Row="1"
+            Grid.Column="0"
+            Text="{Binding Name}" FontWeight="Bold"/>
+
+
+        <StackPanel
+          
+            Grid.Row="1"
+            Grid.Column="1"
+            Background="White"
+            Height="450"
+            Width="580">
+            <RichTextBox  
+                x:Name="doworktext"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            FontSize="20"
+                           Height="450"
+            Width="580"
+                           Cursor="Pen" CaretBrush="White" SelectionBrush="White"
+                           >
+                <RichTextBox.Resources>
+                    <Style TargetType="{x:Type Paragraph}">
+                        <Setter Property="Margin" Value="0" />
+                    </Style>
+                </RichTextBox.Resources>
+            </RichTextBox>
+        </StackPanel>
+
+
+        <Button  Style="{StaticResource MaterialDesignFlatMidBgButton}"
+             materialDesign:ButtonAssist.CornerRadius="25" x:Name="ent"
+               
+                Command="{Binding EntCommand}"
+            CommandParameter="{Binding ElementName=pswbox}"
+                Grid.Column="1"
+                Grid.Row="3"
+                Content="Создать"
+                HorizontalAlignment="Center" 
+                 VerticalAlignment="Top"
+                Width="200" Height="40" FontSize="21"   
+                />
+
+
+
+
+
+
+        <StackPanel VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Grid.Row="1"
+            Grid.Column="2" Margin="78,0,0,0" >
+            <Button
+                Click="BigOClick"
+            Margin="3"
+           Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                Ӧ
+            </Button>
+
+            <Button
+                Click="BigIClick"
+                 Margin="3"
+           Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                І
+            </Button>
+
+            <Button
+                Click="BigYClick"
+                 Margin="3"
+           Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                Ӱ
+            </Button>
+            <Button
+                Click="BigFClick"
+                 Margin="3"
+       Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                Ғ
+            </Button>
+            <Button
+                Click="BigNClick"
+                 Margin="3"
+           Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                Ң
+            </Button>
+            <Button
+                Click="BigJClick"
+                 Margin="3"
+          Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                Ҷ
+            </Button>
+        </StackPanel>
+
+
+        <StackPanel
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left" Grid.Row="1"
+            Grid.Column="2" Margin="13,0,0,0" >
+            <Button
+                Click="SmOClick"
+           Width="40"
+            Height="40"
+                 Margin="3"
+            
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                ӧ
+            </Button>
+
+            <Button
+                Click="SmIClick"
+                 Margin="3"
+          Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                і
+            </Button>
+            <Button
+                Click="SmYClick"
+                 Margin="3"
+           Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                ӱ
+            </Button>
+            <Button
+                Click="SmFClick"
+                 Margin="3"
+          Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                ғ
+            </Button>
+            <Button
+                Click="SmNClick"
+                 Margin="3"
+          Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                ң
+            </Button>
+            <Button
+                Click="SmJClick"
+                 Margin="3"
+          Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                ҷ
+            </Button>
+        </StackPanel>
+
+
+    </Grid>
+</Page>
