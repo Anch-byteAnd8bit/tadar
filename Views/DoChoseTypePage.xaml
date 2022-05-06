@@ -40,7 +40,7 @@
                 Command="{Binding Test14Click}"
                 Grid.Column="0"
                 Grid.Row="2"
-                Content="Создать тест 1 из 4"
+                Content="Создать тест &quot;1 из 4&quot;"
                 HorizontalAlignment="Center" 
                 Width="400" FontSize="25" Cursor="Hand" 
                 />
@@ -62,7 +62,7 @@
                 Command="{Binding DropClick}"
                 Grid.Column="0"
                 Grid.Row="4"
-                Content="Создать тест Предложение"
+                Content="Создать тест &quot;Предложение&quot;"
                 HorizontalAlignment="Center" 
                 Width="400" FontSize="25" Cursor="Hand" 
                 />

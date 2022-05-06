@@ -51,7 +51,7 @@ namespace Tadar.ViewModels
         }
         private void Dickt_Click(object ob)
         {
-            First.Base_frame.Navigate(new marks());
+            First.Base_frame.Navigate(new DictPage());
             //открытие новой страницы с вводом логина и пароля 
         }
         private void Akk_Click(object ob)
