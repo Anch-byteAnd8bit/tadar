@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace nsAPI.Entities
 {
-    class Classroom
+    class Test
     {
         [JsonProperty("ID")]
         public string ID { get; set; }
@@ -18,8 +18,12 @@ namespace nsAPI.Entities
         [JsonProperty("description")]
         public string Description { get; set; }
 
-        [JsonProperty("dateCreate")]
-        public string DateCreate { get; set; }
+        [JsonProperty("dateTimeStart")]
+        public string DateTimeStart { get; set; }
+
+        [JsonProperty("duration")]
+        public string Duration { get; set; }
+
 
         [JsonProperty("id_Journal")]
         public string id_Journal { get; set; }
@@ -29,7 +33,7 @@ namespace nsAPI.Entities
     }
 
 
-    public class ClassroomForReg
+    public class TestForReg
     {
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -63,12 +67,11 @@ namespace nsAPI.Entities
         /// </summary>
         /// <param name="json"></param>
         /// <returns></returns>
-        public static ClassroomForReg FromJson(string json) => JsonConvert.DeserializeObject<ClassroomForReg>(json, Converter.Settings);
+        public static TestForReg FromJson(string json) => JsonConvert.DeserializeObject<TestForReg>(json, Converter.Settings);
 
     }
 
-
-    public class RegisteredClassroom
+    public class RegisteredTest
     {
         [JsonProperty("ID")]
         public string ID { get; set; }
@@ -82,22 +85,21 @@ namespace nsAPI.Entities
         [JsonProperty("dateCreate")]
         public string DateCreate { get; set; }
 
-        [JsonProperty("id_Journal")]
-        public string id_Journal { get; set; }
+        [JsonProperty("dateClose")]
+        public string DateStart { get; set; }
 
-        [JsonProperty("DateClose")]
+        [JsonProperty("dateStart")]
         public string DateClose { get; set; }
 
         /// <summary>
         /// Шифрование алгоритмом AES с имеющимися ключами.
         /// </summary>
-        public void DecryptByAES()
+        public void EncryptByAES()
         {
-            this.Name = Encryption.AESHelper.DecryptString(this.Name);
-            this.Description = Encryption.AESHelper.DecryptString(this.Description);
-            this.id_Journal = Encryption.AESHelper.DecryptString(this.id_Journal);
-            this.ID = Encryption.AESHelper.DecryptString(this.ID);
+            this.Name = Encryption.AESHelper.EncryptString(this.Name);
+            this.Description = Encryption.AESHelper.EncryptString(this.Description);
 
+            this.ID = Encryption.AESHelper.EncryptString(this.ID);
             //this.DateCreate = Encryption.AESHelper.EncryptString(this.DateCreate);
             //this.DateClose = Encryption.AESHelper.EncryptString(this.DateClose);
         }
@@ -107,6 +109,6 @@ namespace nsAPI.Entities
         /// </summary>
         /// <param name="json"></param>
         /// <returns></returns>
-        public static RegisteredClassroom FromJson(string json) => JsonConvert.DeserializeObject<RegisteredClassroom>(json, Converter.Settings);
+        public static RegisteredTest FromJson(string json) => JsonConvert.DeserializeObject<RegisteredTest>(json, Converter.Settings);
     }
 }

@@ -33,10 +33,10 @@ namespace Tadar.ViewModels
             GettingGenders();
             //
 
-            Genders = new List<Gender>()
+            Genders = new List<Refbook>()
             {
-                new Gender{ ID = "1", Name = "123"},
-                new Gender{ ID = "2", Name = "Ve;crjq"},
+                new Refbook{ ID = "1", Name = "123"},
+                new Refbook{ ID = "2", Name = "Ve;crjq"},
             };
 
         }
@@ -64,7 +64,7 @@ namespace Tadar.ViewModels
         /// <summary>
         /// Список полов.
         /// </summary>
-        private List<Gender> genders;
+        private List<Refbook> genders;
 
         /// <summary>
         /// Команда для кнопки регистрации.
@@ -152,7 +152,7 @@ namespace Tadar.ViewModels
         /// <summary>
         /// Свойство список полов.
         /// </summary>
-        public List<Gender> Genders
+        public List<Refbook> Genders
         {
             get => genders;
             // Задать новый список.
@@ -169,7 +169,7 @@ namespace Tadar.ViewModels
         /// <summary>
         /// Свойства выбранный элемент из списка полов "Genders"
         /// </summary>
-        public Gender SelectedGender
+        public Refbook SelectedGender
         {
             get
             {
@@ -329,11 +329,11 @@ namespace Tadar.ViewModels
             // Во время любой операции с сервером может вылезти ошибка!
             try
             {
-                if (await api.UserRegAsync(userreg))
-                {
-                    Log.Write(api.MainUser.ID + ": " + api.MainUser.Login + " ("
-                        + api.MainUser.Surname + " " + api.MainUser.Name + ")");
-                }
+                await api.UserRegAsync(userreg);
+                
+                Log.Write(api.MainUser.ID + ": " + api.MainUser.Login + " ("
+                    + api.MainUser.Surname + " " + api.MainUser.Name + ")");
+                
                 Models.First.Base_frame.Navigate(new MenuPage());
             }
             // TODO: надо потом определять тип ошибки и выводить соотвествующие сообщения...
@@ -341,7 +341,7 @@ namespace Tadar.ViewModels
             {
                 switch (ex.ErrCode)
                 {
-                    case 101:
+                    case CODE_ERROR.ERR_UserAlreadyReg:
                         MessageBox.Show("is registered");
                         break;
                     default:

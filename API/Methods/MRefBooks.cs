@@ -11,7 +11,7 @@ namespace nsAPI.Methods
 {
     class MRefBooks : Basic
     {
-        public async Task<List<Gender>> GetListGendersAsync()
+        public async Task<List<Refbook>> GetListGendersAsync()
         {
             // Добавляем в запрос тип справочника.
             Dictionary<string, string> urlParams = new Dictionary<string, string>();
@@ -22,10 +22,10 @@ namespace nsAPI.Methods
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpGetAsync( "refbooks.get", urlParams);
             // Конвертируем данные из массива ответа в список типа Gender.
-            List<Gender> res = new List<Gender>();
+            List<Refbook> res = new List<Refbook>();
             httpResponse.data.ForEach(x =>
             {
-                res.Add(JsonConvert.DeserializeObject<Gender>(x.ToString()));
+                res.Add(JsonConvert.DeserializeObject<Refbook>(x.ToString()));
             });
             return res;
         }

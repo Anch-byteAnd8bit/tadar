@@ -2,12 +2,12 @@
 
 namespace nsAPI.Entities
 {
-    public class Gender
+    public class Refbook
     {
         [JsonProperty("ID")]
         public string ID { get; set; }
 
-        [JsonProperty("gender")]
+        [JsonProperty("name")]
         public string Name { get; set; }
     }
 }

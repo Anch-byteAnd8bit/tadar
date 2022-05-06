@@ -92,7 +92,7 @@ namespace nsAPI.Methods
         /// <param name="settings">Настройки поиска - кол-во пользователей (макс: 50) и 
         /// смещение относительно первого найденного.</param>
         /// <returns>Информация о пользователях.</returns>
-        public async Task<List<RegisteredUser>> FindAsync(string api_token, string searchName = null, string searchMName = null, string searchSurname = null, SettingsFind settings = null)
+        public async Task<List<RegisteredUser>> FindAsync(string api_token, SettingsFind settings, string searchName = null, string searchMName = null, string searchSurname = null)
         {
             if (settings == null) settings = new SettingsFind();
             if (settings.Count <= 0 || settings.Shift < 0)
@@ -129,16 +129,6 @@ namespace nsAPI.Methods
             registeredUsers.ForEach(u => u.DecryptDataByAES());
             // Возвращаем список пользователей.
             return registeredUsers;
-        }
-
-        /// <summary>
-        /// TODO: получение остальных count пользователей.
-        /// </summary>
-        /// <param name="count"></param>
-        /// <returns></returns>
-        public List<RegisteredUser> NextUsers(int count)
-        {
-            return null;
         }
 
         /// <summary>
@@ -181,7 +171,8 @@ namespace nsAPI.Methods
         /// </summary>
         public async Task<RegisteredUser> ByIdAsync(string api_token, string userId)
         {
-            // Засовываем идентификатор пользователя в массив, чтобы отправить его в функцию GetUsersById
+            // Засовываем идентификатор пользователя в массив, чтобы отправить
+            // его в функцию получения списка юзеров.
             string[] userIds = { userId };
             // Возвращаем список пользователей.
             List<RegisteredUser> registeredUsers = await ByIdAsync(api_token, userIds);

@@ -51,11 +51,11 @@ namespace Tadar.ViewModels
             // Во время любой операции с сервером может вылезти ошибка!
             try
             {
-                if (await api.UserAuthAsync(userent))
-                {
-                    Log.Write(api.MainUser.ID + ": " + api.MainUser.Login + " ("
-                        + api.MainUser.Surname + " " + api.MainUser.Name + ")");
-                }
+                await api.UserAuthAsync(userent);
+                
+                Log.Write(api.MainUser.ID + ": " + api.MainUser.Login + " ("
+                    + api.MainUser.Surname + " " + api.MainUser.Name + ")");
+                
                 Models.First.Base_frame.Navigate(new MenuPage());
             }
             // TODO: надо потом определять тип ошибки и выводить соотвествующие сообщения...
@@ -63,7 +63,7 @@ namespace Tadar.ViewModels
             {
                 switch (ex.ErrCode)
                 {
-                    case 101:
+                    case CODE_ERROR.ERR_UserNotFound:
                         MessageBox.Show("неправильный логин или пароль");
                         break;
                     default:

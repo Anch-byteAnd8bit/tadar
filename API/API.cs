@@ -68,6 +68,128 @@ namespace nsAPI
             }
         }
 
+        // =========== Пользователи
+
+        /// <summary>
+        /// Регистрация пользователя.
+        /// </summary>
+        /// <param name="user">Данные регистрации.</param>
+        /// <returns>True - при успешной регистрации.</returns>
+        public async Task UserRegAsync(UserForRegistration user)
+        {
+            // При успехе, будет содержать ключ доступа к серверу.
+            var accessToken = await users.RegAsync(user);
+            //
+            await UserAuthAsync(user.UserForAuthorization);
+            /*// Сохраняем токен пользователя.
+            api_token = accessToken.Token;
+            // Сохраняем ID пользователя.
+            id_user = accessToken.UserID;
+            // Сохраняем токен в файл с перезаписью существующего файла.
+            SaveUserDataToFileAsync(true);
+            // Загружаем информацию о пользователе с сервера.
+            MainUser = await GetUserByIdAsync(accessToken.UserID);*/
+            // Успех!
+            //return true;
+        }
+
+        
+        /// <summary>
+        /// Авторизация пользователя.
+        /// </summary>
+        /// <param name="user">Объект с данными для авторизации пользователя</param>
+        /// <returns>True - при успешной авторизации</returns>
+        public async Task UserAuthAsync(UserForAuthorization user)
+        {
+            // При успехе, будет содержать ключ доступа к серверу.
+            AccessToken accessToken = await users.AuthAsync(user);
+            // Сохраняем токен пользователя.
+            api_token = accessToken.Token;
+            // Сохраняем ID пользователя.
+            id_user = accessToken.UserID;
+            // Сохраняем в файл с перезаписью существующего файла.
+            SaveUserDataToFileAsync(true);
+            // Загружаем информацию о пользователе с сервера.
+            MainUser = await GetUserByIdAsync(accessToken.UserID);
+        }
+
+
+        /// <summary>
+        /// Авторизация пользователя.
+        /// </summary>
+        /// <param name="login">Строка логина</param>
+        /// <param name="pass">Строка пароля</param>
+        public async Task UserAuthAsync(string login, string pass)
+        {
+            await UserAuthAsync(new UserForAuthorization
+            {
+                Login = login,
+                Pass = pass
+            });
+        }
+
+        /// <summary>
+        /// Получает подробную информацию об указанном количестве пользователей.
+        /// </summary>
+        /// <param name="count">Кол-во пользователей. Макс: 50</param>
+        /// <param name="shift">Смещение, относительно первого найденного.</param>
+        /// <returns>Информация о пользователях.</returns>
+        public async Task<List<RegisteredUser>> FindUsersAsync(string searchName = null, string searchMName = null, string searchSurname = null)
+        {
+            // Пробуем найти пользователей.
+           return await users.FindAsync(api_token, null, searchName, searchMName, searchSurname);
+        }
+
+        /// <summary>
+        /// Получает подробную информацию о пользоателях с заданными ID.
+        /// </summary>
+        /// <param name="userIds">ID пользователей.</param>
+        /// <returns>Информация о пользователях.</returns>
+        public async Task<List<RegisteredUser>> GetUsersByIdAsync(string[] userIds) => 
+            await users.ByIdAsync(api_token, userIds);
+
+        /// <summary>
+        /// Получение информации о пользователе с заданным ID
+        /// </summary>
+        public async Task<RegisteredUser> GetUserByIdAsync(string userId) =>
+            await users.ByIdAsync(api_token, userId);
+
+        // =========== "Справочники"
+
+        /// <summary>
+        /// Запрашивает у сервера список полов.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Refbook>> GetGendersAsync() =>
+            await refBooks.GetListGendersAsync();
+
+        // =========== Классы
+
+        /// <summary>
+        /// Получение информации о классах с заданными ID
+        /// </summary>
+        public async Task<List<RegisteredClassroom>> GetClassroomsByIdAsync(string[] classroomIds) =>
+            await classrooms.ByIdAsync(api_token, classroomIds);
+
+        /// <summary>
+        /// Получение информации о классе с заданными ID
+        /// </summary>
+        public async Task<RegisteredClassroom> GetClassroomByIdAsync(string classroomId) =>
+            await classrooms.ByIdAsync(api_token, classroomId);
+
+        /// <summary>
+        /// Получение информации о классах в которых состоит пользователь с заданным id.
+        /// </summary>
+        public async Task<List<RegisteredClassroom>> GetClassroomsByUserIdAsync(
+            string userId, string roleId = null) => await classrooms.ByUserIdAsync(
+                api_token, userId, roleId);
+        // =========== Тесты
+
+        //==================================================================================
+        //==================================================================================
+        //==================================================================================
+
+
         /// <summary>
         /// Возвращает сохраненный раннее Access_Token.
         /// </summary>
@@ -86,107 +208,6 @@ namespace nsAPI
                 return getAccessToken();
             }
         }
-
-        /// <summary>
-        /// Регистрация пользователя.
-        /// </summary>
-        /// <param name="user">Данные регистрации.</param>
-        /// <returns>True - при успешной регистрации.</returns>
-        public async Task<bool> UserRegAsync(UserForRegistration user)
-        {
-            // При успехе, будет содержать ключ доступа к серверу.
-            var accessToken = await users.RegAsync(user);
-            // Сохраняем токен пользователя.
-            api_token = accessToken.Token;
-            // Сохраняем ID пользователя.
-            id_user = accessToken.UserID;
-            // Сохраняем токен в файл с перезаписью существующего файла.
-            SaveUserDataToFileAsync(true);
-            // Загружаем информацию о пользователе с сервера.
-            MainUser = await GetUserByIdAsync(accessToken.UserID);
-            // Успех!
-            return true;
-        }
-
-        
-        /// <summary>
-        /// Авторизация пользователя.
-        /// </summary>
-        /// <param name="user">Объект с данными для авторизации пользователя</param>
-        /// <returns>True - при успешной авторизации</returns>
-        public async Task<bool> UserAuthAsync(UserForAuthorization user)
-        {
-            // При успехе, будет содержать ключ доступа к серверу.
-            AccessToken accessToken = await users.AuthAsync(user);
-            // Сохраняем токен пользователя.
-            api_token = accessToken.Token;
-            // Сохраняем ID пользователя.
-            id_user = accessToken.UserID;
-            // Сохраняем в файл с перезаписью существующего файла.
-            SaveUserDataToFileAsync(true);
-            // Загружаем информацию о пользователе с сервера.
-            MainUser = await GetUserByIdAsync(accessToken.UserID);
-            //
-            return true;
-        }
-
-
-        /// <summary>
-        /// Авторизация пользователя.
-        /// </summary>
-        /// <param name="login">Строка логина</param>
-        /// <param name="pass">Строка пароля</param>
-        public async Task<bool> UserAuthAsync(string login, string pass)
-        {
-            return await UserAuthAsync(new UserForAuthorization
-            {
-                Login = login,
-                Pass = pass
-            });
-        }
-
-        /// <summary>
-        /// Получает подробную информацию об указанном количестве пользователей.
-        /// </summary>
-        /// <param name="count">Кол-во пользователей. Макс: 50</param>
-        /// <param name="shift">Смещение, относительно первого найденного.</param>
-        /// <returns>Информация о пользователях.</returns>
-        public async Task<List<RegisteredUser>> FindUsersAsync(string searchName = null, string searchMName = null, string searchSurname = null)
-        {
-            // Пробуем найти пользователей.
-            return await users.FindAsync(api_token, searchName, searchMName, searchSurname);
-        }
-
-        /// <summary>
-        /// TODO:
-        /// </summary>
-        /// <param name="count"></param>
-        /// <returns></returns>
-        public List<RegisteredUser> NextUsers(int count)
-        {
-            return null;
-        }
-
-        /// <summary>
-        /// Получает подробную информацию о пользоателях с заданными ID.
-        /// </summary>
-        /// <param name="userIds">ID пользователей.</param>
-        /// <returns>Информация о пользователях.</returns>
-        public async Task<List<RegisteredUser>> GetUsersByIdAsync(string[] userIds) => 
-            await users.ByIdAsync(api_token, userIds);
-
-        /// <summary>
-        /// Получение информации о пользователе с заданным ID
-        /// </summary>
-        public async Task<RegisteredUser> GetUserByIdAsync(string userId) =>
-            await users.ByIdAsync(api_token, userId);
-
-        /// <summary>
-        /// Запрашивает у сервера список полов.
-        /// </summary>
-        /// <returns></returns>
-        public async Task<List<Gender>> GetGendersAsync() =>
-            await refBooks.GetListGendersAsync();
 
         /// <summary>
         /// Сохраняет access_token и другие данные о пользователе в файл.

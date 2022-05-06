@@ -1,5 +1,8 @@
-﻿using nsAPI;
+﻿using Helpers;
+using nsAPI;
 using nsAPI.Entities;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -56,12 +59,10 @@ namespace Tadar.Views
             userreg.Pass = "123";
             userreg.BDate = "2000.10.10";
             //var res1 = await api.UserRegAsync(ContentGenerator.getRandUFR());
-            var res1 = await api.UserRegAsync(userreg);
-            if (res1)
-            {
-                _ = MessageBox.Show(api.MainUser.ID + ": " + api.MainUser.Login + " ("
-                    + api.MainUser.Surname + " " + api.MainUser.Name + ")");
-            }
+            await api.UserRegAsync(userreg);
+            _ = MessageBox.Show(api.MainUser.ID + ": " + api.MainUser.Login + " ("
+                + api.MainUser.Surname + " " + api.MainUser.Name + ")");
+            
             var res2 = await api.GetUsersByIdAsync(new string[] { "1", "5", "3" });
             if (res2 != null)
             {
@@ -72,9 +73,39 @@ namespace Tadar.Views
             MessageBox.Show(string.Join(" ", (await api.GetGendersAsync()).Select(e => e.Name)));
         }
 
-        private void test_Click(object sender, RoutedEventArgs e)
+        private async void test_Click(object sender, RoutedEventArgs e)
         {
+            UserForRegistration me = new UserForRegistration()
+            {
+                BDate = DateTime.Parse("31.10.1990").ToString("yyyy.MM.dd"),
+                Email = "alex903_90@mail.ru",
+                GenderID = "1",
+                Login = "Alex",
+                Middlename = "Рогачёв",
+                Name = "Александр",
+                Surname = "Леонидович",
+                Pass = "123",
+            };
+            try
+            {
+                //await api.UserRegAsync(me);
+                await api.UserAuthAsync(me.UserForAuthorization);
 
+                RegisteredClassroom registeredClassroom = await api.GetClassroomByIdAsync("1");
+                //TODO: RegisteredJournal registeredJournal = await api.GetJournalByIdAsync(registeredClassroom.id_Journal);
+
+                _ = MessageBox.Show(registeredClassroom.Name);
+            }
+            catch (UnknownHttpResponseException ex)
+            {
+                Log.Write(ex.ResponseJSON);
+                _ = MessageBox.Show(ex.ResponseJSON);
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex.Message);
+                _ = MessageBox.Show(ex.Message);
+            }
         }
     }
 }

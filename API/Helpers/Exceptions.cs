@@ -5,6 +5,18 @@ using System.Net.Http;
 
 namespace Helpers
 {
+    public enum CODE_ERROR
+    {
+        ERR_NotEnoughInf = 100,
+        ERR_UserAlreadyReg = 101,
+        ERR_UserNotFound = 102,
+        ERR_DBNotAvailable = 103,
+        ERR_SecureKeyProblem = 104,
+        ERR_DBProblem = 105,
+        ERR_JournalAlreadyExist = 106,
+        ERR_UserAlreadyAssociatedWClass = 107,
+        ERR_RefbookNotFound = 108,
+    }
     public enum TypeOperation
     {
         // USERS
@@ -49,13 +61,13 @@ namespace Helpers
     /// </summary>
     class ErrorResponseException : Exception
     {
-        public int ErrCode { get; private set; }
+        public CODE_ERROR ErrCode { get; private set; }
         public string Description { get; private set; }
         public string Additional { get; private set; }
         public ErrorResponseException(Error error, TypeOperation typeOperation) :
             base("От сервера пришел ответ об ошибке " + error.errorInfo.Additional)
         {
-            ErrCode = error.errorInfo.Type;
+            ErrCode = (CODE_ERROR)error.errorInfo.Type;
             Description = error.errorInfo.Description;
             Additional = error.errorInfo.Message;
         }
