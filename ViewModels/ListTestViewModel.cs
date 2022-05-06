@@ -16,6 +16,7 @@ namespace Tadar.ViewModels
         {
             //api.MainUser.Name
             TestClick = new Command(Test_Click);
+            Test14Click = new Command(Test14_Click);
             LoadUsersAsync();
         }
         public async void LoadUsersAsync()
@@ -48,6 +49,17 @@ namespace Tadar.ViewModels
         {
             get;
             
+        }
+        private void Test14_Click(object ob)
+        {
+            work = (RegisteredUser)ob;
+            First.Base_frame.Navigate(new Test14Page());
+
+        }
+        public Command Test14Click
+        {
+            get;
+
         }
         //void MouseDoubleClick(object sender, MouseButtonEventArgs e)
         //{

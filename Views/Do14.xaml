@@ -29,7 +29,7 @@
             Foreground="White"
             Style="{StaticResource MaterialDesignHeadline4TextBlock}" Height="46" Width="498"
             >
-            Создание письменного задания
+            Создание теста "1 из 4"
         </TextBlock>
 
 

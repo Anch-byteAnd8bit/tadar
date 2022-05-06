@@ -65,7 +65,17 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-     
+
+        <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
+             materialDesign:ButtonAssist.CornerRadius="25" x:Name="mark"
+               Height="45"
+                Command="{Binding Test14Click}"
+                Grid.Column="1"
+                Grid.Row="2"
+                Content="14"
+                HorizontalAlignment="Center" 
+                Width="255" FontSize="25" Cursor="Hand" 
+                />
 
 
     </Grid>

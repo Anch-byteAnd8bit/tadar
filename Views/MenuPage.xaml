@@ -33,24 +33,24 @@
             HorizontalAlignment="Center"/>
 
 
-       
-            
-                
-                <TextBlock Grid.Row="1"
+
+
+
+        <TextBlock Grid.Row="1"
             Text="Мои классы:"
                             Foreground="White"
             Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
             VerticalAlignment="Top" />
 
         <ScrollViewer Grid.Row="2">
-        <StackPanel Grid.Row="2" Background="White">
+            <StackPanel Grid.Row="2" Background="White">
                 <ListView ItemsSource="{Binding UsersList}" 
                           
                           IsSynchronizedWithCurrentItem="True" Grid.Row="2"
                   >
-            <ListView.ItemTemplate>
+                    <ListView.ItemTemplate>
                         <DataTemplate>
-                    <StackPanel Margin="1">
+                            <StackPanel Margin="1">
 
                                 <TextBlock
                                     Foreground="#FF673AB7"
@@ -61,7 +61,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-        </StackPanel>
+            </StackPanel>
         </ScrollViewer>
         <TextBlock Grid.Row="3" 
             Text="Мои оценки:"
@@ -70,14 +70,14 @@
             VerticalAlignment="Top" />
 
         <ScrollViewer Grid.Row="4">
-        <StackPanel Grid.Row="4" Background="White"> 
+            <StackPanel Grid.Row="4" Background="White">
                 <ListView ItemsSource="{Binding UsersList}" 
                           Background="White"
                           IsSynchronizedWithCurrentItem="True" Grid.Row="4"
                >
-            <ListView.ItemTemplate>
+                    <ListView.ItemTemplate>
                         <DataTemplate>
-                    <StackPanel Margin="1">
+                            <StackPanel Margin="1">
                                 <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}"
                                            Foreground="#FF673AB7"
                                             
@@ -86,7 +86,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-        </StackPanel>
+            </StackPanel>
         </ScrollViewer>
 
 
@@ -184,6 +184,16 @@
                 Content="Классы"
                 HorizontalAlignment="Center" 
                 Width="255" FontSize="25" Cursor="Hand" 
+                />
+                <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                    materialDesign:ButtonAssist.CornerRadius="25" x:Name="_class"
+                    Height="45"
+                    Command="{Binding DicktClick}"
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    Content="Словарь"
+                    HorizontalAlignment="Center" 
+                    Width="255" FontSize="25" Cursor="Hand"  
                 />
 
             </Grid>
