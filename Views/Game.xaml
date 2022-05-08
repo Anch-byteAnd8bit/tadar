@@ -25,6 +25,52 @@
         </Grid.ColumnDefinitions>
 
 
+        <StackPanel
+            Grid.Row="1"
+            Width="150"
+            HorizontalAlignment="Left"
+            Margin="70 20 0 0"
+            >
+            <Label Name="lbl1" Margin="10" Foreground="White"
+                   FontSize="25"
+               BorderBrush="LightBlue" BorderThickness="2"
+                   
+                   MouseDown="lbl1_MouseDown">пас</Label>
+            <Label Name="lbl2" Margin="10" Foreground="White"
+                   FontSize="25"
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">мойын</Label>
+            <Label Name="lbl3" Margin="10" Foreground="White"
+                   FontSize="25"
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">харах</Label>
+            <Label Name="lbl4" Margin="10" Foreground="White"
+                   FontSize="25"
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">кöгiс</Label>
+            <Label Name="lbl5" Margin="10" Foreground="White"
+                   FontSize="25"
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">ахсы</Label>
+            <Label Name="lbl6" Margin="10" Foreground="White"
+                   FontSize="25"
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">пурун</Label>
+            <Label Name="lbl7" Margin="10" Foreground="White"
+                   FontSize="25"
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">сас</Label>
+
+        </StackPanel>
+
+        <Rectangle
+            x:Name="hair2"
+            Grid.Row="1"
+            Fill="SandyBrown"
+            Height="45"
+            Width="60"
+            VerticalAlignment="Top"
+            Margin="90"
+            RadiusX="20"
+            RadiusY="30"
+            
+            >
+
+        </Rectangle>
 
 
         <Ellipse
@@ -34,6 +80,33 @@
             HorizontalAlignment="Center"
             Visibility="Visible"
             Fill="Beige" Width="80" Height="80" Margin="20" />
+
+        <Polygon
+            x:Name="mot"
+            Grid.Row="1"
+            Fill="LightPink" Points="465, 80,453, 82,450, 82, 435, 80, 450, 90,451, 90, 452, 90" />
+
+        <Polygon
+            x:Name="nos"
+            Grid.Row="1"
+            Fill="Bisque" Points="460, 75,455, 75,455, 75, 445, 75, 450, 70,451, 70, 452, 70" />
+
+
+        <Rectangle
+            x:Name="hair"
+            Grid.Row="1"
+            Fill="SandyBrown"
+            Height="25"
+            Width="60"
+            VerticalAlignment="Top"
+            Margin="18"
+            RadiusX="20"
+            RadiusY="30"
+            
+            >
+            
+        </Rectangle>
+
         <Ellipse
             x:Name="yey"
             Grid.Row="1"

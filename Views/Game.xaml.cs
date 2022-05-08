@@ -28,13 +28,16 @@ namespace Tadar.Views
 
         private void btn_Click(object sender, RoutedEventArgs e)
         {
+            
             DoubleAnimation wh = new DoubleAnimation();
             DoubleAnimation hh = new DoubleAnimation();
+            DoubleAnimation hh2 = new DoubleAnimation();
             string word = txtbox.Text;
-
+            txtbox.Clear();
             switch (word)
             {
-                case "голова":
+                case "пас":
+                    lbl1.Visibility = Visibility.Hidden;
                     wh.From = 0;
                     wh.To = 80;
                     wh.Duration = TimeSpan.FromSeconds(1);
@@ -45,7 +48,7 @@ namespace Tadar.Views
                     head.BeginAnimation(Ellipse.WidthProperty, wh);
                     head.BeginAnimation(Ellipse.HeightProperty, hh);
                     break;
-                case "глаз":
+                case "харах":
                     yey.Visibility = Visibility.Visible;
                     yey1.Visibility = Visibility.Visible;
                     wh.From = 0;
@@ -59,7 +62,8 @@ namespace Tadar.Views
                     yey.BeginAnimation(Ellipse.HeightProperty, hh);
                     yey1.BeginAnimation(Ellipse.HeightProperty, hh);
                     break;
-                case "шея":
+                case "мойын":
+                    lbl2.Visibility = Visibility.Hidden;
                     wh.From = 0;
                     wh.To = 30;
                     wh.Duration = TimeSpan.FromSeconds(1);
@@ -70,7 +74,7 @@ namespace Tadar.Views
                     unhe.BeginAnimation(Rectangle.WidthProperty, wh);
                     unhe.BeginAnimation(Rectangle.HeightProperty, hh);
                     break;
-                case "тело":
+                case "кöгiс":
                     wh.From = 0;
                     wh.To = 90;
                     wh.Duration = TimeSpan.FromSeconds(1);
@@ -81,6 +85,30 @@ namespace Tadar.Views
                     body.BeginAnimation(Rectangle.WidthProperty, wh);
                     body.BeginAnimation(Rectangle.HeightProperty, hh);
                     break;
+                case "ахсы":
+                    mot.Visibility = Visibility.Visible;
+                    
+                    break;
+                case "пурун":
+                    nos.Visibility = Visibility.Visible;
+
+                    break;
+                case "сас":
+                    hair.Visibility = Visibility.Visible;
+                    hair2.Visibility = Visibility.Visible;
+                    wh.From = 0;
+                    wh.To = 60;
+                    wh.Duration = TimeSpan.FromSeconds(1);
+                    hair.BeginAnimation(Rectangle.WidthProperty, wh);
+                    hair2.BeginAnimation(Rectangle.WidthProperty, wh);
+                    hh.From = 0;
+                    hh.To = 25;
+                    hh2.To = 45;
+                    hh.Duration = TimeSpan.FromSeconds(1);
+                    hh2.Duration = TimeSpan.FromSeconds(1);
+                    hair.BeginAnimation(Rectangle.HeightProperty, hh);
+                    hair2.BeginAnimation(Rectangle.HeightProperty, hh2);
+                    break;
 
                 default:
                     MessageBox.Show("Неверное слово!");
@@ -88,10 +116,27 @@ namespace Tadar.Views
                     }
         }
 
+
+        private void lbl1_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Label lbl = (Label)sender;
+            DragDrop.DoDragDrop(lbl, lbl.Content, DragDropEffects.Copy);
+        }
+
+        //private void txtTarget_Drop(object sender, DragEventArgs e)
+        //{
+        //    ((TextBlock)sender).Text = (string)e.Data.GetData(DataFormats.Text);
+        //}
+
+
+
+
+
+
     }
 
-   
-        
-    
+
+
+
 
 }
