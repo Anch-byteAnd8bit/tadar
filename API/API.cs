@@ -13,9 +13,6 @@ namespace nsAPI
 {
     public class API
     {
-        //public int CountUsers = 10;
-        //private long shift = 0;
-
         /// <summary>
         /// 
         /// </summary>
@@ -30,12 +27,13 @@ namespace nsAPI
         // Ключ, который формирует сервер, для доступа к запросам.
         private string api_token = string.Empty; // AT
         // Идентификатор текущего пользователя.
-        private string id_user = string.Empty; // 
+        private string id_user = string.Empty;
 
         //
         private readonly MUsers users;
         private readonly MClassrooms classrooms;
         private readonly MRefBooks refBooks;
+        private readonly MWorks works;
         /// <summary>
         /// Ключ доступа к API.
         /// </summary>
@@ -48,6 +46,7 @@ namespace nsAPI
             users = new MUsers();
             classrooms = new MClassrooms();
             refBooks = new MRefBooks();
+            works = new MWorks();
 
             // Если возможно, то загружаем данные пользователя из файла.
             try
@@ -55,6 +54,7 @@ namespace nsAPI
                 if (File.Exists(pathAccessToken))
                 {
                     LoadUserDataFromFileAsync();
+                    LoadMainUser();
                 }
                 else
                 {
@@ -68,6 +68,12 @@ namespace nsAPI
             }
         }
 
+        private async void LoadMainUser()
+        {
+            MainUser = await users.ByIdAsync(Access_Token, id_user);
+        }
+
+        #region Users
         // =========== Пользователи
 
         /// <summary>
@@ -153,7 +159,9 @@ namespace nsAPI
         /// </summary>
         public async Task<RegisteredUser> GetUserByIdAsync(string userId) =>
             await users.ByIdAsync(api_token, userId);
+        #endregion
 
+        #region Regbooks
         // =========== "Справочники"
 
         /// <summary>
@@ -163,7 +171,19 @@ namespace nsAPI
         public async Task<List<Refbook>> GetGendersAsync() =>
             await refBooks.GetListGendersAsync();
 
+        #endregion
+
+        #region Classes
         // =========== Классы
+        
+
+        /// <summary>
+        /// Создание нового класа.
+        /// </summary>
+        /// <param name="classroom"></param>
+        /// <returns></returns>
+        public async Task<RegisteredClassroom> ClassRegAsync(ClassroomForReg classroom) =>
+            await classrooms.RegAsync(api_token, classroom);
 
         /// <summary>
         /// Получение информации о классах с заданными ID
@@ -183,7 +203,44 @@ namespace nsAPI
         public async Task<List<RegisteredClassroom>> GetClassroomsByUserIdAsync(
             string userId, string roleId = null) => await classrooms.ByUserIdAsync(
                 api_token, userId, roleId);
+        #endregion
+
+        #region Works
         // =========== Тесты
+        /// <summary>
+        /// Возвращает список работ по заданным идентификаторам журналов.
+        /// </summary>
+        /// <param name="journalsID">Массив строк идентификаторов журналов.</param>
+        /// <param name="onlyHeaders">Только заголовки работ.</param>
+        /// <returns>Список работ.</returns>
+        public async Task<Works> GetWorksByJournal(string[] journalsID, bool onlyHeaders = true) =>
+            await works.ByJournalsIdsAsync(Access_Token, journalsID, onlyHeaders);
+
+        /// <summary>
+        /// Возвращает работу по заданному идентификатору журнала.
+        /// </summary>
+        /// <param name="journalID">Строка идентификатора журнала.</param>
+        /// <param name="onlyHeaders">Только заголовок работы.</param>
+        /// <returns>Работа.</returns>
+        public async Task<Works> GetWorksByJournal(string journalID, bool onlyHeaders = true) =>
+            await works.ByJournalIdAsync(Access_Token, journalID, onlyHeaders);
+
+        /// <summary>
+        /// Добавляет в БД тестовую новую работу.
+        /// </summary>
+        /// <param name="testWork">Работа для записи в БД.</param>
+        /// <returns>Идентификатор добавленной работы в строке</returns>
+        public async Task<string> AddTestWorkAsync(TestWorkForAdd testWork) =>
+            await works.TestWorkAddAsync(Access_Token, testWork);
+
+        /// <summary>
+        /// Добавляет в БД новую письменную работу.
+        /// </summary>
+        /// <param name="testWork">Работа для записи в БД.</param>
+        /// <returns>Идентификатор добавленной работы в строке</returns>
+        public async Task<string> AddTextWorkAsync(TextWorkForAdd textWork) =>
+            await works.TextWorkAddAsync(Access_Token, textWork);
+        #endregion
 
         //==================================================================================
         //==================================================================================
@@ -263,13 +320,6 @@ namespace nsAPI
             //return false;
         }
 
-        /// <summary>
-        /// Создание нового класа.
-        /// </summary>
-        /// <param name="classroom"></param>
-        /// <returns></returns>
-        public async Task<RegisteredClassroom> ClassRegAsync(ClassroomForReg classroom) =>
-            await classrooms.RegAsync(api_token, classroom);
     }
 
     static class helper
@@ -294,6 +344,8 @@ namespace nsAPI
         public static string ToJson(this UserForAuthorization self) => JsonConvert.SerializeObject(self, Converter.Settings);
         public static string ToJson(this ClassroomForReg self) => JsonConvert.SerializeObject(self, Converter.Settings);
         public static string ToJson(this RegisteredClassroom self) => JsonConvert.SerializeObject(self, Converter.Settings);
+        public static string ToJson(this TestWorkForAdd self) => JsonConvert.SerializeObject(self, Converter.Settings);
+        public static string ToJson(this TextWorkForAdd self) => JsonConvert.SerializeObject(self, Converter.Settings);
     }
     
 

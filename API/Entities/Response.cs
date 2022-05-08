@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
 namespace nsAPI.Entities
@@ -6,7 +7,7 @@ namespace nsAPI.Entities
     public class Response
     {
         [JsonProperty("response")]
-        public List<object> data { get; set; }
+        public List<JObject> data { get; set; }
         //public Dictionary<string, object> data { get; set; }
         /// <summary>
         /// Получить объект Response из JSON-строки.

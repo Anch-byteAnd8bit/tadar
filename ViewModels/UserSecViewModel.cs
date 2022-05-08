@@ -29,7 +29,7 @@ namespace Tadar.ViewModels
         //{
         //    //UsersList = new ObservableCollection<userViewModel>(users.Select(b => new userViewModel(b)));
         //}
-        public UserSecViewModel(List<Work> works)
+        public UserSecViewModel(Works works)
         {}
         public UserSecViewModel(List<Mark> marks)
         { }

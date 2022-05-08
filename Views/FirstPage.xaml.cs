@@ -89,12 +89,39 @@ namespace Tadar.Views
             try
             {
                 //await api.UserRegAsync(me);
-                await api.UserAuthAsync(me.UserForAuthorization);
+                if (api.MainUser==null) await api.UserAuthAsync(me.UserForAuthorization);
 
-                RegisteredClassroom registeredClassroom = await api.GetClassroomByIdAsync("1");
-                //TODO: RegisteredJournal registeredJournal = await api.GetJournalByIdAsync(registeredClassroom.id_Journal);
-
-                _ = MessageBox.Show(registeredClassroom.Name);
+                //Works work = await api.GetWorksByJournal("1", false);
+                var id = await api.AddTestWorkAsync(new TestWorkForAdd
+                {
+                    WorkHeader = new WorkHeader
+                    {
+                        IdJournal = "1",
+                        DateTimeCreate = DateTime.Now.ToString("d"),
+                        DateTimeStart = DateTime.Now.ToString("d"),
+                        Description = "Эта ТЕСТОВАЯ работа создана из клиента!",
+                        IdTypeWork = "1",
+                        IsNonMark = "0",
+                        MaxDuration = "60",
+                        Name = "Тестовая работа, созданная в клиенте"
+                    },
+                    WorkBody = new List<TestTask>()
+                    {
+                        new TestTask {
+                            IdTest = "1",
+                            NumTask = "1",
+                            PossibleAnsw1 = "A",
+                            PossibleAnsw2 = "B",
+                            PossibleAnsw3 = "C",
+                            PossibleAnsw4 = "D",
+                            RightNum = "1",
+                            Word = "World"
+                        }
+                    }
+                });
+                _ = MessageBox.Show(id);
+                /*_ = MessageBox.Show(work.TestWorks.Count.ToString() + 
+                    ' ' + work.TextWorks.Count.ToString());*/
             }
             catch (UnknownHttpResponseException ex)
             {
