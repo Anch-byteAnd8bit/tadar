@@ -71,7 +71,7 @@ namespace Tadar.ViewModels
         }
         private void Game_Click(object ob)
         {
-            First.Base_frame.Navigate(new Ent_page());
+            First.Base_frame.Navigate(new Game());
             //открытие новой страницы с вводом логина и пароля 
         }
         private void make_test_Click(object ob)

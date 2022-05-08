@@ -1,0 +1,101 @@
+﻿<Page x:Class="Tadar.Views.Game"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Tadar.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="900"
+      Title="Game">
+
+
+
+
+    <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+
+        </Grid.ColumnDefinitions>
+
+
+
+
+        <Ellipse
+            x:Name="head"
+            Grid.Row="1"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Center"
+            Visibility="Visible"
+            Fill="Beige" Width="80" Height="80" Margin="20" />
+        <Ellipse
+            x:Name="yey"
+            Grid.Row="1"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Visibility="Visible"
+            Fill="Black" Width="20" Height="17" Margin="420,46,0,0"  />
+
+
+
+
+        <Button
+            x:Name="btn"
+            
+            Click="btn_Click"
+            Grid.Row="2" Cursor="Hand"
+            Width="150"
+            HorizontalAlignment="Right" Margin="0,36,231,40"
+            >
+            KUKU
+        </Button>
+        <TextBox 
+            x:Name="txtbox"
+            materialDesign:HintAssist.Hint="Введите слово" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+            HorizontalAlignment="Left"
+            Grid.Row="2" 
+            Width="400"
+            Height="40"
+            Cursor="Arrow"
+            Background="White" Margin="85,34,0,34"
+            />
+        <Ellipse
+            x:Name="yey1"
+            Grid.Row="1"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Visibility="Visible"
+            Fill="Black" Width="20" Height="17" Margin="458,45,0,0" RenderTransformOrigin="0.486,0.542" />
+        <Rectangle
+            x:Name="unhe"
+            HorizontalAlignment="Center"
+            Grid.Row="1"
+            Fill="Beige"
+            VerticalAlignment="Top"
+            Margin="95"
+            Width="30"
+            Height="25"
+            
+            />
+        <Rectangle
+            x:Name="body"
+            RadiusX="20"
+            RadiusY="30"
+            HorizontalAlignment="Center"
+            Grid.Row="1"
+            Fill="CornflowerBlue"
+            VerticalAlignment="Top"
+            Margin="115"
+            Width="90"
+            Height="110"
+            
+            />
+
+    </Grid>
+</Page>
