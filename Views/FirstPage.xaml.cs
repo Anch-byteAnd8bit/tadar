@@ -90,65 +90,8 @@ namespace Tadar.Views
             {
                 //await api.UserRegAsync(me);
                 if (api.MainUser==null) await api.UserAuthAsync(me.UserForAuthorization);
-                /*var twfa = new TestWorkForAdd
-                {
-                    WorkHeader = new WorkHeader
-                    {
-                        IdJournal = "1",
-                        DateTimeCreate = DateTime.Now.ToString("d"),
-                        DateTimeStart = DateTime.Now.ToString("d"),
-                        Description = "Эта ТЕСТОВАЯ работа создана из клиента!",
-                        IdTypeWork = "1",
-                        IsNonMark = "0",
-                        MaxDuration = "60",
-                        Name = "Тестовая работа, созданная в клиенте"
-                    },
-                    WorkBody = new List<TestTask>()
-                    {
-                        new TestTask {
-                            IdTest = "1",
-                            NumTask = "1",
-                            PossibleAnsw1 = "A",
-                            PossibleAnsw2 = "B",
-                            PossibleAnsw3 = "C",
-                            PossibleAnsw4 = "D",
-                            RightNum = "1",
-                            Word = "World",
-                        }
-                    }
-                };
-                
-                var id = await api.AddTestWorkAsync(twfa);*/
-                var textWork = new TextWorkForAdd
-                {
-                    WorkHeader = new WorkHeader
-                    {
-                        IdJournal = "1",
-                        DateTimeCreate = DateTime.Now.ToString("d"),
-                        DateTimeStart = DateTime.Now.ToString("d"),
-                        Description = "Эта ТЕКСТОВАЯ работа создана из клиента!",
-                        IdTypeWork = "2",
-                        IsNonMark = "1",
-                        MaxDuration = "25",
-                        Name = "ПРосто ТеКстовая работа"
-                    },
-                    WorkBody = new List<TextTask>()
-                    {
-                        new TextTask {
-                            IdTest = "1",
-                            TaskTitle = "Заголовок текстовой работы",
-                            TaskText = "Содержвние текстовой работы",
-                        }
-                    }
-                };
-                var id = await api.AddTextWorkAsync(textWork);
 
-                _ = MessageBox.Show(id);
-                Works works = await api.GetWorksByJournal("1", false);
-                _ = MessageBox.Show("TestWorks: " + 
-                    string.Join(", ", works.TestWorks.Select(w => w.WorkHeader.Name)) +
-                    "; \nTextWorks: " +
-                    string.Join(", ", works.TextWorks.Select(w => w.WorkHeader.Name)));
+                await api.AddDataToRefbook("topics", new string[] { "1", "2" });
             }
             catch (UnknownHttpResponseException ex)
             {

@@ -1,5 +1,6 @@
 ﻿using Helpers;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using nsAPI.Entities;
 using System;
 using System.Collections.Generic;
@@ -107,10 +108,11 @@ namespace nsAPI.Methods
             //
             httpResponse.data.ForEach(el =>
             {
-                if (el.ContainsKey("WorkHeader"))
+                JObject work = JsonConvert.DeserializeObject<JObject>(el.ToString());
+                if (work.ContainsKey("WorkHeader"))
                 {
                     // Получение заголовка.
-                    WorkHeader workHeader = JsonConvert.DeserializeObject<WorkHeader>(el["WorkHeader"].ToString());
+                    WorkHeader workHeader = JsonConvert.DeserializeObject<WorkHeader>(work["WorkHeader"].ToString());
                     // Расшифровка заголовка.
                     workHeader.DecryptByAES();
                     // Test
@@ -120,9 +122,9 @@ namespace nsAPI.Methods
                         TestWork testWork = new TestWork();
                         //
                         testWork.WorkHeader = workHeader;
-                        if (el.ContainsKey("WorkBody"))
+                        if (work.ContainsKey("WorkBody"))
                         {
-                            testWork.WorkBody = JsonConvert.DeserializeObject<List<TestTask>>(el["WorkBody"].ToString());
+                            testWork.WorkBody = JsonConvert.DeserializeObject<List<TestTask>>(work["WorkBody"].ToString());
                             testWork.DecryptBodyByAES();
                         }
                         // Сохраняем работу.
@@ -133,9 +135,9 @@ namespace nsAPI.Methods
                         //
                         TextWork textWork = new TextWork();
                         textWork.WorkHeader = workHeader;
-                        if (el.ContainsKey("WorkBody"))
+                        if (work.ContainsKey("WorkBody"))
                         {
-                            textWork.WorkBody = JsonConvert.DeserializeObject<List<TextTask>>(el["WorkBody"].ToString());
+                            textWork.WorkBody = JsonConvert.DeserializeObject<List<TextTask>>(work["WorkBody"].ToString());
                             textWork.DecryptBodyByAES();
                         }
                         // Сохраняем работу.

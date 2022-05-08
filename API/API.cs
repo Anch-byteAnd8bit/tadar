@@ -161,7 +161,7 @@ namespace nsAPI
             await users.ByIdAsync(api_token, userId);
         #endregion
 
-        #region Regbooks
+        #region Refbooks
         // =========== "Справочники"
 
         /// <summary>
@@ -171,11 +171,28 @@ namespace nsAPI
         public async Task<List<Refbook>> GetGendersAsync() =>
             await refBooks.GetListGendersAsync();
 
+        /// <summary>
+        /// Добавляет данные в указанный справочник.
+        /// </summary>
+        /// <param name="refbook">Наименование справочника (таблицы в БД)</param>
+        /// <param name="names">Данные.</param>
+        /// <returns>Ничего.</returns>
+        public async Task<bool> AddDataToRefbook(string refbook, string[] names) =>
+            await refBooks.AddDataToRefbook(Access_Token, refbook, new List<string>(names));
+
+        /// <summary>
+        /// Добавляет данные в указанный справочник.
+        /// </summary>
+        /// <param name="refbook">Наименование справочника (таблицы в БД)</param>
+        /// <param name="names">Данные.</param>
+        /// <returns>Ничего.</returns>
+        public async Task<bool> AddDataToRefbook(string refbook, List<string> names) =>
+            await refBooks.AddDataToRefbook(Access_Token, refbook, names);
         #endregion
 
         #region Classes
         // =========== Классы
-        
+
 
         /// <summary>
         /// Создание нового класа.
