@@ -2,6 +2,7 @@
 using nsAPI.Entities;
 using System;
 using System.Collections.ObjectModel;
+using Tadar.Helpers;
 using Tadar.Models;
 
 namespace Tadar.ViewModels
@@ -17,11 +18,23 @@ namespace Tadar.ViewModels
 
 
           this.work = work;
-          LoadUsersAsync();
-
+            LoadClick = new Command(Load_Click);
+            LoadUsersAsync();
         }
 
+        private void Load_Click(object ob)
+        {
+            First.Base_frame.Navigate(new Ent_page());
+            //открытие новой страницы с вводом логина и пароля 
 
+
+
+        }
+        public Command LoadClick
+        {
+            get;
+            set;
+        }
         public async void LoadUsersAsync()
         {
             try

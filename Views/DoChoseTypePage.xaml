@@ -15,8 +15,6 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -26,7 +24,7 @@
 
         <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
              materialDesign:ButtonAssist.CornerRadius="25"
-               Height="45"
+               Height="65"
                 Command="{Binding WriteClick}"
                 Grid.Column="0"
                 Grid.Row="1"
@@ -36,7 +34,7 @@
                 />
         <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
              materialDesign:ButtonAssist.CornerRadius="25" 
-               Height="45"
+               Height="65"
                 Command="{Binding Test14Click}"
                 Grid.Column="0"
                 Grid.Row="2"
@@ -45,26 +43,8 @@
                 Width="400" FontSize="25" Cursor="Hand" 
                 />
 
-        <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
-             materialDesign:ButtonAssist.CornerRadius="25" 
-               Height="45"
-                Command="{Binding PadClick}"
-                Grid.Column="0"
-                Grid.Row="3"
-                Content="Создать тест по падежам"
-                HorizontalAlignment="Center" 
-                Width="400" FontSize="25" Cursor="Hand" 
-                />
+        
 
-        <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
-             materialDesign:ButtonAssist.CornerRadius="25" 
-               Height="45"
-                Command="{Binding DropClick}"
-                Grid.Column="0"
-                Grid.Row="4"
-                Content="Создать тест &quot;Предложение&quot;"
-                HorizontalAlignment="Center" 
-                Width="400" FontSize="25" Cursor="Hand" 
-                />
+        
     </Grid>
 </Page>

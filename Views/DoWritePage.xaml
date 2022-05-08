@@ -4,8 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Tadar" xmlns:viewmodels="clr-namespace:Tadar.ViewModels"
-      
+      xmlns:local="clr-namespace:Tadar" xmlns:viewmodels="clr-namespace:Tadar.ViewModels" xmlns:rules="clr-namespace:Tadar.Views"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="900"
       Title="DoWritePage">
@@ -13,8 +12,9 @@
     <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
             <RowDefinition Height="70*" ></RowDefinition>
-            <RowDefinition Height="15*" ></RowDefinition>
+            <RowDefinition Height="10*" ></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="15*"></ColumnDefinition>
@@ -32,6 +32,26 @@
             >
             Создание письменного задания
         </TextBlock>
+        <TextBox Name="f_Box" 
+                 Grid.Row="1" 
+                 Grid.Column="1"
+                 materialDesign:HintAssist.Hint="Введите название задание"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 FontSize="14"
+                 Width="580" Height="40" 
+                 Background="White"
+                 MaxLines="1" MaxLength="57"
+                 TextAlignment="Center"
+                 AutoWordSelection="True"
+                 Foreground="Black" Cursor="Arrow">
+            <TextBox.Text>
+                <Binding Path="Workname" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <rules:NotEmptyValidationRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
         <TextBlock 
             Grid.Row="1"
@@ -41,7 +61,7 @@
 
         <StackPanel
           
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="1"
             Background="White"
             Height="450"
@@ -65,16 +85,15 @@
 
 
         <Button  Style="{StaticResource MaterialDesignFlatMidBgButton}"
-             materialDesign:ButtonAssist.CornerRadius="25" x:Name="ent"
+             materialDesign:ButtonAssist.CornerRadius="25" 
                
-                Command="{Binding EntCommand}"
-            CommandParameter="{Binding ElementName=pswbox}"
+                Command="{Binding CreateClick}"
+            Content="Создать"
                 Grid.Column="1"
                 Grid.Row="3"
-                Content="Создать"
                 HorizontalAlignment="Center" 
-                 VerticalAlignment="Top"
-                Width="200" Height="40" FontSize="21"   
+                 VerticalAlignment="Center"
+                Width="200" Height="40" FontSize="21" Cursor="Hand"   
                 />
 
 
@@ -84,7 +103,7 @@
 
         <StackPanel VerticalAlignment="Center"
             HorizontalAlignment="Left"
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="2" Margin="78,0,0,0" >
             <Button
                 Click="BigOClick"
@@ -153,7 +172,7 @@
 
         <StackPanel
             VerticalAlignment="Center"
-            HorizontalAlignment="Left" Grid.Row="1"
+            HorizontalAlignment="Left" Grid.Row="2"
             Grid.Column="2" Margin="13,0,0,0" >
             <Button
                 Click="SmOClick"

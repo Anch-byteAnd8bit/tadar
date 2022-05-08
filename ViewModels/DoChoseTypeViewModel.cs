@@ -17,8 +17,7 @@ namespace Tadar.ViewModels
             //api.MainUser.Name
             WriteClick = new Command(Write_Click);
             Test14Click = new Command(Test14_Click);
-            PadClick = new Command(Pad_Click);
-            DropClick = new Command(Drop_Click);
+            
           
         }
 
@@ -33,16 +32,7 @@ namespace Tadar.ViewModels
             First.Base_frame.Navigate(new Do14());
             //открытие новой страницы с вводом логина и пароля 
         }
-        private void Pad_Click(object ob)
-        {
-            First.Base_frame.Navigate(new Do14());
-            //открытие новой страницы с вводом логина и пароля 
-        }
-        private void Drop_Click(object ob)
-        {
-            First.Base_frame.Navigate(new Do14());
-            //открытие новой страницы с вводом логина и пароля 
-        }
+       
 
         public Command WriteClick
         {
@@ -54,16 +44,7 @@ namespace Tadar.ViewModels
             get;
             set;
         }
-        public Command PadClick
-        {
-            get;
-            set;
-        }
-        public Command DropClick
-        {
-            get;
-            set;
-        }
+    
 
     }
 }

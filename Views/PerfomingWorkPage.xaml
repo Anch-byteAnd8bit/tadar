@@ -27,6 +27,16 @@
             <ColumnDefinition Width="2*"></ColumnDefinition>
 
         </Grid.ColumnDefinitions>
+        <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                    materialDesign:ButtonAssist.CornerRadius="25" x:Name="_class"
+                    Height="45"
+                    Command="{Binding LoadClick}"
+                    Grid.Column="1"
+                    Grid.Row="3"
+                    Content="Отправить"
+                    HorizontalAlignment="Center" 
+                    Width="255" FontSize="25" Cursor="Hand"  
+                />
         <TextBlock
             Grid.Row="0"
             Grid.Column="1"

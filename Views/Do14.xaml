@@ -4,7 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:viewmodels="clr-namespace:Tadar.ViewModels"
+      xmlns:viewmodels="clr-namespace:Tadar.ViewModels" xmlns:rules="clr-namespace:Tadar.Views"
+      
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="900"
       Title="Do14">
@@ -12,8 +13,9 @@
     <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
             <RowDefinition Height="70*" ></RowDefinition>
-            <RowDefinition Height="15*" ></RowDefinition>
+            <RowDefinition Height="8*" ></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="15*"></ColumnDefinition>
@@ -33,12 +35,321 @@
         </TextBlock>
 
 
+        <TextBox Name="f_Box" 
+                 Grid.Row="1" 
+                 Grid.Column="1"
+                 materialDesign:HintAssist.Hint="Введите название теста"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 FontSize="14"
+                 Width="500" Height="40" 
+                 Background="White"
+                 MaxLines="1" MaxLength="57"
+                 TextAlignment="Center"
+                 AutoWordSelection="True"
+                 Foreground="Black" Cursor="Arrow">
+            <TextBox.Text>
+                <Binding Path="Testname" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <rules:NotEmptyValidationRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+
+
+        <ListView
+            HorizontalAlignment="Center"
+            Grid.Row="2"
+            Grid.Column="1" 
+            x:Name="lvs"
+            ItemsSource="{Binding TasksList}"
+            IsSynchronizedWithCurrentItem="True">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBox Name="ans_Box" 
+                             Grid.Row="1" 
+                             Grid.Column="1"
+                             materialDesign:HintAssist.Hint="Введите вопрос"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                             FontSize="14"
+                             Width="500" Height="40" 
+                             Background="White"
+                             MaxLines="1" MaxLength="57"
+                             TextAlignment="Center"
+                             AutoWordSelection="True"
+                             Foreground="Black" Cursor="Arrow">
+                            <TextBox.Text>
+                                <Binding Path="Testname" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <rules:NotEmptyValidationRule />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBox Name="_1Box" 
+                             Grid.Row="1" 
+                             Grid.Column="1"
+                             materialDesign:HintAssist.Hint="Введите ответ №1"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                             FontSize="14"
+                             Width="500" Height="40" 
+                             Background="White"
+                             MaxLines="1" MaxLength="57"
+                             TextAlignment="Center"
+                             AutoWordSelection="True"
+                             Foreground="Black" Cursor="Arrow">
+                            <TextBox.Text>
+                                <Binding Path="Testname" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <rules:NotEmptyValidationRule />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBox Name="_2Box" 
+                             Grid.Row="1" 
+                             Grid.Column="1"
+                             materialDesign:HintAssist.Hint="Введите ответ №2"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                             FontSize="14"
+                             Width="500" Height="40" 
+                             Background="White"
+                             MaxLines="1" MaxLength="57"
+                             TextAlignment="Center"
+                             AutoWordSelection="True"
+                             Foreground="Black" Cursor="Arrow">
+                            <TextBox.Text>
+                                <Binding Path="Testname" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <rules:NotEmptyValidationRule />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBox Name="_3Box" 
+                             Grid.Row="1" 
+                             Grid.Column="1"
+                             materialDesign:HintAssist.Hint="Введите ответ №3"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                             FontSize="14"
+                             Width="500" Height="40" 
+                             Background="White"
+                             MaxLines="1" MaxLength="57"
+                             TextAlignment="Center"
+                             AutoWordSelection="True"
+                             Foreground="Black" Cursor="Arrow">
+                            <TextBox.Text>
+                                <Binding Path="Testname" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <rules:NotEmptyValidationRule />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBox Name="_4Box" 
+                             Grid.Row="1" 
+                             Grid.Column="1"
+                             materialDesign:HintAssist.Hint="Введите ответ №4"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                             FontSize="14"
+                             Width="500" Height="40" 
+                             Background="White"
+                             MaxLines="1" MaxLength="57"
+                             TextAlignment="Center"
+                             AutoWordSelection="True"
+                             Foreground="Black" Cursor="Arrow">
+                            <TextBox.Text>
+                                <Binding Path="Testname" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <rules:NotEmptyValidationRule />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBox Name="r_Box" 
+                             Grid.Row="1" 
+                             Grid.Column="1"
+                             materialDesign:HintAssist.Hint="Введите № правильного ответа"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                             FontSize="14"
+                             Width="500" Height="40" 
+                             Background="White"
+                             MaxLines="1" MaxLength="57"
+                             TextAlignment="Center"
+                             AutoWordSelection="True"
+                             Foreground="Black" Cursor="Arrow">
+                            <TextBox.Text>
+                                <Binding Path="Testname" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <rules:NotEmptyValidationRule />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+        <StackPanel VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Grid.Row="2"
+            Grid.Column="2" Margin="78,0,0,0" >
+            <Button
+                Click="BigOClick"
+            Margin="3"
+           Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                Ӧ
+            </Button>
+
+            <Button
+                Click="BigIClick"
+                 Margin="3"
+           Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                І
+            </Button>
+
+            <Button
+                Click="BigYClick"
+                 Margin="3"
+           Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                Ӱ
+            </Button>
+            <Button
+                Click="BigFClick"
+                 Margin="3"
+       Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                Ғ
+            </Button>
+            <Button
+                Click="BigNClick"
+                 Margin="3"
+           Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                Ң
+            </Button>
+            <Button
+                Click="BigJClick"
+                 Margin="3"
+          Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                Ҷ
+            </Button>
+        </StackPanel>
+
+        <StackPanel
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left" Grid.Row="2"
+            Grid.Column="2" Margin="13,0,0,0" >
+            <Button
+                Click="SmOClick"
+           Width="40"
+            Height="40"
+                 Margin="3"
+            
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                ӧ
+            </Button>
+
+            <Button
+                Click="SmIClick"
+                 Margin="3"
+          Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                і
+            </Button>
+            <Button
+                Click="SmYClick"
+                 Margin="3"
+           Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                ӱ
+            </Button>
+            <Button
+                Click="SmFClick"
+                 Margin="3"
+          Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                ғ
+            </Button>
+            <Button
+                Click="SmNClick"
+                 Margin="3"
+          Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                ң
+            </Button>
+            <Button
+                Click="SmJClick"
+                 Margin="3"
+          Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                ҷ
+            </Button>
+        </StackPanel>
+
+
         <TextBlock 
             Grid.Row="1"
-            Grid.Column="1"
+            Grid.Column="0"
             Text="{Binding Name}" FontWeight="Bold"/>
 
 
+
+        <Button  Style="{StaticResource MaterialDesignFlatMidBgButton}"
+             materialDesign:ButtonAssist.CornerRadius="25" 
+               
+                Command="{Binding CreateClick}"
+            Content="Создать"
+                Grid.Column="1"
+                Grid.Row="3"
+                HorizontalAlignment="Center" 
+                 VerticalAlignment="Center"
+                Width="200" Height="40" FontSize="21" Cursor="Hand"   
+                />
 
     </Grid> 
 </Page>
