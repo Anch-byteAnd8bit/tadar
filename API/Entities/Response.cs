@@ -7,7 +7,7 @@ namespace nsAPI.Entities
     public class Response
     {
         [JsonProperty("response")]
-        public List<JObject> data { get; set; }
+        public List<object> data { get; set; }
         //public Dictionary<string, object> data { get; set; }
         /// <summary>
         /// Получить объект Response из JSON-строки.

@@ -23,7 +23,7 @@ namespace nsAPI
         /// </summary>
         private string pathAccessToken = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "Tadar\\user\\ukru");
         //private string pathAccessToken = Path.Combine(Xamarin.Essentials.FileSystem.AppDataDirectory, "Tadar\\user\\ukru");
-        
+
         // Ключ, который формирует сервер, для доступа к запросам.
         private string api_token = string.Empty; // AT
         // Идентификатор текущего пользователя.
@@ -34,6 +34,7 @@ namespace nsAPI
         private readonly MClassrooms classrooms;
         private readonly MRefBooks refBooks;
         private readonly MWorks works;
+        private readonly MTheories theories;
         /// <summary>
         /// Ключ доступа к API.
         /// </summary>
@@ -47,6 +48,7 @@ namespace nsAPI
             classrooms = new MClassrooms();
             refBooks = new MRefBooks();
             works = new MWorks();
+            theories = new MTheories();
 
             // Если возможно, то загружаем данные пользователя из файла.
             try
@@ -99,7 +101,7 @@ namespace nsAPI
             //return true;
         }
 
-        
+
         /// <summary>
         /// Авторизация пользователя.
         /// </summary>
@@ -143,7 +145,7 @@ namespace nsAPI
         public async Task<List<RegisteredUser>> FindUsersAsync(string searchName = null, string searchMName = null, string searchSurname = null)
         {
             // Пробуем найти пользователей.
-           return await users.FindAsync(api_token, null, searchName, searchMName, searchSurname);
+            return await users.FindAsync(api_token, null, searchName, searchMName, searchSurname);
         }
 
         /// <summary>
@@ -151,7 +153,7 @@ namespace nsAPI
         /// </summary>
         /// <param name="userIds">ID пользователей.</param>
         /// <returns>Информация о пользователях.</returns>
-        public async Task<List<RegisteredUser>> GetUsersByIdAsync(string[] userIds) => 
+        public async Task<List<RegisteredUser>> GetUsersByIdAsync(string[] userIds) =>
             await users.ByIdAsync(api_token, userIds);
 
         /// <summary>
@@ -161,7 +163,7 @@ namespace nsAPI
             await users.ByIdAsync(api_token, userId);
         #endregion
 
-        #region Regbooks
+        #region Refbooks
         // =========== "Справочники"
 
         /// <summary>
@@ -171,11 +173,28 @@ namespace nsAPI
         public async Task<List<Refbook>> GetGendersAsync() =>
             await refBooks.GetListGendersAsync();
 
+        /// <summary>
+        /// Добавляет данные в указанный справочник.
+        /// </summary>
+        /// <param name="refbook">Наименование справочника (таблицы в БД)</param>
+        /// <param name="names">Данные.</param>
+        /// <returns>Ничего.</returns>
+        public async Task<bool> AddDataToRefbook(string refbook, string[] names) =>
+            await refBooks.AddDataToRefbook(Access_Token, refbook, new List<string>(names));
+
+        /// <summary>
+        /// Добавляет данные в указанный справочник.
+        /// </summary>
+        /// <param name="refbook">Наименование справочника (таблицы в БД)</param>
+        /// <param name="names">Данные.</param>
+        /// <returns>Ничего.</returns>
+        public async Task<bool> AddDataToRefbook(string refbook, List<string> names) =>
+            await refBooks.AddDataToRefbook(Access_Token, refbook, names);
         #endregion
 
         #region Classes
         // =========== Классы
-        
+
 
         /// <summary>
         /// Создание нового класа.
@@ -242,6 +261,47 @@ namespace nsAPI
             await works.TextWorkAddAsync(Access_Token, textWork);
         #endregion
 
+        #region Theories
+
+        /// <summary>
+        /// Возвращает теорию по заданному идентификтаору.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Task<Theory> GetTheoryByIDAsync(string id) =>
+            theories.ByIdAsync(Access_Token, id);
+
+        /// <summary>
+        /// Список теории по заданному массиву ID.
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public Task<List<Theory>> GetTheoriesByIDsAsync(string[] ids) =>
+            theories.ByIDsAsync(Access_Token, new List<string>(ids));
+        /// <summary>
+        /// Список теории по заданному списку ID.
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public Task<List<Theory>> GetTheoriesByIDsAsync(List<string> ids) =>
+            theories.ByIDsAsync(Access_Token, ids);
+
+        /// <summary>
+        /// Возвращает список теории по заданному ID класса.
+        /// </summary>
+        /// <param name="id_class"></param>
+        /// <returns></returns>
+        public Task<List<Theory>> GetTheoriesByClassroomIDAsync(string id_class) =>
+            theories.ByClassIdAsync(Access_Token, id_class);
+
+        /// <summary>
+        /// Добавление теории в БД.
+        /// </summary>
+        /// <param name="theory">Теория, которую надо добавить в БД.</param>
+        /// <returns>Теория с идентификаторами самой теории и заголовка</returns>
+        public Task<Theory> AddTheory(Theory theory) =>
+            theories.RegAsync(Access_Token, theory);
+        #endregion
         //==================================================================================
         //==================================================================================
         //==================================================================================
