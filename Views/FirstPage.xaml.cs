@@ -87,14 +87,23 @@ namespace Tadar.Views
                 Pass = "123",
             };
 
-            Theory theory = new Theory()
+            TextAnswerForAdd answer = new TextAnswerForAdd()
             {
-                id_class = "1",
-                content = "Эта теория создана прямиком из клиента! Правда здорово?\nДумаю это успех!",
-                source = null,
-                topic = new Topic
+                AnswerHeader = new AnswerHeader
                 {
-                    Name = "Теория, созданная в клиенте"
+                    id_Student = "1",
+                    id_TypeWork = "2", // text
+                    id_RecordInJ = "65", // id work
+                    Mark = null,
+                    DateTimeS = DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss"),
+                    DateTimeE = DateTime.Now.AddMinutes(30).ToString("yyyy.MM.dd HH:mm:ss"),
+                },
+                AnswerBody = new List<TextAnswerBody> {
+                    new TextAnswerBody()
+                    {
+                        id_Task = "12",
+                        AnswText = "Написал из клиента ответ на письменное задание. Вот..."
+                    },
                 }
             };
 
@@ -103,8 +112,8 @@ namespace Tadar.Views
                 //await api.UserRegAsync(me);
                 if (api.MainUser==null) await api.UserAuthAsync(me.UserForAuthorization);
 
-                theory = await api.AddTheory(theory);
-                _ = MessageBox.Show("theory id: " + theory.ID + " topic id: " + theory.topic.ID);
+                Answers answers = await api.GetAnswersByWorks(new string[] { "64","65" }, false);
+                _ = MessageBox.Show(answers.TestAnswers.Count.ToString() + " " + answers.TextAnswers.Count.ToString());
             }
             catch (UnknownHttpResponseException ex)
             {

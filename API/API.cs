@@ -35,6 +35,7 @@ namespace nsAPI
         private readonly MRefBooks refBooks;
         private readonly MWorks works;
         private readonly MTheories theories;
+        private readonly MAnswers answers;
         /// <summary>
         /// Ключ доступа к API.
         /// </summary>
@@ -49,7 +50,7 @@ namespace nsAPI
             refBooks = new MRefBooks();
             works = new MWorks();
             theories = new MTheories();
-
+            answers = new MAnswers();
             // Если возможно, то загружаем данные пользователя из файла.
             try
             {
@@ -174,6 +175,14 @@ namespace nsAPI
             await refBooks.GetListGendersAsync();
 
         /// <summary>
+        /// Возвращает все данные из указанного справочника.
+        /// </summary>
+        /// <param name="nameRefbook">Наименование справочника маленькими буквами.</param>
+        /// <returns>Все данные из указанного справочника.</returns>
+        public async Task<List<Refbook>> GetDataFromRefbook(string nameRefbook) =>
+            await refBooks.GetAllDataAsync(nameRefbook);
+
+        /// <summary>
         /// Добавляет данные в указанный справочник.
         /// </summary>
         /// <param name="refbook">Наименование справочника (таблицы в БД)</param>
@@ -232,7 +241,7 @@ namespace nsAPI
         /// <param name="journalsID">Массив строк идентификаторов журналов.</param>
         /// <param name="onlyHeaders">Только заголовки работ.</param>
         /// <returns>Список работ.</returns>
-        public async Task<Works> GetWorksByJournal(string[] journalsID, bool onlyHeaders = true) =>
+        public async Task<Works> GetWorksByJournalAsync(string[] journalsID, bool onlyHeaders = true) =>
             await works.ByJournalsIdsAsync(Access_Token, journalsID, onlyHeaders);
 
         /// <summary>
@@ -241,7 +250,7 @@ namespace nsAPI
         /// <param name="journalID">Строка идентификатора журнала.</param>
         /// <param name="onlyHeaders">Только заголовок работы.</param>
         /// <returns>Работа.</returns>
-        public async Task<Works> GetWorksByJournal(string journalID, bool onlyHeaders = true) =>
+        public async Task<Works> GetWorksByJournalAsync(string journalID, bool onlyHeaders = true) =>
             await works.ByJournalIdAsync(Access_Token, journalID, onlyHeaders);
 
         /// <summary>
@@ -259,6 +268,44 @@ namespace nsAPI
         /// <returns>Идентификатор добавленной работы в строке</returns>
         public async Task<string> AddTextWorkAsync(TextWorkForAdd textWork) =>
             await works.TextWorkAddAsync(Access_Token, textWork);
+        #endregion
+
+        #region Answers
+        // =========== Ответы
+
+        /// <summary>
+        /// Возвращает список ответов по заданным ИД работ.
+        /// </summary>
+        /// <param name="worksID"></param>
+        /// <param name="onlyHeaders"></param>
+        /// <returns></returns>
+        public async Task<Answers> GetAnswersByWorks(string[] worksID, bool onlyHeaders = true) =>
+            await answers.ByWorksIdsAsync(Access_Token, worksID, onlyHeaders);
+
+        /// <summary>
+        /// Возвращает список ответов по заданному ИД работы.
+        /// </summary>
+        /// <param name="workID"></param>
+        /// <param name="onlyHeaders"></param>
+        /// <returns></returns>
+        public async Task<Answers> GetAnswersByWork(string workID, bool onlyHeaders = true) =>
+            await answers.ByWorkIdAsync(Access_Token, workID, onlyHeaders);
+
+        /// <summary>
+        /// Добавляет ответы на тестовую работу.
+        /// </summary>
+        /// <param name="testAnswer"></param>
+        /// <returns>Возвращает идентификатор ответа в БД</returns>
+        public async Task<string> AddTestAnswerAsync(TestAnswerForAdd testAnswer) =>
+            await answers.TestAnswerAddAsync(Access_Token, testAnswer);
+
+        /// <summary>
+        /// Добавляет ответы на текстовую работу.
+        /// </summary>
+        /// <param name="textAnswer"></param>
+        /// <returns>Возвращает идентификатор ответа в БД (ID записи из таблицы EexecutinOfWorks)</returns>
+        public async Task<string> AddTextAnswerAsync(TextAnswerForAdd textAnswer) =>
+            await answers.TextAnswerAddAsync(Access_Token, textAnswer);
         #endregion
 
         #region Theories
@@ -406,6 +453,9 @@ namespace nsAPI
         public static string ToJson(this RegisteredClassroom self) => JsonConvert.SerializeObject(self, Converter.Settings);
         public static string ToJson(this TestWorkForAdd self) => JsonConvert.SerializeObject(self, Converter.Settings);
         public static string ToJson(this TextWorkForAdd self) => JsonConvert.SerializeObject(self, Converter.Settings);
+        public static string ToJson(this TestAnswerForAdd self) => JsonConvert.SerializeObject(self, Converter.Settings);
+        public static string ToJson(this TextAnswerForAdd self) => JsonConvert.SerializeObject(self, Converter.Settings);
+        
     }
     
 

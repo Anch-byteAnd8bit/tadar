@@ -11,11 +11,16 @@ namespace nsAPI.Methods
 {
     class MRefBooks : Basic
     {
-        public async Task<List<Refbook>> GetListGendersAsync()
+        /// <summary>
+        /// Возвращает все данные из указанного справочника.
+        /// </summary>
+        /// <param name="nameRefbook">Наименование справочника маленькими буквами.</param>
+        /// <returns>Все данные из указанного справочника.</returns>
+        public async Task<List<Refbook>> GetAllDataAsync(string nameRefbook)
         {
             // Добавляем в запрос тип справочника.
             Dictionary<string, string> urlParams = new Dictionary<string, string>();
-            urlParams["refbook"] = "genders";
+            urlParams["refbook"] = nameRefbook;
 
             //Dictionary<string, string> p = new Dictionary<string, string>();
             //p["refbook"] = "genders";
@@ -29,6 +34,13 @@ namespace nsAPI.Methods
             });
             return res;
         }
+
+        /// <summary>
+        /// Возвращает список гендеров.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Refbook>> GetListGendersAsync() =>
+            await GetAllDataAsync("genders");
 
         /// <summary>
         /// Добавление письменной работы в журнал.

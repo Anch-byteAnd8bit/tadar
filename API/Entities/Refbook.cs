@@ -4,6 +4,9 @@ namespace nsAPI.Entities
 {
     public class Refbook
     {
+        /// <summary>
+        /// Заполняется автоматически
+        /// </summary>
         [JsonProperty("ID")]
         public string ID { get; set; }
 
