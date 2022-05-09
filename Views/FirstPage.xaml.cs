@@ -86,12 +86,25 @@ namespace Tadar.Views
                 Surname = "Леонидович",
                 Pass = "123",
             };
+
+            Theory theory = new Theory()
+            {
+                id_class = "1",
+                content = "Эта теория создана прямиком из клиента! Правда здорово?\nДумаю это успех!",
+                source = null,
+                topic = new Topic
+                {
+                    Name = "Теория, созданная в клиенте"
+                }
+            };
+
             try
             {
                 //await api.UserRegAsync(me);
                 if (api.MainUser==null) await api.UserAuthAsync(me.UserForAuthorization);
 
-                await api.AddDataToRefbook("topics", new string[] { "1", "2" });
+                theory = await api.AddTheory(theory);
+                _ = MessageBox.Show("theory id: " + theory.ID + " topic id: " + theory.topic.ID);
             }
             catch (UnknownHttpResponseException ex)
             {
