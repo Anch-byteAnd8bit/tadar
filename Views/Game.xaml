@@ -54,8 +54,50 @@
             <Label Name="lbl7" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">сас</Label>
+            <Label Name="lbl8" Margin="10" Foreground="White"
+                   FontSize="25"
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">азах</Label>
 
         </StackPanel>
+
+        <StackPanel
+            Grid.Row="1"
+            Width="150"
+            HorizontalAlignment="Right"
+            Margin="0 20 70 0"
+            >
+            <Label Name="lbl9" Margin="10" Foreground="White"
+                   FontSize="25"
+               BorderBrush="LightBlue" BorderThickness="2"
+                   
+                   MouseDown="lbl1_MouseDown">пас</Label>
+            <Label Name="lbl10" Margin="10" Foreground="White"
+                   FontSize="25"
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">мойын</Label>
+            <Label Name="lbl11" Margin="10" Foreground="White"
+                   FontSize="25"
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">харах</Label>
+            <Label Name="lbl12" Margin="10" Foreground="White"
+                   FontSize="25"
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">кöгiс</Label>
+            <Label Name="lbl13" Margin="10" Foreground="White"
+                   FontSize="25"
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">ахсы</Label>
+            <Label Name="lbl14" Margin="10" Foreground="White"
+                   FontSize="25"
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">пурун</Label>
+            <Label Name="lbl15" Margin="10" Foreground="White"
+                   FontSize="25"
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">сас</Label>
+            <Label Name="lbl16" Margin="10" Foreground="White"
+                   FontSize="25"
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">азах</Label>
+
+        </StackPanel>
+
+
+
+
 
         <Rectangle
             x:Name="hair2"
@@ -104,7 +146,7 @@
             RadiusY="30"
             
             >
-            
+
         </Rectangle>
 
         <Ellipse
@@ -169,6 +211,33 @@
             Height="110"
             
             />
+        <Rectangle
+            x:Name="foot1"
+            HorizontalAlignment="Left"
+            RadiusX="20"
+            RadiusY="10"
+            Grid.Row="1"
+            Fill="CornflowerBlue"
+            VerticalAlignment="Top"
+            Margin="413,210,0,0"
+            Width="27"
+            Height="140"
+            
+            />
+        <Rectangle
+            x:Name="foot2"
+            HorizontalAlignment="Left"
+            RadiusX="20"
+            RadiusY="10"
+            Grid.Row="1"
+            Fill="CornflowerBlue"
+            VerticalAlignment="Top"
+            Margin="460,211,0,0"
+            Width="27"
+            Height="140"
+            
+            />
+
 
     </Grid>
 </Page>

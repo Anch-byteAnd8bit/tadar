@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Tadar.Helpers;
 using Tadar.Models;
 using Tadar.Views;
@@ -22,8 +23,9 @@ namespace Tadar.ViewModels
             // EntCommand = new Command(OnSave);
             CreateClick = new Command(Create_Click);
             LoadUsersAsync();
-
+            
         }
+
 
         public async void LoadUsersAsync()
         {
@@ -66,6 +68,7 @@ namespace Tadar.ViewModels
                 OnPropertyChanged(nameof(Name));
             }
         }
+       
         public string Testname
         {
             // Получить.

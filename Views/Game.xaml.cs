@@ -49,6 +49,7 @@ namespace Tadar.Views
                     head.BeginAnimation(Ellipse.HeightProperty, hh);
                     break;
                 case "харах":
+                    lbl3.Visibility = Visibility.Hidden;
                     yey.Visibility = Visibility.Visible;
                     yey1.Visibility = Visibility.Visible;
                     wh.From = 0;
@@ -75,6 +76,7 @@ namespace Tadar.Views
                     unhe.BeginAnimation(Rectangle.HeightProperty, hh);
                     break;
                 case "кöгiс":
+                    lbl4.Visibility = Visibility.Hidden;
                     wh.From = 0;
                     wh.To = 90;
                     wh.Duration = TimeSpan.FromSeconds(1);
@@ -86,14 +88,34 @@ namespace Tadar.Views
                     body.BeginAnimation(Rectangle.HeightProperty, hh);
                     break;
                 case "ахсы":
+                    lbl5.Visibility = Visibility.Hidden;
                     mot.Visibility = Visibility.Visible;
                     
                     break;
                 case "пурун":
+                    lbl6.Visibility = Visibility.Hidden;
                     nos.Visibility = Visibility.Visible;
 
                     break;
                 case "сас":
+                    lbl7.Visibility = Visibility.Hidden;
+                    hair.Visibility = Visibility.Visible;
+                    hair2.Visibility = Visibility.Visible;
+                    wh.From = 0;
+                    wh.To = 60;
+                    wh.Duration = TimeSpan.FromSeconds(1);
+                    hair.BeginAnimation(Rectangle.WidthProperty, wh);
+                    hair2.BeginAnimation(Rectangle.WidthProperty, wh);
+                    hh.From = 0;
+                    hh.To = 25;
+                    hh2.To = 45;
+                    hh.Duration = TimeSpan.FromSeconds(1);
+                    hh2.Duration = TimeSpan.FromSeconds(1);
+                    hair.BeginAnimation(Rectangle.HeightProperty, hh);
+                    hair2.BeginAnimation(Rectangle.HeightProperty, hh2);
+                    break;
+                case "азах":
+                    lbl8.Visibility = Visibility.Hidden;
                     hair.Visibility = Visibility.Visible;
                     hair2.Visibility = Visibility.Visible;
                     wh.From = 0;

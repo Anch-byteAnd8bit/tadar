@@ -10,6 +10,7 @@
       d:DesignHeight="700" d:DesignWidth="900"
       Title="Do14">
 
+
     <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"></RowDefinition>
@@ -43,7 +44,7 @@
                  FontSize="14"
                  Width="500" Height="40" 
                  Background="White"
-                 MaxLines="1" MaxLength="57"
+                 MaxLines="1" MaxLength="200"
                  TextAlignment="Center"
                  AutoWordSelection="True"
                  Foreground="Black" Cursor="Arrow">
@@ -59,6 +60,7 @@
 
         <ListView
             HorizontalAlignment="Center"
+            
             Grid.Row="2"
             Grid.Column="1" 
             x:Name="lvs"
@@ -67,8 +69,15 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
+                    <StackPanel Margin="10">
+                        <TextBlock
+                            Foreground="White"
+                            FontWeight="DemiBold"
+                            FontSize="25"
+                            Text="{Binding ID}"
+                            ></TextBlock>
                         <TextBox Name="ans_Box" 
+                                 Margin="10"
                              Grid.Row="1" 
                              Grid.Column="1"
                              materialDesign:HintAssist.Hint="Введите вопрос"
@@ -76,7 +85,7 @@
                              FontSize="14"
                              Width="500" Height="40" 
                              Background="White"
-                             MaxLines="1" MaxLength="57"
+                             MaxLength="200"
                              TextAlignment="Center"
                              AutoWordSelection="True"
                              Foreground="Black" Cursor="Arrow">
@@ -88,7 +97,7 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <TextBox Name="_1Box" 
+                        <TextBox Name="_1Box"  Margin="10"
                              Grid.Row="1" 
                              Grid.Column="1"
                              materialDesign:HintAssist.Hint="Введите ответ №1"
@@ -96,7 +105,7 @@
                              FontSize="14"
                              Width="500" Height="40" 
                              Background="White"
-                             MaxLines="1" MaxLength="57"
+                             MaxLines="1" MaxLength="200"
                              TextAlignment="Center"
                              AutoWordSelection="True"
                              Foreground="Black" Cursor="Arrow">
@@ -108,7 +117,7 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <TextBox Name="_2Box" 
+                        <TextBox Name="_2Box"  Margin="10"
                              Grid.Row="1" 
                              Grid.Column="1"
                              materialDesign:HintAssist.Hint="Введите ответ №2"
@@ -116,7 +125,7 @@
                              FontSize="14"
                              Width="500" Height="40" 
                              Background="White"
-                             MaxLines="1" MaxLength="57"
+                             MaxLines="1" MaxLength="200"
                              TextAlignment="Center"
                              AutoWordSelection="True"
                              Foreground="Black" Cursor="Arrow">
@@ -128,7 +137,7 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <TextBox Name="_3Box" 
+                        <TextBox Name="_3Box"  Margin="10"
                              Grid.Row="1" 
                              Grid.Column="1"
                              materialDesign:HintAssist.Hint="Введите ответ №3"
@@ -136,7 +145,7 @@
                              FontSize="14"
                              Width="500" Height="40" 
                              Background="White"
-                             MaxLines="1" MaxLength="57"
+                             MaxLines="1" MaxLength="200"
                              TextAlignment="Center"
                              AutoWordSelection="True"
                              Foreground="Black" Cursor="Arrow">
@@ -148,7 +157,7 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <TextBox Name="_4Box" 
+                        <TextBox Name="_4Box" Margin="10"
                              Grid.Row="1" 
                              Grid.Column="1"
                              materialDesign:HintAssist.Hint="Введите ответ №4"
@@ -156,7 +165,7 @@
                              FontSize="14"
                              Width="500" Height="40" 
                              Background="White"
-                             MaxLines="1" MaxLength="57"
+                             MaxLines="1" MaxLength="200"
                              TextAlignment="Center"
                              AutoWordSelection="True"
                              Foreground="Black" Cursor="Arrow">
@@ -168,7 +177,7 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <TextBox Name="r_Box" 
+                        <TextBox Name="r_Box"  Margin="10"
                              Grid.Row="1" 
                              Grid.Column="1"
                              materialDesign:HintAssist.Hint="Введите № правильного ответа"
@@ -176,7 +185,7 @@
                              FontSize="14"
                              Width="500" Height="40" 
                              Background="White"
-                             MaxLines="1" MaxLength="57"
+                             MaxLines="1" MaxLength="1"
                              TextAlignment="Center"
                              AutoWordSelection="True"
                              Foreground="Black" Cursor="Arrow">
@@ -188,148 +197,14 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        
+                      
+
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
 
 
-        <StackPanel VerticalAlignment="Center"
-            HorizontalAlignment="Left"
-            Grid.Row="2"
-            Grid.Column="2" Margin="78,0,0,0" >
-            <Button
-                Click="BigOClick"
-            Margin="3"
-           Width="40"
-            Height="40"
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
-                Ӧ
-            </Button>
-
-            <Button
-                Click="BigIClick"
-                 Margin="3"
-           Width="40"
-            Height="40"
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
-                І
-            </Button>
-
-            <Button
-                Click="BigYClick"
-                 Margin="3"
-           Width="40"
-            Height="40"
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
-                Ӱ
-            </Button>
-            <Button
-                Click="BigFClick"
-                 Margin="3"
-       Width="40"
-            Height="40"
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
-                Ғ
-            </Button>
-            <Button
-                Click="BigNClick"
-                 Margin="3"
-           Width="40"
-            Height="40"
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
-                Ң
-            </Button>
-            <Button
-                Click="BigJClick"
-                 Margin="3"
-          Width="40"
-            Height="40"
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
-                Ҷ
-            </Button>
-        </StackPanel>
-
-        <StackPanel
-            VerticalAlignment="Center"
-            HorizontalAlignment="Left" Grid.Row="2"
-            Grid.Column="2" Margin="13,0,0,0" >
-            <Button
-                Click="SmOClick"
-           Width="40"
-            Height="40"
-                 Margin="3"
-            
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
-                ӧ
-            </Button>
-
-            <Button
-                Click="SmIClick"
-                 Margin="3"
-          Width="40"
-            Height="40"
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
-                і
-            </Button>
-            <Button
-                Click="SmYClick"
-                 Margin="3"
-           Width="40"
-            Height="40"
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
-                ӱ
-            </Button>
-            <Button
-                Click="SmFClick"
-                 Margin="3"
-          Width="40"
-            Height="40"
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
-                ғ
-            </Button>
-            <Button
-                Click="SmNClick"
-                 Margin="3"
-          Width="40"
-            Height="40"
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
-                ң
-            </Button>
-            <Button
-                Click="SmJClick"
-                 Margin="3"
-          Width="40"
-            Height="40"
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
-                ҷ
-            </Button>
-        </StackPanel>
 
 
         <TextBlock 
@@ -350,6 +225,54 @@
                  VerticalAlignment="Center"
                 Width="200" Height="40" FontSize="21" Cursor="Hand"   
                 />
+       
 
-    </Grid> 
+        <TextBox
+            VerticalAlignment="Top"
+            IsReadOnly="True"
+            Grid.Row="2"
+            Style="{StaticResource MaterialDesignTextBox}" 
+            FontSize="35"
+            Width="140" Height="50" 
+            Background="White"
+            TextAlignment="Center"
+            VerticalContentAlignment="Top"
+            AutoWordSelection="True"
+            Foreground="Black" Cursor="Hand" 
+                 Text="ғ Ғ і І">
+        </TextBox>
+        <TextBox
+            VerticalAlignment="Top"
+            IsReadOnly="True"
+            Grid.Row="2"
+            Style="{StaticResource MaterialDesignTextBox}" 
+            FontSize="35"
+            Width="140" Height="50" 
+            Background="White"
+            TextAlignment="Center"
+            Margin=" 0 60 0 0"
+            AutoWordSelection="True"
+            Foreground="Black" Cursor="Hand" 
+                 Text="ң Ң ӧ Ӧ">
+        </TextBox>
+        <TextBox
+                 IsReadOnly="True"
+                 VerticalAlignment="Top"
+            Grid.Row="2"
+            Style="{StaticResource MaterialDesignTextBox}" 
+            FontSize="35"
+            Width="140" Height="50" 
+            Background="White"
+            TextAlignment="Center"
+            Margin="0 120 0 0"
+            AutoWordSelection="True"
+            Foreground="Black" Cursor="Hand" 
+                 Text=" ӱ Ӱ ҷ Ҷ">
+        </TextBox>
+
+        
+
+
+
+    </Grid>
 </Page>

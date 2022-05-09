@@ -25,89 +25,27 @@ namespace Tadar.Views
         {
             InitializeComponent();
             DataContext = new Do14ViewModel();
-        
-        }
-
-
-
-
-
-        private void SmJClick(object sender, System.Windows.RoutedEventArgs e)
-        {
-            //Paragraph p = worktext.Document
-            // Blocks += "v";
-            //(doworktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("ҷ");
-
-            //doworktext.CaretPosition = doworktext.Document.ContentEnd;
-            //doworktext.Focus();
-        }
-
-        private void SmNClick(object sender, System.Windows.RoutedEventArgs e)
-        {
-            //(doworktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("ң");
-            //doworktext.CaretPosition = doworktext.Document.ContentEnd;
-        }
-
-        private void SmFClick(object sender, System.Windows.RoutedEventArgs e)
-        {
-            //(doworktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("ғ");
-            //doworktext.CaretPosition = doworktext.Document.ContentEnd;
-        }
-
-        private void SmYClick(object sender, System.Windows.RoutedEventArgs e)
-        {
-            //(doworktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("ӱ");
-            //doworktext.Focus();
-        }
-
-        private void SmIClick(object sender, System.Windows.RoutedEventArgs e)
-        {
-            //(doworktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("і");
-            //doworktext.Focus();
-        }
-
-        private void SmOClick(object sender, System.Windows.RoutedEventArgs e)
-        {
-            //(doworktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("ӧ");
-            //doworktext.Focus();
-        }
-
-        private void BigOClick(object sender, System.Windows.RoutedEventArgs e)
-        {
-            //(doworktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("Ӧ");
-            //doworktext.Focus();
-        }
-
-        private void BigIClick(object sender, System.Windows.RoutedEventArgs e)
-        {
-            //(doworktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("І");
-            //doworktext.Focus();
-        }
-
-        private void BigYClick(object sender, System.Windows.RoutedEventArgs e)
-        {
-            //(doworktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("Ӱ");
-            //doworktext.Focus();
-        }
-
-        private void BigFClick(object sender, System.Windows.RoutedEventArgs e)
-        {
-            //(doworktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("Ғ");
-            //doworktext.Focus();
+            
 
         }
 
-        private void BigNClick(object sender, System.Windows.RoutedEventArgs e)
-        {
-            //(doworktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("Ң");
-            //doworktext.Focus();
-        }
+        //private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.F)
+        //    {
+        //        f_Box.Select(f_Box.CaretIndex, 0);
+        //        f_Box.Text+= "ң";
+        //        f_Box.CaretIndex = f_Box.Text.Length;
+        //    }
+        //    else if (e.KeyboardDevice.Modifiers == ModifierKeys.Alt && e.Key == Key.F)
+        //    { 
+        //        f_Box.Text += "Ң";
+        //    } 
+        //}
 
-        private void BigJClick(object sender, System.Windows.RoutedEventArgs e)
-        {
-            //(doworktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("Ҷ");
-            //doworktext.Focus();
-        }
+
+
+       
 
 
 
