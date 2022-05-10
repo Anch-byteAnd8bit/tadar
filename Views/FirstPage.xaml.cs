@@ -83,8 +83,8 @@ namespace Tadar.Views
                 //await eAPI.UserRegAsync();
                 await eAPI.UserAuthAsync();
                 await eAPI.CreateClass();
-                await eAPI.GetListOfClasrooms();
-                await eAPI.GetClassroomByIdAsync();
+                //await eAPI.GetListOfClasrooms();
+                //await eAPI.GetClassroomByIdAsync();
             }
             catch (UnknownHttpResponseException ex)
             {
