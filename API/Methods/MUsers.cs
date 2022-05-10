@@ -178,8 +178,6 @@ namespace nsAPI.Methods
             List<RegisteredUser> registeredUsers = await ByIdAsync(api_token, userIds);
             // Возвращаем пользователя.
             return registeredUsers[0];
-        }
-
-
+        }        
     }
 }

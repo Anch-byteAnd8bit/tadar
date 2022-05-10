@@ -138,5 +138,31 @@ namespace nsAPI.Methods
             // Возвращаем список классов.
             return registeredClassroom;
         }
+
+        public async Task<bool> AddStudent(string api_token, string id_user, string id_class)
+        {
+            // Обязательно добавляем в запрос НЕ зашифрованный ключ доступа.
+            Dictionary<string, string> urlParam = new Dictionary<string, string>();
+            urlParam.Add("secure_key", api_token);
+            // В данные POST добавляем параметры запроса.
+            Dictionary<string, string> postParam = new Dictionary<string, string>();
+            // Добавление по ключу "id" идентификатор пользователя.
+            postParam["id_user"] = Encryption.AESHelper.EncryptString(id_user);
+            // Добавление по ключу "id" идентификатор класса.
+            postParam["id_class"] = Encryption.AESHelper.EncryptString(id_class);
+            // 1 - Администратор, 2 - Ученик, 3 - Учитель.
+            // Таблица "roles".
+            string id_role = "2";
+            postParam["id_role"] = Encryption.AESHelper.EncryptString(id_role);
+
+            // ВСЕГДА, ПРИ ОТПРАВКЕ POST-ЗАПРОСА, НАДО ДОБАВЛЯТЬ В КОНЦЕ АДРЕСА СЛЭШ!
+
+            // Конвертируем объект в строку в формате JSON.
+            string postParamsJson = JsonConvert.SerializeObject(postParam);
+            // Отправляем на сервер.
+            var httpResponse = await httpPostJSONAsync("user.intoclass/", postParamsJson, urlParam);
+            // Ответ.
+            return httpResponse.data[0].ToString() == "OK";
+        }
     }
 }
