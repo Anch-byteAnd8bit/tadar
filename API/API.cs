@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace nsAPI
 {
@@ -78,8 +79,15 @@ namespace nsAPI
         /// которую надо вызвать после успешной загрузки пользователя.</param>
         private async void LoadMainUser(Action action = null)
         {
-            MainUser = await users.ByIdAsync(Access_Token, id_user);
-            if (action!=null) action();
+            try
+            {
+                MainUser = await users.ByIdAsync(Access_Token, id_user);
+                if (action != null) action();
+            }
+            catch (UnknownHttpResponseException ex)
+            {
+                _ = MessageBox.Show(ex.Message + "\n" + ex.ResponseJSON);
+            }
         }
 
         #region Users
@@ -227,6 +235,16 @@ namespace nsAPI
         public async Task<List<RegisteredClassroom>> GetClassroomsByUserIdAsync(
             string userId, string roleId = null) => await classrooms.ByUserIdAsync(
                 api_token, userId, roleId);
+
+        /// <summary>
+        /// Добавляет пользовтаеля в класс в роли ученика.
+        /// </summary>
+        /// <param name="id_user">Идентификтаор пользователя.</param>
+        /// <param name="id_class">Идентификтаор класса.</param>
+        /// <returns>True - если добавление прошло без проблем.</returns>
+        public async Task<bool> AddStudent(string id_user, string id_class) =>
+            await classrooms.AddStudent(Access_Token, id_user, id_class);
+
         #endregion
 
         #region Works

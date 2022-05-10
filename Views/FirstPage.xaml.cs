@@ -92,7 +92,10 @@ namespace Tadar.Views
                 //await api.UserRegAsync(me);
                 if (api.MainUser==null) await api.UserAuthAsync(me.UserForAuthorization);
 
-
+                if (await api.AddStudent("11","1"))
+                {
+                    _ = MessageBox.Show("УРА!");
+                }
             }
             catch (UnknownHttpResponseException ex)
             {
