@@ -59,29 +59,29 @@
             Text="{Binding Name}" FontWeight="Bold"/>
 
 
-        <StackPanel
-          
-            Grid.Row="2"
-            Grid.Column="1"
-            Background="White"
-            Height="450"
-            Width="580">
-            <RichTextBox  
-                x:Name="doworktext"
-                            BorderBrush="Transparent"
-                            BorderThickness="0"
-                            FontSize="20"
-                           Height="450"
-            Width="580"
-                           Cursor="Pen" CaretBrush="White" SelectionBrush="White"
-                           >
-                <RichTextBox.Resources>
-                    <Style TargetType="{x:Type Paragraph}">
-                        <Setter Property="Margin" Value="0" />
-                    </Style>
-                </RichTextBox.Resources>
-            </RichTextBox>
-        </StackPanel>
+        <TextBox Name="work" 
+                 TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Visible"
+                 AcceptsReturn="True"
+                 Grid.Row="2" 
+                 Grid.Column="1"
+                 materialDesign:HintAssist.Hint="Введите содержимое задания"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 FontSize="14"
+                 Width="590" Height="400" 
+                 Background="White"
+                 TextAlignment="Center"
+                 AutoWordSelection="True"
+                 Foreground="Black" Cursor="Arrow">
+            <TextBox.Text>
+                <Binding Path="Description" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <rules:NotEmptyValidationRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+
 
 
         <Button  Style="{StaticResource MaterialDesignFlatMidBgButton}"

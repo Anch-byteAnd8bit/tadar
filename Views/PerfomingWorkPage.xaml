@@ -5,7 +5,7 @@
        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       
-      xmlns:viewmodels="clr-namespace:Tadar.ViewModels"
+      xmlns:viewmodels="clr-namespace:Tadar.ViewModels" xmlns:rules="clr-namespace:Tadar.Views"
       d:DataContext="{d:DesignInstance Type=viewmodels:PerfomingWorkViewModel}"
       
       mc:Ignorable="d"
@@ -14,7 +14,6 @@
 
     <Grid Background="#FFA25DED" ShowGridLines="False">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="10*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
@@ -51,42 +50,53 @@
         <TextBlock Grid.Row="1" Grid.Column="1"  Text="{Binding Surname}" />
 
         <StackPanel
-            Grid.Row="2"
+            VerticalAlignment="Top"
+            Grid.Row="1"
             Grid.Column="1"
-            Height="560"
+            Height="170"
             Width="650"
             Background="White">
-            <TextBlock TextWrapping="Wrap">
-                     <Run Text="{Binding Name}"  FontSize="20" Foreground="Black" FontWeight="Bold"/>
-                     <Run 
-                         FontSize="20"
-                         Foreground="Black">
+            <TextBlock TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto"
+         ScrollViewer.CanContentScroll="True" FontSize="18"
+                         Foreground="Black" 
+                       Text="{Binding Name}"
+                       >
                          Задание такое-то Напишите рассказ про лося и его дом и детей
                          в каком лесу или тайге живет что есть где плавате
                          зачем плавает
-                         с кем дпужит что есть на завтра в общем все подробности его жизни лесной
-                     </Run>
+                         с кем дпужит что есть на завтра в общем все подробности 
+                зачем плавает
+                         с кем дпужит что есть на завтра в общем всеего жизни леснойзачем плавает
+                         с кем дпужит что есть на завтра в общем все,kf,kf,kf
+                    
             </TextBlock>
-            <StackPanel Height="4" Background="#FFA25DED"></StackPanel>
-            <TextBlock FontSize="20" Foreground="Black">Ответ:</TextBlock>
-
-            <RichTextBox  
-                x:Name="worktext"
-                            BorderBrush="Transparent"
-                            BorderThickness="0"
-                            FontSize="20"
-                            Height="370"
-                            Width="600"
-                           Cursor="Pen" CaretBrush="White" SelectionBrush="White"
-                           >
-                <RichTextBox.Resources>
-                    <Style TargetType="{x:Type Paragraph}">
-                        <Setter Property="Margin" Value="0" />
-                    </Style>
-                </RichTextBox.Resources>
-            </RichTextBox>
-
         </StackPanel>
+        
+            <TextBox Name="work" 
+                     Margin="0 170 0 0"
+                 TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Visible"
+                 AcceptsReturn="True"
+                 Grid.Row="1" 
+                 Grid.Column="1"
+                 materialDesign:HintAssist.Hint="Введите ответ"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 FontSize="18"
+                 Width="650" Height="400" 
+                 Background="White"
+                 TextAlignment="Center"
+                 AutoWordSelection="True"
+                 Foreground="Black" Cursor="Arrow">
+                <TextBox.Text>
+                    <Binding Path="Description" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <rules:NotEmptyValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+        
 
         <StackPanel VerticalAlignment="Center"
             HorizontalAlignment="Left"

@@ -12,9 +12,8 @@
     <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False" >
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"></RowDefinition>
-            <RowDefinition Height="15*"></RowDefinition>
+            <RowDefinition Height="20*"></RowDefinition>
             <RowDefinition Height="3*"></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -30,7 +29,8 @@
             VerticalAlignment="Top" />
 
         <ListView
-            HorizontalAlignment="Left"
+            HorizontalAlignment="Center"
+            
             Grid.Row="1"
             Grid.Column="1" 
             x:Name="lvs"
@@ -39,38 +39,37 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
+                    <StackPanel Margin="6">
                         <TextBlock 
                             HorizontalAlignment="Left" 
                             Grid.Column="0"  
                             Text="{Binding Name}"
-                            FontWeight="Bold" />
+                            
+                            FontSize="25"
+                            Foreground="White"
+                            >
+                             <Run Text=" –"  FontSize="25"
+                            Foreground="White"></Run>
+                            <Run Text="{Binding Surname}"  FontSize="25"
+                            Foreground="White"></Run>
+                        </TextBlock>
                         
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
 
-        <ListView
-            HorizontalAlignment="Right"
-            Grid.Row="1"
-            Grid.Column="1" 
-            
-            ItemsSource="{Binding WordsList}"
-            IsSynchronizedWithCurrentItem="True">
-            <ListView.ItemTemplate>
-            <DataTemplate>
-                <StackPanel>
-                   
-                    <TextBlock 
-                            HorizontalAlignment="Right" 
-                            Grid.Column="2"
-                            Text="{Binding Surname}" />
 
-                </StackPanel>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-        </ListView>
+        <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
+             materialDesign:ButtonAssist.CornerRadius="25" x:Name="class"
+               Height="45"
+                Command="{Binding RegCommand}"
+                Grid.Column="1"
+                Grid.Row="2"
+                Content="Добавить слово"
+                HorizontalAlignment="Center" 
+                Width="255" FontSize="25" Cursor="Hand" 
+                />
 
 
 

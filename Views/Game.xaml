@@ -15,7 +15,7 @@
     <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False" >
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="11*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
 
         </Grid.RowDefinitions>
@@ -24,27 +24,28 @@
 
         </Grid.ColumnDefinitions>
 
+        <TextBlock
+            Grid.Row="0"
+            HorizontalAlignment="Center"
+            Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+            Foreground="White"
+            >
+           Собери человека
+        </TextBlock>
 
         <Canvas
-            DragOver="lbl_DragOver"
+           
             x:Name="canvas"
             Grid.Row="1"
             >
-        <StackPanel
+            <StackPanel
             Grid.Row="1"
             Width="150"
             HorizontalAlignment="Left"
             Margin="70 20 0 0"
             >
-                <Rectangle
-                    x:Name="rec"
-                    Fill="Beige"
-                    Width="30"
-                    Height="30"
-                    MouseMove="lbl_MouseMove">
-                    
-                </Rectangle>
-            <Label 
+
+                <Label 
                 
                 Name="lbl1" Margin="10" Foreground="White"
                    FontSize="25"
@@ -53,29 +54,27 @@
                    MouseDown="lbl1_MouseDown"
                 
                 >пас</Label>
-            <Label Name="lbl2" Margin="10" Foreground="White"
+                <Label Name="lbl2" Margin="10" Foreground="White"
                    FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">мойын</Label>
-            <Label Name="lbl3" Margin="10" Foreground="White"
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">ағас</Label>
+                <Label Name="lbl3" Margin="10" Foreground="White"
                    FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">харах</Label>
-            <Label Name="lbl4" Margin="10" Foreground="White"
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">тура</Label>
+                <Label Name="lbl4" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">кöгiс</Label>
-            <Label Name="lbl5" Margin="10" Foreground="White"
+
+                <Label Name="lbl6" Margin="10" Foreground="White"
                    FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">ахсы</Label>
-            <Label Name="lbl6" Margin="10" Foreground="White"
-                   FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">пурун</Label>
-            <Label Name="lbl7" Margin="10" Foreground="White"
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">хап</Label>
+                <Label Name="lbl7" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">сас</Label>
-            <Label Name="lbl8" Margin="10" Foreground="White"
+                <Label Name="lbl8" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">азах</Label>
 
-        </StackPanel>
+            </StackPanel>
         </Canvas>
 
         <StackPanel
@@ -88,28 +87,25 @@
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2"
                    
-                   MouseDown="lbl1_MouseDown">пас</Label>
+                   MouseDown="lbl1_MouseDown">харах</Label>
             <Label Name="lbl10" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">мойын</Label>
             <Label Name="lbl11" Margin="10" Foreground="White"
                    FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">харах</Label>
-            <Label Name="lbl12" Margin="10" Foreground="White"
-                   FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">кöгiс</Label>
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">меспек</Label>
             <Label Name="lbl13" Margin="10" Foreground="White"
                    FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">ахсы</Label>
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">хол</Label>
             <Label Name="lbl14" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">пурун</Label>
             <Label Name="lbl15" Margin="10" Foreground="White"
                    FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">сас</Label>
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">ахсы</Label>
             <Label Name="lbl16" Margin="10" Foreground="White"
                    FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">азах</Label>
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">хулах</Label>
 
         </StackPanel>
 
@@ -118,6 +114,7 @@
 
 
         <Rectangle
+            Visibility="Hidden"
             x:Name="hair2"
             Grid.Row="1"
             Fill="SandyBrown"
@@ -134,22 +131,41 @@
 
 
         <Ellipse
+            x:Name="uh1"
+            Grid.Row="1"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Visibility="Hidden"
+            Fill="Beige" Width="10" Height="17" Margin="397,54,0,0"  />
+        <Ellipse
+            x:Name="uh2"
+            Grid.Row="1"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Visibility="Hidden"
+            Fill="Beige" Width="10" Height="17" Margin="480,55,0,0"  />
+
+
+
+        <Ellipse
             x:Name="head"
             Grid.Row="1"
             VerticalAlignment="Top"
             HorizontalAlignment="Center"
-            Visibility="Visible"
+            Visibility="Hidden"
             Fill="Beige" Width="80" Height="80" Margin="20" />
 
         <Polygon
+            Visibility="Hidden"
             x:Name="mot"
             Grid.Row="1"
-            Fill="LightPink" Points="465, 80,453, 82,450, 82, 435, 80, 450, 90,451, 90, 452, 90" />
+            Fill="LightPink" Points="465, 80,453, 82,450, 82, 435, 80, 450, 90,451, 90, 452, 90" Margin="-2,0,2,0" />
 
         <Polygon
+            Visibility="Hidden"
             x:Name="nos"
             Grid.Row="1"
-            Fill="Bisque" Points="460, 75,455, 75,455, 75, 445, 75, 450, 70,451, 70, 452, 70" />
+            Fill="Bisque" Points="460, 75,455, 75,455, 75, 445, 75, 450, 70,451, 70, 452, 70" Margin="-2,0,2,0" />
 
 
         <Rectangle
@@ -162,6 +178,7 @@
             Margin="18"
             RadiusX="20"
             RadiusY="30"
+            Visibility="Hidden"
             
             >
 
@@ -172,8 +189,8 @@
             Grid.Row="1"
             VerticalAlignment="Top"
             HorizontalAlignment="Left"
-            Visibility="Visible"
-            Fill="Black" Width="20" Height="17" Margin="420,46,0,0"  />
+            Visibility="Hidden"
+            Fill="Black" Width="20" Height="17" Margin="419,46,0,0"  />
 
 
 
@@ -184,28 +201,32 @@
             Click="btn_Click"
             Grid.Row="2" Cursor="Hand"
             Width="150"
-            HorizontalAlignment="Right" Margin="0,36,231,40"
+            Height="40"
+            HorizontalAlignment="Center" Margin="380,0,0,0"
             >
-            KUKU
+            Ввести
         </Button>
         <TextBox 
             x:Name="txtbox"
-            materialDesign:HintAssist.Hint="Введите слово" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-            HorizontalAlignment="Left"
+            materialDesign:HintAssist.Hint="Положите слово" Style="{StaticResource MaterialDesignTextBox}"
+            HorizontalAlignment="Center"
+            Margin="0 0 250 0"
             Grid.Row="2" 
-            Width="400"
-            Height="40"
+            Width="450"
+            Height="50"
             Cursor="Arrow"
-            Background="White" Margin="85,34,0,34"
+            FontSize="30"
+            Background="White" 
             />
         <Ellipse
             x:Name="yey1"
             Grid.Row="1"
             VerticalAlignment="Top"
             HorizontalAlignment="Left"
-            Visibility="Visible"
-            Fill="Black" Width="20" Height="17" Margin="458,45,0,0" RenderTransformOrigin="0.486,0.542" />
+            Visibility="Hidden"
+            Fill="Black" Width="20" Height="17" Margin="457,45,0,0" RenderTransformOrigin="0.486,0.542" />
         <Rectangle
+            Visibility="Hidden"
             x:Name="unhe"
             HorizontalAlignment="Center"
             Grid.Row="1"
@@ -216,7 +237,62 @@
             Height="25"
             
             />
+
+
         <Rectangle
+            Visibility="Hidden"
+            x:Name="hand1"
+            HorizontalAlignment="Left"
+            RadiusX="20"
+            RadiusY="10"
+            Grid.Row="1"
+            Fill="Beige"
+            VerticalAlignment="Top"
+            Margin="376,113,0,0"
+            Width="27"
+            Height="120" RenderTransformOrigin="0.5,0.5"
+            
+            >
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="35.355"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+        </Rectangle>
+
+
+        <Rectangle
+            Visibility="Hidden"
+            x:Name="hand2"
+            HorizontalAlignment="Left"
+            RadiusX="20"
+            RadiusY="10"
+            Grid.Row="1"
+            Fill="Beige"
+            VerticalAlignment="Top"
+            Width="27"
+            Height="120" Margin="456,133,0,0" 
+            
+            >
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-48.426"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+        </Rectangle>
+
+
+
+
+
+        <Rectangle
+            Visibility="Hidden"
             x:Name="body"
             RadiusX="20"
             RadiusY="30"
@@ -230,6 +306,7 @@
             
             />
         <Rectangle
+            Visibility="Hidden"
             x:Name="foot1"
             HorizontalAlignment="Left"
             RadiusX="20"
@@ -237,12 +314,13 @@
             Grid.Row="1"
             Fill="CornflowerBlue"
             VerticalAlignment="Top"
-            Margin="413,210,0,0"
+            Margin="408,210,0,0"
             Width="27"
             Height="140"
             
             />
         <Rectangle
+            Visibility="Hidden"
             x:Name="foot2"
             HorizontalAlignment="Left"
             RadiusX="20"
@@ -250,11 +328,14 @@
             Grid.Row="1"
             Fill="CornflowerBlue"
             VerticalAlignment="Top"
-            Margin="460,211,0,0"
+            Margin="453,211,0,0"
             Width="27"
             Height="140"
             
             />
+
+
+
 
 
     </Grid>
