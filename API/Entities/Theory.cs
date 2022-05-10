@@ -4,6 +4,9 @@ namespace nsAPI.Entities
 {
     public class Topic
     {
+        /// <summary>
+        /// Заполняется автоматически
+        /// </summary>
         [JsonProperty("ID")]
         public string ID { get; set; }
         [JsonProperty("Name")]
@@ -24,6 +27,9 @@ namespace nsAPI.Entities
 
     public class Theory
     {
+        /// <summary>
+        /// Заполняется автоматически
+        /// </summary>
         [JsonProperty("ID")]
         public string ID { get; set; }
         [JsonProperty("id_class")]

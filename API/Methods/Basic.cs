@@ -63,7 +63,7 @@ namespace nsAPI.Methods
                 // Произошла ошибка при попытке получения информации из БД.
                 Error error = Error.FromJson(httpResponse);
                 // Обработка ошибки.
-                throw new ErrorResponseException(error, TypeOperation.GENDERS_GET);
+                throw new ErrorResponseException(error);
             }
             else if (JSONHelper.IsResponse(httpResponse))
             {

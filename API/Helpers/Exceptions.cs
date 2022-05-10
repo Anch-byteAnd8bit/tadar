@@ -64,7 +64,7 @@ namespace Helpers
         public CODE_ERROR ErrCode { get; private set; }
         public string Description { get; private set; }
         public string Additional { get; private set; }
-        public ErrorResponseException(Error error, TypeOperation typeOperation) :
+        public ErrorResponseException(Error error) :
             base("От сервера пришел ответ об ошибке " + error.errorInfo.Additional)
         {
             ErrCode = (CODE_ERROR)error.errorInfo.Type;
