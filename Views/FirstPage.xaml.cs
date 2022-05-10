@@ -103,7 +103,7 @@ namespace Tadar.Views
                 //await api.UserRegAsync(me);
                 if (api.MainUser==null) await api.UserAuthAsync(me.UserForAuthorization);
 
-                theory = await api.AddTheory(theory);
+                theory = await api.AddTheory(new Theory { topic = new Topic { } });
                 _ = MessageBox.Show("theory id: " + theory.ID + " topic id: " + theory.topic.ID);
             }
             catch (UnknownHttpResponseException ex)

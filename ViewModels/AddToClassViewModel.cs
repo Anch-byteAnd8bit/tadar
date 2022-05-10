@@ -19,6 +19,7 @@ namespace Tadar.ViewModels
         {
             LoadUsersAsync();
             EnterClick = new Command(Enter_Click);
+            ClassClick = new Command(Class_Click);
         }
         public async void LoadUsersAsync()
         {
@@ -42,6 +43,17 @@ namespace Tadar.ViewModels
         {
             First.Base_frame.Navigate(new Ent_page());
 
+        }
+        private void Class_Click(object ob)
+        {
+            First.Base_frame.Navigate(new DoClassPage());
+
+        }
+
+        public Command ClassClick
+        {
+            get;
+            set;
         }
         //public string Surname
         //{

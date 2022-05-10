@@ -1,0 +1,179 @@
+﻿<Page x:Class="Tadar.Views.DoTheoryPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:viewmodels="clr-namespace:Tadar.ViewModels" xmlns:rules="clr-namespace:Tadar.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="900"
+      Title="DoTheoryPage">
+
+    <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="70*" ></RowDefinition>
+            <RowDefinition Height="8*" ></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15*"></ColumnDefinition>
+            <ColumnDefinition Width="60*"></ColumnDefinition>
+            <ColumnDefinition Width="15*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel
+          
+            Grid.Row="4"
+            Grid.Column="1"
+            Background="White"
+            Height="360"
+            Width="590">
+            <RichTextBox  
+                x:Name="doworktext"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            FontSize="20"
+                           Height="360"
+            Width="590"
+                           Cursor="Pen" CaretBrush="White" SelectionBrush="White"
+                           >
+                <RichTextBox.Resources>
+                    <Style TargetType="{x:Type Paragraph}">
+                        <Setter Property="Margin" Value="0" />
+                    </Style>
+                </RichTextBox.Resources>
+            </RichTextBox>
+        </StackPanel>
+
+        <TextBlock
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Foreground="White"
+            Style="{StaticResource MaterialDesignHeadline4TextBlock}" Height="46" Width="270"
+            > Создание топика
+        </TextBlock>
+
+
+
+        <TextBox Name="theme" 
+                 Grid.Row="1" 
+                 Grid.Column="1"
+                 materialDesign:HintAssist.Hint="Введите название темы"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 FontSize="14"
+                 Width="500" Height="40" 
+                 Background="White"
+                 MaxLines="1" MaxLength="200"
+                 TextAlignment="Center"
+                 AutoWordSelection="True"
+                 Foreground="Black" Cursor="Arrow">
+            <TextBox.Text>
+                <Binding Path="Testname" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <rules:NotEmptyValidationRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox Name="sour" 
+                 Grid.Row="3" 
+                 Grid.Column="1"
+                 materialDesign:HintAssist.Hint="Введите источник"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 FontSize="14"
+                 Width="500" Height="40" 
+                 Background="White"
+                 MaxLines="1" MaxLength="200"
+                 TextAlignment="Center"
+                 AutoWordSelection="True"
+                 Foreground="Black" Cursor="Arrow">
+            <TextBox.Text>
+                <Binding Path="Testname" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <rules:NotEmptyValidationRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        
+        
+        
+        <ComboBox Name="gender"
+                  Grid.Row="2"
+                  Grid.Column="1"
+                  Height="40" Width="500"
+                  Background="White"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  HorizontalContentAlignment="Left"
+                  FontSize="14"
+                  materialDesign:HintAssist.Hint="Класс"
+                  VerticalContentAlignment="Bottom"
+                  ItemsSource="{Binding Genders}"
+                  DisplayMemberPath="Name"
+                  SelectedItem="{Binding SelectedGender, Mode=TwoWay}">
+        </ComboBox>
+
+
+        <Button  Style="{StaticResource MaterialDesignFlatMidBgButton}"
+             materialDesign:ButtonAssist.CornerRadius="25" 
+               
+                Command="{Binding CreateClick}"
+            Content="Создать"
+                Grid.Column="1"
+                Grid.Row="5"
+                HorizontalAlignment="Center" 
+                 VerticalAlignment="Center"
+                Width="200" Height="40" FontSize="21" Cursor="Hand"   
+                />
+       
+        
+        <TextBox
+            VerticalAlignment="Top"
+            IsReadOnly="True"
+            Grid.Row="4"
+            Style="{StaticResource MaterialDesignTextBox}" 
+            FontSize="35"
+            Width="140" Height="50" 
+            Background="White"
+            TextAlignment="Center"
+            VerticalContentAlignment="Top"
+            AutoWordSelection="True"
+            Foreground="Black" Cursor="Hand" 
+                 Text="ғ Ғ і І">
+        </TextBox>
+        <TextBox
+            VerticalAlignment="Top"
+            IsReadOnly="True"
+            Grid.Row="4"
+            Style="{StaticResource MaterialDesignTextBox}" 
+            FontSize="35"
+            Width="140" Height="50" 
+            Background="White"
+            TextAlignment="Center"
+            Margin=" 0 60 0 0"
+            AutoWordSelection="True"
+            Foreground="Black" Cursor="Hand" 
+                 Text="ң Ң ӧ Ӧ">
+        </TextBox>
+        <TextBox
+                 IsReadOnly="True"
+                 VerticalAlignment="Top"
+            Grid.Row="4"
+            Style="{StaticResource MaterialDesignTextBox}" 
+            FontSize="35"
+            Width="140" Height="50" 
+            Background="White"
+            TextAlignment="Center"
+            Margin="0 120 0 0"
+            AutoWordSelection="True"
+            Foreground="Black" Cursor="Hand" 
+                 Text=" ӱ Ӱ ҷ Ҷ">
+        </TextBox>
+
+    </Grid>
+</Page>

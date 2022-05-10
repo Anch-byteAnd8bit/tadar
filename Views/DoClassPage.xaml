@@ -1,0 +1,91 @@
+﻿<Page x:Class="Tadar.Views.DoClassPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:Tadar.Views"  xmlns:viewmodels="clr-namespace:Tadar.ViewModels"
+      mc:Ignorable="d" 
+         d:DesignHeight="700" d:DesignWidth="900"
+      Title="DoClassPage">
+
+    <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+
+        </Grid.ColumnDefinitions>
+
+        <TextBlock  Grid.Row="0"
+                   HorizontalAlignment="Center"
+                   Foreground="White"
+            Style="{StaticResource MaterialDesignHeadline3TextBlock}"
+                   >Создание класса</TextBlock>
+
+
+        <TextBox Name="theme" 
+                 Grid.Row="1" 
+                 Grid.Column="1"
+                 materialDesign:HintAssist.Hint="Введите название класса"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 FontSize="14"
+                 Width="500" Height="40" 
+                 Background="White"
+                 TextAlignment="Center"
+                 AutoWordSelection="True"
+                 Foreground="Black" Cursor="Arrow">
+            <TextBox.Text>
+                <Binding Path="Name" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <local:NotEmptyValidationRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+
+        <TextBox Name="desc" 
+                 TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Visible"
+                 AcceptsReturn="True"
+                 Grid.Row="2" 
+                 Grid.Column="1"
+                 materialDesign:HintAssist.Hint="Введите описание класса"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 FontSize="14"
+                 Width="500" Height="400" 
+                 Background="White"
+                 TextAlignment="Center"
+                 AutoWordSelection="True"
+                 Foreground="Black" Cursor="Arrow">
+            <TextBox.Text>
+                <Binding Path="Description" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <local:NotEmptyValidationRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+
+
+
+
+
+        <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
+             materialDesign:ButtonAssist.CornerRadius="25" x:Name="class"
+               Height="45"
+                Command="{Binding RegCommand}"
+                Grid.Column="1"
+                Grid.Row="3"
+                Content="Создать класс"
+                HorizontalAlignment="Center" 
+                Width="255" FontSize="25" Cursor="Hand" 
+                />
+
+    </Grid>
+</Page>
