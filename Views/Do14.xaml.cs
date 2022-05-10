@@ -29,6 +29,11 @@ namespace Tadar.Views
 
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         //private void TextBox_KeyDown(object sender, KeyEventArgs e)
         //{
         //    if (e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.F)
@@ -45,7 +50,7 @@ namespace Tadar.Views
 
 
 
-       
+
 
 
 

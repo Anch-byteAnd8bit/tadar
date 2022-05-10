@@ -21,6 +21,7 @@ namespace Tadar.Views
     /// </summary>
     public partial class Game : Page
     {
+        public int count =0;
         public Game()
         {
             InitializeComponent();
@@ -47,9 +48,11 @@ namespace Tadar.Views
                     head.Visibility=Visibility.Visible;
                     head.BeginAnimation(Ellipse.WidthProperty, wh);
                     head.BeginAnimation(Ellipse.HeightProperty, hh);
+                    count++;
+                    if (count == 10) MessageBox.Show("Вы собрали человека!");
                     break;
                 case "харах":
-                    lbl3.Visibility = Visibility.Hidden;
+                    lbl9.Visibility = Visibility.Hidden;
                     yey.Visibility = Visibility.Visible;
                     yey1.Visibility = Visibility.Visible;
                     wh.From = 0;
@@ -62,9 +65,11 @@ namespace Tadar.Views
                     hh.Duration = TimeSpan.FromSeconds(1);
                     yey.BeginAnimation(Ellipse.HeightProperty, hh);
                     yey1.BeginAnimation(Ellipse.HeightProperty, hh);
+                    count++;
+                    if (count == 10) MessageBox.Show("Вы собрали человека!");
                     break;
                 case "мойын":
-                    lbl2.Visibility = Visibility.Hidden;
+                    lbl10.Visibility = Visibility.Hidden;
                     wh.From = 0;
                     wh.To = 30;
                     wh.Duration = TimeSpan.FromSeconds(1);
@@ -74,6 +79,8 @@ namespace Tadar.Views
                     unhe.Visibility = Visibility.Visible;
                     unhe.BeginAnimation(Rectangle.WidthProperty, wh);
                     unhe.BeginAnimation(Rectangle.HeightProperty, hh);
+                    count++;
+                    if (count == 10) MessageBox.Show("Вы собрали человека!");
                     break;
                 case "кöгiс":
                     lbl4.Visibility = Visibility.Hidden;
@@ -86,15 +93,21 @@ namespace Tadar.Views
                     body.Visibility = Visibility.Visible;
                     body.BeginAnimation(Rectangle.WidthProperty, wh);
                     body.BeginAnimation(Rectangle.HeightProperty, hh);
+                    count++;
+                    if (count == 10) MessageBox.Show("Вы собрали человека!");
                     break;
                 case "ахсы":
-                    lbl5.Visibility = Visibility.Hidden;
+                    lbl15.Visibility = Visibility.Hidden;
                     mot.Visibility = Visibility.Visible;
-                    
+                    count++;
+                    if (count == 10) MessageBox.Show("Вы собрали человека!");
+
                     break;
                 case "пурун":
-                    lbl6.Visibility = Visibility.Hidden;
+                    lbl14.Visibility = Visibility.Hidden;
                     nos.Visibility = Visibility.Visible;
+                    count++;
+                    if (count == 10) MessageBox.Show("Вы собрали человека!");
 
                     break;
                 case "сас":
@@ -113,23 +126,59 @@ namespace Tadar.Views
                     hh2.Duration = TimeSpan.FromSeconds(1);
                     hair.BeginAnimation(Rectangle.HeightProperty, hh);
                     hair2.BeginAnimation(Rectangle.HeightProperty, hh2);
+                    count++;
+                    if (count == 10) MessageBox.Show("Вы собрали человека!");
                     break;
                 case "азах":
                     lbl8.Visibility = Visibility.Hidden;
-                    hair.Visibility = Visibility.Visible;
-                    hair2.Visibility = Visibility.Visible;
+                    foot1.Visibility = Visibility.Visible;
+                    foot2.Visibility = Visibility.Visible;
                     wh.From = 0;
-                    wh.To = 60;
+                    wh.To = 27;
                     wh.Duration = TimeSpan.FromSeconds(1);
-                    hair.BeginAnimation(Rectangle.WidthProperty, wh);
-                    hair2.BeginAnimation(Rectangle.WidthProperty, wh);
+                    foot1.BeginAnimation(Rectangle.WidthProperty, wh);
+                    foot2.BeginAnimation(Rectangle.WidthProperty, wh);
                     hh.From = 0;
-                    hh.To = 25;
-                    hh2.To = 45;
+                    hh.To = 140;
                     hh.Duration = TimeSpan.FromSeconds(1);
-                    hh2.Duration = TimeSpan.FromSeconds(1);
-                    hair.BeginAnimation(Rectangle.HeightProperty, hh);
-                    hair2.BeginAnimation(Rectangle.HeightProperty, hh2);
+                    foot1.BeginAnimation(Rectangle.HeightProperty, hh);
+                    foot2.BeginAnimation(Rectangle.HeightProperty, hh);
+                    count++;
+                    if (count == 10) MessageBox.Show("Вы собрали человека!");
+                    break;
+                case "хол":
+                    lbl13.Visibility = Visibility.Hidden;
+                    hand1.Visibility = Visibility.Visible;
+                    hand2.Visibility = Visibility.Visible;
+                    wh.From = 0;
+                    wh.To = 27;
+                    wh.Duration = TimeSpan.FromSeconds(1);
+                    hand1.BeginAnimation(Rectangle.WidthProperty, wh);
+                    hand2.BeginAnimation(Rectangle.WidthProperty, wh);
+                    hh.From = 0;
+                    hh.To = 120;
+                    hh.Duration = TimeSpan.FromSeconds(1);
+                    hand1.BeginAnimation(Rectangle.HeightProperty, hh);
+                    hand2.BeginAnimation(Rectangle.HeightProperty, hh);
+                    count++;
+                    if (count == 10) MessageBox.Show("Вы собрали человека!");
+                    break;
+                case "хулах":
+                    lbl16.Visibility = Visibility.Hidden;
+                    uh1.Visibility = Visibility.Visible;
+                    uh2.Visibility = Visibility.Visible;
+                    wh.From = 0;
+                    wh.To = 10;
+                    wh.Duration = TimeSpan.FromSeconds(1);
+                    uh1.BeginAnimation(Rectangle.WidthProperty, wh);
+                    uh2.BeginAnimation(Rectangle.WidthProperty, wh);
+                    hh.From = 0;
+                    hh.To = 17;
+                    hh.Duration = TimeSpan.FromSeconds(1);
+                    uh1.BeginAnimation(Rectangle.HeightProperty, hh);
+                    uh2.BeginAnimation(Rectangle.HeightProperty, hh);
+                    count++;
+                    if (count == 10) MessageBox.Show("Вы собрали человека!");
                     break;
 
                 default:
@@ -146,19 +195,19 @@ namespace Tadar.Views
             DragDrop.DoDragDrop(lbl, lbl.Content, DragDropEffects.Copy);
         }
 
-        private void lbl_DragOver(object sender, DragEventArgs e)
-        {
+        //private void lbl_DragOver(object sender, DragEventArgs e)
+        //{
            
-            Point dropPosition = e.GetPosition(canvas);
-            Canvas.SetLeft(lbl1, dropPosition.X);
-            Canvas.SetTop(lbl1, dropPosition.Y);
-        }
+        //    Point dropPosition = e.GetPosition(canvas);
+        //    Canvas.SetLeft(lbl1, dropPosition.X);
+        //    Canvas.SetTop(lbl1, dropPosition.Y);
+        //}
 
-        private void lbl_MouseMove(object sender, MouseEventArgs e)
-        {
+        //private void lbl_MouseMove(object sender, MouseEventArgs e)
+        //{
             
-            DragDrop.DoDragDrop(rec, rec, DragDropEffects.Move);
-        }
+        //    DragDrop.DoDragDrop(rec, rec, DragDropEffects.Move);
+        //}
 
 
 

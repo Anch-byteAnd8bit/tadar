@@ -21,95 +21,89 @@ namespace Tadar.Views
             changetask.DataContext = uservm;
             task.DataContext = uservm = new UserSecViewModel();*/
 
-            FlowDocument document = new FlowDocument();
-            Paragraph paragraph = new Paragraph();
-            paragraph.Inlines.Add("1");
-            document.Blocks.Add(paragraph);
-            worktext.Document = document;
-            worktext.Focus();
+          
         }
-       //public void newtext()
-       // {
-       //     //Paragraph paragraph = new Paragraph();
-       //     //paragraph.Inlines.Add("2");
-       //     (worktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("fu");//.Add(paragraph);
-            
-       // }
+        //public void newtext()
+        // {
+        //     //Paragraph paragraph = new Paragraph();
+        //     //paragraph.Inlines.Add("2");
+        //     (worktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("fu");//.Add(paragraph);
+
+        // }
         private void SmJClick(object sender, System.Windows.RoutedEventArgs e)
         {
             //Paragraph p = worktext.Document
             // Blocks += "v";
-            (worktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("ҷ");
-            
-            worktext.CaretPosition = worktext.Document.ContentEnd;
-            worktext.Focus();
+            work.Text += "ҷ";
+            work.Focus();
         }
 
         private void SmNClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            (worktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("ң");
-            worktext.CaretPosition = worktext.Document.ContentEnd;
+            work.Text += "ң";
+            work.Focus();
         }
 
         private void SmFClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            (worktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("ғ");
-            worktext.CaretPosition = worktext.Document.ContentEnd;
+            work.Text += "ғ";
+            work.Focus();
         }
 
         private void SmYClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            (worktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("ӱ");
-            worktext.Focus();
+            work.Text += "ӱ";
+            work.Focus();
         }
 
         private void SmIClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            (worktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("і");
-            worktext.Focus();
+            work.Text += "і";
+            work.Focus();
         }
 
         private void SmOClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            (worktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("ӧ");
-            worktext.Focus();
+            work.Text += "ӧ";
+            work.Focus();
         }
 
         private void BigOClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            (worktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("Ӧ");
-            worktext.Focus();
+            work.Text += "Ӧ";
+            work.Focus();
         }
 
         private void BigIClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            (worktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("І");
-            worktext.Focus();
+            work.Text += "І";
+            work.Focus();
         }
 
         private void BigYClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            (worktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("Ӱ");
-            worktext.Focus();
+            work.Text += "Ӱ";
+            work.Focus();
         }
 
         private void BigFClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            (worktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("Ғ");
-            worktext.Focus();
+            work.Text += "Ғ";
+            work.Focus();
 
         }
 
         private void BigNClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            (worktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("Ң");
-            worktext.Focus();
+            work.Text += "Ң";
+            work.Focus();
         }
 
         private void BigJClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            (worktext.Document.Blocks.LastBlock as Paragraph).Inlines.Add("Ҷ");
-            worktext.Focus();
+            work.Text += "Ҷ";
+            work.Focus();
         }
+
     }
 }

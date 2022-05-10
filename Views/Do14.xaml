@@ -19,18 +19,46 @@
             <RowDefinition Height="8*" ></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="15*"></ColumnDefinition>
-            <ColumnDefinition Width="60*"></ColumnDefinition>
-            <ColumnDefinition Width="15*"></ColumnDefinition>
+            <ColumnDefinition Width="20*"></ColumnDefinition>
+            <ColumnDefinition Width="50*"></ColumnDefinition>
+            <ColumnDefinition Width="45*"></ColumnDefinition>
+            <ColumnDefinition Width="25*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
+        <ComboBox Name="clas"
+                  Grid.Row="1"
+                  Grid.Column="2"
+                  Height="40" Width="270"
+                  Background="White"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  HorizontalContentAlignment="Left"
+                  FontSize="14"
+                  materialDesign:HintAssist.Hint="Класс"
+                  VerticalContentAlignment="Bottom"
+                  ItemsSource="{Binding Genders}"
+                  DisplayMemberPath="Name"
+                  SelectedItem="{Binding SelectedGender, Mode=TwoWay}">
+        </ComboBox>
+
+
+        <CheckBox Grid.Row="1" 
+                  Grid.Column="3"
+                  HorizontalAlignment="Center"
+            Style="{StaticResource MaterialDesignFilterChipCheckBox}"
+            Background="White"
+            Foreground="White"
+            FontSize="20"
+            IsChecked="{Binding IsChecked}"
+            Content="На оценку" Cursor="Hand" />
 
         <TextBlock
-            Grid.Column="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="4"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Foreground="White"
-            Style="{StaticResource MaterialDesignHeadline4TextBlock}" Height="46" Width="498"
+            Style="{StaticResource MaterialDesignHeadline4TextBlock}" Height="46" Width="370"
             >
             Создание теста "1 из 4"
         </TextBlock>
@@ -38,13 +66,15 @@
 
         <TextBox Name="f_Box" 
                  Grid.Row="1" 
-                 Grid.Column="1"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="2"
+                 HorizontalAlignment="Left"
+                 Margin=" 2 0 0 0"
                  materialDesign:HintAssist.Hint="Введите название теста"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                  FontSize="14"
-                 Width="500" Height="40" 
+                 Width="420" Height="40" 
                  Background="White"
-                 MaxLines="1" MaxLength="200"
                  TextAlignment="Center"
                  AutoWordSelection="True"
                  Foreground="Black" Cursor="Arrow">
@@ -63,6 +93,7 @@
             
             Grid.Row="2"
             Grid.Column="1" 
+            Grid.ColumnSpan="2"
             x:Name="lvs"
             ItemsSource="{Binding TasksList}"
             IsSynchronizedWithCurrentItem="True">
@@ -208,7 +239,7 @@
 
 
         <TextBlock 
-            Grid.Row="1"
+            Grid.Row="0"
             Grid.Column="0"
             Text="{Binding Name}" FontWeight="Bold"/>
 
@@ -219,13 +250,26 @@
                
                 Command="{Binding CreateClick}"
             Content="Создать"
-                Grid.Column="1"
+                Grid.Column="0"
+                 Grid.ColumnSpan="4"
                 Grid.Row="3"
                 HorizontalAlignment="Center" 
                  VerticalAlignment="Center"
                 Width="200" Height="40" FontSize="21" Cursor="Hand"   
                 />
-       
+        <Button
+            Grid.Row="2"
+            Grid.Column="3"
+            Width="40"
+            Height="40"
+            FontSize="25"
+            Command="{Binding AddClick}"
+            HorizontalContentAlignment="Center"
+            Style="{StaticResource MaterialDesignFloatingActionButton}"
+            IsEnabled="{Binding DataContext.ControlsEnabled,
+            RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Margin="13,442,97,18" Cursor="Hand">+
+        </Button>
+
 
         <TextBox
             VerticalAlignment="Top"
