@@ -147,5 +147,61 @@ namespace nsAPI.Methods
             // Возвращаем класс.
             return works;
         }
+
+        /// <summary>
+        /// Задает оценку указанному ответу.
+        /// </summary>
+        /// <param name="api_token">Ключ для доступа к АПИ.</param>
+        /// <param name="mark">Оценка в строком типе. Теоретически можно задать до 4 символов, но зачем?</param>
+        /// <param name="IDExecutionOfWork">ID ответа - ID записи из таблицы ExectionOfWork</param>
+        /// <returns>True - при успешном добавлении оценки. В пртивном случае False не вернет, а выкинет исключение.</returns>
+        public async Task<bool> SetMark(string api_token, string mark, string IDExecutionOfWork)
+        {
+            // Обязательно добавляем в запрос НЕ зашифрованный ключ доступа.
+            Dictionary<string, string> urlParams = new Dictionary<string, string>();
+            urlParams["secure_key"] = api_token;
+
+            // Получаем пользователя с зашифрованными данными.
+            Dictionary<string, string> PostParams2 = new Dictionary<string, string>();
+            PostParams2["Mark"] = Encryption.AESHelper.EncryptString(mark);
+            PostParams2["IDExecutionOfWork"] = Encryption.AESHelper.EncryptString(IDExecutionOfWork);
+
+            // ВСЕГДА, ПРИ ОТПРАВКЕ POST-ЗАПРОСА, НАДО ДОБАВЛЯТЬ В КОНЦЕ АДРЕСА СЛЭШ!
+
+            // Конвертируем объект в строку в формате JSON.
+            string postParamsJson = JsonConvert.SerializeObject(PostParams2);
+            Console.WriteLine(postParamsJson);
+            // Отправляем на сервер.
+            var httpResponse = await httpPostJSONAsync("mark.add/", postParamsJson, urlParams);
+            // Ответ.
+            return httpResponse.data[0].ToString() == "OK";
+        }
+
+        /// <summary>
+        /// Задает оценку указанному ответу.
+        /// </summary>
+        /// <param name="api_token">Ключ для доступа к АПИ.</param>
+        /// <param name="header">Заголовок ответа на работу. В нем содержатся необходимые данные для отправки оценки.</param>
+        /// <returns>True - при успешном добавлении оценки. В пртивном случае False не вернет, а выкинет исключение.</returns>
+        public async Task<bool> SetMark(string api_token, AnswerHeader header) => 
+            await SetMark(api_token, header.Mark, header.ID);
+
+        /// <summary>
+        /// Задает оценку указанному ответу.
+        /// </summary>
+        /// <param name="api_token">Ключ для доступа к АПИ.</param>
+        /// <param name="testAnswer">Ответ на тестову работу. В нем содержатся необходимые данные для отправки оценки.</param>
+        /// <returns>True - при успешном добавлении оценки. В пртивном случае False не вернет, а выкинет исключение.</returns>
+        public async Task<bool> SetMark(string api_token, TestAnswer testAnswer) =>
+            await SetMark(api_token, testAnswer.AnswerHeader.Mark, testAnswer.AnswerHeader.ID);
+
+        /// <summary>
+        /// Задает оценку указанному ответу.
+        /// </summary>
+        /// <param name="api_token">Ключ для доступа к АПИ.</param>
+        /// <param name="textAnswer">Ответ на письменную работу. В нем содержатся необходимые данные для отправки оценки.</param>
+        /// <returns>True - при успешном добавлении оценки. В пртивном случае False не вернет, а выкинет исключение.</returns>
+        public async Task<bool> SetMark(string api_token, TextAnswer textAnswer) =>
+            await SetMark(api_token, textAnswer.AnswerHeader.Mark, textAnswer.AnswerHeader.ID);
     }
 }

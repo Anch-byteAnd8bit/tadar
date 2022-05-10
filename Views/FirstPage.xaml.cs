@@ -87,33 +87,15 @@ namespace Tadar.Views
                 Pass = "123",
             };
 
-            TextAnswerForAdd answer = new TextAnswerForAdd()
-            {
-                AnswerHeader = new AnswerHeader
-                {
-                    id_Student = "1",
-                    id_TypeWork = "2", // text
-                    id_RecordInJ = "65", // id work
-                    Mark = null,
-                    DateTimeS = DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss"),
-                    DateTimeE = DateTime.Now.AddMinutes(30).ToString("yyyy.MM.dd HH:mm:ss"),
-                },
-                AnswerBody = new List<TextAnswerBody> {
-                    new TextAnswerBody()
-                    {
-                        id_Task = "12",
-                        AnswText = "Написал из клиента ответ на письменное задание. Вот..."
-                    },
-                }
-            };
-
             try
             {
                 //await api.UserRegAsync(me);
                 if (api.MainUser==null) await api.UserAuthAsync(me.UserForAuthorization);
 
-                Answers answers = await api.GetAnswersByWorks(new string[] { "64","65" }, false);
-                _ = MessageBox.Show(answers.TestAnswers.Count.ToString() + " " + answers.TextAnswers.Count.ToString());
+                if (await api.AddMark("1234","1"))
+                {
+                    _ = MessageBox.Show("УРА!");
+                }
             }
             catch (UnknownHttpResponseException ex)
             {

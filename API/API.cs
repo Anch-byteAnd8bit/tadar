@@ -306,6 +306,43 @@ namespace nsAPI
         /// <returns>Возвращает идентификатор ответа в БД (ID записи из таблицы EexecutinOfWorks)</returns>
         public async Task<string> AddTextAnswerAsync(TextAnswerForAdd textAnswer) =>
             await answers.TextAnswerAddAsync(Access_Token, textAnswer);
+
+        /// <summary>
+        /// Задает оценку указанному ответу.
+        /// </summary>
+        /// <param name="api_token">Ключ для доступа к АПИ.</param>
+        /// <param name="mark">Оценка в строком типе. Теоретически можно задать до 4 символов, но зачем?</param>
+        /// <param name="IDExecutionOfWork">ID ответа - ID записи из таблицы ExectionOfWork</param>
+        /// <returns>True - при успешном добавлении оценки. В пртивном случае False не вернет, а выкинет исключение.</returns>
+        public async Task<bool> AddMark(string mark, string IDExecutionOfWork) =>
+            await answers.SetMark(Access_Token, mark, IDExecutionOfWork);
+
+        /// <summary>
+        /// Задает оценку указанному ответу.
+        /// </summary>
+        /// <param name="api_token">Ключ для доступа к АПИ.</param>
+        /// <param name="header">Заголовок ответа на работу. В нем содержатся необходимые данные для отправки оценки.</param>
+        /// <returns>True - при успешном добавлении оценки. В пртивном случае False не вернет, а выкинет исключение.</returns>
+        public async Task<bool> AddMark(AnswerHeader header) =>
+            await answers.SetMark(Access_Token, header);
+
+        /// <summary>
+        /// Задает оценку указанному ответу.
+        /// </summary>
+        /// <param name="api_token">Ключ для доступа к АПИ.</param>
+        /// <param name="testAnswer">Ответ на тестову работу. В нем содержатся необходимые данные для отправки оценки.</param>
+        /// <returns>True - при успешном добавлении оценки. В пртивном случае False не вернет, а выкинет исключение.</returns>
+        public async Task<bool> AddMark(TestAnswer testAnswer) =>
+            await answers.SetMark(Access_Token, testAnswer);
+
+        /// <summary>
+        /// Задает оценку указанному ответу.
+        /// </summary>
+        /// <param name="api_token">Ключ для доступа к АПИ.</param>
+        /// <param name="textAnswer">Ответ на письменную работу. В нем содержатся необходимые данные для отправки оценки.</param>
+        /// <returns>True - при успешном добавлении оценки. В пртивном случае False не вернет, а выкинет исключение.</returns>
+        public async Task<bool> AddMark(TextAnswer textAnswer) =>
+            await answers.SetMark(Access_Token, textAnswer);
         #endregion
 
         #region Theories
