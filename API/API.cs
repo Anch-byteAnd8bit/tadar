@@ -42,7 +42,7 @@ namespace nsAPI
         public string Access_Token { get { return api_token; } }
 
         // Конструктор класса.
-        public API()
+        public API(Action OnLoadedMainUser = null)
         {
             // Для работы с запросами касающимися пользователей.
             users = new MUsers();
@@ -56,8 +56,8 @@ namespace nsAPI
             {
                 if (File.Exists(pathAccessToken))
                 {
-                    LoadUserDataFromFileAsync();
-                    LoadMainUser();
+                    LoadUserDataFromFile();
+                    LoadMainUser(OnLoadedMainUser);
                 }
                 else
                 {
@@ -71,9 +71,15 @@ namespace nsAPI
             }
         }
 
-        private async void LoadMainUser()
+        /// <summary>
+        /// Асинхронно загружает пользователя.
+        /// </summary>
+        /// <param name="action">Процедура, 
+        /// которую надо вызвать после успешной загрузки пользователя.</param>
+        private async void LoadMainUser(Action action = null)
         {
             MainUser = await users.ByIdAsync(Access_Token, id_user);
+            if (action!=null) action();
         }
 
         #region Users
@@ -90,16 +96,6 @@ namespace nsAPI
             var accessToken = await users.RegAsync(user);
             //
             await UserAuthAsync(user.UserForAuthorization);
-            /*// Сохраняем токен пользователя.
-            api_token = accessToken.Token;
-            // Сохраняем ID пользователя.
-            id_user = accessToken.UserID;
-            // Сохраняем токен в файл с перезаписью существующего файла.
-            SaveUserDataToFileAsync(true);
-            // Загружаем информацию о пользователе с сервера.
-            MainUser = await GetUserByIdAsync(accessToken.UserID);*/
-            // Успех!
-            //return true;
         }
 
 
@@ -117,7 +113,7 @@ namespace nsAPI
             // Сохраняем ID пользователя.
             id_user = accessToken.UserID;
             // Сохраняем в файл с перезаписью существующего файла.
-            SaveUserDataToFileAsync(true);
+            SaveUserDataToFile(true);
             // Загружаем информацию о пользователе с сервера.
             MainUser = await GetUserByIdAsync(accessToken.UserID);
         }
@@ -210,7 +206,7 @@ namespace nsAPI
         /// </summary>
         /// <param name="classroom"></param>
         /// <returns></returns>
-        public async Task<RegisteredClassroom> ClassRegAsync(ClassroomForReg classroom) =>
+        public async Task<RegisteredClassroom> AddClassroomAsync(ClassroomForReg classroom) =>
             await classrooms.RegAsync(api_token, classroom);
 
         /// <summary>
@@ -404,7 +400,7 @@ namespace nsAPI
             else
             {
                 // Пробуем загрузить ключ из файла.
-                LoadUserDataFromFileAsync();
+                LoadUserDataFromFile();
                 // Рекурсивно взываем себя.
                 return getAccessToken();
             }
@@ -413,7 +409,7 @@ namespace nsAPI
         /// <summary>
         /// Сохраняет access_token и другие данные о пользователе в файл.
         /// </summary>
-        public void SaveUserDataToFileAsync(bool rewrite)
+        public void SaveUserDataToFile(bool rewrite)
         {
             // Проверяем, что папка user существует, если нет, то создаем её.
             if (!Directory.Exists(Path.GetDirectoryName(pathAccessToken))) Directory.CreateDirectory(Path.GetDirectoryName(pathAccessToken));
@@ -443,7 +439,7 @@ namespace nsAPI
         /// Загружает access_token и другие данные о пользователе из файла.
         /// </summary>
         /// <returns></returns>
-        public bool LoadUserDataFromFileAsync()
+        public bool LoadUserDataFromFile()
         {
             if (File.Exists(pathAccessToken))
             {
