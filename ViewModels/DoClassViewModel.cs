@@ -145,7 +145,7 @@ namespace Tadar.ViewModels
             // Во время любой операции с сервером может вылезти ошибка!
             try
             {
-                await api.ClassRegAsync(classroom);
+                await api.AddClassroomAsync(classroom);
 
                 Log.Write(classroom.Name + ": " + classroom.Description);
 

@@ -147,10 +147,10 @@ namespace nsAPI
         /// <param name="count">Кол-во пользователей. Макс: 50</param>
         /// <param name="shift">Смещение, относительно первого найденного.</param>
         /// <returns>Информация о пользователях.</returns>
-        public async Task<List<RegisteredUser>> FindUsersAsync(string searchName = null, string searchMName = null, string searchSurname = null)
+        public async Task<List<RegisteredUser>> FindUsersAsync(SettingsFind settingsFind = null,  string searchName = null, string searchMName = null, string searchSurname = null)
         {
             // Пробуем найти пользователей.
-            return await users.FindAsync(api_token, null, searchName, searchMName, searchSurname);
+            return await users.FindAsync(api_token, settingsFind, searchName, searchMName, searchSurname);
         }
 
         /// <summary>
@@ -236,6 +236,15 @@ namespace nsAPI
             string userId, string roleId = null) => await classrooms.ByUserIdAsync(
                 api_token, userId, roleId);
 
+
+        /// <summary>
+        /// Возвращает список всех классов в соответствии с параметром поиска.
+        /// </summary>
+        /// <param name="settingsFind">Параметр поиска.</param>
+        /// <returns></returns>
+        public async Task<List<RegisteredClassroom>> GetAllClassess(SettingsFind settingsFind = null) =>
+            await classrooms.GetAllAsync(Access_Token, settingsFind);
+        
         /// <summary>
         /// Добавляет пользовтаеля в класс в роли ученика.
         /// </summary>

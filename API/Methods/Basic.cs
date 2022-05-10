@@ -11,9 +11,18 @@ using nsAPI.JSON;
 
 namespace nsAPI.Methods
 {
-    class SettingsFind
+    /// <summary>
+    /// Параметры возврата количества и сдвига.
+    /// </summary>
+    public class SettingsFind
     {
+        /// <summary>
+        /// На сколько записей надо сдвинуть возврат.
+        /// </summary>
         public int Shift;
+        /// <summary>
+        /// Сколько записей максимум надо вернуть.
+        /// </summary>
         public int Count;
 
         public SettingsFind()

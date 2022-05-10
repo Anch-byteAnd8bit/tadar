@@ -1,6 +1,7 @@
 ﻿using Helpers;
 using nsAPI;
 using nsAPI.Entities;
+using nsAPI.Examples;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,27 +76,15 @@ namespace Tadar.Views
 
         private async void test_Click(object sender, RoutedEventArgs e)
         {
-            UserForRegistration me = new UserForRegistration()
-            {
-                BDate = DateTime.Parse("31.10.1990").ToString("yyyy.MM.dd"),
-                Email = "alex903_90@mail.ru",
-                GenderID = "1",
-                Login = "Alex",
-                Middlename = "Рогачёв",
-                Name = "Александр",
-                Surname = "Леонидович",
-                Pass = "123",
-            };
 
             try
             {
-                //await api.UserRegAsync(me);
-                if (api.MainUser==null) await api.UserAuthAsync(me.UserForAuthorization);
-
-                if (await api.AddStudent("11","1"))
-                {
-                    _ = MessageBox.Show("УРА!");
-                }
+                var eAPI = new ExampleAPI();
+                //await eAPI.UserRegAsync();
+                await eAPI.UserAuthAsync();
+                await eAPI.CreateClass();
+                await eAPI.GetListOfClasrooms();
+                await eAPI.GetClassroomByIdAsync();
             }
             catch (UnknownHttpResponseException ex)
             {

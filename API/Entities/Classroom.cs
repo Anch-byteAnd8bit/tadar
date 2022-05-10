@@ -97,9 +97,8 @@ namespace nsAPI.Entities
             this.Description = Encryption.AESHelper.DecryptString(this.Description);
             this.id_Journal = Encryption.AESHelper.DecryptString(this.id_Journal);
             this.ID = Encryption.AESHelper.DecryptString(this.ID);
-
-            //this.DateCreate = Encryption.AESHelper.EncryptString(this.DateCreate);
-            //this.DateClose = Encryption.AESHelper.EncryptString(this.DateClose);
+            this.DateCreate = Encryption.AESHelper.DecryptString(this.DateCreate);
+            this.DateClose = Encryption.AESHelper.DecryptString(this.DateClose);
         }
 
         /// <summary>

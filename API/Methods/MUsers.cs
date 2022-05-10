@@ -101,7 +101,7 @@ namespace nsAPI.Methods
             }
             // Если задано слишком большое кол-во.
             settings.Count = Math.Min(settings.Count, 50);
-
+             
             var d = new Dictionary<string, string>();
             d.Add("name", searchName);
             d.Add("middlename", searchMName);

@@ -139,6 +139,39 @@ namespace nsAPI.Methods
             return registeredClassroom;
         }
 
+        public async Task<List<RegisteredClassroom>> GetAllAsync(string api_token, SettingsFind settings)
+        {
+            if (settings == null) settings = new SettingsFind();
+            if (settings.Count <= 0 || settings.Shift < 0)
+            {
+                return null;
+            }
+            // Если задано слишком большое кол-во.
+            settings.Count = Math.Min(settings.Count, 50);
+
+            Dictionary<string, string> urlParam = new Dictionary<string, string>();
+            // Обязательно добавляем в запрос НЕ зашифрованный ключ доступа.
+            urlParam["secure_key"] = api_token;
+            // Кол-во пользователей.
+            urlParam["count"] = settings.Count.ToString();
+            // Смещение относительно первого пользователя.
+            urlParam["shift"] = settings.Shift.ToString();
+
+            // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
+            var httpResponse = await httpGetAsync("class.getAll", urlParam);
+            // Возвращаем список классов.
+            List<RegisteredClassroom> registeredClassroom = new List<RegisteredClassroom>();
+            //
+            httpResponse.data.ForEach(el =>
+            {
+                registeredClassroom.Add(JsonConvert.DeserializeObject<RegisteredClassroom>(el.ToString()));
+            });
+            // Расшифровываем данные класса.
+            registeredClassroom.ForEach(u => u.DecryptByAES());
+            // Возвращаем список классов.
+            return registeredClassroom;
+        }
+
         public async Task<bool> AddStudent(string api_token, string id_user, string id_class)
         {
             // Обязательно добавляем в запрос НЕ зашифрованный ключ доступа.

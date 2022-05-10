@@ -238,6 +238,9 @@ namespace nsAPI.Entities
         [JsonProperty("id_TypeWork")]
         public string IdTypeWork { get; set; }
 
+        /// <summary>
+        /// 1 - НЕ на оценку, 0 - На оценку.
+        /// </summary>
         [JsonProperty("isNonMark")]
         public string IsNonMark { get; set; }
 
