@@ -142,8 +142,25 @@ namespace Tadar.Views
         private void lbl1_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Label lbl = (Label)sender;
+            DragDrop.DoDragDrop(lbl, lbl, DragDropEffects.Move);
             DragDrop.DoDragDrop(lbl, lbl.Content, DragDropEffects.Copy);
         }
+
+        private void lbl_DragOver(object sender, DragEventArgs e)
+        {
+           
+            Point dropPosition = e.GetPosition(canvas);
+            Canvas.SetLeft(lbl1, dropPosition.X);
+            Canvas.SetTop(lbl1, dropPosition.Y);
+        }
+
+        private void lbl_MouseMove(object sender, MouseEventArgs e)
+        {
+            
+            DragDrop.DoDragDrop(rec, rec, DragDropEffects.Move);
+        }
+
+
 
         //private void txtTarget_Drop(object sender, DragEventArgs e)
         //{

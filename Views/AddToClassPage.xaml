@@ -9,13 +9,14 @@
       d:DataContext="{d:DesignInstance Type=viewmodels:AddToClassViewModel}"
      
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+       d:DesignHeight="700" d:DesignWidth="900"
       Title="AddToClassPage">
 
     <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False" >
         <Grid.RowDefinitions>
             <RowDefinition Height="5*"></RowDefinition>
             <RowDefinition Height="40*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -25,7 +26,7 @@
         <TextBlock  Grid.Row="0"
                    HorizontalAlignment="Center"
                    Foreground="White"
-            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+            Style="{StaticResource MaterialDesignHeadline3TextBlock}"
                    > Список классов</TextBlock>
 
         <ListView ItemsSource="{Binding UsersList}" IsSynchronizedWithCurrentItem="True"
@@ -49,6 +50,17 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-       
+
+        <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
+             materialDesign:ButtonAssist.CornerRadius="25" x:Name="class"
+               Height="45"
+                Command="{Binding ClassClick}"
+                Grid.Column="1"
+                Grid.Row="2"
+                Content="Создать класс"
+                HorizontalAlignment="Center" 
+                Width="255" FontSize="25" Cursor="Hand" 
+                />
+
     </Grid>
 </Page>

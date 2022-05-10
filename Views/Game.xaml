@@ -25,17 +25,34 @@
         </Grid.ColumnDefinitions>
 
 
+        <Canvas
+            DragOver="lbl_DragOver"
+            x:Name="canvas"
+            Grid.Row="1"
+            >
         <StackPanel
             Grid.Row="1"
             Width="150"
             HorizontalAlignment="Left"
             Margin="70 20 0 0"
             >
-            <Label Name="lbl1" Margin="10" Foreground="White"
+                <Rectangle
+                    x:Name="rec"
+                    Fill="Beige"
+                    Width="30"
+                    Height="30"
+                    MouseMove="lbl_MouseMove">
+                    
+                </Rectangle>
+            <Label 
+                
+                Name="lbl1" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2"
                    
-                   MouseDown="lbl1_MouseDown">пас</Label>
+                   MouseDown="lbl1_MouseDown"
+                
+                >пас</Label>
             <Label Name="lbl2" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">мойын</Label>
@@ -59,6 +76,7 @@
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">азах</Label>
 
         </StackPanel>
+        </Canvas>
 
         <StackPanel
             Grid.Row="1"

@@ -35,8 +35,8 @@ namespace Tadar.ViewModels
 
             Genders = new List<Refbook>()
             {
-                new Refbook{ ID = "1", Name = "123"},
-                new Refbook{ ID = "2", Name = "Ve;crjq"},
+                new Refbook{ ID = "1", Name = "Женский"},
+                new Refbook{ ID = "2", Name = "Мужской"},
             };
 
         }
