@@ -2,29 +2,6 @@
 
 namespace nsAPI.Entities
 {
-    public class Topic
-    {
-        /// <summary>
-        /// Заполняется автоматически
-        /// </summary>
-        [JsonProperty("ID")]
-        public string ID { get; set; }
-        [JsonProperty("Name")]
-        public string Name { get; set; }
-
-        public void Decrypt()
-        {
-            ID = Encryption.AESHelper.DecryptString(ID);
-            Name = Encryption.AESHelper.DecryptString(Name);
-        }
-
-        public void Encrypt()
-        {
-            ID = Encryption.AESHelper.EncryptString(ID);
-            Name = Encryption.AESHelper.EncryptString(Name);
-        }
-    }
-
     public class Theory
     {
         /// <summary>
@@ -32,28 +9,24 @@ namespace nsAPI.Entities
         /// </summary>
         [JsonProperty("ID")]
         public string ID { get; set; }
-        [JsonProperty("id_class")]
-        public string id_class { get; set; }
-        [JsonProperty("source")]
-        public string source { get; set; }
-        [JsonProperty("content")]
-        public string content { get; set; }
-        [JsonProperty("topic")]
-        public Topic topic { get; set; }
+        [JsonProperty("id_Class")]
+        public string id_Class { get; set; }
+        [JsonProperty("Source")]
+        public string Source { get; set; }
+        [JsonProperty("Content")]
+        public string Content { get; set; }
+        [JsonProperty("Topic")]
+        public string Topic { get; set; }
 
         public Theory Clone()
         {
             return new Theory
             {
                 ID = ID,
-                topic = new Topic
-                {
-                    ID = topic.ID,
-                    Name = topic.Name,
-                },
-                content = content,
-                id_class = id_class,
-                source = source,
+                Topic = Topic,
+                Content = Content,
+                id_Class = id_Class,
+                Source = Source,
             };
         }
         /// <summary>
@@ -62,10 +35,10 @@ namespace nsAPI.Entities
         public void Decrypt()
         {
             ID = Encryption.AESHelper.DecryptString(ID);
-            id_class = Encryption.AESHelper.DecryptString(id_class);
-            source = Encryption.AESHelper.DecryptString(source);
-            content = Encryption.AESHelper.DecryptString(content);
-            topic.Decrypt();
+            id_Class = Encryption.AESHelper.DecryptString(id_Class);
+            Source = Encryption.AESHelper.DecryptString(Source);
+            Content = Encryption.AESHelper.DecryptString(Content);
+            Topic = Encryption.AESHelper.DecryptString(Topic);
         }
 
         public static Theory FromJson(string json)
@@ -80,10 +53,11 @@ namespace nsAPI.Entities
         public void Encrypt()
         {
             ID = Encryption.AESHelper.EncryptString(ID);
-            id_class = Encryption.AESHelper.EncryptString(id_class);
-            source = Encryption.AESHelper.EncryptString(source);
-            content = Encryption.AESHelper.EncryptString(content);
-            topic.Encrypt();
+            id_Class = Encryption.AESHelper.EncryptString(id_Class);
+            Source = Encryption.AESHelper.EncryptString(Source);
+            Content = Encryption.AESHelper.EncryptString(Content);
+            Topic = Encryption.AESHelper.EncryptString(Topic);
+            
         }
 
         public string ToJson()

@@ -31,12 +31,11 @@ namespace nsAPI.Methods
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("theory.add/", theoryJson, urlParams);
             // Конвертируем данные из нулевой ячейки массива ответа в тип IdentifierClassroom.
-            IdentifierTheory ids = IdentifierTheory.FromJson(httpResponse.data[0].ToString());
+            Identifier id = Identifier.FromJson(httpResponse.data[0].ToString());
             // Расшифровываем.
             //ids.DecryptByAES();
             //
-            theory.ID = ids.ID;
-            theory.topic.ID = ids.id_topic;
+            theory.ID = id.ID;
             return theory;
         }
 

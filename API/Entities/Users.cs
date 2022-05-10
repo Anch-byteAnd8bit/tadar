@@ -11,35 +11,35 @@ namespace nsAPI.Entities
         [JsonProperty("ID")]
         public string ID { get; set; }
 
-        [JsonProperty("surname")]
+        [JsonProperty("Surname")]
         public string Surname { get; set; }
 
-        [JsonProperty("name")]
+        [JsonProperty("Name")]
         public string Name { get; set; }
 
-        [JsonProperty("middlename")]
+        [JsonProperty("Middlename")]
         public string Middlename { get; set; }
 
-        [JsonProperty("id_gender")]
+        [JsonProperty("id_Gender")]
         public string GenderID { get; set; }
 
-        [JsonProperty("login")]
+        [JsonProperty("Login")]
         public string Login { get; set; }
 
-        //[JsonProperty("pass")]
+        //[JsonProperty("Pass")]
         //public string Pass { get; set; }
 
-        [JsonProperty("email")]
+        [JsonProperty("Email")]
         public string Email { get; set; }
 
-        [JsonProperty("id_state")]
+        [JsonProperty("id_State")]
         public string StateID { get; set; }
 
-        [JsonProperty("bdate")]
+        [JsonProperty("BDate")]
         public DateTimeOffset BDate { get; set; }
 
-        [JsonProperty("datereg")]
-        public DateTimeOffset DateReg { get; set; }
+        [JsonProperty("DateTimeReg")]
+        public DateTimeOffset DateTimeReg { get; set; }
 
 
         /// <summary>
@@ -51,8 +51,8 @@ namespace nsAPI.Entities
         {
             if (this == null) return;
             // Дата не шифруется на сервере.
-            //Bdate = this.Bdate;
-            //DateReg = this.DateReg;
+            //BDate = this.BDate;
+            //DateTimeReg = this.DateTimeReg;
             ID = AESHelper.DecryptString(this.ID);
             Email = AESHelper.DecryptString(this.Email);
             GenderID = AESHelper.DecryptString(this.GenderID);
@@ -73,7 +73,7 @@ namespace nsAPI.Entities
         public UserForRegistration(RegisteredUser user)
         {
             this.BDate = user.BDate.ToString("d");
-            //this.DateReg = user.Data.DateReg.ToString("d");
+            //this.DateTimeReg = user.Data.DateTimeReg.ToString("d");
             this.Email = user.Email;
             this.GenderID = user.GenderID;
             this.Login = user.Login;
@@ -83,35 +83,35 @@ namespace nsAPI.Entities
             this.Surname = user.Surname;
         }
 
-        [JsonProperty("surname")]
+        [JsonProperty("Surname")]
         public string Surname { get; set; }
 
-        [JsonProperty("name")]
+        [JsonProperty("Name")]
         public string Name { get; set; }
 
-        [JsonProperty("middlename")]
+        [JsonProperty("Middlename")]
         public string Middlename { get; set; }
 
         /// <summary>
         /// Варианты: "Мужской", "Женский".
         /// </summary>
-        [JsonProperty("id_gender")]
+        [JsonProperty("id_Gender")]
         public string GenderID { get; set; }
 
-        [JsonProperty("login")]
+        [JsonProperty("Login")]
         public string Login { get; set; }
 
-        [JsonProperty("pass")]
+        [JsonProperty("Pass")]
         public string Pass { get; set; }
 
-        [JsonProperty("email")]
+        [JsonProperty("Email")]
         public string Email { get; set; }
 
-        [JsonProperty("bdate")]
+        [JsonProperty("BDate")]
         public string BDate { get; set; }
 
-        /*[JsonProperty("datereg")]
-        public string DateReg { get; set; }*/
+        /*[JsonProperty("DateTimeReg")]
+        public string DateTimeReg { get; set; }*/
 
         /// <summary>
         /// Шифрует все данные этого пользователя
@@ -122,7 +122,7 @@ namespace nsAPI.Entities
         {
             UserForRegistration encUser = new UserForRegistration();
             encUser.BDate = AESHelper.EncryptString(this.BDate);
-            //encUser.DateReg = AESHelper.EncryptString(this.DateReg);
+            //encUser.DateTimeReg = AESHelper.EncryptString(this.DateTimeReg);
             encUser.Email = AESHelper.EncryptString(this.Email);
             encUser.GenderID = AESHelper.EncryptString(this.GenderID);
             encUser.Login = AESHelper.EncryptString(this.Login);
@@ -144,7 +144,7 @@ namespace nsAPI.Entities
             {
                 // Дата не шифруется при отправке на сервер.
                 BDate = this.BDate,
-                //DateReg = this.DateReg,
+                //DateTimeReg = this.DateTimeReg,
 
                 Email = AESHelper.DecryptString(this.Email),
                 GenderID = AESHelper.DecryptString(this.GenderID),
@@ -180,10 +180,10 @@ namespace nsAPI.Entities
     /// </summary>
     public class UserForAuthorization
     {
-        [JsonProperty("login")]
+        [JsonProperty("Login")]
         public string Login { get; set; }
 
-        [JsonProperty("pass")]
+        [JsonProperty("Pass")]
         public string Pass { get; set; }
 
         /// <summary>

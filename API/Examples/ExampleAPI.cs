@@ -71,12 +71,7 @@ namespace nsAPI.Examples
             {
                 Name = "Класс номер 1",
                 Description = "Описание класса номер 1",
-                id_User = api.MainUser.ID,
-                Journal = new JournalForReg
-                {
-                    Name = "Наименование журнала класса номер 1",
-                    Description = "Описание журнала класса номер 1"
-                }
+                id_User = api.MainUser.ID
             };
             // Получаем объект зарегистрированного класса.
             curClassroom = await api.AddClassroomAsync(classroomForReg);
@@ -109,7 +104,7 @@ namespace nsAPI.Examples
                     Name = "Тестовая работа номер 1",
                     MaxDuration = "35",
                     IsNonMark = "0",
-                    IdJournal = curClassroom.id_Journal,
+                    id_Class = curClassroom.ID,
                     //Id <- не надо заполнять.
                 },
                 WorkBody = new List<TestTask>
@@ -161,7 +156,7 @@ namespace nsAPI.Examples
                     Name = "Текстовая работа номер 1",
                     MaxDuration = "35",
                     IsNonMark = "0",
-                    IdJournal = curClassroom.id_Journal,
+                    id_Class = curClassroom.ID,
                     //Id <- не надо заполнять.
                 },
                 WorkBody = new List<TextTask>
@@ -190,7 +185,7 @@ namespace nsAPI.Examples
                 {
                     //ID
                     id_TypeWork = "1", // Для теста всегда 1
-                    id_RecordInJ = "1", // ИД работы.
+                    id_Work = "1", // ИД работы.
                     DateTimeS = DateTime.Now.ToString(""),
                     DateTimeE = DateTime.Now.ToString(""),
                     id_Student = api.MainUser.ID,
@@ -230,7 +225,7 @@ namespace nsAPI.Examples
                 {
                     //ID
                     id_TypeWork = "1", // Для текста всегда 1
-                    id_RecordInJ = "1", // ИД работы.
+                    id_Work= "1", // ИД работы.
                     DateTimeS = DateTime.Now.ToString(""),
                     DateTimeE = DateTime.Now.ToString(""),
                     id_Student = api.MainUser.ID,
@@ -265,7 +260,7 @@ namespace nsAPI.Examples
         public async Task GetClassroomByIdAsync()
         {
             RegisteredClassroom classroom = await api.GetClassroomByIdAsync("1");
-            _ = MessageBox.Show(classroom.DateCreate);
+            _ = MessageBox.Show(classroom.DateTimeCreate);
         }
 
     }

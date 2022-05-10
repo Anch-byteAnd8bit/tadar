@@ -12,39 +12,33 @@ namespace nsAPI.Entities
         [JsonProperty("ID")]
         public string ID { get; set; }
 
-        [JsonProperty("name")]
+        [JsonProperty("Name")]
         public string Name { get; set; }
 
-        [JsonProperty("description")]
+        [JsonProperty("Description")]
         public string Description { get; set; }
 
-        [JsonProperty("dateCreate")]
-        public string DateCreate { get; set; }
+        [JsonProperty("DateTimeCreate")]
+        public string DateTimeCreate { get; set; }
 
-        [JsonProperty("id_Journal")]
-        public string id_Journal { get; set; }
-
-        [JsonProperty("DateClose")]
-        public string DateClose { get; set; }
+        [JsonProperty("DateTimeClose")]
+        public string DateTimeClose { get; set; }
     }
 
 
     public class ClassroomForReg
     {
-        [JsonProperty("name")]
+        [JsonProperty("Name")]
         public string Name { get; set; }
 
-        [JsonProperty("description")]
+        [JsonProperty("Description")]
         public string Description { get; set; }
 
         [JsonProperty("id_user")]
         public string id_User { get; set; }
 
-        //[JsonProperty("dateCreate")]
-        //public string DateCreate { get; set; }
-
-        [JsonProperty("journal")]
-        public JournalForReg Journal { get; set; }
+        //[JsonProperty("DateTimeCreate")]
+        //public string DateTimeCreate { get; set; }
 
         /// <summary>
         /// Шифрование алгоритмом AES с имеющимися ключами.
@@ -54,14 +48,13 @@ namespace nsAPI.Entities
             this.Name = Encryption.AESHelper.EncryptString(this.Name);
             this.Description = Encryption.AESHelper.EncryptString(this.Description);
             this.id_User = Encryption.AESHelper.EncryptString(this.id_User);
-            this.Journal.EncryptByAES();
         }
         
 
         /// <summary>
         /// Конвертирование строки в формате JSON в тип ClassForReg.
         /// </summary>
-        /// <param name="json"></param>
+        /// <param Name="json"></param>
         /// <returns></returns>
         public static ClassroomForReg FromJson(string json) => JsonConvert.DeserializeObject<ClassroomForReg>(json, Converter.Settings);
 
@@ -73,20 +66,18 @@ namespace nsAPI.Entities
         [JsonProperty("ID")]
         public string ID { get; set; }
 
-        [JsonProperty("name")]
+        [JsonProperty("Name")]
         public string Name { get; set; }
 
-        [JsonProperty("description")]
+        [JsonProperty("Description")]
         public string Description { get; set; }
 
-        [JsonProperty("dateCreate")]
-        public string DateCreate { get; set; }
+        [JsonProperty("DateTimeCreate")]
+        public string DateTimeCreate { get; set; }
 
-        [JsonProperty("id_Journal")]
-        public string id_Journal { get; set; }
 
-        [JsonProperty("DateClose")]
-        public string DateClose { get; set; }
+        [JsonProperty("DateTimeClose")]
+        public string DateTimeClose { get; set; }
 
         /// <summary>
         /// Шифрование алгоритмом AES с имеющимися ключами.
@@ -95,16 +86,15 @@ namespace nsAPI.Entities
         {
             this.Name = Encryption.AESHelper.DecryptString(this.Name);
             this.Description = Encryption.AESHelper.DecryptString(this.Description);
-            this.id_Journal = Encryption.AESHelper.DecryptString(this.id_Journal);
             this.ID = Encryption.AESHelper.DecryptString(this.ID);
-            this.DateCreate = Encryption.AESHelper.DecryptString(this.DateCreate);
-            this.DateClose = Encryption.AESHelper.DecryptString(this.DateClose);
+            this.DateTimeCreate = Encryption.AESHelper.DecryptString(this.DateTimeCreate);
+            this.DateTimeClose = Encryption.AESHelper.DecryptString(this.DateTimeClose);
         }
 
         /// <summary>
         /// Конвертирование строки в формате JSON в тип ClassForReg.
         /// </summary>
-        /// <param name="json"></param>
+        /// <param Name="json"></param>
         /// <returns></returns>
         public static RegisteredClassroom FromJson(string json) => JsonConvert.DeserializeObject<RegisteredClassroom>(json, Converter.Settings);
     }

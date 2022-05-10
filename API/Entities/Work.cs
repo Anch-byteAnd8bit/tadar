@@ -119,8 +119,8 @@ namespace nsAPI.Entities
     /// </summary>
     public partial class TestTask
     {
-        [JsonProperty("Id")]
-        public string Id { get; set; }
+        [JsonProperty("ID")]
+        public string ID { get; set; }
 
         [JsonProperty("NumTask")]
         public string NumTask { get; set; }
@@ -151,7 +151,7 @@ namespace nsAPI.Entities
         /// </summary>
         public void DecryptByAES()
         {
-            Id = Encryption.AESHelper.DecryptString(Id);
+            ID = Encryption.AESHelper.DecryptString(ID);
             IdTest = Encryption.AESHelper.DecryptString(IdTest);
             NumTask = Encryption.AESHelper.DecryptString(NumTask);
             Word = Encryption.AESHelper.DecryptString(Word);
@@ -168,7 +168,7 @@ namespace nsAPI.Entities
         /// </summary>
         public void EncryptByAES()
         {
-            Id = Encryption.AESHelper.EncryptString(Id);
+            ID = Encryption.AESHelper.EncryptString(ID);
             IdTest = Encryption.AESHelper.EncryptString(IdTest);
             NumTask = Encryption.AESHelper.EncryptString(NumTask);
             Word = Encryption.AESHelper.EncryptString(Word);
@@ -185,8 +185,8 @@ namespace nsAPI.Entities
     /// </summary>
     public partial class TextTask
     {
-        [JsonProperty("Id")]
-        public string Id { get; set; }
+        [JsonProperty("ID")]
+        public string ID { get; set; }
 
         [JsonProperty("id_Test")]
         public string IdTest { get; set; }
@@ -203,7 +203,7 @@ namespace nsAPI.Entities
         /// </summary>
         public void DecryptByAES()
         {
-            Id = Encryption.AESHelper.DecryptString(Id);
+            ID = Encryption.AESHelper.DecryptString(ID);
             IdTest = Encryption.AESHelper.DecryptString(IdTest);
             TaskText = Encryption.AESHelper.DecryptString(TaskText);
             TaskTitle = Encryption.AESHelper.DecryptString(TaskTitle);
@@ -214,7 +214,7 @@ namespace nsAPI.Entities
         /// </summary>
         public void EncryptByAES()
         {
-            Id = Encryption.AESHelper.EncryptString(Id);
+            ID = Encryption.AESHelper.EncryptString(ID);
             IdTest = Encryption.AESHelper.EncryptString(IdTest);
             TaskText = Encryption.AESHelper.EncryptString(TaskText);
             TaskTitle = Encryption.AESHelper.EncryptString(TaskTitle);
@@ -227,10 +227,10 @@ namespace nsAPI.Entities
     public partial class WorkHeader
     {
         [JsonProperty("ID")]
-        public string Id { get; set; }
+        public string ID { get; set; }
 
-        [JsonProperty("id_Journal")]
-        public string IdJournal { get; set; }
+        [JsonProperty("id_Class")]
+        public string id_Class { get; set; }
 
         [JsonProperty("DateTimeCreate")]
         public string DateTimeCreate { get; set; }
@@ -262,8 +262,8 @@ namespace nsAPI.Entities
         /// </summary>
         public void DecryptByAES()
         {
-            Id = Encryption.AESHelper.DecryptString(Id);
-            IdJournal = Encryption.AESHelper.DecryptString(IdJournal);
+            ID = Encryption.AESHelper.DecryptString(ID);
+            id_Class = Encryption.AESHelper.DecryptString(id_Class);
             DateTimeCreate  = Encryption.AESHelper.DecryptString(DateTimeCreate);
             IdTypeWork  = Encryption.AESHelper.DecryptString(IdTypeWork);
             IsNonMark  = Encryption.AESHelper.DecryptString(IsNonMark);
@@ -278,8 +278,8 @@ namespace nsAPI.Entities
         /// </summary>
         public void EncryptByAES()
         {
-            Id = Encryption.AESHelper.EncryptString(Id);
-            IdJournal = Encryption.AESHelper.EncryptString(IdJournal);
+            ID = Encryption.AESHelper.EncryptString(ID);
+            id_Class = Encryption.AESHelper.EncryptString(id_Class);
             DateTimeCreate = Encryption.AESHelper.EncryptString(DateTimeCreate);
             IdTypeWork = Encryption.AESHelper.EncryptString(IdTypeWork);
             IsNonMark = Encryption.AESHelper.EncryptString(IsNonMark);

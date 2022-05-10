@@ -210,8 +210,8 @@ namespace nsAPI.Entities
         [JsonProperty("ID")]
         public string ID { get; set; }
 
-        [JsonProperty("id_RecordInJ")]
-        public string id_RecordInJ { get; set; }
+        [JsonProperty("id_Work")]
+        public string id_Work { get; set; }
 
         [JsonProperty("id_Student")]
         public string id_Student { get; set; }
@@ -238,7 +238,7 @@ namespace nsAPI.Entities
         public void DecryptByAES()
         {
             ID = Encryption.AESHelper.DecryptString(ID);
-            id_RecordInJ = Encryption.AESHelper.DecryptString(id_RecordInJ);
+            id_Work = Encryption.AESHelper.DecryptString(id_Work);
             id_Student = Encryption.AESHelper.DecryptString(id_Student);
             Mark = Encryption.AESHelper.DecryptString(Mark);
             DateTimeS = Encryption.AESHelper.DecryptString(DateTimeS);
@@ -252,7 +252,7 @@ namespace nsAPI.Entities
         public void EncryptByAES()
         {
             ID = Encryption.AESHelper.EncryptString(ID);
-            id_RecordInJ = Encryption.AESHelper.EncryptString(id_RecordInJ);
+            id_Work = Encryption.AESHelper.EncryptString(id_Work);
             id_Student = Encryption.AESHelper.EncryptString(id_Student);
             Mark = Encryption.AESHelper.EncryptString(Mark);
             DateTimeS = Encryption.AESHelper.EncryptString(DateTimeS);

@@ -10,7 +10,7 @@ namespace nsAPI.Entities
         [JsonProperty("ID")]
         public string ID { get; set; }
 
-        [JsonProperty("name")]
+        [JsonProperty("Name")]
         public string Name { get; set; }
     }
 }
