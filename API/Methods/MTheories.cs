@@ -109,7 +109,7 @@ namespace nsAPI.Methods
             Dictionary<string, string> urlParam = new Dictionary<string, string>();
             urlParam.Add("secure_key", api_token);
             // Добавление в массив по ключу "id", идентификатора класса.
-            urlParam.Add("id_class", id_class);
+            urlParam.Add("id_Class", id_class);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpGetAsync("theory.get/", urlParam);
             // Возвращаем список классов.

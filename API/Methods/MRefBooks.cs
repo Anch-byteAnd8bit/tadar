@@ -21,12 +21,11 @@ namespace nsAPI.Methods
             // Добавляем в запрос тип справочника.
             Dictionary<string, string> urlParams = new Dictionary<string, string>();
             urlParams["refbook"] = nameRefbook;
-
-            //Dictionary<string, string> p = new Dictionary<string, string>();
-            //p["refbook"] = "genders";
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpGetAsync( "refbooks.get", urlParams);
-            // Конвертируем данные из массива ответа в список типа Gender.
+            // Если пришел пустой ответ - значит в справочнике еще нет данных!
+            if (httpResponse.data[0].ToString().Contains(Nothing)) return null;
+            // Конвертируем данные из массива ответа в список типа Refbook.
             List<Refbook> res = new List<Refbook>();
             httpResponse.data.ForEach(x =>
             {
@@ -41,6 +40,30 @@ namespace nsAPI.Methods
         /// <returns></returns>
         public async Task<List<Refbook>> GetListGendersAsync() =>
             await GetAllDataAsync("genders");
+        /// <summary>
+        /// Возвращает список типов работ.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Refbook>> GetListWorkTypesAsync() =>
+            await GetAllDataAsync("worktypes");
+        /// <summary>
+        /// Возвращает список ролей пользователей.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Refbook>> GetListRolesAsync() =>
+            await GetAllDataAsync("roles");
+        /// <summary>
+        /// Возвращает список состояний аккаунтов.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Refbook>> GetListStatesAsync() =>
+            await GetAllDataAsync("states");
+        /// <summary>
+        /// Возвращает список типов слов.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Refbook>> GetListTypeWordsAsync() =>
+            await GetAllDataAsync("typewords");
 
         /// <summary>
         /// Добавление письменной работы в журнал.

@@ -236,7 +236,7 @@ namespace nsAPI.Entities
         public string DateTimeCreate { get; set; }
 
         [JsonProperty("id_TypeWork")]
-        public string IdTypeWork { get; set; }
+        public string id_TypeWork { get; set; }
 
         /// <summary>
         /// 1 - НЕ на оценку, 0 - На оценку.
@@ -265,7 +265,7 @@ namespace nsAPI.Entities
             ID = Encryption.AESHelper.DecryptString(ID);
             id_Class = Encryption.AESHelper.DecryptString(id_Class);
             DateTimeCreate  = Encryption.AESHelper.DecryptString(DateTimeCreate);
-            IdTypeWork  = Encryption.AESHelper.DecryptString(IdTypeWork);
+            id_TypeWork  = Encryption.AESHelper.DecryptString(id_TypeWork);
             IsNonMark  = Encryption.AESHelper.DecryptString(IsNonMark);
             Name  = Encryption.AESHelper.DecryptString(Name);
             Description  = Encryption.AESHelper.DecryptString(Description);
@@ -281,7 +281,7 @@ namespace nsAPI.Entities
             ID = Encryption.AESHelper.EncryptString(ID);
             id_Class = Encryption.AESHelper.EncryptString(id_Class);
             DateTimeCreate = Encryption.AESHelper.EncryptString(DateTimeCreate);
-            IdTypeWork = Encryption.AESHelper.EncryptString(IdTypeWork);
+            id_TypeWork = Encryption.AESHelper.EncryptString(id_TypeWork);
             IsNonMark = Encryption.AESHelper.EncryptString(IsNonMark);
             Name = Encryption.AESHelper.EncryptString(Name);
             Description = Encryption.AESHelper.EncryptString(Description);

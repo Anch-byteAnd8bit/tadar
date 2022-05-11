@@ -12,8 +12,19 @@ using System.Windows;
 
 namespace nsAPI
 {
+    public enum TRefbooks
+    {
+        Genders,
+        WorkTypes,
+        Roles,
+        States,
+        TypeWords
+    }
+
     public class API
     {
+        public Dictionary<TRefbooks, List<Refbook>> Refbooks;
+
         /// <summary>
         /// 
         /// </summary>
@@ -43,12 +54,16 @@ namespace nsAPI
         public string Access_Token { get { return api_token; } }
 
         private static API instance;
+        /// <summary>
+        /// Возвращает экземпляр API. Паттерн "одиночка".
+        /// </summary>
         public static API Instance
         {
             get
             {
                 if (instance != null) return instance;
-                instance = new API();
+
+                instance = new API(true);
                 return instance;
             }
             set
@@ -57,8 +72,14 @@ namespace nsAPI
             }
         }
 
-        // Конструктор класса.
-        public API(Action OnLoadedMainUser = null)
+        /// <summary>
+        /// Конструктор класса.
+        /// </summary>
+        /// <param name="loadRefbooks">Надо лиз агружать все справочники.</param>
+        /// <param name="OnLoadedRefbooks">Процедура, вызываемая после загрузки справочников.</param>
+        /// <param name="loadMainUser">Надо ли загружать данные о текущем пользователе (MainUser)</param>
+        /// <param name="OnLoadedMainUser">Процедура, вызываемая после загрузке пользователя.</param>
+        public API(bool loadRefbooks = false, Action OnLoadedRefbooks = null, bool loadMainUser = true, Action OnLoadedMainUser = null)
         {
             // Для работы с запросами касающимися пользователей.
             users = new MUsers();
@@ -73,7 +94,8 @@ namespace nsAPI
                 if (File.Exists(pathAccessToken))
                 {
                     LoadUserDataFromFile();
-                    LoadMainUser(OnLoadedMainUser);
+                    if (loadMainUser) LoadMainUser(OnLoadedMainUser);
+                    if (loadRefbooks) LoadRefBooks(OnLoadedRefbooks);
                 }
                 else
                 {
@@ -97,6 +119,33 @@ namespace nsAPI
             try
             {
                 MainUser = await users.ByIdAsync(Access_Token, id_user);
+                if (action != null) action();
+            }
+            catch (UnknownHttpResponseException ex)
+            {
+                _ = MessageBox.Show(ex.Message + "\n" + ex.ResponseJSON);
+            }
+        }
+        /// <summary>
+        /// Асинхронно загружает справочники.
+        /// </summary>
+        /// <param name="action"></param>
+        private async void LoadRefBooks(Action action = null)
+        {
+            try
+            {
+                Refbooks = new Dictionary<TRefbooks, List<Refbook>>();
+                var genders = await GetGendersAsync();
+                var typeWorks = await GetWorkTypesAsync();
+                var roles = await GetRolesAsync();
+                var states = await GetStatesAsync();
+                var typeWords = await GetTypeWordsAsync();
+
+                Refbooks.Add(TRefbooks.Genders, genders);
+                Refbooks.Add(TRefbooks.WorkTypes, typeWorks);
+                Refbooks.Add(TRefbooks.Roles, roles);
+                Refbooks.Add(TRefbooks.States, states);
+                Refbooks.Add(TRefbooks.TypeWords, typeWords);
                 if (action != null) action();
             }
             catch (UnknownHttpResponseException ex)
@@ -192,6 +241,30 @@ namespace nsAPI
         /// <returns></returns>
         public async Task<List<Refbook>> GetGendersAsync() =>
             await refBooks.GetListGendersAsync();
+        /// <summary>
+        /// Запрашивает у сервера список типов работ.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Refbook>> GetWorkTypesAsync() =>
+            await refBooks.GetListWorkTypesAsync();
+        /// <summary>
+        /// Запрашивает у сервера список ролей пользователей.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Refbook>> GetRolesAsync() =>
+            await refBooks.GetListRolesAsync();
+        /// <summary>
+        /// Запрашивает у сервера список состояний аккаунтов.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Refbook>> GetStatesAsync() =>
+            await refBooks.GetListStatesAsync();
+        /// <summary>
+        /// Запрашивает у сервера список типов слов.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Refbook>> GetTypeWordsAsync() =>
+            await refBooks.GetListTypeWordsAsync();
 
         /// <summary>
         /// Возвращает все данные из указанного справочника.
@@ -274,22 +347,22 @@ namespace nsAPI
         #region Works
         // =========== Тесты
         /// <summary>
-        /// Возвращает список работ по заданным идентификаторам журналов.
+        /// Возвращает список работ по заданным идентификаторам классов.
         /// </summary>
-        /// <param name="journalsID">Массив строк идентификаторов журналов.</param>
+        /// <param name="classesID">Массив строк идентификаторов классов.</param>
         /// <param name="onlyHeaders">Только заголовки работ.</param>
         /// <returns>Список работ.</returns>
-        public async Task<Works> GetWorksByJournalAsync(string[] journalsID, bool onlyHeaders = true) =>
-            await works.ByJournalsIdsAsync(Access_Token, journalsID, onlyHeaders);
+        public async Task<Works> GetWorksByClassesIDAsync(string[] classesID, bool onlyHeaders = true) =>
+            await works.ByClassesIdsAsync(Access_Token, classesID, onlyHeaders);
 
         /// <summary>
-        /// Возвращает работу по заданному идентификатору журнала.
+        /// Возвращает работу по заданному идентификатору класса.
         /// </summary>
-        /// <param name="journalID">Строка идентификатора журнала.</param>
+        /// <param name="classID">Строка идентификатора класса.</param>
         /// <param name="onlyHeaders">Только заголовок работы.</param>
         /// <returns>Работа.</returns>
-        public async Task<Works> GetWorksByJournalAsync(string journalID, bool onlyHeaders = true) =>
-            await works.ByJournalIdAsync(Access_Token, journalID, onlyHeaders);
+        public async Task<Works> GetWorksByClassIDAsync(string classID, bool onlyHeaders = true) =>
+            await works.ByClassIDAsync(Access_Token, classID, onlyHeaders);
 
         /// <summary>
         /// Добавляет в БД тестовую новую работу.

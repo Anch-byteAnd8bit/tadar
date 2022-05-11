@@ -30,6 +30,7 @@ namespace nsAPI.Methods
             // Получаем пользователя с зашифрованными данными.
             work.EncryptByAES();
 
+
             // ВСЕГДА, ПРИ ОТПРАВКЕ POST-ЗАПРОСА, НАДО ДОБАВЛЯТЬ В КОНЦЕ АДРЕСА СЛЭШ!
 
             // Конвертируем объект в строку в формате JSON.
@@ -79,15 +80,15 @@ namespace nsAPI.Methods
         }
 
         /// <summary>
-        /// Получает информацию о работах с заданными ID журналов.
+        /// Получает информацию о работах с заданными ID классов.
         /// </summary>
         /// <param name="api_token">Ключ для работы с АПИ.</param>
-        /// <param name="journalIDs">ID журналов.</param>
+        /// <param name="ClassesIDs">ID классов.</param>
         /// <param name="onlyHeaders">Возвращать только заголовки работ.</param>
         /// <returns>Информация о работах.</returns>
-        public async Task<Works> ByJournalsIdsAsync(string api_token, string[] journalIDs, bool onlyHeaders = true)
+        public async Task<Works> ByClassesIdsAsync(string api_token, string[] ClassesIDs, bool onlyHeaders = true)
         {
-            if (journalIDs == null || journalIDs.Count() <= 0)
+            if (ClassesIDs == null || ClassesIDs.Count() <= 0)
             {
                 return null;
             }
@@ -98,7 +99,7 @@ namespace nsAPI.Methods
             // Создание ассоциативного массива.
             var d = new Dictionary<string, object>();
             // Добавление в массив по ключу "ids", список идентификаторов классов.
-            d.Add("ids", journalIDs);
+            d.Add("ids", ClassesIDs);
             // Сериализация (конвертирование в формат JSON).
             string dataJSON = JsonConvert.SerializeObject(d);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
@@ -116,7 +117,7 @@ namespace nsAPI.Methods
                     // Расшифровка заголовка.
                     workHeader.DecryptByAES();
                     // Test
-                    if (workHeader.IdTypeWork == "1")
+                    if (workHeader.id_TypeWork == "1")
                     {
                         //
                         TestWork testWork = new TestWork();
@@ -130,7 +131,7 @@ namespace nsAPI.Methods
                         // Сохраняем работу.
                         works.TestWorks.Add(testWork);
                     }// Text
-                    else if (workHeader.IdTypeWork == "2")
+                    else if (workHeader.id_TypeWork == "2")
                     {
                         //
                         TextWork textWork = new TextWork();
@@ -150,23 +151,23 @@ namespace nsAPI.Methods
         }
 
         /// <summary>
-        /// Получает информацию о работах с заданным ID журнала.
+        /// Получает информацию о работах с заданным ID класса.
         /// </summary>
         /// <param name="api_token">Ключ для доступа к АПИ.</param>
-        /// <param name="journalId">ID журналов.</param>
+        /// <param name="сlassID">ID класса.</param>
         /// <param name="onlyHeaders">Возвращать только заголовки работ.</param>
         /// <returns>Информация о классах.</returns>
-        public async Task<Works> ByJournalIdAsync(string api_token, string journalId, bool onlyHeaders = true)
+        public async Task<Works> ByClassIDAsync(string api_token, string сlassID, bool onlyHeaders = true)
         {
-            if (string.IsNullOrWhiteSpace(journalId))
+            if (string.IsNullOrWhiteSpace(сlassID))
             {
                 return null;
                 //TODO: exception...
             }
             // Засовываем идентификатор класса в массив, чтобы отправить его в функцию получения списка классов.
-            string[] journalIds = { journalId };
+            string[] ClassIDs = { сlassID };
             // Возвращаем список работ.
-            Works works = await ByJournalsIdsAsync(api_token, journalIds, onlyHeaders);
+            Works works = await ByClassesIdsAsync(api_token, ClassIDs, onlyHeaders);
             // Возвращаем класс.
             return works;
         }

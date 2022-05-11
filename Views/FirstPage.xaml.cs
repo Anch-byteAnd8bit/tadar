@@ -83,13 +83,20 @@ namespace Tadar.Views
                 var eAPI = new ExampleAPI();
                 //await eAPI.UserRegAsync();
                 //await eAPI.UserAuthAsync();
-                await eAPI.CreateClass();
-                await eAPI.AddTestWork();
-                await eAPI.AddTextWork();
-                await eAPI.AddAnswerTestWork();
-                await eAPI.AddAnswerTextWork();
-                await eAPI.GetListOfClasrooms();
-                await eAPI.GetClassroomByIdAsync();
+                //await eAPI.CreateClass();
+                //await eAPI.AddTestWork();
+                //await eAPI.AddTextWork();
+                //await eAPI.AddAnswerTestWork();
+                //await eAPI.AddAnswerTextWork();
+                //await eAPI.GetListOfClasrooms();
+                //await eAPI.GetClassroomByIdAsync();
+                //await eAPI.AddDataToRefBook();
+                //await eAPI.GetListOfWorksByClassesIDsAsync();
+                //await eAPI.GetListOfWorksByClassIdAsync();
+                //await eAPI.AddMark();
+                //await eAPI.AddTheory();
+                //await eAPI.GetTheoryByIDAsync();
+                await eAPI.GetTheoriesByClassroomIDAsync();
             }
             catch (UnknownHttpResponseException ex)
             {

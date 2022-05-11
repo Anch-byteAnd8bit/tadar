@@ -20,6 +20,15 @@ namespace nsAPI.Methods
             Dictionary<string, string> urlParams = new Dictionary<string, string>();
             urlParams["secure_key"] = api_token;
 
+            // Указание правильного типа работы.
+            var wts = API.Instance.Refbooks[TRefbooks.WorkTypes];
+            if (wts != null)
+            {
+                Refbook worktype = wts.FirstOrDefault(wt => wt.Name == "Тест");
+                answer.AnswerHeader.id_TypeWork = (worktype?.ID) ?? "1";
+            }
+            else answer.AnswerHeader.id_TypeWork = "1";
+
             // Получаем пользователя с зашифрованными данными.
             answer.EncryptByAES();
 
@@ -46,6 +55,15 @@ namespace nsAPI.Methods
             // Обязательно добавляем в запрос НЕ зашифрованный ключ доступа.
             Dictionary<string, string> urlParams = new Dictionary<string, string>();
             urlParams["secure_key"] = api_token;
+
+            // Указание правильного типа работы.
+            var wts = API.Instance.Refbooks[TRefbooks.WorkTypes];
+            if (wts != null)
+            {
+                Refbook worktype = wts.FirstOrDefault(wt => wt.Name == "Письменная работа");
+                answer.AnswerHeader.id_TypeWork = (worktype?.ID) ?? "2";
+            }
+            else answer.AnswerHeader.id_TypeWork = "2";
 
             // Получаем пользователя с зашифрованными данными.
             answer.EncryptByAES();
@@ -164,7 +182,7 @@ namespace nsAPI.Methods
             // Получаем пользователя с зашифрованными данными.
             Dictionary<string, string> PostParams2 = new Dictionary<string, string>();
             PostParams2["Mark"] = Encryption.AESHelper.EncryptString(mark);
-            PostParams2["IDExecutionOfWork"] = Encryption.AESHelper.EncryptString(IDExecutionOfWork);
+            PostParams2["id_ExecutionOfWork"] = Encryption.AESHelper.EncryptString(IDExecutionOfWork);
 
             // ВСЕГДА, ПРИ ОТПРАВКЕ POST-ЗАПРОСА, НАДО ДОБАВЛЯТЬ В КОНЦЕ АДРЕСА СЛЭШ!
 

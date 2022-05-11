@@ -1,4 +1,5 @@
 ﻿using nsAPI.Entities;
+using nsAPI.Helpers;
 using nsAPI.Methods;
 using System;
 using System.Collections.Generic;
@@ -102,10 +103,10 @@ namespace nsAPI.Examples
             {
                 WorkHeader = new WorkHeader
                 {
-                    // в тесте всегда 1
-                    IdTypeWork = "1",
-                    DateTimeCreate = DateTime.Now.ToString(),
-                    DateTimeStart = DateTime.Now.ToString(),
+                    
+                    //id_TypeWork = "1", // можно не задавать.
+                    DateTimeCreate = ToConvert.DB_DateTimeToStringDT(DateTime.Now),
+                    DateTimeStart = ToConvert.DB_DateTimeToStringDT(DateTime.Now),
                     Description = "Описанеи тестовой работы номер 1",
                     Name = "Тестовая работа номер 1",
                     MaxDuration = "35",
@@ -154,10 +155,9 @@ namespace nsAPI.Examples
             {
                 WorkHeader = new WorkHeader
                 {
-                    // в тексте всегда 2
-                    IdTypeWork = "2",
-                    DateTimeCreate = DateTime.Now.ToString(),
-                    DateTimeStart = DateTime.Now.ToString(),
+                    //id_TypeWork = "2", <- не надо заполнять..
+                    DateTimeCreate = ToConvert.DB_DateTimeToStringDT(DateTime.Now),
+                    DateTimeStart = ToConvert.DB_DateTimeToStringDT(DateTime.Now),
                     Description = "Описанеи текстовой работы номер 1",
                     Name = "Текстовая работа номер 1",
                     MaxDuration = "35",
@@ -190,10 +190,10 @@ namespace nsAPI.Examples
                 AnswerHeader = new AnswerHeader
                 {
                     //ID
-                    id_TypeWork = "1", // Для теста всегда 1
+                    //id_TypeWork = "1",  <- не надо заполнять.
                     id_Work = "1", // ИД работы.
-                    DateTimeS = DateTime.Now.ToString(""),
-                    DateTimeE = DateTime.Now.ToString(""),
+                    DateTimeS = ToConvert.DB_DateTimeToStringDT(DateTime.Now),
+                    DateTimeE = ToConvert.DB_DateTimeToStringDT(DateTime.Now),
                     id_Student = api.MainUser.ID,
                 },
                 AnswerBody = new List<TestAnswerBody>
@@ -230,10 +230,10 @@ namespace nsAPI.Examples
                 AnswerHeader = new AnswerHeader
                 {
                     //ID
-                    id_TypeWork = "1", // Для текста всегда 1
-                    id_Work= "1", // ИД работы.
-                    DateTimeS = DateTime.Now.ToString(""),
-                    DateTimeE = DateTime.Now.ToString(""),
+                    //id_TypeWork = "2", <- не надо заполнять.
+                    id_Work = "1", // ИД работы.
+                    DateTimeS = ToConvert.DB_DateTimeToStringDT(DateTime.Now),
+                    DateTimeE = ToConvert.DB_DateTimeToStringDT(DateTime.Now),
                     id_Student = api.MainUser.ID,
                 },
                 AnswerBody = new List<TextAnswerBody>
@@ -269,5 +269,78 @@ namespace nsAPI.Examples
             _ = MessageBox.Show(classroom.DateTimeCreate);
         }
 
+        /// <summary>
+        /// Добавляет данные в справочник.
+        /// </summary>
+        /// <returns></returns>
+        public async Task AddDataToRefBook()
+        {
+            await api.AddDataToRefbook("typewords", new string[]{"qwe", "asd"});
+        }
+
+        /// <summary>
+        /// Получение списка работ по заданным ИД классов.
+        /// </summary>
+        /// <returns></returns>
+        public async Task GetListOfWorksByClassesIDsAsync()
+        {
+            Works works = await api.GetWorksByClassesIDAsync(new string[] { "10", "16" }, false);
+            MessageBox.Show(works.TestWorks.Count.ToString() + " and " + works.TextWorks.Count.ToString());
+        }
+
+        /// <summary>
+        /// Получение списка работ в, заданном по ИД, классе.
+        /// </summary>
+        /// <returns></returns>
+        public async Task GetListOfWorksByClassIdAsync()
+        {
+            Works works = await api.GetWorksByClassIDAsync("10");
+            MessageBox.Show(works.TestWorks.Count.ToString() + " and " + works.TextWorks.Count.ToString());
+        }
+
+        /// <summary>
+        /// Установка оценки за работу.
+        /// </summary>
+        /// <returns></returns>
+        public async Task AddMark()
+        {
+
+            await api.AddMark("123","1");
+        }
+
+        public async Task AddTheory()
+        {
+            Theory theory = new Theory
+            {
+                //ID
+                id_Class = curClassroom.ID,
+                Source = null,
+                Topic = "Заголовок теории №1",
+                Content = "Теория №1",
+            };
+
+            theory = await api.AddTheory(theory);
+            _ = MessageBox.Show(theory.ID);
+        }
+
+        /// <summary>
+        /// Получение теории по её ID.
+        /// </summary>
+        /// <returns></returns>
+        public async Task GetTheoryByIDAsync()
+        {
+            Theory theory = await api.GetTheoryByIDAsync("1");
+            _ = MessageBox.Show(theory.ID);
+        }
+
+        /// <summary>
+        /// Получение теории по ID класса, в окторой она содержится.
+        /// </summary>
+        /// <returns></returns>
+        public async Task GetTheoriesByClassroomIDAsync()
+        {
+            List<Theory> theories = await api.GetTheoriesByClassroomIDAsync("38");
+            _ = MessageBox.Show(theories.Count.ToString());
+        }
     }
 }
