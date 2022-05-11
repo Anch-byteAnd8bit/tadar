@@ -42,6 +42,21 @@ namespace nsAPI
         /// </summary>
         public string Access_Token { get { return api_token; } }
 
+        private static API instance;
+        public static API Instance
+        {
+            get
+            {
+                if (instance != null) return instance;
+                instance = new API();
+                return instance;
+            }
+            set
+            {
+                instance = value;
+            }
+        }
+
         // Конструктор класса.
         public API(Action OnLoadedMainUser = null)
         {
@@ -119,11 +134,11 @@ namespace nsAPI
             // Сохраняем токен пользователя.
             api_token = accessToken.Token;
             // Сохраняем ID пользователя.
-            id_user = accessToken.UserID;
+            id_user = accessToken.id_User;
             // Сохраняем в файл с перезаписью существующего файла.
             SaveUserDataToFile(true);
             // Загружаем информацию о пользователе с сервера.
-            MainUser = await GetUserByIdAsync(accessToken.UserID);
+            MainUser = await GetUserByIdAsync(accessToken.id_User);
         }
 
 

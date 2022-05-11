@@ -16,8 +16,8 @@ namespace nsAPI.Entities
         /// <summary>
         /// Идентификатор пользователя.
         /// </summary>
-        [JsonProperty("user_id")]
-        public string UserID { get; set; }
+        [JsonProperty("id_User")]
+        public string id_User { get; set; }
 
         /// <summary>
         /// Расшифровка токена алгоритмом AES с имеющимися ключами.
@@ -25,7 +25,7 @@ namespace nsAPI.Entities
         public void DecryptByAES()
         {
             this.Token = Encryption.AESHelper.DecryptString(this.Token);
-            this.UserID = Encryption.AESHelper.DecryptString(this.UserID);
+            this.id_User = Encryption.AESHelper.DecryptString(this.id_User);
         }
 
         /// <summary>

@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace nsAPI.Entities
 {
@@ -34,7 +29,7 @@ namespace nsAPI.Entities
         [JsonProperty("Description")]
         public string Description { get; set; }
 
-        [JsonProperty("id_user")]
+        [JsonProperty("id_User")]
         public string id_User { get; set; }
 
         //[JsonProperty("DateTimeCreate")]
@@ -74,7 +69,6 @@ namespace nsAPI.Entities
 
         [JsonProperty("DateTimeCreate")]
         public string DateTimeCreate { get; set; }
-
 
         [JsonProperty("DateTimeClose")]
         public string DateTimeClose { get; set; }

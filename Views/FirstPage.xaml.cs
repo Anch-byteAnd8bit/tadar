@@ -20,7 +20,8 @@ namespace Tadar.Views
         public FirstPage()
         {
             InitializeComponent();
-            api = new API();
+            //api = new API();
+            api = API.Instance;
         }
 
         private void ent_Click(object sender, RoutedEventArgs e)
@@ -81,10 +82,14 @@ namespace Tadar.Views
             {
                 var eAPI = new ExampleAPI();
                 //await eAPI.UserRegAsync();
-                await eAPI.UserAuthAsync();
+                //await eAPI.UserAuthAsync();
                 await eAPI.CreateClass();
-                //await eAPI.GetListOfClasrooms();
-                //await eAPI.GetClassroomByIdAsync();
+                await eAPI.AddTestWork();
+                await eAPI.AddTextWork();
+                await eAPI.AddAnswerTestWork();
+                await eAPI.AddAnswerTextWork();
+                await eAPI.GetListOfClasrooms();
+                await eAPI.GetClassroomByIdAsync();
             }
             catch (UnknownHttpResponseException ex)
             {

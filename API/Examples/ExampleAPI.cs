@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using nsAPI.Entities;
+﻿using nsAPI.Entities;
 using nsAPI.Methods;
-using nsAPI;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace nsAPI.Examples
 {
     public class ExampleAPI
     {
-        private readonly API api;
+        private readonly nsAPI.API api;
         private RegisteredClassroom curClassroom;
+
 
         public ExampleAPI()
         {
-            api = new API();
+            api = API.Instance;
         }
 
         /// <summary>
@@ -25,7 +23,7 @@ namespace nsAPI.Examples
         /// </summary>
         public async Task UserRegAsync()
         {
-            if (api.MainUser != null) throw new Exception("User already if reg");
+            if (api.MainUser != null) throw new Exception("User already is reg");
             // Создать объект класса UserForRegistration, в котором хранятся
             // регистрационные данные о пользователе.
             UserForRegistration userForReg = new UserForRegistration
@@ -67,14 +65,22 @@ namespace nsAPI.Examples
         /// <returns></returns>
         public async Task CreateClass()
         {
-            ClassroomForReg classroomForReg = new ClassroomForReg
+            try
             {
-                Name = "Класс номер 1",
-                Description = "Описание класса номер 1",
-                id_User = api.MainUser.ID
-            };
-            // Получаем объект зарегистрированного класса.
-            curClassroom = await api.AddClassroomAsync(classroomForReg);
+
+                ClassroomForReg classroomForReg = new ClassroomForReg
+                {
+                    Name = "Класс номер 1",
+                    Description = "Описание класса номер 1",
+                    id_User = api.MainUser.ID
+                };
+                // Получаем объект зарегистрированного класса.
+                curClassroom = await api.AddClassroomAsync(classroomForReg);
+            }
+            catch (Exception ex)
+            {
+                _ = MessageBox.Show(ex.Message);
+            }
         }
 
         /// <summary>
