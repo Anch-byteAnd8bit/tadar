@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using Tadar.ViewModels;
@@ -34,74 +35,75 @@ namespace Tadar.Views
         {
             //Paragraph p = worktext.Document
             // Blocks += "v";
+            Clipboard.SetText("ҷ");
             work.Text += "ҷ";
             work.Focus();
         }
 
         private void SmNClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            work.Text += "ң";
+            Clipboard.SetText("ң");
             work.Focus();
         }
 
         private void SmFClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            work.Text += "ғ";
+            Clipboard.SetText("ғ");
             work.Focus();
         }
 
         private void SmYClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            work.Text += "ӱ";
+            Clipboard.SetText("ӱ");
             work.Focus();
         }
 
         private void SmIClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            work.Text += "і";
+            Clipboard.SetText("і");
             work.Focus();
         }
 
         private void SmOClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            work.Text += "ӧ";
+            Clipboard.SetText("ӧ");
             work.Focus();
         }
 
         private void BigOClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            work.Text += "Ӧ";
+            Clipboard.SetText("Ӧ");
             work.Focus();
         }
 
         private void BigIClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            work.Text += "І";
+            Clipboard.SetText("І");
             work.Focus();
         }
 
         private void BigYClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            work.Text += "Ӱ";
+            Clipboard.SetText("Ӱ");
             work.Focus();
         }
 
         private void BigFClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            work.Text += "Ғ";
+            Clipboard.SetText("Ғ");
             work.Focus();
 
         }
 
         private void BigNClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            work.Text += "Ң";
+            Clipboard.SetText("Ң");
             work.Focus();
         }
 
         private void BigJClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            work.Text += "Ҷ";
+            Clipboard.SetText("Ҷ");
             work.Focus();
         }
 

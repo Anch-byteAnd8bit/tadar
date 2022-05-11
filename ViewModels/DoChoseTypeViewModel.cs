@@ -29,7 +29,7 @@ namespace Tadar.ViewModels
         }
         private void Test14_Click(object ob)
         {
-            First.Base_frame.Navigate(new Do14());
+            First.Base_frame.Navigate(new Do14HeaderPage());
             //открытие новой страницы с вводом логина и пароля 
         }
        

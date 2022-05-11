@@ -17,18 +17,14 @@ using Tadar.ViewModels;
 namespace Tadar.Views
 {
     /// <summary>
-    /// Логика взаимодействия для DoWritePage.xaml
+    /// Логика взаимодействия для Do14HeaderPage.xaml
     /// </summary>
-    public partial class DoWritePage : Page
+    public partial class Do14HeaderPage : Page
     {
-        public DoWritePage()
+        public Do14HeaderPage()
         {
             InitializeComponent();
-            DataContext = new DoWriteViewModel();
-
-            // logbox.Focus();
-
-           
+            DataContext = new Do14HeaderViewModel();
         }
 
 
@@ -37,76 +33,77 @@ namespace Tadar.Views
             //Paragraph p = worktext.Document
             // Blocks += "v";
             Clipboard.SetText("ҷ");
+
            
-            work.Focus();
         }
 
         private void SmNClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Clipboard.SetText("ң");
-            work.Focus();
+            
         }
 
         private void SmFClick(object sender, System.Windows.RoutedEventArgs e)
         {
-             Clipboard.SetText("ғ");
-            work.Focus();
+            Clipboard.SetText("ғ");
+            
         }
 
         private void SmYClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Clipboard.SetText("ӱ");
-            work.Focus();
+           
         }
 
         private void SmIClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Clipboard.SetText("і");
-            work.Focus();
+           
         }
 
         private void SmOClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Clipboard.SetText("ӧ");
-            work.Focus();
+            
         }
 
         private void BigOClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Clipboard.SetText("Ӧ");
-            work.Focus();
+           
         }
 
         private void BigIClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Clipboard.SetText("І");
-            work.Focus();
+           
         }
 
         private void BigYClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Clipboard.SetText("Ӱ");
-            work.Focus();
+           
         }
 
         private void BigFClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Clipboard.SetText("Ғ");
-            work.Focus();
+           
 
         }
 
         private void BigNClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Clipboard.SetText("Ң");
-            work.Focus();
+          
         }
 
         private void BigJClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Clipboard.SetText("Ҷ");
-            work.Focus();
+           
         }
+
 
 
 
