@@ -14,43 +14,16 @@
     <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"></RowDefinition>
-            <RowDefinition Height="10*"></RowDefinition>
-            <RowDefinition Height="70*" ></RowDefinition>
-            <RowDefinition Height="8*" ></RowDefinition>
+            <RowDefinition Height="70*"></RowDefinition>
+            <RowDefinition Height="10*" ></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20*"></ColumnDefinition>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
             <ColumnDefinition Width="50*"></ColumnDefinition>
-            <ColumnDefinition Width="45*"></ColumnDefinition>
-            <ColumnDefinition Width="25*"></ColumnDefinition>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <ComboBox Name="clas"
-                  Grid.Row="1"
-                  Grid.Column="2"
-                  Height="40" Width="270"
-                  Background="White"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Center"
-                  HorizontalContentAlignment="Left"
-                  FontSize="14"
-                  materialDesign:HintAssist.Hint="Класс"
-                  VerticalContentAlignment="Bottom"
-                  ItemsSource="{Binding Genders}"
-                  DisplayMemberPath="Name"
-                  SelectedItem="{Binding SelectedGender, Mode=TwoWay}">
-        </ComboBox>
-
-
-        <CheckBox Grid.Row="1" 
-                  Grid.Column="3"
-                  HorizontalAlignment="Center"
-            Style="{StaticResource MaterialDesignFilterChipCheckBox}"
-            Background="White"
-            Foreground="White"
-            FontSize="20"
-            IsChecked="{Binding IsChecked}"
-            Content="На оценку" Cursor="Hand" />
+       
 
         <TextBlock
             Grid.Column="0"
@@ -62,38 +35,28 @@
             >
             Создание теста "1 из 4"
         </TextBlock>
+        <TextBlock
+            Grid.Column="0"
+            Grid.Row="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Foreground="White"
+            Style="{StaticResource MaterialDesignHeadline4TextBlock}" Height="46" Width="90"
+            Text="{Binding Testname}"
+            >
+            
+        </TextBlock>
+    
 
 
-        <TextBox Name="f_Box" 
-                 Grid.Row="1" 
-                 Grid.Column="0"
-                 Grid.ColumnSpan="2"
-                 HorizontalAlignment="Left"
-                 Margin=" 2 0 0 0"
-                 materialDesign:HintAssist.Hint="Введите название теста"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                 FontSize="14"
-                 Width="420" Height="40" 
-                 Background="White"
-                 TextAlignment="Center"
-                 AutoWordSelection="True"
-                 Foreground="Black" Cursor="Arrow">
-            <TextBox.Text>
-                <Binding Path="Testname" UpdateSourceTrigger="PropertyChanged">
-                    <Binding.ValidationRules>
-                        <rules:NotEmptyValidationRule />
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox.Text>
-        </TextBox>
+
 
 
         <ListView
             HorizontalAlignment="Center"
             
-            Grid.Row="2"
+            Grid.Row="1"
             Grid.Column="1" 
-            Grid.ColumnSpan="2"
             x:Name="lvs"
             ItemsSource="{Binding TasksList}"
             IsSynchronizedWithCurrentItem="True">
@@ -121,7 +84,7 @@
                              AutoWordSelection="True"
                              Foreground="Black" Cursor="Arrow">
                             <TextBox.Text>
-                                <Binding Path="Testname" UpdateSourceTrigger="PropertyChanged">
+                                <Binding Path="Taskname" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
                                         <rules:NotEmptyValidationRule />
                                     </Binding.ValidationRules>
@@ -141,7 +104,7 @@
                              AutoWordSelection="True"
                              Foreground="Black" Cursor="Arrow">
                             <TextBox.Text>
-                                <Binding Path="Testname" UpdateSourceTrigger="PropertyChanged">
+                                <Binding Path="Ans1" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
                                         <rules:NotEmptyValidationRule />
                                     </Binding.ValidationRules>
@@ -161,7 +124,7 @@
                              AutoWordSelection="True"
                              Foreground="Black" Cursor="Arrow">
                             <TextBox.Text>
-                                <Binding Path="Testname" UpdateSourceTrigger="PropertyChanged">
+                                <Binding Path="Ans2" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
                                         <rules:NotEmptyValidationRule />
                                     </Binding.ValidationRules>
@@ -181,7 +144,7 @@
                              AutoWordSelection="True"
                              Foreground="Black" Cursor="Arrow">
                             <TextBox.Text>
-                                <Binding Path="Testname" UpdateSourceTrigger="PropertyChanged">
+                                <Binding Path="Ans3" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
                                         <rules:NotEmptyValidationRule />
                                     </Binding.ValidationRules>
@@ -201,7 +164,7 @@
                              AutoWordSelection="True"
                              Foreground="Black" Cursor="Arrow">
                             <TextBox.Text>
-                                <Binding Path="Testname" UpdateSourceTrigger="PropertyChanged">
+                                <Binding Path="Ans4" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
                                         <rules:NotEmptyValidationRule />
                                     </Binding.ValidationRules>
@@ -221,7 +184,7 @@
                              AutoWordSelection="True"
                              Foreground="Black" Cursor="Arrow">
                             <TextBox.Text>
-                                <Binding Path="Testname" UpdateSourceTrigger="PropertyChanged">
+                                <Binding Path="Right" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
                                         <rules:NotEmptyValidationRule />
                                     </Binding.ValidationRules>
@@ -271,50 +234,146 @@
         </Button>
 
 
-        <TextBox
-            VerticalAlignment="Top"
-            IsReadOnly="True"
-            Grid.Row="2"
-            Style="{StaticResource MaterialDesignTextBox}" 
-            FontSize="35"
-            Width="140" Height="50" 
-            Background="White"
-            TextAlignment="Center"
-            VerticalContentAlignment="Top"
-            AutoWordSelection="True"
-            Foreground="Black" Cursor="Hand" 
-                 Text="ғ Ғ і І">
-        </TextBox>
-        <TextBox
-            VerticalAlignment="Top"
-            IsReadOnly="True"
-            Grid.Row="2"
-            Style="{StaticResource MaterialDesignTextBox}" 
-            FontSize="35"
-            Width="140" Height="50" 
-            Background="White"
-            TextAlignment="Center"
-            Margin=" 0 60 0 0"
-            AutoWordSelection="True"
-            Foreground="Black" Cursor="Hand" 
-                 Text="ң Ң ӧ Ӧ">
-        </TextBox>
-        <TextBox
-                 IsReadOnly="True"
-                 VerticalAlignment="Top"
-            Grid.Row="2"
-            Style="{StaticResource MaterialDesignTextBox}" 
-            FontSize="35"
-            Width="140" Height="50" 
-            Background="White"
-            TextAlignment="Center"
-            Margin="0 120 0 0"
-            AutoWordSelection="True"
-            Foreground="Black" Cursor="Hand" 
-                 Text=" ӱ Ӱ ҷ Ҷ">
-        </TextBox>
-
         
+
+
+
+        <StackPanel VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Grid.Row="1"
+            Grid.Column="2" Margin="78,0,0,0" >
+            <Button
+                Click="BigOClick"
+            Margin="3"
+           Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                Ӧ
+            </Button>
+
+            <Button
+                Click="BigIClick"
+                 Margin="3"
+           Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                І
+            </Button>
+
+            <Button
+                Click="BigYClick"
+                 Margin="3"
+           Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                Ӱ
+            </Button>
+            <Button
+                Click="BigFClick"
+                 Margin="3"
+       Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                Ғ
+            </Button>
+            <Button
+                Click="BigNClick"
+                 Margin="3"
+           Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                Ң
+            </Button>
+            <Button
+                Click="BigJClick"
+                 Margin="3"
+          Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                Ҷ
+            </Button>
+        </StackPanel>
+
+
+        <StackPanel
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left" Grid.Row="1"
+            Grid.Column="2" Margin="13,0,0,0" >
+            <Button
+                Click="SmOClick"
+           Width="40"
+            Height="40"
+                 Margin="3"
+            
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                ӧ
+            </Button>
+
+            <Button
+                Click="SmIClick"
+                 Margin="3"
+          Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                і
+            </Button>
+            <Button
+                Click="SmYClick"
+                 Margin="3"
+           Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                ӱ
+            </Button>
+            <Button
+                Click="SmFClick"
+                 Margin="3"
+          Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                ғ
+            </Button>
+            <Button
+                Click="SmNClick"
+                 Margin="3"
+          Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                ң
+            </Button>
+            <Button
+                Click="SmJClick"
+                 Margin="3"
+          Width="40"
+            Height="40"
+         Style="{StaticResource MaterialDesignFloatingActionButton}"
+        ToolTip="MaterialDesignFloatingActionLightButton"
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                ҷ
+            </Button>
+        </StackPanel>
 
 
 

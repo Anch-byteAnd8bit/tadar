@@ -1,4 +1,5 @@
-﻿using System;
+﻿using nsAPI.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,32 +22,91 @@ namespace Tadar.Views
     /// </summary>
     public partial class Do14 : Page
     {
-        public Do14()
+        public Do14(bool nonmark, string nametest, string desctest, RegisteredClassroom classroom)
         {
             InitializeComponent();
-            DataContext = new Do14ViewModel();
+            DataContext = new Do14ViewModel(nonmark, nametest, desctest, classroom);
             
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+        private void SmJClick(object sender, System.Windows.RoutedEventArgs e)
         {
+            //Paragraph p = worktext.Document
+            // Blocks += "v";
+            Clipboard.SetText("ҷ");
+
 
         }
 
-        //private void TextBox_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    if (e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.F)
-        //    {
-        //        f_Box.Select(f_Box.CaretIndex, 0);
-        //        f_Box.Text+= "ң";
-        //        f_Box.CaretIndex = f_Box.Text.Length;
-        //    }
-        //    else if (e.KeyboardDevice.Modifiers == ModifierKeys.Alt && e.Key == Key.F)
-        //    { 
-        //        f_Box.Text += "Ң";
-        //    } 
-        //}
+        private void SmNClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Clipboard.SetText("ң");
+
+        }
+
+        private void SmFClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Clipboard.SetText("ғ");
+
+        }
+
+        private void SmYClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Clipboard.SetText("ӱ");
+
+        }
+
+        private void SmIClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Clipboard.SetText("і");
+
+        }
+
+        private void SmOClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Clipboard.SetText("ӧ");
+
+        }
+
+        private void BigOClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Clipboard.SetText("Ӧ");
+
+        }
+
+        private void BigIClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Clipboard.SetText("І");
+
+        }
+
+        private void BigYClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Clipboard.SetText("Ӱ");
+
+        }
+
+        private void BigFClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Clipboard.SetText("Ғ");
+
+
+        }
+
+        private void BigNClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Clipboard.SetText("Ң");
+
+        }
+
+        private void BigJClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Clipboard.SetText("Ҷ");
+
+        }
+
 
 
 

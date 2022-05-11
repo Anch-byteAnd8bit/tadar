@@ -56,7 +56,7 @@ namespace Tadar.ViewModels
         }
         private void Akk_Click(object ob)
         {
-            First.Base_frame.Navigate(new Do14());
+           // First.Base_frame.Navigate(new Do14());
             //открытие новой страницы с вводом логина и пароля 
         }
         private void Test_Click(object ob)

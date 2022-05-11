@@ -27,6 +27,7 @@ namespace Tadar.ViewModels
                 {
                     throw new Exception("api не создан!!!");
                 }
+
                 TestsList = new ObservableCollection<RegisteredUser>(await api.FindUsersAsync());
                 OnPropertyChanged(nameof(TestsList));
             }
