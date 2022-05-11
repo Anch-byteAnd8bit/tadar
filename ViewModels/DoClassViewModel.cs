@@ -1,11 +1,7 @@
 ﻿using Helpers;
-using nsAPI;
 using nsAPI.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using Tadar.Helpers;
 using Tadar.Models;
 using Tadar.Views;
