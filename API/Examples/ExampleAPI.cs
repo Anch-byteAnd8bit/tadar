@@ -75,7 +75,7 @@ namespace nsAPI.Examples
                 Journal = new JournalForReg
                 {
                     Name = "Наименование журнала класса номер 1",
-                    Description = "Описанеи журнала класса номер 1"
+                    Description = "Описание журнала класса номер 1"
                 }
             };
             // Получаем объект зарегистрированного класса.
