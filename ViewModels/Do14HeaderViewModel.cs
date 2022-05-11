@@ -44,13 +44,13 @@ namespace Tadar.ViewModels
             set
             {
                 // Если есть элемент в списке полов, который равен задавемому элементу...
-                if (Classrooms.Exists(el => el == value))
+                if (Classrooms!=null && Classrooms.Exists(el => el == value))
                 {
                     selectedclassroom = value;
                 }
                 // Иначе, полу регистрируемого пользователя
                 // присваиваем ID первого элемент списка.
-                else selectedclassroom = Classrooms[0];
+                else selectedclassroom = Classrooms?[0]??null;
                 // Уведомляем интфрейс о том, что это свйоство было изменено.
                 OnPropertyChanged(nameof(Classrooms));
             }
@@ -69,14 +69,13 @@ namespace Tadar.ViewModels
             {
                 new RegisteredClassroom{ ID = "1", Name = "Женский",
                     Description="class",
-                    DateClose=null,
-                    DateCreate=null,
-                    id_Journal="1"},
+                    DateTimeClose=null,
+                    DateTimeCreate=null
+                },
                 new RegisteredClassroom{ ID = "1", Name = "Ve;crjq",
                     Description="classddddddddd",
-                    DateClose=null,
-                    DateCreate=null,
-                    id_Journal="2"},
+                    DateTimeClose=null,
+                    DateTimeCreate=null},
             };
             CreateClick = new Command(Create_Click);
             
@@ -127,7 +126,14 @@ namespace Tadar.ViewModels
 
         private async void GettingClassrooms()
         {
-            Classrooms = await api.GetAllClassess();
+            try
+            {
+                Classrooms = await api.GetAllClassess();
+            }
+            catch (Exception)
+            {
+                Classrooms = null;
+            }
         }
 
   

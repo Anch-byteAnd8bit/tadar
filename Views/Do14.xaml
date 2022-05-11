@@ -84,7 +84,7 @@
                              AutoWordSelection="True"
                              Foreground="Black" Cursor="Arrow">
                             <TextBox.Text>
-                                <Binding Path="Taskname" UpdateSourceTrigger="PropertyChanged">
+                                <Binding Path="Word" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
                                         <rules:NotEmptyValidationRule />
                                     </Binding.ValidationRules>
@@ -104,7 +104,7 @@
                              AutoWordSelection="True"
                              Foreground="Black" Cursor="Arrow">
                             <TextBox.Text>
-                                <Binding Path="Ans1" UpdateSourceTrigger="PropertyChanged">
+                                <Binding Path="PossibleAnsw1" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
                                         <rules:NotEmptyValidationRule />
                                     </Binding.ValidationRules>
@@ -124,7 +124,7 @@
                              AutoWordSelection="True"
                              Foreground="Black" Cursor="Arrow">
                             <TextBox.Text>
-                                <Binding Path="Ans2" UpdateSourceTrigger="PropertyChanged">
+                                <Binding Path="PossibleAnsw2" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
                                         <rules:NotEmptyValidationRule />
                                     </Binding.ValidationRules>
@@ -144,7 +144,7 @@
                              AutoWordSelection="True"
                              Foreground="Black" Cursor="Arrow">
                             <TextBox.Text>
-                                <Binding Path="Ans3" UpdateSourceTrigger="PropertyChanged">
+                                <Binding Path="PossibleAnsw3" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
                                         <rules:NotEmptyValidationRule />
                                     </Binding.ValidationRules>
@@ -164,7 +164,7 @@
                              AutoWordSelection="True"
                              Foreground="Black" Cursor="Arrow">
                             <TextBox.Text>
-                                <Binding Path="Ans4" UpdateSourceTrigger="PropertyChanged">
+                                <Binding Path="PossibleAnsw4" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
                                         <rules:NotEmptyValidationRule />
                                     </Binding.ValidationRules>
@@ -184,7 +184,7 @@
                              AutoWordSelection="True"
                              Foreground="Black" Cursor="Arrow">
                             <TextBox.Text>
-                                <Binding Path="Right" UpdateSourceTrigger="PropertyChanged">
+                                <Binding Path="RightNum" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
                                         <rules:NotEmptyValidationRule />
                                     </Binding.ValidationRules>
@@ -221,16 +221,17 @@
                 Width="200" Height="40" FontSize="21" Cursor="Hand"   
                 />
         <Button
-            Grid.Row="2"
+            Grid.Row="1"
             Grid.Column="3"
             Width="40"
             Height="40"
             FontSize="25"
             Command="{Binding AddClick}"
             HorizontalContentAlignment="Center"
+            VerticalAlignment="Bottom"
             Style="{StaticResource MaterialDesignFloatingActionButton}"
             IsEnabled="{Binding DataContext.ControlsEnabled,
-            RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Margin="13,442,97,18" Cursor="Hand">+
+            RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"  Cursor="Hand">+
         </Button>
 
 

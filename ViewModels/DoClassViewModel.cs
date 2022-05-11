@@ -15,12 +15,10 @@ namespace Tadar.ViewModels
 {
     public class DoClassViewModel : BaseViewModel
     {
-        private JournalForReg journ;
         private ClassroomForReg classroom;
         public Command RegCommand { get; set; }
         public DoClassViewModel()
         {
-            journ = new JournalForReg();
             classroom = new ClassroomForReg();
             RegCommand = new Command(SaveAsync, ValidateSave);
 
@@ -31,12 +29,12 @@ namespace Tadar.ViewModels
         public string Name
         {
             // Когда надо вернуть фамилию.
-            get => journ.Name;
+            get => classroom.Name;
             // Когда надо задать фамилию.
             set
             {
                 // Присваиваем новое значение фамилии.
-                journ.Name = value;
+                classroom.Name = value;
                 // Уведомляем форму, что свойство "Surname" изменилось.
                 OnPropertyChanged(nameof(Name));
             }
@@ -45,12 +43,12 @@ namespace Tadar.ViewModels
         public string Description
         {
             // Когда надо вернуть фамилию.
-            get => journ.Description;
+            get => classroom.Description;
             // Когда надо задать фамилию.
             set
             {
                 // Присваиваем новое значение фамилии.
-                journ.Description = value;
+                classroom.Description = value;
                 // Уведомляем форму, что свойство "Surname" изменилось.
                 OnPropertyChanged(nameof(Description));
             }
@@ -63,7 +61,7 @@ namespace Tadar.ViewModels
         private bool ValidateSave()
         {
             bool isGood = true;
-            if (string.IsNullOrWhiteSpace(journ.Name))
+            if (string.IsNullOrWhiteSpace(classroom.Name))
             {
                 //birth.ToolTip = "Выберите дату рождения!";
                 //birth.BorderBrush = Brushes.Red;
@@ -76,7 +74,7 @@ namespace Tadar.ViewModels
             }
 
 
-            if (string.IsNullOrWhiteSpace(journ.Description))
+            if (string.IsNullOrWhiteSpace(classroom.Description))
             {
                 //f_Box.ToolTip = "Введите фамилию!";
                 //f_Box.BorderBrush = Brushes.Red;
@@ -96,9 +94,6 @@ namespace Tadar.ViewModels
             // Во время любой операции с сервером может вылезти ошибка!
             try
             {
-                classroom.Journal = journ;
-                classroom.Name = journ.Name;
-                classroom.Description = journ.Description;
                 classroom.id_User = api.MainUser.ID;
                 RegisteredClassroom classroo = await api.AddClassroomAsync(classroom);
 

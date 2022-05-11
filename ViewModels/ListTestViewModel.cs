@@ -1,6 +1,7 @@
 ﻿using Helpers;
 using nsAPI.Entities;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Tadar.Helpers;
@@ -17,9 +18,10 @@ namespace Tadar.ViewModels
             //api.MainUser.Name
             TestClick = new Command(Test_Click);
             Test14Click = new Command(Test14_Click);
-            LoadUsersAsync();
+            LoadTestsAsync();
+           
         }
-        public async void LoadUsersAsync()
+        public async void LoadTestsAsync()
         {
             try
             {
@@ -27,8 +29,19 @@ namespace Tadar.ViewModels
                 {
                     throw new Exception("api не создан!!!");
                 }
+                List<RegisteredClassroom> classes =
+                    new List<RegisteredClassroom>
+                    (await api.GetClassroomsByUserIdAsync(api.MainUser.ID.ToString()));
+                string[] idjourn = new string[] { };
+                for (int i = 0; i < classes.Count - 1; i++)
+                {
+                    idjourn[i] = classes[i].ID;
 
-                TestsList = new ObservableCollection<RegisteredUser>(await api.FindUsersAsync());
+                }
+
+                var works = await api.GetWorksByClassesIDAsync(idjourn, true);
+                TestsList = new ObservableCollection<WorkHeader>();
+                //TODO: сохранять works, из него получать список заголовков ВСЕХ работ
                 OnPropertyChanged(nameof(TestsList));
             }
             catch (Exception ex)
@@ -36,7 +49,7 @@ namespace Tadar.ViewModels
                 Log.Write(ex.Message);
             }
         }
-        public ObservableCollection<RegisteredUser> TestsList { get; set; }
+        public ObservableCollection<WorkHeader> TestsList { get; set; }
 
 
        

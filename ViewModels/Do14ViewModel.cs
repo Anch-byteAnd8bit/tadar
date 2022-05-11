@@ -1,6 +1,7 @@
 ﻿using Helpers;
 using nsAPI;
 using nsAPI.Entities;
+using nsAPI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,47 +18,47 @@ namespace Tadar.ViewModels
     public class Do14ViewModel : BaseViewModel
     {
         private TestWorkForAdd test;
-        private List<RegisteredClassroom> classrooms;
-        private RegisteredClassroom selectedclassroom;
+       // private List<RegisteredClassroom> classrooms;
+     //   private RegisteredClassroom selectedclassroom;
 
-        public List<RegisteredClassroom> Classrooms
-        {
-            get { return classrooms; }
-            set {
-                classrooms = value;
-                OnPropertyChanged(nameof(Classrooms));
-                // Задаем новый выбранный жлемент из списка.
-                SelectedClassroom = Classrooms[0];
-            }
-        }
+        //public List<RegisteredClassroom> Classrooms
+        //{
+        //    get { return classrooms; }
+        //    set {
+        //        classrooms = value;
+        //        OnPropertyChanged(nameof(Classrooms));
+        //        // Задаем новый выбранный жлемент из списка.
+        //        SelectedClassroom = Classrooms[0];
+        //    }
+        //}
 
-        public RegisteredClassroom SelectedClassroom
-        {
-            get
-            {
-                // Ищем в списке полов, объект, у которого свойства ID совпдает с
-                // со свйоством GenderID у регистрируемого пользователя.
-                // Если такой элемент в списке не найден, то возвращаем первый элемент
-                // из списка.
-                return
-                     classrooms.SingleOrDefault(el => el == selectedclassroom) ?? classrooms[0];
+        //public RegisteredClassroom SelectedClassroom
+        //{
+        //    get
+        //    {
+        //        // Ищем в списке полов, объект, у которого свойства ID совпдает с
+        //        // со свйоством GenderID у регистрируемого пользователя.
+        //        // Если такой элемент в списке не найден, то возвращаем первый элемент
+        //        // из списка.
+        //        return
+        //             classrooms.SingleOrDefault(el => el == selectedclassroom) ?? classrooms[0];
 
-            }
-            set
-            {
-                // Если есть элемент в списке полов, который равен задавемому элементу...
-                if (Classrooms.Exists(el => el == value))
-                {
-                    // ...присваиваем его ID полу регистрируемого пользователя.
-                    selectedclassroom = value;
-                }
-                // Иначе, полу регистрируемого пользователя
-                // присваиваем ID первого элемент списка.
-                else selectedclassroom = Classrooms[0];
-                // Уведомляем интфрейс о том, что это свйоство было изменено.
-                OnPropertyChanged(nameof(Classrooms));
-            }
-        }
+        //    }
+        //    set
+        //    {
+        //        // Если есть элемент в списке полов, который равен задавемому элементу...
+        //        if (Classrooms.Exists(el => el == value))
+        //        {
+        //            // ...присваиваем его ID полу регистрируемого пользователя.
+        //            selectedclassroom = value;
+        //        }
+        //        // Иначе, полу регистрируемого пользователя
+        //        // присваиваем ID первого элемент списка.
+        //        else selectedclassroom = Classrooms[0];
+        //        // Уведомляем интфрейс о том, что это свйоство было изменено.
+        //        OnPropertyChanged(nameof(Classrooms));
+        //    }
+        //}
 
         public Do14ViewModel(bool nonmark, string nametest, string desctest, RegisteredClassroom classroom)
         {
@@ -74,10 +75,10 @@ namespace Tadar.ViewModels
                 Description = desctest,
                 IsNonMark = mark,
                 Name = nametest,
-                IdJournal = classroom.id_Journal.ToString(),
-                IdTypeWork = "1",
-                DateTimeCreate = DateTime.Now.ToString(),
-                DateTimeStart = DateTime.Now.ToString(),
+                id_Class = classroom.ID,
+                //id_TypeWork = "1",
+                DateTimeCreate = ToConvert.DB_DateTimeToStringDT(DateTime.Now),
+                DateTimeStart = ToConvert.DB_DateTimeToStringDT(DateTime.Now),
                 MaxDuration = "35"
 
             };
@@ -92,7 +93,7 @@ namespace Tadar.ViewModels
                      PossibleAnsw3="",
                      RightNum="",
                      PossibleAnsw4="",
-                     Word="",
+                     Word=""
 
                 },
                 new TestTask
@@ -104,7 +105,7 @@ namespace Tadar.ViewModels
                      PossibleAnsw3="",
                      RightNum="",
                      PossibleAnsw4="",
-                     Word="" 
+                     Word=""
 
                 }
 
@@ -122,16 +123,26 @@ namespace Tadar.ViewModels
 
         }
 
-
+        public List<TestTask> TasksList { 
+            get
+            {
+                return test.WorkBody;
+            }
+            set
+            {
+                test.WorkBody = value;
+                OnPropertyChanged("TasksList");
+            } 
+        }
         public string Taskname
         {
             // Когда надо вернуть фамилию.
-            get => test.WorkBody[0].Word;
+            get => test.WorkBody[1].Word;
             // Когда надо задать фамилию.
             set
             {
                 // Присваиваем новое значение фамилии.
-                test.WorkBody[0].Word = value;
+                test.WorkBody[1].Word = value;
                 // Уведомляем форму, что свойство "Surname" изменилось.
                 OnPropertyChanged(nameof(Taskname));
             }
@@ -139,12 +150,12 @@ namespace Tadar.ViewModels
         public string Ans1
         {
             // Когда надо вернуть фамилию.
-            get => test.WorkBody[0].PossibleAnsw1;
+            get => test.WorkBody[1].PossibleAnsw1;
             // Когда надо задать фамилию.
             set
             {
                 // Присваиваем новое значение фамилии.
-                test.WorkBody[0].PossibleAnsw1 = value;
+                test.WorkBody[1].PossibleAnsw1 = value;
                 // Уведомляем форму, что свойство "Surname" изменилось.
                 OnPropertyChanged(nameof(Ans1));
             }
@@ -152,12 +163,12 @@ namespace Tadar.ViewModels
         public string Ans2
         {
             // Когда надо вернуть фамилию.
-            get => test.WorkBody[0].PossibleAnsw2;
+            get => test.WorkBody[1].PossibleAnsw2;
             // Когда надо задать фамилию.
             set
             {
                 // Присваиваем новое значение фамилии.
-                test.WorkBody[0].PossibleAnsw2 = value;
+                test.WorkBody[1].PossibleAnsw2 = value;
                 // Уведомляем форму, что свойство "Surname" изменилось.
                 OnPropertyChanged(nameof(Ans2));
             }
@@ -165,12 +176,12 @@ namespace Tadar.ViewModels
         public string Ans3
         {
             // Когда надо вернуть фамилию.
-            get => test.WorkBody[0].PossibleAnsw3;
+            get => test.WorkBody[1].PossibleAnsw3;
             // Когда надо задать фамилию.
             set
             {
                 // Присваиваем новое значение фамилии.
-                test.WorkBody[0].PossibleAnsw3 = value;
+                test.WorkBody[1].PossibleAnsw3 = value;
                 // Уведомляем форму, что свойство "Surname" изменилось.
                 OnPropertyChanged(nameof(Ans3));
             }
@@ -178,12 +189,12 @@ namespace Tadar.ViewModels
         public string Ans4
         {
             // Когда надо вернуть фамилию.
-            get => test.WorkBody[0].PossibleAnsw4;
+            get => test.WorkBody[1].PossibleAnsw4;
             // Когда надо задать фамилию.
             set
             {
                 // Присваиваем новое значение фамилии.
-                test.WorkBody[0].PossibleAnsw4 = value;
+                test.WorkBody[1].PossibleAnsw4 = value;
                 // Уведомляем форму, что свойство "Surname" изменилось.
                 OnPropertyChanged(nameof(Ans4));
             }
@@ -191,12 +202,12 @@ namespace Tadar.ViewModels
         public string Right
         {
             // Когда надо вернуть фамилию.
-            get => test.WorkBody[0].RightNum;
+            get => test.WorkBody[1].RightNum;
             // Когда надо задать фамилию.
             set
             {
                 // Присваиваем новое значение фамилии.
-                test.WorkBody[0].RightNum = value;
+                test.WorkBody[1].RightNum = value;
                 // Уведомляем форму, что свойство "Surname" изменилось.
                 OnPropertyChanged(nameof(Right));
             }
@@ -206,25 +217,25 @@ namespace Tadar.ViewModels
 
 
 
-        public async void AddTaskAsync()
-        {
-            try
-            {
-                if (api == null)
-                {
-                    throw new Exception("api не создан!!!");
-                }
+        //public async void AddTaskAsync()
+        //{
+        //    try
+        //    {
+        //        if (api == null)
+        //        {
+        //            throw new Exception("api не создан!!!");
+        //        }
 
-               // string TestWorkID = await api.AddTestWorkAsync(test);
-               // TasksList = new ObservableCollection<TestWorkForAdd>(await api.AddTestWorkAsync(TestWorkID));
-                OnPropertyChanged(nameof(TasksList));
-            }
-            catch (Exception ex)
-            {
-                Log.Write(ex.Message);
-            }
+        //       // string TestWorkID = await api.AddTestWorkAsync(test);
+        //       // TasksList = new ObservableCollection<TestWorkForAdd>(await api.AddTestWorkAsync(TestWorkID));
+        //        OnPropertyChanged(nameof(TasksList));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log.Write(ex.Message);
+        //    }
 
-        }
+        //}
 
 
         //public async Task AddTestWork()
@@ -277,7 +288,7 @@ namespace Tadar.ViewModels
         //}
 
 
-        public ObservableCollection<TestWorkForAdd> TasksList { get; set; }
+        ////public ObservableCollection<TestWorkForAdd> TasksList { get; set; }
         private void Create_Click(object ob)
         {
             First.Base_frame.Navigate(new marks());
@@ -290,24 +301,21 @@ namespace Tadar.ViewModels
         }
         private void Add_Click(object ob)
         {
-            //test.WorkBody.Add
-            //{
-            //    (new TestTask
-            //    {
+            TasksList.Add(
+                new TestTask
+                {
 
-            //        NumTask = "1",
-            //        PossibleAnsw1 = "",
-            //        PossibleAnsw2 = "",
-            //        PossibleAnsw3 = "",
-            //        RightNum = "",
-            //        PossibleAnsw4 = "",
-            //        Word = ""
+                    NumTask = (test.WorkBody.Count + 1).ToString(),
+                    PossibleAnsw1 = "",
+                    PossibleAnsw2 = "",
+                    PossibleAnsw3 = "",
+                    RightNum = "",
+                    PossibleAnsw4 = "",
+                    Word = ""
 
-            //    });
-               
+                }
+            );
 
-            //};
-            
         }
         public Command AddClick
         {
