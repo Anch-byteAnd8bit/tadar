@@ -97,7 +97,7 @@
         <GroupBox
             Background="White"
             Grid.Row="5"
-             Header="Default Look"
+             Header="Меню"
              Margin="10">
             <Grid Background="White" ShowGridLines="False">
                 <Grid.RowDefinitions>

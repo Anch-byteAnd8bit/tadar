@@ -17,7 +17,7 @@ namespace Tadar.ViewModels
 {
     public class Do14ViewModel : BaseViewModel
     {
-        private TestWorkForAdd test =new TestWorkForAdd();
+        private TestWork test =new TestWork();
 
        
 
@@ -99,11 +99,11 @@ namespace Tadar.ViewModels
             try
 
             {
-                TestWorkForAdd work = new TestWorkForAdd();
+                TestWork work = new TestWork();
                 work.WorkHeader = test.WorkHeader;
                 work.WorkBody = test.WorkBody;
-                TestWork testwork = new TestWork();
-                await api.AddTestWorkAsync(work);
+                //string testwork;
+               work.WorkHeader.ID = await api.AddTestWorkAsync(work);
                 MessageBox.Show(work.WorkHeader.ID + ": " + work.WorkHeader.Name + work.WorkBody[1].Word);
 
                
