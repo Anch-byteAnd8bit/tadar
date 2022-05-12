@@ -12,7 +12,7 @@ namespace Tadar.Views
     public partial class PerfomingWorkPage : Page
     {
         readonly PerfomingWorkViewModel perfomingWorkVM;
-        public PerfomingWorkPage(nsAPI.Entities.RegisteredUser work)
+        public PerfomingWorkPage(nsAPI.Entities.TestWork work)
         {
             InitializeComponent();
             // Привязка контекста к элементам на форме.

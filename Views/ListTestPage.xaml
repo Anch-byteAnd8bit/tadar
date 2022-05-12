@@ -59,7 +59,8 @@
                         HorizontalContentAlignment="Left">
                         <StackPanel>
                             <TextBlock  Text="{Binding Name}" FontWeight="Bold" />
-                            <TextBlock Text="{Binding Surname}" />
+                            <TextBlock Text="{Binding Desc}" />
+                            <TextBlock Text="{Binding NameCl}" />
                         </StackPanel>
                     </Button>
                 </DataTemplate>

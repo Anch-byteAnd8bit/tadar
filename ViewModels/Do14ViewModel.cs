@@ -108,7 +108,7 @@ namespace Tadar.ViewModels
 
                
 
-                First.Base_frame.Navigate(new marks());
+                First.Base_frame.Navigate(new MenuPage());
             }
             // TODO: надо потом определять тип ошибки и выводить соотвествующие сообщения...
             catch (ErrorResponseException ex)

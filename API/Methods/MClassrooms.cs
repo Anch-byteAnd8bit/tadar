@@ -110,10 +110,10 @@ namespace nsAPI.Methods
             Dictionary<string, string> urlParam = new Dictionary<string, string>();
             urlParam.Add("secure_key", api_token);
             // Добавление в массив по ключу "id", идентификатора пользователя.
-            urlParam.Add("userId", userId);
+            urlParam.Add("id_User", userId);
             // Добавляем роль пользователя в классах в параметры запроса.
             if (idrole == null) idrole = "0";
-            urlParam.Add("idrole", idrole);
+            urlParam.Add("id_Role", idrole);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpGetAsync("classes.byUser/", urlParam);
             // Возвращаем список классов.
@@ -170,13 +170,13 @@ namespace nsAPI.Methods
             // В данные POST добавляем параметры запроса.
             Dictionary<string, string> postParam = new Dictionary<string, string>();
             // Добавление по ключу "id" идентификатор пользователя.
-            postParam["id_user"] = Encryption.AESHelper.EncryptString(id_user);
+            postParam["id_User"] = Encryption.AESHelper.EncryptString(id_user);
             // Добавление по ключу "id" идентификатор класса.
-            postParam["id_class"] = Encryption.AESHelper.EncryptString(id_class);
+            postParam["id_Class"] = Encryption.AESHelper.EncryptString(id_class);
             // 1 - Администратор, 2 - Ученик, 3 - Учитель.
             // Таблица "roles".
             string id_role = "2";
-            postParam["id_role"] = Encryption.AESHelper.EncryptString(id_role);
+            postParam["id_Role"] = Encryption.AESHelper.EncryptString(id_role);
 
             // ВСЕГДА, ПРИ ОТПРАВКЕ POST-ЗАПРОСА, НАДО ДОБАВЛЯТЬ В КОНЦЕ АДРЕСА СЛЭШ!
 

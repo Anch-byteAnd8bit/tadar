@@ -1,4 +1,5 @@
-﻿using System;
+﻿using nsAPI.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,7 @@ namespace Tadar.Views
     /// </summary>
     public partial class Test14Page : Page
     {
-        public Test14Page()
+        public Test14Page(TestWork work)
         {
             InitializeComponent();
             DataContext = new Test14ViewModel();

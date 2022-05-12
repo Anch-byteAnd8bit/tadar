@@ -3,6 +3,7 @@ using nsAPI.Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using Tadar.Helpers;
 using Tadar.Models;
@@ -12,16 +13,19 @@ namespace Tadar.ViewModels
 {
    public class ListTestViewModel : BaseViewModel
     {
-        nsAPI.Entities.RegisteredUser work;
+       private TestWork work;
+        
+        private string[] nameclass = new string[] { };
         public ListTestViewModel()
         {
             //api.MainUser.Name
-            TestClick = new Command(Test_Click);
-            Test14Click = new Command(Test14_Click);
-            LoadTestsAsync();
+           // TestClick = new Command(Test_Click);
+           // Test14Click = new Command(Test14_Click);
+            LoadClasssAsync();
+           // LoadTestsAsync();
            
         }
-        public async void LoadTestsAsync()
+        public async void LoadClasssAsync()
         {
             try
             {
@@ -30,17 +34,37 @@ namespace Tadar.ViewModels
                     throw new Exception("api не создан!!!");
                 }
                 List<RegisteredClassroom> classes =
-                    new List<RegisteredClassroom>
-                    (await api.GetClassroomsByUserIdAsync(api.MainUser.ID.ToString()));
-                string[] idjourn = new string[] { };
+                    await api.GetClassroomsByUserIdAsync(api.MainUser.ID);
+                string[] idjourn= new string[] { };
                 for (int i = 0; i < classes.Count - 1; i++)
                 {
                     idjourn[i] = classes[i].ID;
+                    nameclass[i] = classes[i].Name;
 
                 }
-
-                var works = await api.GetWorksByClassesIDAsync(idjourn, true);
+                LoadTestsAsync(idjourn);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public async void LoadTestsAsync(string[] idjourn)
+        {
+            try
+            {
+                if (api == null)
+                {
+                    throw new Exception("api не создан!!!");
+                }
+                
+                var work = await api.GetWorksByClassesIDAsync(idjourn, true);
+                
                 TestsList = new ObservableCollection<WorkHeader>();
+                for (int i = 0; i < work.TestWorks.Count; i++)
+                {
+                    TestsList.Add(work.TestWorks[0].WorkHeader) ;
+                   }
                 //TODO: сохранять works, из него получать список заголовков ВСЕХ работ
                 OnPropertyChanged(nameof(TestsList));
             }
@@ -52,13 +76,13 @@ namespace Tadar.ViewModels
         public ObservableCollection<WorkHeader> TestsList { get; set; }
 
 
-       
-        private void Test_Click(object ob)
-        {
-            work = (RegisteredUser)ob;
-            First.Base_frame.Navigate(new PerfomingWorkPage(work));
-           
-        }
+
+        //private void Test_Click(object ob)
+        //{
+        //    work = (TestWork)ob;
+        //    First.Base_frame.Navigate(new Test14Page(work));
+
+        //}
         public Command TestClick
         {
             get;
@@ -66,8 +90,8 @@ namespace Tadar.ViewModels
         }
         private void Test14_Click(object ob)
         {
-            work = (RegisteredUser)ob;
-            First.Base_frame.Navigate(new Test14Page());
+            work = (TestWork)ob;
+            First.Base_frame.Navigate(new PerfomingWorkPage(work));
 
         }
         public Command Test14Click
@@ -75,40 +99,49 @@ namespace Tadar.ViewModels
             get;
 
         }
-        //void MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        //{
-        //     First.Base_frame.Navigate(new PerfomingWorkPage(api.MainUser));
 
-
-        //}
-
-        public string Surname
+        public string Name
         {
             // Когда надо вернуть фамилию.
-            get => api.MainUser.Surname;
+            get => work.WorkHeader.Name;
             // Когда надо задать фамилию.
             set
             {
                 // Присваиваем новое значение фамилии.
-                api.MainUser.Surname = value;
+                work.WorkHeader.Name = value;
                 // Уведомляем форму, что свойство "Surname" изменилось.
-                OnPropertyChanged(nameof(Surname));
-            }
-        }
-        public string Name
-        {
-            // Получить.
-            get => api.MainUser.Name;
-            // Задать.
-            set
-            {
-                api.MainUser.Name = value;
-                // Уведомление.
                 OnPropertyChanged(nameof(Name));
             }
         }
+        public string Desc
+        {
+            // Получить.
+            get => work.WorkHeader.Description;
+            // Задать.
+            set
+            {
+                work.WorkHeader.Description = value;
+                // Уведомление.
+                OnPropertyChanged(nameof(Desc));
+            }
+        }
 
+        
 
+            // public string NameCl
+            //{
+
+            //// Получить.
+            //get => work.WorkHeader.id_Class
+            
+            //// Задать.
+            //     set
+            //{
+            //    nameclass[i] = value;
+            //    // Уведомление.
+            //    OnPropertyChanged(nameof(NameCl));
+            //}
+            //}
 
     }
 }
