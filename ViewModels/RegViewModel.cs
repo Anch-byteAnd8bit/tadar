@@ -28,16 +28,18 @@ namespace Tadar.ViewModels
             // Создаем команду для кнопки. Выполняться при нажатии будет
             // OnSave, а проверять доступна ли кнопка для нажатия,
             // будет метод ValidateSave
-
-            // Получаем список полов от сервера.
-            GettingGenders();
-            //
-
             Genders = new List<Refbook>()
             {
                 new Refbook{ ID = "1", Name = "Женский"},
                 new Refbook{ ID = "2", Name = "Мужской"},
             };
+           // Genders = api.Refbooks[TRefbooks.Genders];
+            // Получаем список полов от сервера.
+           GettingGenders();
+
+            //
+
+           
 
         }
        public bool isChecked=false;
