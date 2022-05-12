@@ -48,6 +48,7 @@ namespace nsAPI
         private readonly MWorks works;
         private readonly MTheories theories;
         private readonly MAnswers answers;
+        private readonly MDict dict;
         /// <summary>
         /// Ключ доступа к API.
         /// </summary>
@@ -88,6 +89,7 @@ namespace nsAPI
             works = new MWorks();
             theories = new MTheories();
             answers = new MAnswers();
+            dict = new MDict();
             // Если возможно, то загружаем данные пользователя из файла.
             try
             {
@@ -496,6 +498,36 @@ namespace nsAPI
         /// <returns>Теория с идентификаторами самой теории и заголовка</returns>
         public Task<Theory> AddTheory(Theory theory) =>
             theories.RegAsync(Access_Token, theory);
+        #endregion
+
+        #region Dict
+
+        /// <summary>
+        /// Получение пользовательского словаря.
+        /// </summary>
+        /// <param name="id_User">Идентификатор пользовтаеля.</param>
+        /// <param name="settingsFind">Настройки отбора. Можно не задвать.</param>
+        /// <returns>Список слов из пользователского словаря.</returns>
+        public async Task<List<Word>> GetUserWords(string id_User, SettingsFind settingsFind = null) =>
+            await dict.GetUserAsync(Access_Token, id_User, settingsFind);
+
+
+        /// <summary>
+        /// Получение общего словаря.
+        /// </summary>
+        /// <param name="settingsFind">Настройки отбора. Можно не задвать.</param>
+        /// <returns>Список слов, не принадлежащих пользотваелям.</returns>
+        public async Task<List<Word>> GetCommonWords(SettingsFind settingsFind = null) =>
+            await dict.GetCommonAsync(Access_Token, settingsFind);
+
+        /// <summary>
+        /// Получение списка слов пользователя и слов из общего словаря.
+        /// </summary>
+        /// <param name="id_User">Идентификатор пользовтаеля.</param>
+        /// <param name="settingsFind">Настройки отбора. Можно не задвать.</param>
+        /// <returns>Список слов пользователя и слов из общего словаря.</returns>
+        public async Task<List<Word>> GetCombiWords(string id_User, SettingsFind settingsFind = null) =>
+            await dict.GetCombinedAsync(Access_Token, id_User, settingsFind);
         #endregion
         //==================================================================================
         //==================================================================================

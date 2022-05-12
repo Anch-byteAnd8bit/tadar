@@ -96,7 +96,10 @@ namespace Tadar.Views
                 //await eAPI.AddMark();
                 //await eAPI.AddTheory();
                 //await eAPI.GetTheoryByIDAsync();
-                await eAPI.GetTheoriesByClassroomIDAsync();
+                //await eAPI.GetTheoriesByClassroomIDAsync();
+                //await eAPI.GetListUserWords();
+                //await eAPI.GetListCommonWords();
+                await eAPI.GetListCombiWords();
             }
             catch (UnknownHttpResponseException ex)
             {

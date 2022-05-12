@@ -3,6 +3,7 @@ using nsAPI.Helpers;
 using nsAPI.Methods;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -341,6 +342,36 @@ namespace nsAPI.Examples
         {
             List<Theory> theories = await api.GetTheoriesByClassroomIDAsync("38");
             _ = MessageBox.Show(theories.Count.ToString());
+        }
+
+        /// <summary>
+        /// Получение пользовательского словаря.
+        /// </summary>
+        public async Task GetListUserWords()
+        {
+            SettingsFind set = new SettingsFind { Shift = 0, Count = 5 };
+            List<Word> words = await api.GetUserWords("1", set);
+            _ = MessageBox.Show(string.Join(" ", words.Select(word => word.RusWord)));
+        }
+         
+        /// <summary>
+        /// Получение общего словаря.
+        /// </summary>
+        public async Task GetListCommonWords()
+        {
+            SettingsFind set = new SettingsFind { Shift = 0, Count = 5 };
+            List<Word> words = await api.GetCommonWords(set);
+            _ = MessageBox.Show(string.Join(" ", words.Select(word => word.RusWord)));
+        }
+
+        /// <summary>
+        /// Получение комбинированного словаря.
+        /// </summary>
+        public async Task GetListCombiWords()
+        {
+            SettingsFind set = new SettingsFind { Shift = 0, Count = 5 };
+            List<Word> words = await api.GetCombiWords("3", set);
+            _ = MessageBox.Show(string.Join(" ", words.Select(word => word.RusWord)));
         }
     }
 }
