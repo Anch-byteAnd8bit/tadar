@@ -574,7 +574,6 @@ namespace nsAPI
             }
             //return false;
         }
-
     }
 
     static class helper
