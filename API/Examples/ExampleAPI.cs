@@ -271,6 +271,16 @@ namespace nsAPI.Examples
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public async Task GetClassroomByUserIdAsync()
+        {
+            List<RegisteredClassroom> classrooms = await api.GetClassroomsByUserIdAsync("1");
+            _ = MessageBox.Show(classrooms.Count.ToString());
+        }
+
+        /// <summary>
         /// Добавляет данные в справочник.
         /// </summary>
         /// <returns></returns>
@@ -372,6 +382,52 @@ namespace nsAPI.Examples
             SettingsFind set = new SettingsFind { Shift = 0, Count = 5 };
             List<Word> words = await api.GetCombiWords("3", set);
             _ = MessageBox.Show(string.Join(" ", words.Select(word => word.RusWord)));
+        }
+
+        /// <summary>
+        /// Добавить слово привязанное к пользователю.
+        /// </summary>
+        /// <returns></returns>
+        public async Task AddUserWord()
+        {
+            Word word = new Word
+            {
+                RusWord = "РусСлово1",
+                HakWord = "ХакСлово1",
+                id_TypeWord = "1", // Список можно получить через api.GetTypeWordsAsync()
+                id_User = "1"
+            };
+            if (await api.AddWordAsync(word))
+            {
+                _ = MessageBox.Show("OK");
+            }
+            else
+            {
+                _ = MessageBox.Show("Not OK");
+            }
+        }
+
+        /// <summary>
+        /// Добавить слово в общий список.
+        /// </summary>
+        /// <returns></returns>
+        public async Task AddCommonWord()
+        {
+            Word word = new Word
+            {
+                RusWord = "РусСлово2",
+                HakWord = "ХакСлово2",
+                id_TypeWord = "1", // Список можно получить через api.GetTypeWordsAsync()
+                id_User = null // <- не надо задавать, чтобы добавить в общий список.
+            };
+            if (await api.AddWordAsync(word))
+            {
+                _ = MessageBox.Show("OK");
+            }
+            else
+            {
+                _ = MessageBox.Show("Not OK");
+            }
         }
     }
 }

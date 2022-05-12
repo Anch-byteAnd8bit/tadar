@@ -528,6 +528,24 @@ namespace nsAPI
         /// <returns>Список слов пользователя и слов из общего словаря.</returns>
         public async Task<List<Word>> GetCombiWords(string id_User, SettingsFind settingsFind = null) =>
             await dict.GetCombinedAsync(Access_Token, id_User, settingsFind);
+
+        /// <summary>
+        /// Добавляет слово в БД.
+        /// </summary>
+        /// <param name="word">Слово для добавления.</param>
+        /// <returns>True - если успешно добавлено.</returns>
+        public async Task<bool> AddWordAsync(Word word) =>
+            await dict.AddWordAsync(Access_Token, word);
+
+
+        /// <summary>
+        /// Добавляет слова в БД.
+        /// </summary>
+        /// <param name="word">Слова для добавления.</param>
+        /// <returns>True - если успешно добавлены.</returns>
+        public async Task<bool> AddWordsAsync(List<Word> words) =>
+            await dict.AddWordsAsync(Access_Token, words);
+
         #endregion
         //==================================================================================
         //==================================================================================
