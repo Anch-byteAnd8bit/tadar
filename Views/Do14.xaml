@@ -68,7 +68,7 @@
                             Foreground="White"
                             FontWeight="DemiBold"
                             FontSize="25"
-                            Text="{Binding ID}"
+                            Text="{Binding NumTask}"
                             ></TextBlock>
                         <TextBox Name="ans_Box" 
                                  Margin="10"
@@ -229,6 +229,7 @@
             Command="{Binding AddClick}"
             HorizontalContentAlignment="Center"
             VerticalAlignment="Bottom"
+            Margin="0 0 50 10"
             Style="{StaticResource MaterialDesignFloatingActionButton}"
             IsEnabled="{Binding DataContext.ControlsEnabled,
             RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"  Cursor="Hand">+
@@ -249,7 +250,6 @@
            Width="40"
             Height="40"
          Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                 Ӧ
             </Button>
@@ -260,7 +260,6 @@
            Width="40"
             Height="40"
          Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                 І
             </Button>
@@ -271,7 +270,6 @@
            Width="40"
             Height="40"
          Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                 Ӱ
             </Button>
@@ -281,7 +279,6 @@
        Width="40"
             Height="40"
          Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                 Ғ
             </Button>
@@ -291,7 +288,6 @@
            Width="40"
             Height="40"
          Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                 Ң
             </Button>
@@ -301,7 +297,6 @@
           Width="40"
             Height="40"
          Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                 Ҷ
             </Button>
@@ -319,7 +314,6 @@
                  Margin="3"
             
          Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                 ӧ
             </Button>
@@ -330,7 +324,6 @@
           Width="40"
             Height="40"
          Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                 і
             </Button>
@@ -340,7 +333,6 @@
            Width="40"
             Height="40"
          Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                 ӱ
             </Button>
@@ -350,7 +342,6 @@
           Width="40"
             Height="40"
          Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                 ғ
             </Button>
@@ -360,7 +351,6 @@
           Width="40"
             Height="40"
          Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                 ң
             </Button>
@@ -370,7 +360,6 @@
           Width="40"
             Height="40"
          Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                 ҷ
             </Button>
