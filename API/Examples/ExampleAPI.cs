@@ -99,7 +99,7 @@ namespace nsAPI.Examples
         /// </summary>
         public async Task AddTestWork()
         {
-            TestWorkForAdd testWorkForAdd = new TestWorkForAdd
+            TestWork testWorkForAdd = new TestWork
             {
                 WorkHeader = new WorkHeader
                 {
@@ -151,7 +151,7 @@ namespace nsAPI.Examples
         /// </summary>
         public async Task AddTextWork()
         {
-            TextWorkForAdd textWorkForAdd = new TextWorkForAdd
+            TextWork textWorkForAdd = new TextWork
             {
                 WorkHeader = new WorkHeader
                 {

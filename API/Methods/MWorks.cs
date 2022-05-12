@@ -27,6 +27,16 @@ namespace nsAPI.Methods
             Dictionary<string, string> urlParams = new Dictionary<string, string>();
             urlParams["secure_key"] = api_token;
 
+
+            // Указание правильного типа работы.
+            var wts = API.Instance.Refbooks[TRefbooks.WorkTypes];
+            if (wts != null)
+            {
+                Refbook worktype = wts.FirstOrDefault(wt => wt.Name == "Тест");
+                work.WorkHeader.id_TypeWork = (worktype?.ID) ?? "1";
+            }
+            else work.WorkHeader.id_TypeWork = "1";
+
             // Получаем пользователя с зашифрованными данными.
             work.Encrypt();
 
@@ -60,6 +70,15 @@ namespace nsAPI.Methods
             // Обязательно добавляем в запрос НЕ зашифрованный ключ доступа.
             Dictionary<string, string> urlParams = new Dictionary<string, string>();
             urlParams["secure_key"] = api_token;
+
+            // Указание правильного типа работы.
+            var wts = API.Instance.Refbooks[TRefbooks.WorkTypes];
+            if (wts != null)
+            {
+                Refbook worktype = wts.FirstOrDefault(wt => wt.Name == "Письменная работа");
+                work.WorkHeader.id_TypeWork = (worktype?.ID) ?? "2";
+            }
+            else work.WorkHeader.id_TypeWork = "2";
 
             // Получаем пользователя с зашифрованными данными.
             work.Encrypt();
