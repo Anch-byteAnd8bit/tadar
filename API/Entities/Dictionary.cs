@@ -19,7 +19,10 @@ namespace nsAPI.Entities
         [JsonProperty("RusWord")]
         public string RusWord { get; set; }
 
-        [JsonProperty("id_TypeWord ")]
+        /// <summary>
+        /// 1 - Существительное, 2 - Прилагательное, 3 - Глагол
+        /// </summary>
+        [JsonProperty("id_TypeWord")]
         public string id_TypeWord { get; set; }
 
         /// <summary>

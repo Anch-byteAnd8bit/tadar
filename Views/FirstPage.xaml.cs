@@ -89,14 +89,20 @@ namespace Tadar.Views
                 //await eAPI.AddAnswerTestWork();
                 //await eAPI.AddAnswerTextWork();
                 //await eAPI.GetListOfClasrooms();
-                //await eAPI.GetClassroomByIdAsync();
+                await eAPI.GetClassroomByIdAsync();
+                await eAPI.GetClassroomByUserIdAsync();
                 //await eAPI.AddDataToRefBook();
                 //await eAPI.GetListOfWorksByClassesIDsAsync();
                 //await eAPI.GetListOfWorksByClassIdAsync();
                 //await eAPI.AddMark();
                 //await eAPI.AddTheory();
                 //await eAPI.GetTheoryByIDAsync();
-                await eAPI.GetTheoriesByClassroomIDAsync();
+                //await eAPI.GetTheoriesByClassroomIDAsync();
+                //await eAPI.GetListUserWords();
+                //await eAPI.GetListCommonWords();
+                //await eAPI.GetListCombiWords();
+                //await eAPI.AddCommonWord();
+                //await eAPI.AddUserWord();
             }
             catch (UnknownHttpResponseException ex)
             {

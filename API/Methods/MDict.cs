@@ -30,6 +30,12 @@ namespace nsAPI.Methods
 
     class MDict : Basic
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="api_token"></param>
+        /// <param name="words"></param>
+        /// <returns></returns>
         public async Task<bool> AddWordsAsync(string api_token, List<Word> words)
         {
             // Обязательно добавляем в запрос НЕ зашифрованный ключ доступа.
@@ -48,10 +54,23 @@ namespace nsAPI.Methods
             return httpResponse.data[0].ToString() == OK;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="api_token"></param>
+        /// <param name="word"></param>
+        /// <returns></returns>
         public async Task<bool> AddWordAsync(string api_token, Word word) =>
             await AddWordsAsync(api_token, new List<Word>() { word });
 
-        public async Task<List<Word>> getUserAsync(string api_token, string id_User, SettingsFind settingsFind)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="api_token"></param>
+        /// <param name="id_User"></param>
+        /// <param name="settingsFind"></param>
+        /// <returns></returns>
+        public async Task<List<Word>> GetUserAsync(string api_token, string id_User, SettingsFind settingsFind)
         {
             if (settingsFind == null) settingsFind = new SettingsFind();
 
@@ -63,7 +82,7 @@ namespace nsAPI.Methods
             // Создание ассоциативного массива.
             var d = new Dictionary<string, object>();
             // Только словарь пользовтаеля.
-            d.Add("filter", FilterDict.onlyUser);
+            d.Add("filter", ((int)FilterDict.onlyUser).ToString());
             d.Add("id_User", id_User);
             // Сериализация (конвертирование в формат JSON).
             string postDataJSON = JsonConvert.SerializeObject(d);
@@ -82,7 +101,7 @@ namespace nsAPI.Methods
             return dict;
         }
 
-        public async Task<List<Word>> getCommonAsync(string api_token, SettingsFind settingsFind)
+        public async Task<List<Word>> GetCommonAsync(string api_token, SettingsFind settingsFind)
         {
             if (settingsFind == null) settingsFind = new SettingsFind();
 
@@ -94,7 +113,7 @@ namespace nsAPI.Methods
             // Создание ассоциативного массива.
             var d = new Dictionary<string, object>();
             // Только общий словарь.
-            d.Add("filter", FilterDict.onlyCommon);
+            d.Add("filter", ((int)FilterDict.onlyCommon).ToString());
             // Сериализация (конвертирование в формат JSON).
             string postDataJSON = JsonConvert.SerializeObject(d);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
@@ -112,7 +131,7 @@ namespace nsAPI.Methods
             return dict;
         }
 
-        public async Task<List<Word>> getCombinedAsync(string api_token, string id_User, SettingsFind settingsFind)
+        public async Task<List<Word>> GetCombinedAsync(string api_token, string id_User, SettingsFind settingsFind)
         {
 
             if (settingsFind == null) settingsFind = new SettingsFind();
@@ -125,7 +144,7 @@ namespace nsAPI.Methods
             // Создание ассоциативного массива.
             var d = new Dictionary<string, object>();
             // И словарь пользователя и общий.
-            d.Add("filter", FilterDict.combined);
+            d.Add("filter", ((int)FilterDict.combined).ToString());
             d.Add("id_User", id_User);
             // Сериализация (конвертирование в формат JSON).
             string postDataJSON = JsonConvert.SerializeObject(d);
