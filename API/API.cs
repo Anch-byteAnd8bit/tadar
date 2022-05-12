@@ -369,7 +369,7 @@ namespace nsAPI
         /// </summary>
         /// <param name="testWork">Работа для записи в БД.</param>
         /// <returns>Идентификатор добавленной работы в строке</returns>
-        public async Task<string> AddTestWorkAsync(TestWorkForAdd testWork) =>
+        public async Task<string> AddTestWorkAsync(TestWork testWork) =>
             await works.TestWorkAddAsync(Access_Token, testWork);
 
         /// <summary>
@@ -377,7 +377,7 @@ namespace nsAPI
         /// </summary>
         /// <param name="testWork">Работа для записи в БД.</param>
         /// <returns>Идентификатор добавленной работы в строке</returns>
-        public async Task<string> AddTextWorkAsync(TextWorkForAdd textWork) =>
+        public async Task<string> AddTextWorkAsync(TextWork textWork) =>
             await works.TextWorkAddAsync(Access_Token, textWork);
         #endregion
 
@@ -599,8 +599,6 @@ namespace nsAPI
         public static string ToJson(this UserForAuthorization self) => JsonConvert.SerializeObject(self, Converter.Settings);
         public static string ToJson(this ClassroomForReg self) => JsonConvert.SerializeObject(self, Converter.Settings);
         public static string ToJson(this RegisteredClassroom self) => JsonConvert.SerializeObject(self, Converter.Settings);
-        public static string ToJson(this TestWorkForAdd self) => JsonConvert.SerializeObject(self, Converter.Settings);
-        public static string ToJson(this TextWorkForAdd self) => JsonConvert.SerializeObject(self, Converter.Settings);
         public static string ToJson(this TestAnswerForAdd self) => JsonConvert.SerializeObject(self, Converter.Settings);
         public static string ToJson(this TextAnswerForAdd self) => JsonConvert.SerializeObject(self, Converter.Settings);
         

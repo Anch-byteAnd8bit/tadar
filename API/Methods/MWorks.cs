@@ -18,7 +18,7 @@ namespace nsAPI.Methods
         /// <param name="accessToken">Расшифрованные данные для доступа к API</param>
         /// <param name="work">Данные тестовой работы.</param>
         /// <returns>Идентификатор тестовой работы типа string.</returns>
-        public async Task<string> TestWorkAddAsync(string api_token, TestWorkForAdd work)
+        public async Task<string> TestWorkAddAsync(string api_token, TestWork work)
         {
             // Тут Будет храниться результат запроса.
             Identifier id;
@@ -28,7 +28,7 @@ namespace nsAPI.Methods
             urlParams["secure_key"] = api_token;
 
             // Получаем пользователя с зашифрованными данными.
-            work.EncryptByAES();
+            work.Encrypt();
 
 
             // ВСЕГДА, ПРИ ОТПРАВКЕ POST-ЗАПРОСА, НАДО ДОБАВЛЯТЬ В КОНЦЕ АДРЕСА СЛЭШ!
@@ -52,7 +52,7 @@ namespace nsAPI.Methods
         /// <param name="accessToken">Расшифрованные данные для доступа к API</param>
         /// <param name="work">Данные письменной работы.</param>
         /// <returns>Идентификатор письменной работы типа string.</returns>
-        public async Task<string> TextWorkAddAsync(string api_token, TextWorkForAdd work)
+        public async Task<string> TextWorkAddAsync(string api_token, TextWork work)
         {
             // Тут Будет храниться результат запроса.
             Identifier id;
@@ -62,7 +62,7 @@ namespace nsAPI.Methods
             urlParams["secure_key"] = api_token;
 
             // Получаем пользователя с зашифрованными данными.
-            work.EncryptByAES();
+            work.Encrypt();
 
             // ВСЕГДА, ПРИ ОТПРАВКЕ POST-ЗАПРОСА, НАДО ДОБАВЛЯТЬ В КОНЦЕ АДРЕСА СЛЭШ!
 

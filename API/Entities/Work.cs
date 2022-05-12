@@ -47,7 +47,42 @@ namespace nsAPI.Entities
         {
             WorkHeader.DecryptByAES();
         }
-        
+
+        public void Decrypt()
+        {
+            DecryptBodyByAES();
+            DecryptHeaderByAES();
+
+        }
+
+
+        /// <summary>
+        /// Шифрование тела.
+        /// </summary>
+        public void EncryptBodyByAES()
+        {
+            if (WorkBody != null)
+            {
+                WorkBody.ForEach(e => e.EncryptByAES());
+            }
+        }
+
+        public void EncryptHeaderByAES()
+        {
+            WorkHeader.EncryptByAES();
+        }
+
+        public void Encrypt()
+        {
+            EncryptBodyByAES();
+            EncryptHeaderByAES();
+
+        }
+
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this, Converter.Settings);
+        }
     }
 
     /// <summary>
@@ -76,41 +111,40 @@ namespace nsAPI.Entities
         {
             WorkHeader.DecryptByAES();
         }
-    }
 
-    /// <summary>
-    /// Класс ТЕСТОВОЙ работы для добавления.
-    /// </summary>
-    public class TestWorkForAdd
-    {
-        [JsonProperty("WorkHeader")]
-        public WorkHeader WorkHeader { get; set; }
-
-        [JsonProperty("WorkBody")]
-        public List<TestTask> WorkBody { get; set; }
-
-        public void EncryptByAES()
+        public void Decrypt()
         {
-            WorkHeader.EncryptByAES();
-            WorkBody.ForEach(e => e.EncryptByAES());
+            DecryptBodyByAES();
+            DecryptHeaderByAES();
         }
-    }
 
-    /// <summary>
-    /// Класс ПИСЬМЕНОЙ работы для добавления.
-    /// </summary>
-    public class TextWorkForAdd
-    {
-        [JsonProperty("WorkHeader")]
-        public WorkHeader WorkHeader { get; set; }
 
-        [JsonProperty("WorkBody")]
-        public List<TextTask> WorkBody { get; set; }
+        /// <summary>
+        /// Шифрованеи тела.
+        /// </summary>
+        public void EncryptBodyByAES()
+        {
+            if (WorkBody != null)
+            {
+                WorkBody.ForEach(e => e.EncryptByAES());
+            }
+        }
 
-        public void EncryptByAES()
+        public void EncryptHeaderByAES()
         {
             WorkHeader.EncryptByAES();
-            WorkBody.ForEach(e => e.EncryptByAES());
+        }
+
+        public void Encrypt()
+        {
+            EncryptBodyByAES();
+            EncryptHeaderByAES();
+        }
+
+
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this, Converter.Settings);
         }
     }
 

@@ -35,6 +35,7 @@ namespace nsAPI.Methods
     abstract class Basic
     {
         public static string Nothing = "Nothing";
+        public static string OK = "OK";
 
         // Ссылка для запросов.
         protected readonly string apiURL = "http://api.great-duet.localhost/";
