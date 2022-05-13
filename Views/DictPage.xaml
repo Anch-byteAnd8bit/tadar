@@ -43,14 +43,14 @@
                         <TextBlock 
                             HorizontalAlignment="Left" 
                             Grid.Column="0"  
-                            Text="{Binding Name}"
+                            Text="{Binding HakWord}"
                             
                             FontSize="25"
                             Foreground="White"
                             >
                              <Run Text=" –"  FontSize="25"
                             Foreground="White"></Run>
-                            <Run Text="{Binding Surname}"  FontSize="25"
+                            <Run Text="{Binding RusWord}"  FontSize="25"
                             Foreground="White"></Run>
                         </TextBlock>
                         
