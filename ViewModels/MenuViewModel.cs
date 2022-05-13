@@ -40,7 +40,9 @@ namespace Tadar.ViewModels
                 Log.Write(ex.Message);
             }
         }
-        public ObservableCollection<RegisteredUser> UsersList { get; set; }
+         public ObservableCollection<RegisteredUser> UsersList { get; set; }
+        
+
 
 
 

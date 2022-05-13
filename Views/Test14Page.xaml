@@ -4,17 +4,16 @@
        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:viewmodels="clr-namespace:Tadar.ViewModels"
+      xmlns:viewmodels="clr-namespace:Tadar.ViewModels" xmlns:rules="clr-namespace:Tadar.Views"
       mc:Ignorable="d" 
      d:DesignHeight="700" d:DesignWidth="900"
       Title="Test14Page">
 
     <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False" >
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="3*"></RowDefinition>
-            <RowDefinition Height="3*"></RowDefinition>
-            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="25*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -23,81 +22,119 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Grid.Row="0"
-            Text="Выберите перевод слова"
+            Text="{Binding NameTest}"
                             Foreground="White"
             Style="{StaticResource MaterialDesignHeadline3TextBlock}"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"/>
-        <TextBlock 
-            Grid.Row="1"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Grid.Column="0"
-             Style="{StaticResource MaterialDesignHeadline2TextBlock}"
-            Text="{Binding Surname}" FontWeight="Bold"/>
-
-
-
-
-        <Grid
-            Grid.Row="2"
-            Background="#FFA25DED" ShowGridLines="False" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-
-            <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
-             materialDesign:ButtonAssist.CornerRadius="25"
-               Height="60"
-              Grid.Row="0"
-              Grid.Column="0"
-                Command="{Binding MarkClick}"
-                Content="{Binding Surname}"
-                HorizontalAlignment="Center" 
-                Width="400" FontSize="25" Cursor="Hand"
-                />
-            <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
-             materialDesign:ButtonAssist.CornerRadius="25"
-               Height="60"
-               Grid.Row="1"
-               Grid.Column="0"
-               Command="{Binding MarkClick}"
-               Content="{Binding Surname}"
-               HorizontalAlignment="Center" 
-                Width="400" FontSize="25" Cursor="Hand" 
-                />
-            <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
-             materialDesign:ButtonAssist.CornerRadius="25"
-               Height="60"
-                 Grid.Row="0"
-               Grid.Column="1"
-                Command="{Binding MarkClick}"
-          
-                Content="{Binding Surname}"
-                HorizontalAlignment="Center" 
-                Width="400" FontSize="25" Cursor="Hand" 
-                />
-            <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
-             materialDesign:ButtonAssist.CornerRadius="25"
-               Height="60"
-                 Grid.Row="1"
-               Grid.Column="1"
-                Command="{Binding MarkClick}"
-          
-                Content="{Binding Surname}"
-                HorizontalAlignment="Center" 
-                Width="400" FontSize="25" Cursor="Hand" 
-                />
-
-        </Grid>
-
         
+        
+        <ListView
+            HorizontalAlignment="Center"
+            
+            Grid.Row="1"
+            Grid.Column="1" 
+            x:Name="lvs"
+            ItemsSource="{Binding TasksList}"
+            IsSynchronizedWithCurrentItem="True">
 
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="10">
+                        <TextBlock
+                            Foreground="White"
+                            FontWeight="DemiBold"
+                            FontSize="25"
+                            Text="{Binding NumTask}"
+                            ></TextBlock>
+                        <TextBlock 
+                                 Margin="10"
+                             Grid.Row="1" 
+                             Grid.Column="1"
+                             Style="{StaticResource MaterialDesignBody1TextBlock}" 
+                             FontSize="14"
+                             Width="500" Height="40" 
+                             Background="White"
+                             TextAlignment="Center"
+                             Foreground="Black" Cursor="Arrow"
+                            Text="{ Binding Word}" >
+                               
+                        </TextBlock>
+                        <TextBlock 
+                                 Margin="10"
+                             Grid.Row="1" 
+                             Grid.Column="1"
+                             Style="{StaticResource MaterialDesignBody1TextBlock}"  
+                             FontSize="14"
+                             Width="500" Height="40" 
+                             Background="White"
+                             TextAlignment="Center"
+                             Foreground="Black" Cursor="Arrow"
+                            Text="{ Binding PossibleAnsw1}" >
+
+                        </TextBlock>
+                        <TextBlock 
+                                 Margin="10"
+                             Grid.Row="1" 
+                             Grid.Column="1"
+                             Style="{StaticResource MaterialDesignBody1TextBlock}"  
+                             FontSize="14"
+                             Width="500" Height="40" 
+                             Background="White"
+                             TextAlignment="Center"
+                             Foreground="Black" Cursor="Arrow"
+                            Text="{ Binding PossibleAnsw2}" >
+
+                        </TextBlock>
+                        <TextBlock  
+                                 Margin="10"
+                             Grid.Row="1" 
+                             Grid.Column="1"
+                             Style="{StaticResource MaterialDesignBody1TextBlock}" 
+                             FontSize="14"
+                             Width="500" Height="40" 
+                             Background="White"
+                             TextAlignment="Center"
+                             Foreground="Black" Cursor="Arrow"
+                            Text="{ Binding PossibleAnsw3}" >
+
+                        </TextBlock>
+                        <TextBlock
+                             Margin="10"
+                             Grid.Row="1" 
+                             Grid.Column="1"
+                             Style="{StaticResource MaterialDesignBody1TextBlock}" 
+                             FontSize="14"
+                             Width="500" Height="40" 
+                             Background="White"
+                             TextAlignment="Center"
+                             Foreground="Black" Cursor="Arrow"
+                            Text="{ Binding PossibleAnsw4}" >
+
+                        </TextBlock>
+
+
+
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+
+        <Button  Style="{StaticResource MaterialDesignFlatMidBgButton}"
+             materialDesign:ButtonAssist.CornerRadius="25" 
+               
+                Command="{Binding SendClick}"
+            Content="Закончить тест"
+                Grid.Column="0"
+                 Grid.ColumnSpan="4"
+                Grid.Row="3"
+                HorizontalAlignment="Center" 
+                 VerticalAlignment="Center"
+                Width="200" Height="40" FontSize="21" Cursor="Hand"   
+                />
+        
+        
     </Grid>
 </Page>

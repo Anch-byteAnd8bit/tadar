@@ -4,8 +4,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Helpers;
 using nsAPI.Entities;
+using nsAPI.Methods;
 using Tadar.Helpers;
 using Tadar.Models;
 using Tadar.Views;
@@ -14,14 +16,21 @@ namespace Tadar.ViewModels
 {
    public class AddToClassViewModel : BaseViewModel
     {
-
+        private List<RegisteredClassroom> classrooms = new List<RegisteredClassroom>();
         public AddToClassViewModel()
         {
-            LoadUsersAsync();
+            LoadClasssAsync();
             EnterClick = new Command(Enter_Click);
             ClassClick = new Command(Class_Click);
+
         }
-        public async void LoadUsersAsync()
+        //SettingsFind settingsFind = new SettingsFind
+        //{
+        //    Shift = 1, // + 1 = 8
+        //    Count = 15
+        //};
+
+        public async void LoadClasssAsync()
         {
             try
             {
@@ -29,15 +38,42 @@ namespace Tadar.ViewModels
                 {
                     throw new Exception("api не создан!!!");
                 }
-                UsersList = new ObservableCollection<RegisteredUser>(await api.FindUsersAsync());
-                OnPropertyChanged(nameof(UsersList));
+                classrooms =
+                  await api.GetAllClassess();
+              //  ClasssList = new ObservableCollection<RegisteredClassroom>();
+                OnPropertyChanged(nameof(classrooms));
             }
             catch (Exception ex)
             {
-                Log.Write(ex.Message);
+                MessageBox.Show(ex.Message);
             }
         }
-        public ObservableCollection<RegisteredUser> UsersList { get; set; }
+
+        // public ObservableCollection<RegisteredClassroom> ClasssList { get; set; }
+        public List<RegisteredClassroom> Classrooms
+        {
+            get { return classrooms; }
+            set
+            {
+                classrooms = value;
+                OnPropertyChanged(nameof(Classrooms));
+                // Задаем новый выбранный жлемент из списка.
+               // SelectedClassroom = Classrooms[0];
+            }
+        }
+        //public ObservableCollection<RegisteredClassroom> ClasssList
+        //{
+        //    get
+        //    {
+        //        return ObservableCollection<RegisteredClassroom>(classrooms);
+        //    }
+        //    set
+        //    {
+        //        classrooms = value.ToList();
+        //        OnPropertyChanged("ClasssList");
+        //    }
+        //}
+
         public Command EnterClick { get; }
         private void Enter_Click(object ob)
         {
@@ -55,50 +91,6 @@ namespace Tadar.ViewModels
             get;
             set;
         }
-        //public string Surname
-        //{
-        //    // Когда надо вернуть фамилию.
-        //    get => api.MainUser.Surname;
-        //    // Когда надо задать фамилию.
-        //    set
-        //    {
-        //        // Присваиваем новое значение фамилии.
-        //        api.MainUser.Surname = value;
-        //        // Уведомляем форму, что свойство "Surname" изменилось.
-        //        OnPropertyChanged(nameof(Surname));
-        //    }
-        //}
-        //public string Name
-        //{
-        //    // Получить.
-        //    get => api.MainUser.Name;
-        //    // Задать.
-        //    set
-        //    {
-        //        api.MainUser.Name = value;
-        //        // Уведомление.
-        //        OnPropertyChanged(nameof(Name));
-        //    }
-        //}
-        //public string Middlename
-        //{
-        //    get => api.MainUser.Middlename;
-        //    set
-        //    {
-        //        api.MainUser.Middlename = value;
-        //        OnPropertyChanged(nameof(Middlename));
-        //    }
-        //}
-        //public string BDate
-        //{
-        //    get => api.MainUser.BDate.ToString("d");
-        //    set
-        //    {
-        //        // Задавемое значение конвертируем в формат DateTime.
-        //        api.MainUser.BDate = DateTimeOffset.Parse(value);
-        //        // Уведомление.
-        //        OnPropertyChanged(nameof(BDate));
-        //    }
-        //}
+       
     }
 }

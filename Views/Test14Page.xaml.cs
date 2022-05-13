@@ -25,7 +25,7 @@ namespace Tadar.Views
         public Test14Page(TestWork work)
         {
             InitializeComponent();
-            DataContext = new Test14ViewModel();
+            DataContext = new Test14ViewModel(work);
         }
     }
 }

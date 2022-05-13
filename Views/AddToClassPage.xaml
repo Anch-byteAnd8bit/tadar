@@ -29,7 +29,7 @@
             Style="{StaticResource MaterialDesignHeadline3TextBlock}"
                    > Список классов</TextBlock>
 
-        <ListView ItemsSource="{Binding UsersList}" IsSynchronizedWithCurrentItem="True"
+        <ListView ItemsSource="{Binding Classrooms}" IsSynchronizedWithCurrentItem="True"
                   materialDesign:ListBoxItemAssist.ShowSelection="False"
                   Name="lv"
                 Grid.Row="1">
@@ -38,9 +38,9 @@
 
                     <StackPanel Margin="10">
                         <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Surname}" />
-                        <TextBlock Text="{Binding Middlename}" />
-                        <TextBlock Text="{Binding BDate}" />
+                        <TextBlock Text="{Binding Description}" />
+                        <TextBlock Text="{Binding DateTimeCreate}" />
+                        
                         <Button
                             Command="{Binding ElementName=lv, Path=DataContext.EnterClick}" CommandParameter="{Binding}">
                             Войти в класс

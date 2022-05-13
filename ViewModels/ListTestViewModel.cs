@@ -105,63 +105,7 @@ namespace Tadar.ViewModels
 
         }
 
-       // public ObservableCollection<WorkHeader> TestsList { }
-        //{
-        //    // Когда надо вернуть фамилию.
-        //    get => TestsList;
-        //    // Когда надо задать фамилию.
-        //    set
-        //    {
-        //        // Присваиваем новое значение фамилии.
-        //        TestsList = value;
-        //        // Уведомляем форму, что свойство "Surname" изменилось.
-        //        OnPropertyChanged(nameof(TestsList));
-        //    }
-        //}
-
-
-        //public string Name
-        //{
-        //    // Когда надо вернуть фамилию.
-        //    get => work.WorkHeader.Name;
-        //    // Когда надо задать фамилию.
-        //    set
-        //    {
-        //        // Присваиваем новое значение фамилии.
-        //        work.WorkHeader.Name = value;
-        //        // Уведомляем форму, что свойство "Surname" изменилось.
-        //        OnPropertyChanged(nameof(Name));
-        //    }
-        //}
-        //public string Desc
-        //{
-        //    // Получить.
-        //    get => work.WorkHeader.Description;
-        //    // Задать.
-        //    set
-        //    {
-        //        work.WorkHeader.Description = value;
-        //        // Уведомление.
-        //        OnPropertyChanged(nameof(Desc));
-        //    }
-        //}
-
-        
-
-            // public string NameCl
-            //{
-
-            //// Получить.
-            //get => work.WorkHeader.id_Class
-            
-            //// Задать.
-            //     set
-            //{
-            //    nameclass[i] = value;
-            //    // Уведомление.
-            //    OnPropertyChanged(nameof(NameCl));
-            //}
-            //}
+      
 
     }
 }
