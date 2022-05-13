@@ -17,6 +17,7 @@ namespace Tadar.ViewModels
    public class AddToClassViewModel : BaseViewModel
     {
         private List<RegisteredClassroom> classrooms = new List<RegisteredClassroom>();
+        private List<RegisteredClassroom> classroomsuser = new List<RegisteredClassroom>();
         private RegisteredClassroom cls;
         public AddToClassViewModel()
         {
@@ -41,9 +42,24 @@ namespace Tadar.ViewModels
                 }
                 classrooms =
                   await api.GetAllClassess();
+                classroomsuser = await api.GetClassroomsByUserIdAsync(api.MainUser.ID);
+
+                //test = new TestWork();
+                //test.WorkHeader = (WorkHeader)ob;
+                //test.WorkBody = works.TestWorks.SingleOrDefault(w => w.WorkHeader == test.WorkHeader).WorkBody;
+                //First.Base_frame.Navigate(new Test14Page(test));
+
+                for (int i = 0; i < classrooms.Count; i++)
+                {
+                    if (classroomsuser.SingleOrDefault(cl=>cl.ID==classrooms[i].ID)!=null)
+                    {
+                        classrooms.Remove(classrooms[i]);
+                    }
+                }
+               
               //  ClasssList = new ObservableCollection<RegisteredClassroom>();
               
-                OnPropertyChanged(nameof(classrooms));
+                OnPropertyChanged(nameof(Classrooms));
             }
             catch (Exception ex)
             {
@@ -68,15 +84,13 @@ namespace Tadar.ViewModels
         public Command EnterClick { get; }
         private async void Enter_Click(object ob)
         {
-            //test = new TestWork();
-            //test.WorkHeader = (WorkHeader)ob;
-            //test.WorkBody = works.TestWorks.SingleOrDefault(w => w.WorkHeader == test.WorkHeader).WorkBody;
-            //First.Base_frame.Navigate(new Test14Page(test));
+            
             cls = new RegisteredClassroom();
             cls = (RegisteredClassroom)ob;
             string iclass = cls.ID;
             await api.AddStudent(api.MainUser.ID.ToString(), iclass);
-            MessageBox.Show(api.MainUser.Name.ToString() + "в классе " + cls.Name.ToString());
+            OnPropertyChanged(nameof(Classrooms));
+            MessageBox.Show(api.MainUser.Name.ToString() + " в классе " + cls.Name.ToString());
             First.Base_frame.Navigate(new MenuPage());
 
         }

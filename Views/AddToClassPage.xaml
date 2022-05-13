@@ -38,6 +38,7 @@
                   Grid.Row="1"
                   Grid.Column="1"
                   Margin="0 0 0 0"
+                  HorizontalAlignment="Center"
                   >
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -49,7 +50,7 @@
                             Command="{Binding ElementName=lv,
                             Path=DataContext.EnterClick}" 
                             CommandParameter="{Binding}"
-                            Width="350"
+                            Width="390"
                             Height="100"
                             >
                         <StackPanel Margin="2">
@@ -65,6 +66,13 @@
                                 Foreground="Black"
                             HorizontalAlignment="Left"
                             Text="{Binding DateTimeCreate}" FontSize="13"/>
+                            <TextBlock
+                                Foreground="Black"
+                                FontSize="17" FontWeight="Bold"
+                                HorizontalAlignment="Center"
+                                >
+                                Войти в класс
+                            </TextBlock>
                         </StackPanel>
                     </Button>
 
