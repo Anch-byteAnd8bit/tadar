@@ -14,38 +14,59 @@
 
     <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False" >
         <Grid.RowDefinitions>
-            <RowDefinition Height="5*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
             <RowDefinition Height="40*"></RowDefinition>
             <RowDefinition Height="5*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
            
        
         </Grid.ColumnDefinitions>
         <TextBlock  Grid.Row="0"
+                    Grid.Column="1"
                    HorizontalAlignment="Center"
                    Foreground="White"
-            Style="{StaticResource MaterialDesignHeadline3TextBlock}"
+            Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                    > Список классов</TextBlock>
 
         <ListView ItemsSource="{Binding Classrooms}" IsSynchronizedWithCurrentItem="True"
                   materialDesign:ListBoxItemAssist.ShowSelection="False"
                   Name="lv"
-                Grid.Row="1">
+                  Grid.Row="1"
+                  Grid.Column="1"
+                  Margin="0 0 0 0"
+                  >
             <ListView.ItemTemplate>
                 <DataTemplate>
-
-                    <StackPanel Margin="10">
-                        <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Description}" />
-                        <TextBlock Text="{Binding DateTimeCreate}" />
-                        
-                        <Button
-                            Command="{Binding ElementName=lv, Path=DataContext.EnterClick}" CommandParameter="{Binding}">
-                            Войти в класс
-                        </Button>
-                    </StackPanel>
+                    <Button
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Left"
+                            BorderBrush="Transparent"
+                            Background="White"
+                            Command="{Binding ElementName=lv,
+                            Path=DataContext.EnterClick}" 
+                            CommandParameter="{Binding}"
+                            Width="350"
+                            Height="100"
+                            >
+                        <StackPanel Margin="2">
+                            <TextBlock
+                                Foreground="Black"
+                            HorizontalAlignment="Left"
+                            Text="{Binding Name}" FontSize="17" FontWeight="Bold"/>
+                            <TextBlock
+                                Foreground="Black"
+                            HorizontalAlignment="Left"
+                            Text="{Binding Description}" FontSize="17"/>
+                            <TextBlock
+                                Foreground="Black"
+                            HorizontalAlignment="Left"
+                            Text="{Binding DateTimeCreate}" FontSize="13"/>
+                        </StackPanel>
+                    </Button>
 
                 </DataTemplate>
             </ListView.ItemTemplate>

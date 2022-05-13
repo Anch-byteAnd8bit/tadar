@@ -17,6 +17,7 @@ namespace Tadar.ViewModels
    public class AddToClassViewModel : BaseViewModel
     {
         private List<RegisteredClassroom> classrooms = new List<RegisteredClassroom>();
+        private RegisteredClassroom cls;
         public AddToClassViewModel()
         {
             LoadClasssAsync();
@@ -41,6 +42,7 @@ namespace Tadar.ViewModels
                 classrooms =
                   await api.GetAllClassess();
               //  ClasssList = new ObservableCollection<RegisteredClassroom>();
+              
                 OnPropertyChanged(nameof(classrooms));
             }
             catch (Exception ex)
@@ -61,23 +63,21 @@ namespace Tadar.ViewModels
                // SelectedClassroom = Classrooms[0];
             }
         }
-        //public ObservableCollection<RegisteredClassroom> ClasssList
-        //{
-        //    get
-        //    {
-        //        return ObservableCollection<RegisteredClassroom>(classrooms);
-        //    }
-        //    set
-        //    {
-        //        classrooms = value.ToList();
-        //        OnPropertyChanged("ClasssList");
-        //    }
-        //}
+       
 
         public Command EnterClick { get; }
-        private void Enter_Click(object ob)
+        private async void Enter_Click(object ob)
         {
-            First.Base_frame.Navigate(new Ent_page());
+            //test = new TestWork();
+            //test.WorkHeader = (WorkHeader)ob;
+            //test.WorkBody = works.TestWorks.SingleOrDefault(w => w.WorkHeader == test.WorkHeader).WorkBody;
+            //First.Base_frame.Navigate(new Test14Page(test));
+            cls = new RegisteredClassroom();
+            cls = (RegisteredClassroom)ob;
+            string iclass = cls.ID;
+            await api.AddStudent(api.MainUser.ID.ToString(), iclass);
+            MessageBox.Show(api.MainUser.Name.ToString() + "в классе " + cls.Name.ToString());
+            First.Base_frame.Navigate(new MenuPage());
 
         }
         private void Class_Click(object ob)

@@ -98,4 +98,18 @@ namespace Tadar.Helpers
 
         #endregion // ICommand Members
     }
+
+
+    public class RelayCommand<T> : ICommand
+    {
+        public RelayCommand(Action<T> onExecute) { OnExecute = onExecute; }
+
+        public event EventHandler CanExecuteChanged;
+        public bool CanExecute(object parameter) => true;
+        public void Execute(object parameter) => OnExecute((T)parameter);
+
+        readonly Action<T> OnExecute;
+    }
+
+
 }

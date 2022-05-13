@@ -4,6 +4,7 @@ using nsAPI.Helpers;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 using Tadar.Helpers;
 using Tadar.Models;
 using Tadar.Views;
@@ -14,6 +15,11 @@ namespace Tadar.ViewModels
     {
        private TestWork work;
        private TestAnswerForAdd answers = new TestAnswerForAdd();
+
+        public TestTask SelectedItem { get; set; }
+
+        public ICommand SelectionChengedCommand { get; private set; }
+
         public Test14ViewModel(TestWork test)
         {
             work = test;
@@ -25,10 +31,11 @@ namespace Tadar.ViewModels
 
             //AnswerClick = new Command(Answer_Click);
             //SendClick = new Command(Send_Click);
-
-
+            SelectionChengedCommand = new RelayCommand<TestTask>(SelectionChenged);
+            
 
         }
+        private void SelectionChenged(TestTask item) => SelectedItem = item;
 
         public string NameTest
         {
