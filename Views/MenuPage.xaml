@@ -44,7 +44,7 @@
 
         <ScrollViewer Grid.Row="2">
             <StackPanel Grid.Row="2" Background="White">
-                <ListView ItemsSource="{Binding UsersList}" 
+                <ListView ItemsSource="{Binding Classrooms}" 
                           
                           IsSynchronizedWithCurrentItem="True" Grid.Row="2"
                   >
@@ -56,7 +56,7 @@
                                     Foreground="#FF673AB7"
            
                                     Style="{StaticResource MaterialDesignBody1TextBlock}"
-                                    Text="{Binding Surname}" />
+                                    Text="{Binding Name}" />
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -71,7 +71,7 @@
 
         <ScrollViewer Grid.Row="4">
             <StackPanel Grid.Row="4" Background="White">
-                <ListView ItemsSource="{Binding UsersList}" 
+                <ListView ItemsSource="{Binding Classrooms}" 
                           Background="White"
                           IsSynchronizedWithCurrentItem="True" Grid.Row="4"
                >
@@ -81,7 +81,7 @@
                                 <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}"
                                            Foreground="#FF673AB7"
                                             
-                                           Text="{Binding Surname}" />
+                                           Text="{Binding Name}" />
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>

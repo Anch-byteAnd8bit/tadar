@@ -1,5 +1,4 @@
-﻿using nsAPI.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,18 +17,14 @@ using Tadar.ViewModels;
 namespace Tadar.Views
 {
     /// <summary>
-    /// Логика взаимодействия для DoWritePage.xaml
+    /// Логика взаимодействия для DoWriteHeaderPage.xaml
     /// </summary>
-    public partial class DoWritePage : Page
+    public partial class DoWriteHeaderPage : Page
     {
-        public DoWritePage(bool nonmark, string nametest, string desctest, RegisteredClassroom classroom)
+        public DoWriteHeaderPage()
         {
             InitializeComponent();
-            DataContext = new DoWriteViewModel(nonmark, nametest, desctest, classroom);
-
-            // logbox.Focus();
-
-           
+            DataContext = new DoWriteHeaderViewModel();
         }
 
 
@@ -38,38 +33,37 @@ namespace Tadar.Views
             //Paragraph p = worktext.Document
             // Blocks += "v";
             Clipboard.SetText("ҷ");
-           
+
            
         }
 
         private void SmNClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Clipboard.SetText("ң");
-           
+            
         }
 
         private void SmFClick(object sender, System.Windows.RoutedEventArgs e)
         {
-             Clipboard.SetText("ғ");
-            
+            Clipboard.SetText("ғ");
         }
 
         private void SmYClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Clipboard.SetText("ӱ");
-            
+           
         }
 
         private void SmIClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Clipboard.SetText("і");
-            
+           
         }
 
         private void SmOClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Clipboard.SetText("ӧ");
-            
+           
         }
 
         private void BigOClick(object sender, System.Windows.RoutedEventArgs e)
@@ -81,7 +75,7 @@ namespace Tadar.Views
         private void BigIClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Clipboard.SetText("І");
-           
+            
         }
 
         private void BigYClick(object sender, System.Windows.RoutedEventArgs e)
@@ -100,15 +94,14 @@ namespace Tadar.Views
         private void BigNClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Clipboard.SetText("Ң");
-            
+           
         }
 
         private void BigJClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Clipboard.SetText("Ҷ");
-           
+            
         }
-
 
 
     }

@@ -1,7 +1,9 @@
 ﻿using Helpers;
 using nsAPI.Entities;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 using Tadar.Helpers;
 using Tadar.Models;
 using Tadar.Views;
@@ -10,6 +12,7 @@ namespace Tadar.ViewModels
 {
     public class MenuViewModel : BaseViewModel
     {
+        private List<RegisteredClassroom> classrooms = new List<RegisteredClassroom>();
         public MenuViewModel()
         {
             //api.MainUser.Name
@@ -21,10 +24,10 @@ namespace Tadar.ViewModels
             MaketestClick = new Command(make_test_Click);
             SelftestClick = new Command(selftest_Click);
             DicktClick= new Command(Dickt_Click);
-            LoadUsersAsync();
+            LoadClasssAsync();
         }
 
-        public async void LoadUsersAsync()
+        public async void LoadClasssAsync()
         {
             try
             {
@@ -32,16 +35,37 @@ namespace Tadar.ViewModels
                 {
                     throw new Exception("api не создан!!!");
                 }
-                UsersList = new ObservableCollection<RegisteredUser>(await api.FindUsersAsync());
-                OnPropertyChanged(nameof(UsersList));
+
+                classrooms = await api.GetClassroomsByUserIdAsync(api.MainUser.ID);
+
+                //test = new TestWork();
+                //test.WorkHeader = (WorkHeader)ob;
+                //test.WorkBody = works.TestWorks.SingleOrDefault(w => w.WorkHeader == test.WorkHeader).WorkBody;
+                //First.Base_frame.Navigate(new Test14Page(test));
+
+                
+
+                //  ClasssList = new ObservableCollection<RegisteredClassroom>();
+
+                OnPropertyChanged(nameof(Classrooms));
             }
             catch (Exception ex)
             {
-                Log.Write(ex.Message);
+                MessageBox.Show(ex.Message);
             }
         }
-         public ObservableCollection<RegisteredUser> UsersList { get; set; }
-        
+        public List<RegisteredClassroom> Classrooms
+        {
+            get { return classrooms; }
+            set
+            {
+                classrooms = value;
+                OnPropertyChanged(nameof(Classrooms));
+                // Задаем новый выбранный жлемент из списка.
+                // SelectedClassroom = Classrooms[0];
+            }
+        }
+
 
 
 
