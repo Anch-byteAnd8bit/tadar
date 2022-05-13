@@ -21,9 +21,9 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
 
-            <ColumnDefinition Width="2*"></ColumnDefinition>
-            <ColumnDefinition Width="15*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="18*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
 
         </Grid.ColumnDefinitions>
         <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
@@ -43,37 +43,42 @@
             VerticalAlignment="Center"
             Foreground="White"
             Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-            Text="Письменное задание"/>
+            Text="{Binding NameTest}"/>
 
 
-        <TextBlock Grid.Row="1" Grid.Column="0"  Text="{Binding Name}" FontWeight="Bold" />
-        <TextBlock Grid.Row="1" Grid.Column="1"  Text="{Binding Surname}" />
-
-        <StackPanel
-            VerticalAlignment="Top"
-            Grid.Row="1"
-            Grid.Column="1"
-            Height="170"
-            Width="650"
-            Background="White">
-            <TextBlock TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto"
-         ScrollViewer.CanContentScroll="True" FontSize="18"
-                         Foreground="Black" 
-                       Text="{Binding Name}"
-                       >
-                         Задание такое-то Напишите рассказ про лося и его дом и детей
-                         в каком лесу или тайге живет что есть где плавате
-                         зачем плавает
-                         с кем дпужит что есть на завтра в общем все подробности 
-                зачем плавает
-                         с кем дпужит что есть на завтра в общем всеего жизни леснойзачем плавает
-                         с кем дпужит что есть на завтра в общем все,kf,kf,kf
-                    
-            </TextBlock>
-        </StackPanel>
         
-            <TextBox Name="work" 
-                     Margin="0 170 0 0"
+             <StackPanel 
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center"
+              Grid.Row="1"
+              Grid.Column="1"
+              Width="660"
+              Height="550"
+                 >
+
+            <StackPanel
+                    VerticalAlignment="Top"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="650"
+                    Background="White">
+                
+                <TextBlock TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                    ScrollViewer.CanContentScroll="True" FontSize="18"
+                    Foreground="Black" 
+                    Text="{Binding Title}">
+                    </TextBlock>
+               
+                <TextBlock TextWrapping="Wrap"
+                           ScrollViewer.VerticalScrollBarVisibility="Auto"
+                           ScrollViewer.CanContentScroll="True" FontSize="18"
+                           Foreground="Black" 
+                           Text="{Binding Body}">
+                            </TextBlock>
+                        </StackPanel>   
+
+                 <TextBox Name="work" 
+                     Margin="0 90 0 0"
                  TextWrapping="Wrap"
                  VerticalScrollBarVisibility="Visible"
                  AcceptsReturn="True"
@@ -88,7 +93,7 @@
                  AutoWordSelection="True"
                  Foreground="Black" Cursor="Arrow">
                 <TextBox.Text>
-                    <Binding Path="Description" UpdateSourceTrigger="PropertyChanged">
+                                <Binding Path="Answer" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <rules:NotEmptyValidationRule />
                         </Binding.ValidationRules>
@@ -96,12 +101,17 @@
                 </TextBox.Text>
             </TextBox>
 
-        
+
+
+        </StackPanel>
+       
+
+
 
         <StackPanel VerticalAlignment="Center"
             HorizontalAlignment="Left"
-            Grid.Row="2"
-            Grid.Column="1" Grid.ColumnSpan="2" Margin="694,0,0,0">
+            Grid.Row="1"
+            Grid.Column="2" Margin="10,0,0,0">
             <Button
                 Click="BigOClick"
             Margin="3"
@@ -169,8 +179,8 @@
 
         <StackPanel
             VerticalAlignment="Center"
-            HorizontalAlignment="Left" Grid.Row="2"
-            Grid.Column="2" Margin="42,0,0,0">
+            HorizontalAlignment="Left" Grid.Row="1"
+            Grid.Column="2" Margin="62,0,0,0">
             <Button
                 Click="SmOClick"
            Width="40"

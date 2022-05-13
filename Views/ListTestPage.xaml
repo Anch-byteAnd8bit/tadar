@@ -15,8 +15,9 @@
     
     <Grid Background="#FFA25DED" ShowGridLines="False">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="6*"></RowDefinition>
+            <RowDefinition Height="45*"></RowDefinition>
+            <RowDefinition Height="45*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
          
         </Grid.RowDefinitions>
@@ -30,7 +31,7 @@
             Grid.Row="0"
             Grid.Column="1"
             HorizontalAlignment="Center"
-            VerticalAlignment="Center"
+            VerticalAlignment="Top"
             Foreground="White"
          Style="{StaticResource MaterialDesignHeadline4TextBlock}"
             Text="Задания" />
@@ -65,17 +66,37 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        
+        <ListView
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Grid.Row="2"
+            Grid.Column="1" 
+            x:Name="lvs1"
+            ItemsSource="{Binding TextsList}"
+            IsSynchronizedWithCurrentItem="True">
 
-        <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
-             materialDesign:ButtonAssist.CornerRadius="25" x:Name="mark"
-               Height="45"
-                Command="{Binding Test14Click}"
-                Grid.Column="1"
-                Grid.Row="2"
-                Content="14"
-                HorizontalAlignment="Center" 
-                Width="255" FontSize="25" Cursor="Hand" 
-                />
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Button
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        Height="50"
+                        Width="600"
+                            Command="{Binding ElementName=lvs1, Path=DataContext.TextClick}"
+                            CommandParameter="{Binding}"
+                        HorizontalContentAlignment="Left">
+                        <StackPanel>
+                            <TextBlock  Text="{Binding Name}" FontWeight="Bold" />
+                            <TextBlock Text="{Binding Description}" />
+                        </StackPanel>
+                    </Button>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+        
 
 
     </Grid>

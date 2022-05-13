@@ -39,7 +39,9 @@
             Grid.Column="1" 
             x:Name="lvs"
             ItemsSource="{Binding TasksList}"
-            IsSynchronizedWithCurrentItem="True">
+            IsSynchronizedWithCurrentItem="True"
+            Width="550"
+            >
 
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -51,7 +53,7 @@
                  materialDesign:HintAssist.Hint="Введите название задание"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                  FontSize="14"
-                 Width="580" Height="40" 
+                 Width="550" Height="40" 
                  Background="White"
                  MaxLines="1" MaxLength="57"
                  TextAlignment="Center"
@@ -80,7 +82,7 @@
                  materialDesign:HintAssist.Hint="Введите содержимое задания"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                  FontSize="14"
-                 Width="590" Height="400" 
+                 Width="550" Height="400" 
                  Background="White"
                  TextAlignment="Center"
                  AutoWordSelection="True"

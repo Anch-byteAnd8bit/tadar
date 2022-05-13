@@ -15,16 +15,15 @@ namespace Tadar.ViewModels
    public class ListTestViewModel : BaseViewModel
     {
        private TestWork test;
-        private Works works;
-        
-        private string[] nameclass = new string[] { };
+       private TextWork text;
+       private Works works;
         public ListTestViewModel()
         {
-            //api.MainUser.Name
+            
             TestClick = new Command(Test_Click);
-           // Test14Click = new Command(Test14_Click);
+            TextClick = new Command(Text_Click);
             LoadClasssAsync();
-           // LoadTestsAsync();
+           
            
         }
         public async void LoadClasssAsync()
@@ -51,7 +50,7 @@ namespace Tadar.ViewModels
                 MessageBox.Show(ex.Message);
             }
         }
-        public async void LoadTestsAsync(List<string> idjourn)
+        public async void LoadTestsAsync(List<string> idclass)
         {
             try
             {
@@ -61,25 +60,35 @@ namespace Tadar.ViewModels
                 }
                 
                 
-                works = await api.GetWorksByClassesIDAsync(idjourn.ToArray(), false);
+                works = await api.GetWorksByClassesIDAsync(idclass.ToArray(), false);
                 
+               TextsList = new ObservableCollection<WorkHeader>();
                 TestsList = new ObservableCollection<WorkHeader>();
+
                 for (int i = 0; i < works.TestWorks.Count; i++)
                 {
                     TestsList.Add(works.TestWorks[i].WorkHeader) ;
-                   }
+                }
+
+                for (int i = 0; i < works.TextWorks.Count; i++)
+                {
+                    TextsList.Add(works.TextWorks[i].WorkHeader);
+                }
                 //TODO: сохранять works, из него получать список заголовков ВСЕХ работ
                 OnPropertyChanged(nameof(TestsList));
+                OnPropertyChanged(nameof(TextsList));
             }
             catch (Exception ex)
             {
-                Log.Write(ex.Message);
+                MessageBox.Show(ex.Message);
+                MessageBox.Show("Вы не состоите ни в одном классе!");
             }
         }
         public ObservableCollection<WorkHeader> TestsList { get; set; }
 
+        public ObservableCollection<WorkHeader> TextsList { get; set; }
 
-        
+
         private void Test_Click(object ob)
         {
             test = new TestWork();
@@ -93,13 +102,15 @@ namespace Tadar.ViewModels
             get;
             
         }
-        private void Test14_Click(object ob)
+        private void Text_Click(object ob)
         {
-            test = (TestWork)ob;
-            First.Base_frame.Navigate(new PerfomingWorkPage(test));
+            text = new TextWork();
+            text.WorkHeader = (WorkHeader)ob;
+            text.WorkBody = works.TextWorks.SingleOrDefault(w => w.WorkHeader == text.WorkHeader).WorkBody;
+            First.Base_frame.Navigate(new PerfomingWorkPage(text));
 
         }
-        public Command Test14Click
+        public Command TextClick
         {
             get;
 
