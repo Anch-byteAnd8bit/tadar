@@ -40,7 +40,7 @@ namespace Tadar.ViewModels
                 OnPropertyChanged(nameof(WordsList));
             }
             catch (Exception ex)
-            {
+            { 
                 MessageBox.Show(ex.Message);
             }
         }
