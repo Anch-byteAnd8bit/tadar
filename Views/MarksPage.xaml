@@ -5,7 +5,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:tadar="clr-namespace:Tadar"
-      d:DataContext="{d:DesignInstance Type=tadar:UserSecViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="900"
       Title="marks">
@@ -14,7 +13,7 @@
        
     
 
-    <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False">
+    <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False" Height="700" VerticalAlignment="Bottom">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="25*" ></RowDefinition>
@@ -22,97 +21,68 @@
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="11*"></ColumnDefinition>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
             <ColumnDefinition Width="20*"></ColumnDefinition>
-            <ColumnDefinition Width="20*"></ColumnDefinition>
-            <ColumnDefinition Width="20*"></ColumnDefinition>
-            <ColumnDefinition Width="20*"></ColumnDefinition>
-            <ColumnDefinition Width="11*"></ColumnDefinition>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" VerticalAlignment="Top" Text="Журнал" Foreground="White" FontSize="24" 
-                   TextAlignment="Center" FontWeight="Bold" Grid.ColumnSpan="6"/>
+        
+        <TextBlock Grid.Row="0"  Grid.ColumnSpan="3"
+                   VerticalAlignment="Top" 
+                   Text="Мои классы" 
+                   Foreground="White"
+                   FontSize="24" 
+                   TextAlignment="Center" 
+                   FontWeight="Bold"
+                  />
 
 
+        <ListView ItemsSource="{Binding Classrooms}" IsSynchronizedWithCurrentItem="True"
+                  materialDesign:ListBoxItemAssist.ShowSelection="False"
+                  Name="lv"
+                  Grid.Row="1"
+                  Grid.Column="1"
+                  Margin="0 0 0 0"
+                  HorizontalAlignment="Center"
+                  >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Button
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Left"
+                            BorderBrush="Transparent"
+                            Background="White"
+                            Command="{Binding ElementName=lv,
+                            Path=DataContext.EnterClick}" 
+                            CommandParameter="{Binding}"
+                            Width="390"
+                            Height="100"
+                            >
+                        <StackPanel Margin="2">
+                            <TextBlock
+                                Foreground="Black"
+                            HorizontalAlignment="Left"
+                            Text="{Binding Name}" FontSize="17" FontWeight="Bold"/>
+                            <TextBlock
+                                Foreground="Black"
+                            HorizontalAlignment="Left"
+                            Text="{Binding Description}" FontSize="17"/>
+                            <TextBlock
+                                Foreground="Black"
+                            HorizontalAlignment="Left"
+                            Text="{Binding DateTimeCreate}" FontSize="13"/>
+                            <TextBlock
+                                Foreground="Black"
+                                FontSize="17" FontWeight="Bold"
+                                HorizontalAlignment="Center"
+                                >
+                                Войти в класс
+                            </TextBlock>
+                        </StackPanel>
+                    </Button>
 
-        <materialDesign:Card Grid.Row="1" Grid.ColumnSpan="6">
-            <TabControl 
-                HorizontalContentAlignment="Left">
-                
-                
-                
-                
-                <TabItem
-                     Header="Класс 5А">
-
-                    <ListView Grid.Row="1" Grid.Column="0" x:Name="tas" ItemsSource="{Binding UsersList}" IsSynchronizedWithCurrentItem="True">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Border BorderBrush="Bisque" BorderThickness="1" Margin="10">
-                                    <StackPanel Margin="10">
-                                        <TextBlock Text="Название:" />
-                                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
-
-                                        <TextBlock Text="Автор:"/>
-                                        <TextBox Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="Осталось:" />
-                                            <TextBlock Text="{Binding Age, Mode=TwoWay}" FontWeight="Bold" Margin="10,0"/>
-                                            <TextBlock Text="шт" />
-                                        </StackPanel>
-                                    </StackPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-
-
-                   
-
-                    
-
-
-                </TabItem>
-                
-                
-                
-                
-                
-                <TabItem 
-                   Header="TAB 2">
-
-
-                    <ListView x:Name="sss"
-                 ItemsSource="{Binding UsersList}" IsSynchronizedWithCurrentItem="True">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn
-                                   
-                                    DisplayMemberBinding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
-                                     Header="Name" /> 
-                                <GridViewColumn
-                                DisplayMemberBinding="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"
-                                     Header="Surname" />
-                                <GridViewColumn
-                                  
-                                DisplayMemberBinding="{Binding Marks, UpdateSourceTrigger=PropertyChanged}"
-                                 Header="Age" />
-                                
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-
-
-
-
-
-                </TabItem>
-               
-
-
-
-
-            </TabControl>
-        </materialDesign:Card>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
 
 
@@ -122,20 +92,6 @@
 
 
 
-
-
-        <Button x:Name="addclass" 
-                Style="{StaticResource MaterialDesignFlatMidBgButton}"
-             materialDesign:ButtonAssist.CornerRadius="25"
-                
-                Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="200" FontSize="22" 
-                >Добавить класс</Button>
-        <Button x:Name="remclass" 
-                Style="{StaticResource MaterialDesignFlatMidBgButton}"
-             materialDesign:ButtonAssist.CornerRadius="25"
-                
-               
-                Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="200" FontSize="22" Grid.Column="6">Удалить класс</Button>
     </Grid>
     
     
