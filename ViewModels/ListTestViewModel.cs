@@ -50,7 +50,7 @@ namespace Tadar.ViewModels
                 MessageBox.Show(ex.Message);
             }
         }
-        public async void LoadTestsAsync(List<string> idclass)
+        public async void LoadTestsAsync(List<string> idjourn)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace Tadar.ViewModels
                 }
                 
                 
-                works = await api.GetWorksByClassesIDAsync(idclass.ToArray(), false);
+                works = await api.GetWorksByClassesIDAsync(idjourn.ToArray(), false);
                 
                TextsList = new ObservableCollection<WorkHeader>();
                 TestsList = new ObservableCollection<WorkHeader>();
