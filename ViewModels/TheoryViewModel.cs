@@ -26,7 +26,7 @@ namespace Tadar.ViewModels
         }
         private void List_Click(object ob)
         {
-            First.Base_frame.Navigate(new Do14HeaderPage());
+            First.Base_frame.Navigate(new TheoryThemePage());
             //открытие новой страницы с вводом логина и пароля 
         }
 

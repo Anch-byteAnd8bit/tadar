@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tadar.ViewModels;
 
 namespace Tadar.Views
 {
@@ -23,6 +24,7 @@ namespace Tadar.Views
         public TheoryThemePage()
         {
             InitializeComponent();
+            DataContext = new TheoryThemeViewModel();
         }
     }
 }
