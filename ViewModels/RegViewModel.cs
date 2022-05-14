@@ -17,7 +17,7 @@ namespace Tadar.ViewModels
     {
         public RegViewModel()
         {
-            api = new API(false, OnLoadedRefbooks: null);
+            api = API.Instance;
             userreg = new UserForRegistration()
             {
                 // Это надо делать, т.к. это свойство влияет на элемент интерфейса
@@ -30,7 +30,7 @@ namespace Tadar.ViewModels
             // Создаем команду для кнопки. Выполняться при нажатии будет
             // OnSave, а проверять доступна ли кнопка для нажатия,
             // будет метод ValidateSave
-            Genders = new List<Refbook>()
+            Genders = api.Refbooks[TRefbooks.Genders] ?? new List<Refbook>()
             {
                 new Refbook{ ID = "1", Name = "Женский"},
                 new Refbook{ ID = "2", Name = "Мужской"},
@@ -168,7 +168,7 @@ namespace Tadar.ViewModels
                 // Уведомляем форму о новом списке.
                 OnPropertyChanged(nameof(Genders));
                 // Задаем новый выбранный жлемент из списка.
-                SelectedGender = Genders[0];
+                SelectedGender = Genders?[0];
             }
         }
         /// <summary>
@@ -188,14 +188,14 @@ namespace Tadar.ViewModels
             set
             {
                 // Если есть элемент в списке полов, который равен задавемому элементу...
-                if (Genders.Exists(el => el == value))
+                if (Genders?.Exists(el => el == value) != null)
                 {
                     // ...присваиваем его ID полу регистрируемого пользователя.
                     userreg.GenderID = value.ID;
                 }
                 // Иначе, полу регистрируемого пользователя
                 // присваиваем ID первого элемент списка.
-                else userreg.GenderID = Genders[0].ID;
+                else userreg.GenderID ??= Genders?[0].ID;
                 // Уведомляем интфрейс о том, что это свйоство было изменено.
                 OnPropertyChanged(nameof(SelectedGender));
             }

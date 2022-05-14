@@ -45,7 +45,7 @@ namespace nsAPI.Entities
             // Если вернулась ошибка.
             if (JSONHelper.IsError(httpResponse))
             {
-                // Вызываем исключение.
+                // ошибка.
                 Exception = new ResponseError(TError.DefinedError, httpResponse);
                 data = null;
             }
@@ -58,7 +58,7 @@ namespace nsAPI.Entities
             // Если полученная строка незнакома.
             else
             {
-                Exception = new ResponseError(TError.UnknownError);
+                Exception = new ResponseError(TError.UnknownError, httpResponse);
                 data = null;
             }
         }
@@ -115,7 +115,10 @@ namespace nsAPI.Entities
         /// Информация об ошибке от API.
         /// </summary>
         public ErrorInfo ErrorInfo { get; set; }
-
+        /// <summary>
+        /// Ответ от сервера, который не удалось распознать.
+        /// </summary>
+        public string Text { get; set; } = null;
         public string Message
         {
             get
@@ -131,6 +134,10 @@ namespace nsAPI.Entities
                     return "Message: " + ErrorInfo.Message + "\n" +
                         "Description: " + ErrorInfo.Description + "\n" +
                         "Additional" + ErrorInfo.Additional + "\n";
+                }
+                else if (Text != null)
+                {
+                    return Text;
                 }
                 else
                 {
@@ -164,11 +171,18 @@ namespace nsAPI.Entities
 
         public ResponseError(TError typeError, string responseErrorMessage)
         {
-            // Произошла ошибка при попытке получения информации из БД.
-            Error error = Error.FromJson(responseErrorMessage);
-            ErrorInfo = error.errorInfo;
-            Code = (CODE_ERROR)error.errorInfo.Type;
-            TypeError = typeError;
+            if (typeError == TError.UnknownError)
+            {
+                Text = responseErrorMessage;
+            }
+            else
+            {
+                // Произошла ошибка при попытке получения информации из БД.
+                Error error = Error.FromJson(responseErrorMessage);
+                ErrorInfo = error.errorInfo;
+                Code = (CODE_ERROR)error.errorInfo.Type;
+                TypeError = typeError;
+            }
         }
 
     }

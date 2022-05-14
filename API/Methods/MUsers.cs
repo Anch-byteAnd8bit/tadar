@@ -212,6 +212,41 @@ namespace nsAPI.Methods
             List<RegisteredUser> registeredUsers = await ByIdAsync(api_token, userIds);
             // Возвращаем пользователя.
             return registeredUsers?[0];
-        }        
+        }
+
+        /// <summary>
+        /// Возвращает список пользователей из указанного класса.
+        /// </summary>
+        /// <param name="api_token"></param>
+        /// <param name="id_Class">Идентификатор класса.</param>
+        /// <returns>Список пользователей из указанного класса</returns>
+        public async Task<List<RegisteredUser>> ByClassIdAsync(string api_token, string id_Class)
+        {
+            // Обязательно добавляем в запрос НЕ зашифрованный ключ доступа.
+            Dictionary<string, string> urlParam = new Dictionary<string, string>();
+            urlParam.Add("secure_key", api_token);
+            // Добавление в массив по ключу "id", идентификатора класса.
+            urlParam.Add("id_Class", id_Class);
+            // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
+            var httpResponse = await httpGetAsync("users.byClass/", urlParam);
+            if (httpResponse.data != null)
+            {
+                // Возвращаем список классов.
+                List<RegisteredUser> registeredUsers = new List<RegisteredUser>();
+                //
+                httpResponse.data.ForEach(el =>
+                {
+                    registeredUsers.Add(JsonConvert.DeserializeObject<RegisteredUser>(el.ToString()));
+                });
+                // Расшифровываем данные класса.
+                registeredUsers.ForEach(u => u.DecryptDataByAES());
+                // Возвращаем список классов.
+                return registeredUsers;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

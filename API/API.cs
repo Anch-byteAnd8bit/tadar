@@ -351,6 +351,22 @@ namespace nsAPI
             }
             return regu;
         }
+
+        /// <summary>
+        /// Возвращает список пользователей из указанного класса.
+        /// </summary>
+        /// <param name="api_token"></param>
+        /// <param name="id_Class">Идентификатор класса.</param>
+        /// <returns>Список пользователей из указанного класса</returns>
+        public async Task<List<RegisteredUser>> GetUsersByClassIdAsync(string id_Class)
+        {
+            var regu = await users.ByClassIdAsync(Access_Token, id_Class);
+            if (regu == null)
+            {
+                LastException = users.Response.Exception;
+            }
+            return regu;
+        }
         #endregion
 
         #region Refbooks

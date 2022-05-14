@@ -20,8 +20,12 @@ namespace Tadar.Views
         public FirstPage()
         {
             InitializeComponent();
-            //api = new API();
-            api = API.Instance;
+            api = new API(true, true, "both" , GotoMain);
+        }
+
+        private void GotoMain()
+        {
+            Models.First.Base_frame.Navigate(new MenuPage());
         }
 
         private void ent_Click(object sender, RoutedEventArgs e)
@@ -81,7 +85,7 @@ namespace Tadar.Views
             try
             {
                 var eAPI = new ExampleAPI();
-                await eAPI.UserRegAsync();
+                //await eAPI.UserRegAsync();
                 //await eAPI.UserAuthAsync();
                 //await eAPI.CreateClass();
                 //await eAPI.AddTestWork();
@@ -89,8 +93,8 @@ namespace Tadar.Views
                 //await eAPI.AddAnswerTestWork();
                 //await eAPI.AddAnswerTextWork();
                 //await eAPI.GetListOfClasrooms();
-                await eAPI.GetClassroomByIdAsync();
-                await eAPI.GetClassroomByUserIdAsync();
+                //await eAPI.GetClassroomByIdAsync();
+                //await eAPI.GetClassroomByUserIdAsync();
                 //await eAPI.AddDataToRefBook();
                 //await eAPI.GetListOfWorksByClassesIDsAsync();
                 //await eAPI.GetListOfWorksByClassIdAsync();
@@ -103,6 +107,7 @@ namespace Tadar.Views
                 //await eAPI.GetListCombiWords();
                 //await eAPI.AddCommonWord();
                 //await eAPI.AddUserWord();
+                await eAPI.GetUsersByClass();
             }
             catch (Exception ex)
             {

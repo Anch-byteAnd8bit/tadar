@@ -450,5 +450,20 @@ namespace nsAPI.Examples
                 Msg.Write("Not OK");
             }
         }
+
+        public async Task GetUsersByClass()
+        {
+            var user = await api.GetUsersByClassIdAsync("1");
+            if (user != null)
+            {
+                Msg.Write(user.Count.ToString());
+            }
+            else
+            {
+                Msg.Write(api.LastException.Message);
+                //Msg.Write("Not OK");
+            }
+            
+        }
     }
 }
