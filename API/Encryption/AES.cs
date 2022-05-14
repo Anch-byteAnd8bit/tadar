@@ -60,22 +60,6 @@ namespace Encryption
         }
 
         /// <summary>
-        /// Добавляет в буфер обмена Key.
-        /// </summary>
-        public static void KeyToBuffer()
-        {
-            Clipboard.SetText(string.Join(",", AESHelper.Key));
-        }
-
-        /// <summary>
-        /// Добавляет в буфер обмена IV.
-        /// </summary>
-        public static void IVToBuffer()
-        {
-            Clipboard.SetText(string.Join(",", AESHelper.IV));
-        }
-
-        /// <summary>
         /// Создает копию файла по указанному пути, шифрует её и сохраняет по заданному пути.
         /// </summary>
         /// <param name="inputFile">Путь к исходному файлу</param>

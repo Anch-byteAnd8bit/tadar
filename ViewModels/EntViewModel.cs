@@ -15,7 +15,7 @@ namespace Tadar.ViewModels
     {
         public EntViewModel()
         {
-            api = new API();
+            api = new API(loadRefbooks: false, OnLoadedRefbooks: null);
             userent = new UserForAuthorization();
             EntCommand = new Command(OnSave);
 
@@ -52,27 +52,16 @@ namespace Tadar.ViewModels
             try
             {
                 await api.UserAuthAsync(userent);
-                
-                Log.Write(api.MainUser.ID + ": " + api.MainUser.Login + " ("
+
+                Msg.Write(api.MainUser.ID + ": " + api.MainUser.Login + " ("
                     + api.MainUser.Surname + " " + api.MainUser.Name + ")");
                 
                 Models.First.Base_frame.Navigate(new MenuPage());
             }
             // TODO: надо потом определять тип ошибки и выводить соотвествующие сообщения...
-            catch (ErrorResponseException ex)
-            {
-                switch (ex.ErrCode)
-                {
-                    case CODE_ERROR.ERR_UserNotFound:
-                        MessageBox.Show("неправильный логин или пароль");
-                        break;
-                    default:
-                        break;
-                }
-            }
             catch (Exception ex)
             {
-                Log.Write(ex);
+                Msg.Write(ex);
             }
         }
     }

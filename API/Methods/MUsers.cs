@@ -17,7 +17,7 @@ namespace nsAPI.Methods
         /// </summary>
         /// <param name="user">Данные регистрации.</param>
         /// <param name="accessToken">Расшифрованные данные для доступа к API</param>
-        /// <returns>True - при успешной регистрации.</returns>
+        /// <returns>AccessToken - при успешной регистрации.</returns>
         public async Task<AccessToken> RegAsync(UserForRegistration user)
         {
             // Публичный ключ сервера.

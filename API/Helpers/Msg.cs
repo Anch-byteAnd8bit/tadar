@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Helpers
 {
@@ -6,18 +7,14 @@ namespace Helpers
     {
         public static void Write(string text)
         {
-            Console.WriteLine(Environment.OSVersion.Platform.ToString());
-            Console.WriteLine(DateTime.Now.ToString("T") + ":\t" + text);
+            if (text == null) text = "NULL";
+            //DependencyService.Get<IMessageBox>().Show(DateTime.Now.ToString("T") + ":\t" + text, null);
+            _ = System.Windows.MessageBox.Show(text);
         }
 
         public static void Write(Exception ex)
         {
             Write(ex.Message + " StackTrace: " + ex.StackTrace);
         }
-
-        /*public static void Write(Exception ex)
-        {
-
-        }*/
     }
 }

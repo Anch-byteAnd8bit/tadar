@@ -99,20 +99,9 @@ namespace Tadar.ViewModels
                 First.Base_frame.Navigate(new AddToClassPage());
             }
             // TODO: надо потом определять тип ошибки и выводить соотвествующие сообщения...
-            catch (ErrorResponseException ex)
-            {
-                switch (ex.ErrCode)
-                {
-                    case CODE_ERROR.ERR_UserAlreadyReg:
-                        MessageBox.Show("is registered");
-                        break;
-                    default:
-                        break;
-                }
-            }
             catch (Exception ex)
             {
-                Log.Write(ex);
+                Msg.Write(ex);
             }
         }
 

@@ -81,7 +81,7 @@ namespace Tadar.Views
             try
             {
                 var eAPI = new ExampleAPI();
-                //await eAPI.UserRegAsync();
+                await eAPI.UserRegAsync();
                 //await eAPI.UserAuthAsync();
                 //await eAPI.CreateClass();
                 //await eAPI.AddTestWork();
@@ -104,15 +104,9 @@ namespace Tadar.Views
                 //await eAPI.AddCommonWord();
                 //await eAPI.AddUserWord();
             }
-            catch (UnknownHttpResponseException ex)
-            {
-                Log.Write(ex.ResponseJSON);
-                _ = MessageBox.Show(ex.ResponseJSON);
-            }
             catch (Exception ex)
             {
-                Log.Write(ex.Message);
-                _ = MessageBox.Show(ex.Message);
+                Msg.Write(ex.Message);
             }
         }
     }

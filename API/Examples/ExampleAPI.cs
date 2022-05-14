@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace nsAPI.Examples
 {
@@ -26,7 +25,7 @@ namespace nsAPI.Examples
         /// </summary>
         public async Task UserRegAsync()
         {
-            if (api.MainUser != null) throw new Exception("User already is reg");
+            if (api.MainUser != null) throw new Exception("Main User already is exist");
             // Создать объект класса UserForRegistration, в котором хранятся
             // регистрационные данные о пользователе.
             UserForRegistration userForReg = new UserForRegistration
@@ -41,8 +40,21 @@ namespace nsAPI.Examples
                 Surname = "Рогачёв"
             };
             // Вызвать метод регистрации, передав в параметрах пользователя.
-            await api.UserRegAsync(userForReg);
-            // После регистрации автоматических происходить авторизация, а данные
+            if (await api.UserRegAsync(userForReg))
+            {
+                Msg.Write("OK");
+            }
+            else
+            {
+                if (api.LastException.TypeError == TError.DefinedError)
+                {
+                    if (api.LastException.Code == CODE_ERROR.ERR_UserAlreadyReg)
+                    {
+                        Msg.Write("Такой пользователь уже зарегистрирован!");
+                    }
+                }
+            }
+            // После регистрации автоматических происходит авторизация, а данные
             // авторизации сохраняются на диске и потом при созданиие объекта API
             // загружаеются. Таким образом авторизация сохраняется, даже при выключении
             // компа.
@@ -268,7 +280,7 @@ namespace nsAPI.Examples
         public async Task GetClassroomByIdAsync()
         {
             RegisteredClassroom classroom = await api.GetClassroomByIdAsync("1");
-            Msg.Write(classroom.DateTimeCreate);
+            Msg.Write(classroom?.DateTimeCreate);
         }
 
         /// <summary>
@@ -278,7 +290,15 @@ namespace nsAPI.Examples
         public async Task GetClassroomByUserIdAsync()
         {
             List<RegisteredClassroom> classrooms = await api.GetClassroomsByUserIdAsync("1");
-            Msg.Write(classrooms.Count.ToString());
+            if (classrooms != null)
+            {
+                Msg.Write(classrooms?.Count.ToString());
+            }
+            else
+            {
+                var excp = api.LastException;
+
+            }
         }
 
         /// <summary>

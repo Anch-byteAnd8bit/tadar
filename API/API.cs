@@ -75,6 +75,11 @@ namespace nsAPI
         }
 
         /// <summary>
+        /// Будет содержать последнюю ошибку.
+        /// </summary>
+        public ResponseError LastException { get; set; }
+
+        /// <summary>
         /// Конструктор класса.
         /// </summary>
         /// <param name="loadRefbooks">Надо ли загружать все справочники.</param>
@@ -234,37 +239,6 @@ namespace nsAPI
             }
         }
 
-        #region procErr
-        /// <summary>
-        /// Обработка общих ошибок.
-        /// </summary>
-        /// <param name="error"></param>
-        /// <returns></returns>
-        private void procError(Error error)
-        {
-            switch ((CODE_ERROR)error.errorInfo.Type)
-            {
-                case CODE_ERROR.ERR_NotEnoughInf:
-                    Msg.Write(error.errorInfo.Message);
-                    break;
-                case CODE_ERROR.ERR_DBNotAvailable:
-                    Msg.Write(error.errorInfo.Message);
-                    break;
-                case CODE_ERROR.ERR_SecureKeyProblem:
-                    Msg.Write(error.errorInfo.Message);
-                    break;
-                case CODE_ERROR.ERR_DBProblem:
-                    Msg.Write(error.errorInfo.Message);
-                    break;
-                case CODE_ERROR.ERR_IsTooLong:
-                    Msg.Write(error.errorInfo.Message);
-                    break;
-                default:
-                    break;
-            }
-        }
-        #endregion
-
         #region Users
         // =========== Пользователи
 
@@ -273,12 +247,17 @@ namespace nsAPI
         /// </summary>
         /// <param name="user">Данные регистрации.</param>
         /// <returns>True - при успешной регистрации.</returns>
-        public async Task UserRegAsync(UserForRegistration user)
+        public async Task<bool> UserRegAsync(UserForRegistration user)
         {
             // При успехе, будет содержать ключ доступа к серверу.
             var accessToken = await users.RegAsync(user);
             //
-            await UserAuthAsync(user.UserForAuthorization);
+            if (accessToken == null)
+            {
+                LastException = users.Response.Exception;
+                return false;
+            }
+            return await UserAuthAsync(user.UserForAuthorization);
         }
 
 
@@ -287,10 +266,16 @@ namespace nsAPI
         /// </summary>
         /// <param name="user">Объект с данными для авторизации пользователя</param>
         /// <returns>True - при успешной авторизации</returns>
-        public async Task UserAuthAsync(UserForAuthorization user)
+        public async Task<bool> UserAuthAsync(UserForAuthorization user)
         {
             // При успехе, будет содержать ключ доступа к серверу.
             AccessToken accessToken = await users.AuthAsync(user);
+            // Если не удалось авторизоваться, то сохраняем ошибку и возвращаем False.
+            if (accessToken == null)
+            {
+                LastException = users.Response.Exception;
+                return false;
+            }
             // Сохраняем токен пользователя.
             api_token = accessToken.Token;
             // Сохраняем ID пользователя.
@@ -299,6 +284,12 @@ namespace nsAPI
             SaveUserDataToFile(true);
             // Загружаем информацию о пользователе с сервера.
             MainUser = await GetUserByIdAsync(accessToken.id_User);
+            if (MainUser == null)
+            {
+                LastException = users.Response.Exception;
+                return false;
+            }
+            return true;
         }
 
 
@@ -307,9 +298,9 @@ namespace nsAPI
         /// </summary>
         /// <param name="login">Строка логина</param>
         /// <param name="pass">Строка пароля</param>
-        public async Task UserAuthAsync(string login, string pass)
+        public async Task<bool> UserAuthAsync(string login, string pass)
         {
-            await UserAuthAsync(new UserForAuthorization
+            return await UserAuthAsync(new UserForAuthorization
             {
                 Login = login,
                 Pass = pass
@@ -325,7 +316,12 @@ namespace nsAPI
         public async Task<List<RegisteredUser>> FindUsersAsync(SettingsFind settingsFind = null,  string searchName = null, string searchMName = null, string searchSurname = null)
         {
             // Пробуем найти пользователей.
-            return await users.FindAsync(api_token, settingsFind, searchName, searchMName, searchSurname);
+            var usrs = await users.FindAsync(api_token, settingsFind, searchName, searchMName, searchSurname);
+            if (usrs == null)
+            {
+                LastException = users.Response.Exception;
+            }
+            return usrs;
         }
 
         /// <summary>
@@ -333,14 +329,28 @@ namespace nsAPI
         /// </summary>
         /// <param name="userIds">ID пользователей.</param>
         /// <returns>Информация о пользователях.</returns>
-        public async Task<List<RegisteredUser>> GetUsersByIdAsync(string[] userIds) =>
-            await users.ByIdAsync(api_token, userIds);
+        public async Task<List<RegisteredUser>> GetUsersByIdAsync(string[] userIds)
+        {
+            var regu = await users.ByIdAsync(api_token, userIds);
+            if (regu == null)
+            {
+                LastException = users.Response.Exception;
+            }
+            return regu;
+        }
 
         /// <summary>
         /// Получение информации о пользователе с заданным ID
         /// </summary>
-        public async Task<RegisteredUser> GetUserByIdAsync(string userId) =>
-            await users.ByIdAsync(api_token, userId);
+        public async Task<RegisteredUser> GetUserByIdAsync(string userId)
+        {
+            var regu = await users.ByIdAsync(api_token, userId);
+            if (regu == null)
+            {
+                LastException = users.Response.Exception;
+            }
+            return regu;
+        }
         #endregion
 
         #region Refbooks
@@ -350,40 +360,82 @@ namespace nsAPI
         /// Запрашивает у сервера список полов.
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Refbook>> GetGendersAsync() =>
-            await refBooks.GetListGendersAsync();
+        public async Task<List<Refbook>> GetGendersAsync()
+        {
+            var lg = await refBooks.GetListGendersAsync();
+            if (lg==null)
+            {
+                LastException = refBooks.Response.Exception;
+            }
+            return lg;
+        }
         /// <summary>
         /// Запрашивает у сервера список типов работ.
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Refbook>> GetWorkTypesAsync() =>
-            await refBooks.GetListWorkTypesAsync();
+        public async Task<List<Refbook>> GetWorkTypesAsync()
+        {
+            var lwt = await refBooks.GetListWorkTypesAsync();
+            if (lwt == null)
+            {
+                LastException = refBooks.Response.Exception;
+            }
+            return lwt;
+        }
         /// <summary>
         /// Запрашивает у сервера список ролей пользователей.
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Refbook>> GetRolesAsync() =>
-            await refBooks.GetListRolesAsync();
+        public async Task<List<Refbook>> GetRolesAsync()
+        {
+            var lr = await refBooks.GetListRolesAsync();
+            if (lr == null)
+            {
+                LastException = refBooks.Response.Exception;
+            }
+            return lr;
+        }
         /// <summary>
         /// Запрашивает у сервера список состояний аккаунтов.
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Refbook>> GetStatesAsync() =>
-            await refBooks.GetListStatesAsync();
+        public async Task<List<Refbook>> GetStatesAsync()
+        {
+            var ls = await refBooks.GetListStatesAsync();
+            if (ls==null)
+            {
+                LastException = refBooks.Response.Exception;
+            }
+            return ls;
+        }
         /// <summary>
         /// Запрашивает у сервера список типов слов.
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Refbook>> GetTypeWordsAsync() =>
-            await refBooks.GetListTypeWordsAsync();
+        public async Task<List<Refbook>> GetTypeWordsAsync()
+        {
+            var ltw = await refBooks.GetListTypeWordsAsync();
+            if (ltw == null)
+            {
+                LastException = refBooks.Response.Exception;
+            }
+            return ltw;
+        }
 
         /// <summary>
         /// Возвращает все данные из указанного справочника.
         /// </summary>
         /// <param name="nameRefbook">Наименование справочника маленькими буквами.</param>
         /// <returns>Все данные из указанного справочника.</returns>
-        public async Task<List<Refbook>> GetDataFromRefbook(string nameRefbook) =>
-            await refBooks.GetAllDataAsync(nameRefbook);
+        public async Task<List<Refbook>> GetDataFromRefbook(string nameRefbook)
+        {
+            var ad =await refBooks.GetAllDataAsync(nameRefbook);
+            if (ad== null)
+            {
+                LastException = refBooks.Response.Exception;
+            }
+            return ad;
+        }
 
         /// <summary>
         /// Добавляет данные в указанный справочник.
@@ -391,8 +443,15 @@ namespace nsAPI
         /// <param name="refbook">Наименование справочника (таблицы в БД)</param>
         /// <param name="names">Данные.</param>
         /// <returns>Ничего.</returns>
-        public async Task<bool> AddDataToRefbook(string refbook, string[] names) =>
-            await refBooks.AddDataToRefbook(Access_Token, refbook, new List<string>(names));
+        public async Task<bool> AddDataToRefbook(string refbook, string[] names)
+        {
+            var dtr = await refBooks.AddDataToRefbook(Access_Token, refbook, new List<string>(names));
+            if (!dtr)
+            {
+                LastException = refBooks.Response.Exception;
+            }
+            return dtr;
+        }
 
         /// <summary>
         /// Добавляет данные в указанный справочник.
@@ -400,8 +459,16 @@ namespace nsAPI
         /// <param name="refbook">Наименование справочника (таблицы в БД)</param>
         /// <param name="names">Данные.</param>
         /// <returns>Ничего.</returns>
-        public async Task<bool> AddDataToRefbook(string refbook, List<string> names) =>
-            await refBooks.AddDataToRefbook(Access_Token, refbook, names);
+        public async Task<bool> AddDataToRefbook(string refbook, List<string> names)
+        {
+            var dtr = await refBooks.AddDataToRefbook(Access_Token, refbook, names);
+
+            if (!dtr)
+            {
+                LastException = refBooks.Response.Exception;
+            }
+            return dtr;
+        }
         #endregion
 
         #region Classes
@@ -413,20 +480,42 @@ namespace nsAPI
         /// </summary>
         /// <param name="classroom"></param>
         /// <returns></returns>
-        public async Task<RegisteredClassroom> AddClassroomAsync(ClassroomForReg classroom) =>
-            await classrooms.RegAsync(api_token, classroom);
+        public async Task<RegisteredClassroom> AddClassroomAsync(ClassroomForReg classroom)
+        {
+            var cl = await classrooms.RegAsync(api_token, classroom);
+            if (cl == null)
+            {
+                LastException = classrooms.Response.Exception;
+            }
+            return cl;
+
+        }
 
         /// <summary>
         /// Получение информации о классах с заданными ID
         /// </summary>
-        public async Task<List<RegisteredClassroom>> GetClassroomsByIdAsync(string[] classroomIds) =>
-            await classrooms.ByIdAsync(api_token, classroomIds);
+        public async Task<List<RegisteredClassroom>> GetClassroomsByIdAsync(string[] classroomIds)
+        {
+            var cl = await classrooms.ByIdAsync(api_token, classroomIds);
+            if (cl == null)
+            {
+                LastException = classrooms.Response.Exception;
+            }
+            return cl;
+
+        }
 
         /// <summary>
         /// Получение информации о классе с заданными ID
         /// </summary>
-        public async Task<RegisteredClassroom> GetClassroomByIdAsync(string classroomId) =>
-            await classrooms.ByIdAsync(api_token, classroomId);
+        public async Task<RegisteredClassroom> GetClassroomByIdAsync(string classroomId) {
+            var cl = await classrooms.ByIdAsync(api_token, classroomId);
+            if (cl == null)
+            {
+                LastException = classrooms.Response.Exception;
+            }
+            return cl;
+        }
 
         /// <summary>
         /// Получение информации о классах в которых состоит пользователь с заданным id.
@@ -435,25 +524,45 @@ namespace nsAPI
         /// <param name="roleId">Роль юзера в этих классах</param>
         /// <returns>Список классов.</returns>
         public async Task<List<RegisteredClassroom>> GetClassroomsByUserIdAsync(
-            string userId, string roleId = null) =>
-            await classrooms.ByUserIdAsync(api_token, userId, roleId);
+            string userId, string roleId = null) {
+            var cl = await classrooms.ByUserIdAsync(api_token, userId, roleId);
+            if (cl == null)
+            {
+                LastException = classrooms.Response.Exception;
+            }
+            return cl;
+        }
 
         /// <summary>
         /// Возвращает список всех классов в соответствии с параметром поиска.
         /// </summary>
         /// <param name="settingsFind">Параметр поиска.</param>
         /// <returns></returns>
-        public async Task<List<RegisteredClassroom>> GetAllClassess(SettingsFind settingsFind = null) =>
-            await classrooms.GetAllAsync(Access_Token, settingsFind);
-        
+        public async Task<List<RegisteredClassroom>> GetAllClassess(SettingsFind settingsFind = null)
+        {
+            var cl = await classrooms.GetAllAsync(Access_Token, settingsFind);
+            if (cl == null)
+            {
+                LastException = classrooms.Response.Exception;
+            }
+            return cl;
+        }
+
         /// <summary>
         /// Добавляет пользовтаеля в класс в роли ученика.
         /// </summary>
         /// <param name="id_user">Идентификтаор пользователя.</param>
         /// <param name="id_class">Идентификтаор класса.</param>
         /// <returns>True - если добавление прошло без проблем.</returns>
-        public async Task<bool> AddStudent(string id_user, string id_class) =>
-            await classrooms.AddStudent(Access_Token, id_user, id_class);
+        public async Task<bool> AddStudent(string id_user, string id_class)
+        {
+            var cl = await classrooms.AddStudent(Access_Token, id_user, id_class);
+            if (!cl)
+            {
+                LastException = classrooms.Response.Exception;
+            }
+            return cl;
+        }
 
         #endregion
 
@@ -465,8 +574,15 @@ namespace nsAPI
         /// <param name="classesID">Массив строк идентификаторов классов.</param>
         /// <param name="onlyHeaders">Только заголовки работ.</param>
         /// <returns>Список работ.</returns>
-        public async Task<Works> GetWorksByClassesIDAsync(string[] classesID, bool onlyHeaders = true) =>
-            await works.ByClassesIdsAsync(Access_Token, classesID, onlyHeaders);
+        public async Task<Works> GetWorksByClassesIDAsync(string[] classesID, bool onlyHeaders = true)
+        {
+            var w = await works.ByClassesIdsAsync(Access_Token, classesID, onlyHeaders);
+            if (w == null)
+            {
+                LastException = works.Response.Exception;
+            }
+            return w;
+        }
 
         /// <summary>
         /// Возвращает список работ по заданным классам.
@@ -474,8 +590,15 @@ namespace nsAPI
         /// <param name="classes">Список классов.</param>
         /// <param name="onlyHeaders">Только заголовки работ.</param>
         /// <returns>Список работ.</returns>
-        public async Task<Works> GetWorksByClassesAsync(List<RegisteredClassroom> classes, bool onlyHeaders = true) =>
-            await works.ByClassesAsync(Access_Token, classes, onlyHeaders);
+        public async Task<Works> GetWorksByClassesAsync(List<RegisteredClassroom> classes, bool onlyHeaders = true)
+        {
+            var w = await works.ByClassesAsync(Access_Token, classes, onlyHeaders);
+            if (w == null)
+            {
+                LastException = works.Response.Exception;
+            }
+            return w;
+        }
 
         /// <summary>
         /// Возвращает работу по заданному идентификатору класса.
@@ -483,24 +606,45 @@ namespace nsAPI
         /// <param name="classID">Строка идентификатора класса.</param>
         /// <param name="onlyHeaders">Только заголовок работы.</param>
         /// <returns>Работа.</returns>
-        public async Task<Works> GetWorksByClassIDAsync(string classID, bool onlyHeaders = true) =>
-            await works.ByClassIDAsync(Access_Token, classID, onlyHeaders);
+        public async Task<Works> GetWorksByClassIDAsync(string classID, bool onlyHeaders = true)
+        {
+            var w =await works.ByClassIDAsync(Access_Token, classID, onlyHeaders);
+            if (w == null)
+            {
+                LastException = works.Response.Exception;
+            }
+            return w;
+        }
 
         /// <summary>
         /// Добавляет в БД тестовую новую работу.
         /// </summary>
         /// <param name="testWork">Работа для записи в БД.</param>
         /// <returns>Идентификатор добавленной работы в строке</returns>
-        public async Task<string> AddTestWorkAsync(TestWork testWork) =>
-            await works.TestWorkAddAsync(Access_Token, testWork);
+        public async Task<string> AddTestWorkAsync(TestWork testWork)
+        {
+            var w =await works.TestWorkAddAsync(Access_Token, testWork);
+            if (w == null)
+            {
+                LastException = works.Response.Exception;
+            }
+            return w;
+        }
 
         /// <summary>
         /// Добавляет в БД новую письменную работу.
         /// </summary>
         /// <param name="testWork">Работа для записи в БД.</param>
         /// <returns>Идентификатор добавленной работы в строке</returns>
-        public async Task<string> AddTextWorkAsync(TextWork textWork) =>
-            await works.TextWorkAddAsync(Access_Token, textWork);
+        public async Task<string> AddTextWorkAsync(TextWork textWork)
+        {
+            var w= await works.TextWorkAddAsync(Access_Token, textWork);
+            if (w == null)
+            {
+                LastException = works.Response.Exception;
+            }
+            return w;
+        }
         #endregion
 
         #region Answers
@@ -512,8 +656,15 @@ namespace nsAPI
         /// <param name="worksID"></param>
         /// <param name="onlyHeaders"></param>
         /// <returns></returns>
-        public async Task<Answers> GetAnswersByWorks(string[] worksID, bool onlyHeaders = true) =>
-            await answers.ByWorksIdsAsync(Access_Token, worksID, onlyHeaders);
+        public async Task<Answers> GetAnswersByWorks(string[] worksID, bool onlyHeaders = true)
+        {
+            var a = await answers.ByWorksIdsAsync(Access_Token, worksID, onlyHeaders);
+            if (a == null)
+            {
+                LastException = answers.Response.Exception;
+            }
+            return a;
+        }
 
         /// <summary>
         /// Возвращает список ответов по заданному ИД работы.
@@ -521,24 +672,44 @@ namespace nsAPI
         /// <param name="workID"></param>
         /// <param name="onlyHeaders"></param>
         /// <returns></returns>
-        public async Task<Answers> GetAnswersByWork(string workID, bool onlyHeaders = true) =>
-            await answers.ByWorkIdAsync(Access_Token, workID, onlyHeaders);
+        public async Task<Answers> GetAnswersByWork(string workID, bool onlyHeaders = true)
+        {
+            var a =await answers.ByWorkIdAsync(Access_Token, workID, onlyHeaders);
+            if (a == null)
+            {
+                LastException = answers.Response.Exception;
+            }
+            return a;
+        }
 
         /// <summary>
         /// Добавляет ответы на тестовую работу.
         /// </summary>
         /// <param name="testAnswer"></param>
         /// <returns>Возвращает идентификатор ответа в БД</returns>
-        public async Task<string> AddTestAnswerAsync(TestAnswerForAdd testAnswer) =>
-            await answers.TestAnswerAddAsync(Access_Token, testAnswer);
+        public async Task<string> AddTestAnswerAsync(TestAnswerForAdd testAnswer)
+        {
+            var a =await answers.TestAnswerAddAsync(Access_Token, testAnswer);
+            if (a == null)
+            {
+                LastException = answers.Response.Exception;
+            }
+            return a;
+        }
 
         /// <summary>
         /// Добавляет ответы на текстовую работу.
         /// </summary>
         /// <param name="textAnswer"></param>
         /// <returns>Возвращает идентификатор ответа в БД (ID записи из таблицы EexecutinOfWorks)</returns>
-        public async Task<string> AddTextAnswerAsync(TextAnswerForAdd textAnswer) =>
-            await answers.TextAnswerAddAsync(Access_Token, textAnswer);
+        public async Task<string> AddTextAnswerAsync(TextAnswerForAdd textAnswer) {
+            var a = await answers.TextAnswerAddAsync(Access_Token, textAnswer);
+            if (a == null)
+            {
+                LastException = answers.Response.Exception;
+            }
+            return a;
+        }
 
         /// <summary>
         /// Задает оценку указанному ответу.
@@ -547,8 +718,15 @@ namespace nsAPI
         /// <param name="mark">Оценка в строком типе. Теоретически можно задать до 4 символов, но зачем?</param>
         /// <param name="IDExecutionOfWork">ID ответа - ID записи из таблицы ExectionOfWork</param>
         /// <returns>True - при успешном добавлении оценки. В пртивном случае False не вернет, а выкинет исключение.</returns>
-        public async Task<bool> AddMark(string mark, string IDExecutionOfWork) =>
-            await answers.SetMark(Access_Token, mark, IDExecutionOfWork);
+        public async Task<bool> AddMark(string mark, string IDExecutionOfWork)
+        {
+            var a =await answers.SetMark(Access_Token, mark, IDExecutionOfWork);
+            if (!a)
+            {
+                LastException = answers.Response.Exception;
+            }
+            return a;
+        }
 
         /// <summary>
         /// Задает оценку указанному ответу.
@@ -556,8 +734,15 @@ namespace nsAPI
         /// <param name="api_token">Ключ для доступа к АПИ.</param>
         /// <param name="header">Заголовок ответа на работу. В нем содержатся необходимые данные для отправки оценки.</param>
         /// <returns>True - при успешном добавлении оценки. В пртивном случае False не вернет, а выкинет исключение.</returns>
-        public async Task<bool> AddMark(AnswerHeader header) =>
-            await answers.SetMark(Access_Token, header);
+        public async Task<bool> AddMark(AnswerHeader header)
+        {
+            var m = await answers.SetMark(Access_Token, header);
+            if (!m)
+            {
+                LastException = answers.Response.Exception;
+            }
+            return m;
+        }
 
         /// <summary>
         /// Задает оценку указанному ответу.
@@ -565,8 +750,15 @@ namespace nsAPI
         /// <param name="api_token">Ключ для доступа к АПИ.</param>
         /// <param name="testAnswer">Ответ на тестову работу. В нем содержатся необходимые данные для отправки оценки.</param>
         /// <returns>True - при успешном добавлении оценки. В пртивном случае False не вернет, а выкинет исключение.</returns>
-        public async Task<bool> AddMark(TestAnswer testAnswer) =>
-            await answers.SetMark(Access_Token, testAnswer);
+        public async Task<bool> AddMark(TestAnswer testAnswer)
+        {
+            var a = await answers.SetMark(Access_Token, testAnswer);
+            if (!a)
+            {
+                LastException = answers.Response.Exception;
+            }
+            return a;
+        }
 
         /// <summary>
         /// Задает оценку указанному ответу.
@@ -574,8 +766,15 @@ namespace nsAPI
         /// <param name="api_token">Ключ для доступа к АПИ.</param>
         /// <param name="textAnswer">Ответ на письменную работу. В нем содержатся необходимые данные для отправки оценки.</param>
         /// <returns>True - при успешном добавлении оценки. В пртивном случае False не вернет, а выкинет исключение.</returns>
-        public async Task<bool> AddMark(TextAnswer textAnswer) =>
-            await answers.SetMark(Access_Token, textAnswer);
+        public async Task<bool> AddMark(TextAnswer textAnswer)
+        {
+            var a = await answers.SetMark(Access_Token, textAnswer);
+            if (!a)
+            {
+                LastException = answers.Response.Exception;
+            }
+            return a;
+        }
         #endregion
 
         #region Theories
@@ -585,39 +784,71 @@ namespace nsAPI
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Task<Theory> GetTheoryByIDAsync(string id) =>
-            theories.ByIdAsync(Access_Token, id);
+        public Task<Theory> GetTheoryByIDAsync(string id)
+        {
+            var t = theories.ByIdAsync(Access_Token, id);
+            if (t == null)
+            {
+                LastException = theories.Response.Exception;
+            }
+            return t;
+        }
 
         /// <summary>
         /// Список теории по заданному массиву ID.
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public Task<List<Theory>> GetTheoriesByIDsAsync(string[] ids) =>
-            theories.ByIDsAsync(Access_Token, new List<string>(ids));
+        public Task<List<Theory>> GetTheoriesByIDsAsync(string[] ids)
+        {
+            var t = theories.ByIDsAsync(Access_Token, new List<string>(ids));
+            if (t == null)
+            {
+                LastException = theories.Response.Exception;
+            }
+            return t;
+        }
         /// <summary>
         /// Список теории по заданному списку ID.
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public Task<List<Theory>> GetTheoriesByIDsAsync(List<string> ids) =>
-            theories.ByIDsAsync(Access_Token, ids);
+        public Task<List<Theory>> GetTheoriesByIDsAsync(List<string> ids) {
+            var t = theories.ByIDsAsync(Access_Token, ids);
+            if (t == null)
+            {
+                LastException = theories.Response.Exception;
+            }
+            return t;
+        }
 
         /// <summary>
         /// Возвращает список теории по заданному ID класса.
         /// </summary>
         /// <param name="id_class"></param>
         /// <returns></returns>
-        public Task<List<Theory>> GetTheoriesByClassroomIDAsync(string id_class) =>
-            theories.ByClassIdAsync(Access_Token, id_class);
+        public Task<List<Theory>> GetTheoriesByClassroomIDAsync(string id_class) {
+            var t = theories.ByClassIdAsync(Access_Token, id_class);
+            if (t == null)
+            {
+                LastException = theories.Response.Exception;
+            }
+            return t;
+        }
 
         /// <summary>
         /// Добавление теории в БД.
         /// </summary>
         /// <param name="theory">Теория, которую надо добавить в БД.</param>
         /// <returns>Теория с идентификаторами самой теории и заголовка</returns>
-        public Task<Theory> AddTheory(Theory theory) =>
-            theories.RegAsync(Access_Token, theory);
+        public Task<Theory> AddTheory(Theory theory) {
+            var t = theories.RegAsync(Access_Token, theory);
+            if (t == null)
+            {
+                LastException = theories.Response.Exception;
+            }
+            return t;
+        }
         #endregion
 
         #region Dict
@@ -628,8 +859,15 @@ namespace nsAPI
         /// <param name="id_User">Идентификатор пользовтаеля.</param>
         /// <param name="settingsFind">Настройки отбора. Можно не задвать.</param>
         /// <returns>Список слов из пользователского словаря.</returns>
-        public async Task<List<Word>> GetUserWords(string id_User, SettingsFind settingsFind = null) =>
-            await dict.GetUserAsync(Access_Token, id_User, settingsFind);
+        public async Task<List<Word>> GetUserWords(string id_User, SettingsFind settingsFind = null)
+        {
+            var d = await dict.GetUserAsync(Access_Token, id_User, settingsFind);
+            if (d == null)
+            {
+                LastException = dict.Response.Exception;
+            }
+            return d;
+        }
 
 
         /// <summary>
@@ -637,8 +875,15 @@ namespace nsAPI
         /// </summary>
         /// <param name="settingsFind">Настройки отбора. Можно не задвать.</param>
         /// <returns>Список слов, не принадлежащих пользотваелям.</returns>
-        public async Task<List<Word>> GetCommonWords(SettingsFind settingsFind = null) =>
-            await dict.GetCommonAsync(Access_Token, settingsFind);
+        public async Task<List<Word>> GetCommonWords(SettingsFind settingsFind = null)
+        {
+            var d = await dict.GetCommonAsync(Access_Token, settingsFind);
+            if (d == null)
+            {
+                LastException = dict.Response.Exception;
+            }
+            return d;
+        }
 
         /// <summary>
         /// Получение списка слов пользователя и слов из общего словаря.
@@ -646,16 +891,29 @@ namespace nsAPI
         /// <param name="id_User">Идентификатор пользовтаеля.</param>
         /// <param name="settingsFind">Настройки отбора. Можно не задвать.</param>
         /// <returns>Список слов пользователя и слов из общего словаря.</returns>
-        public async Task<List<Word>> GetCombiWords(string id_User, SettingsFind settingsFind = null) =>
-            await dict.GetCombinedAsync(Access_Token, id_User, settingsFind);
+        public async Task<List<Word>> GetCombiWords(string id_User, SettingsFind settingsFind = null) {
+            var d = await dict.GetCombinedAsync(Access_Token, id_User, settingsFind);
+            if (d == null)
+            {
+                LastException = dict.Response.Exception;
+            }
+            return d;
+        }
 
         /// <summary>
         /// Добавляет слово в БД.
         /// </summary>
         /// <param name="word">Слово для добавления.</param>
         /// <returns>True - если успешно добавлено.</returns>
-        public async Task<bool> AddWordAsync(Word word) =>
-            await dict.AddWordAsync(Access_Token, word);
+        public async Task<bool> AddWordAsync(Word word)
+        {
+            var d = await dict.AddWordAsync(Access_Token, word);
+            if (!d)
+            {
+                LastException = dict.Response.Exception;
+            }
+            return d;
+        }
 
 
         /// <summary>
@@ -663,8 +921,15 @@ namespace nsAPI
         /// </summary>
         /// <param name="word">Слова для добавления.</param>
         /// <returns>True - если успешно добавлены.</returns>
-        public async Task<bool> AddWordsAsync(List<Word> words) =>
-            await dict.AddWordsAsync(Access_Token, words);
+        public async Task<bool> AddWordsAsync(List<Word> words)
+        {
+            var d = await dict.AddWordsAsync(Access_Token, words);
+            if (!d)
+            {
+                LastException = dict.Response.Exception;
+            }
+            return d;
+        }
 
         #endregion
         //==================================================================================

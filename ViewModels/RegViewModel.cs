@@ -15,7 +15,7 @@ namespace Tadar.ViewModels
     {
         public RegViewModel()
         {
-            api = new API();
+            api = new API(false, OnLoadedRefbooks: null);
             userreg = new UserForRegistration()
             {
                 // Это надо делать, т.к. это свойство влияет на элемент интерфейса
@@ -332,27 +332,16 @@ namespace Tadar.ViewModels
             try
             {
                 await api.UserRegAsync(userreg);
-                
-                Log.Write(api.MainUser.ID + ": " + api.MainUser.Login + " ("
+
+                Msg.Write(api.MainUser.ID + ": " + api.MainUser.Login + " ("
                     + api.MainUser.Surname + " " + api.MainUser.Name + ")");
                 
                 Models.First.Base_frame.Navigate(new MenuPage());
             }
             // TODO: надо потом определять тип ошибки и выводить соотвествующие сообщения...
-            catch (ErrorResponseException ex)
-            {
-                switch (ex.ErrCode)
-                {
-                    case CODE_ERROR.ERR_UserAlreadyReg:
-                        MessageBox.Show("is registered");
-                        break;
-                    default:
-                        break;
-                }
-            }
             catch (Exception ex)
             {
-                Log.Write(ex);
+                Msg.Write(ex);
             }
         }
     }
