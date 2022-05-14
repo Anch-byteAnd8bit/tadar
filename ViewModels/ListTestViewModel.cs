@@ -80,8 +80,8 @@ namespace Tadar.ViewModels
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
-                MessageBox.Show("Вы не состоите ни в одном классе!");
+                //MessageBox.Show(ex.Message);
+                MessageBox.Show("Вы не состоите ни в одном классе или в классе нет заданий!");
             }
         }
         public ObservableCollection<WorkHeader> TestsList { get; set; }

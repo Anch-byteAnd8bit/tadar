@@ -21,6 +21,9 @@
 
         </Grid.ColumnDefinitions>
 
+
+      
+
         <TextBlock Grid.Row="0"
             Text="Словарь"
                             Foreground="White"
@@ -63,7 +66,7 @@
         <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
              materialDesign:ButtonAssist.CornerRadius="25" x:Name="class"
                Height="45"
-                Command="{Binding RegCommand}"
+                Command="{Binding AddClick}"
                 Grid.Column="1"
                 Grid.Row="2"
                 Content="Добавить слово"

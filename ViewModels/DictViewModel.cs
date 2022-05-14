@@ -3,6 +3,7 @@ using nsAPI.Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using Tadar.Helpers;
 using Tadar.Models;
@@ -18,7 +19,7 @@ namespace Tadar.ViewModels
         {
             //api.MainUser.Name
             AddClick = new Command(Add_Click);
-            DelClick = new Command(Del_Click);
+            //DelClick = new Command(Del_Click);
            
             LoadDictAsync();
         }
@@ -36,6 +37,9 @@ namespace Tadar.ViewModels
                 }
 
                 words = await api.GetCommonWords();
+
+                words.Sort(delegate (Word teacher1, Word teacher2)
+                { return teacher1.RusWord.CompareTo(teacher2.RusWord); });
 
                 OnPropertyChanged(nameof(WordsList));
             }
@@ -63,14 +67,14 @@ namespace Tadar.ViewModels
 
         private void Add_Click(object ob)
         {
-            First.Base_frame.Navigate(new marks());
+            First.Base_frame.Navigate(new AddWordPage());
             //открытие новой страницы с вводом логина и пароля 
         }
-        private void Del_Click(object ob)
-        {
-            First.Base_frame.Navigate(new marks());
-            //открытие новой страницы с вводом логина и пароля 
-        }
+        //private void Del_Click(object ob)
+        //{
+        //    First.Base_frame.Navigate(new marks());
+        //    //открытие новой страницы с вводом логина и пароля 
+        //}
 
 
         public Command AddClick
@@ -78,24 +82,24 @@ namespace Tadar.ViewModels
             get;
             set;
         }
-        public Command DelClick
-        {
-            get;
-            set;
-        }
-        public string Surname
-        {
-            // Когда надо вернуть фамилию.
-            get => api.MainUser.Surname;
-            // Когда надо задать фамилию.
-            set
-            {
-                // Присваиваем новое значение фамилии.
-                api.MainUser.Surname = value;
-                // Уведомляем форму, что свойство "Surname" изменилось.
-                OnPropertyChanged(nameof(Surname));
-            }
-        }
+        //public Command DelClick
+        //{
+        //    get;
+        //    set;
+        //}
+        //public string Surname
+        //{
+        //    // Когда надо вернуть фамилию.
+        //    get => api.MainUser.Surname;
+        //    // Когда надо задать фамилию.
+        //    set
+        //    {
+        //        // Присваиваем новое значение фамилии.
+        //        api.MainUser.Surname = value;
+        //        // Уведомляем форму, что свойство "Surname" изменилось.
+        //        OnPropertyChanged(nameof(Surname));
+        //    }
+        //}
         public string Name
         {
             // Получить.
