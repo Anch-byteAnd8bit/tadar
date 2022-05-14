@@ -2,10 +2,11 @@
 
 namespace Helpers
 {
-    public static class Log
+    public static class Msg
     {
         public static void Write(string text)
         {
+            Console.WriteLine(Environment.OSVersion.Platform.ToString());
             Console.WriteLine(DateTime.Now.ToString("T") + ":\t" + text);
         }
 

@@ -64,7 +64,8 @@ namespace nsAPI
             {
                 if (instance != null) return instance;
 
-                instance = new API(true);
+                // полю instance присваивается значения внуnри самого конструктора.
+                _ = new API(loadRefbooks: true, OnLoadedRefbooks: null, loadMainUser: true, OnLoadedMainUser: null);
                 return instance;
             }
             set
@@ -76,7 +77,7 @@ namespace nsAPI
         /// <summary>
         /// Конструктор класса.
         /// </summary>
-        /// <param name="loadRefbooks">Надо лиз агружать все справочники.</param>
+        /// <param name="loadRefbooks">Надо ли загружать все справочники.</param>
         /// <param name="OnLoadedRefbooks">Процедура, вызываемая после загрузки справочников.</param>
         /// <param name="loadMainUser">Надо ли загружать данные о текущем пользователе (MainUser)</param>
         /// <param name="OnLoadedMainUser">Процедура, вызываемая после загрузке пользователя.</param>
@@ -84,11 +85,17 @@ namespace nsAPI
         {
             // Для работы с запросами касающимися пользователей.
             users = new MUsers();
+            // Для работы с запросами касающимися классов.
             classrooms = new MClassrooms();
+            // Для работы с запросами касающимися справочников.
             refBooks = new MRefBooks();
+            // Для работы с запросами касающимися работ.
             works = new MWorks();
+            // Для работы с запросами касающимися теории.
             theories = new MTheories();
+            // Для работы с запросами касающимися ответов на работы.
             answers = new MAnswers();
+            // Для работы с запросами касающимися словарей.
             dict = new MDict();
             // Если возможно, то загружаем данные пользователя из файла.
             try
@@ -96,18 +103,77 @@ namespace nsAPI
                 if (File.Exists(pathAccessToken))
                 {
                     LoadUserDataFromFile();
-                    if (loadMainUser) LoadMainUser(OnLoadedMainUser);
                     if (loadRefbooks) LoadRefBooks(OnLoadedRefbooks);
+                    if (loadMainUser) LoadMainUser(OnLoadedMainUser);
                 }
                 else
                 {
-                    Log.Write("При попытке считать из файла пользователя произошла ошибка:\n" +
+                    Msg.Write("При попытке считать из файла пользователя произошла ошибка:\n" +
                         "Не найден файл с данными пользователя.");
                 }
             }
             catch (Exception e)
             {
-                Log.Write("При попытке считать из файла пользователя произошла ошибка: \n" + e.Message);
+                Msg.Write("При попытке считать из файла пользователя произошла ошибка: \n" + e.Message);
+            }
+            finally
+            {
+                instance = this;
+            }
+        }
+
+        private readonly string cond = "both";
+        /// <summary>
+        /// Конструктор API.
+        /// </summary>
+        /// <param name="loadRefbooks">Надо ли загружать справочники.</param>
+        /// <param name="loadMainUser">Надо ли загружать данные пользовтаеля.</param>
+        /// <param name="cond">Условия вызова процедуры окончания загрузки и/или справочника и/или 
+        /// пользователя. "both" - дождаться загрузки и справочников и пользователя и потом вызвать
+        /// процедуру. "first" - дождаться загрузки первого из них - справочников или пользователя.
+        /// "user" - после загрузки пользователя. "refbooks" - после загрузки справочников.</param>
+        /// <param name="OnLoaded">Процедура вызываемая после загрузки и/или справочника и/или 
+        /// пользователя.</param>
+        public API(bool loadRefbooks = false, bool loadMainUser = true, string cond = "both", Action OnLoaded = null)
+        {
+            cond = cond.ToLower();
+            // Для работы с запросами касающимися пользователей.
+            users = new MUsers();
+            // Для работы с запросами касающимися классов.
+            classrooms = new MClassrooms();
+            // Для работы с запросами касающимися справочников.
+            refBooks = new MRefBooks();
+            // Для работы с запросами касающимися работ.
+            works = new MWorks();
+            // Для работы с запросами касающимися теории.
+            theories = new MTheories();
+            // Для работы с запросами касающимися ответов на работы.
+            answers = new MAnswers();
+            // Для работы с запросами касающимися словарей.
+            dict = new MDict();
+            //
+            if (loadRefbooks) LoadRefBooks(OnLoaded);
+            // Если возможно, то загружаем данные пользователя из файла.
+            try
+            {
+                if (File.Exists(pathAccessToken))
+                {
+                    LoadUserDataFromFile();
+                    if (loadMainUser) LoadMainUser(OnLoaded);
+                }
+                else
+                {
+                    Msg.Write("При попытке считать из файла пользователя произошла ошибка:\n" +
+                        "Не найден файл с данными пользователя.");
+                }
+            }
+            catch (Exception e)
+            {
+                Msg.Write("При попытке считать из файла пользователя произошла ошибка: \n" + e.Message);
+            }
+            finally
+            {
+                instance = this;
             }
         }
 
@@ -121,11 +187,17 @@ namespace nsAPI
             try
             {
                 MainUser = await users.ByIdAsync(Access_Token, id_user);
-                if (action != null) action();
+                if (action != null)
+                {
+                    if ((cond == "both" && (Refbooks.Count == 5)) ||
+                        (cond == "first" && (Refbooks.Count < 5)) ||
+                        (cond == "user"))
+                        action();
+                }
             }
-            catch (UnknownHttpResponseException ex)
+            catch (Exception ex)
             {
-                _ = MessageBox.Show(ex.Message + "\n" + ex.ResponseJSON);
+                Msg.Write(ex.Message);
             }
         }
         /// <summary>
@@ -148,13 +220,50 @@ namespace nsAPI
                 Refbooks.Add(TRefbooks.Roles, roles);
                 Refbooks.Add(TRefbooks.States, states);
                 Refbooks.Add(TRefbooks.TypeWords, typeWords);
-                if (action != null) action();
+                if (action != null)
+                {
+                    if ((cond == "both" && (MainUser != null)) ||
+                        (cond == "first" && (MainUser == null)) ||
+                        (cond == "refbooks"))
+                        action();
+                }
             }
-            catch (UnknownHttpResponseException ex)
+            catch (Exception ex)
             {
-                _ = MessageBox.Show(ex.Message + "\n" + ex.ResponseJSON);
+                Msg.Write(ex.Message);
             }
         }
+
+        #region procErr
+        /// <summary>
+        /// Обработка общих ошибок.
+        /// </summary>
+        /// <param name="error"></param>
+        /// <returns></returns>
+        private void procError(Error error)
+        {
+            switch ((CODE_ERROR)error.errorInfo.Type)
+            {
+                case CODE_ERROR.ERR_NotEnoughInf:
+                    Msg.Write(error.errorInfo.Message);
+                    break;
+                case CODE_ERROR.ERR_DBNotAvailable:
+                    Msg.Write(error.errorInfo.Message);
+                    break;
+                case CODE_ERROR.ERR_SecureKeyProblem:
+                    Msg.Write(error.errorInfo.Message);
+                    break;
+                case CODE_ERROR.ERR_DBProblem:
+                    Msg.Write(error.errorInfo.Message);
+                    break;
+                case CODE_ERROR.ERR_IsTooLong:
+                    Msg.Write(error.errorInfo.Message);
+                    break;
+                default:
+                    break;
+            }
+        }
+        #endregion
 
         #region Users
         // =========== Пользователи
@@ -322,10 +431,12 @@ namespace nsAPI
         /// <summary>
         /// Получение информации о классах в которых состоит пользователь с заданным id.
         /// </summary>
+        /// <param name="userId">ИД юзера.</param>
+        /// <param name="roleId">Роль юзера в этих классах</param>
+        /// <returns>Список классов.</returns>
         public async Task<List<RegisteredClassroom>> GetClassroomsByUserIdAsync(
-            string userId, string roleId = null) => await classrooms.ByUserIdAsync(
-                api_token, userId, roleId);
-
+            string userId, string roleId = null) =>
+            await classrooms.ByUserIdAsync(api_token, userId, roleId);
 
         /// <summary>
         /// Возвращает список всех классов в соответствии с параметром поиска.
@@ -356,6 +467,15 @@ namespace nsAPI
         /// <returns>Список работ.</returns>
         public async Task<Works> GetWorksByClassesIDAsync(string[] classesID, bool onlyHeaders = true) =>
             await works.ByClassesIdsAsync(Access_Token, classesID, onlyHeaders);
+
+        /// <summary>
+        /// Возвращает список работ по заданным классам.
+        /// </summary>
+        /// <param name="classes">Список классов.</param>
+        /// <param name="onlyHeaders">Только заголовки работ.</param>
+        /// <returns>Список работ.</returns>
+        public async Task<Works> GetWorksByClassesAsync(List<RegisteredClassroom> classes, bool onlyHeaders = true) =>
+            await works.ByClassesAsync(Access_Token, classes, onlyHeaders);
 
         /// <summary>
         /// Возвращает работу по заданному идентификатору класса.

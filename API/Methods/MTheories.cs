@@ -30,13 +30,20 @@ namespace nsAPI.Methods
             //Console.WriteLine(theoryJson);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("theory.add/", theoryJson, urlParams);
-            // Конвертируем данные из нулевой ячейки массива ответа в тип IdentifierClassroom.
-            Identifier id = Identifier.FromJson(httpResponse.data[0].ToString());
-            // Расшифровываем.
-            //ids.DecryptByAES();
-            //
-            theory.ID = id.ID;
-            return theory;
+            if (httpResponse.data != null)
+            {
+                // Конвертируем данные из нулевой ячейки массива ответа в тип IdentifierClassroom.
+                Identifier id = Identifier.FromJson(httpResponse.data[0].ToString());
+                // Расшифровываем.
+                //ids.DecryptByAES();
+                //
+                theory.ID = id.ID;
+                return theory;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -62,19 +69,22 @@ namespace nsAPI.Methods
             string usersJSON = JsonConvert.SerializeObject(d);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("theory.get/", usersJSON, urlParam);
-            // Возвращаем список классов.
-            List<Theory> registeredTheories = new List<Theory>();
-            //
-            httpResponse.data.ForEach(el =>
+            if (httpResponse.data != null)
             {
-                Theory theory = Theory.FromJson(el.ToString());
-                if (theory == null) throw new EmptyHttpResponseException();
-                registeredTheories.Add(theory);
-            });
-            // Расшифровываем данные класса.
-            registeredTheories.ForEach(u => { if (u!=null) u.Decrypt(); });
-            // Возвращаем список классов.
-            return registeredTheories;
+                // Возвращаем список классов.
+                List<Theory> registeredTheories = new List<Theory>();
+                //
+                httpResponse.data.ForEach(el =>
+                    registeredTheories.Add(Theory.FromJson(el.ToString())));
+                // Расшифровываем данные класса.
+                registeredTheories.ForEach(u => { if (u != null) u.Decrypt(); });
+                // Возвращаем список классов.
+                return registeredTheories;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -94,7 +104,7 @@ namespace nsAPI.Methods
             // Возвращаем список теории.
             List<Theory> registeredTheories = await ByIDsAsync(api_token, theoryIdIds);
             // Возвращаем теорию.
-            return registeredTheories[0];
+            return registeredTheories?[0];
         }
 
         /// <summary>
@@ -112,17 +122,26 @@ namespace nsAPI.Methods
             urlParam.Add("id_Class", id_class);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpGetAsync("theory.get/", urlParam);
-            // Возвращаем список классов.
-            List<Theory> registeredTheories = new List<Theory>();
-            //
-            httpResponse.data.ForEach(el =>
+            if (httpResponse.data != null)
             {
-                registeredTheories.Add(JsonConvert.DeserializeObject<Theory>(el.ToString()));
-            });
-            // Расшифровываем данные класса.
-            registeredTheories.ForEach(u => u.Decrypt());
-            // Возвращаем список классов.
-            return registeredTheories;
+
+
+                // Возвращаем список классов.
+                List<Theory> registeredTheories = new List<Theory>();
+                //
+                httpResponse.data.ForEach(el =>
+                {
+                    registeredTheories.Add(JsonConvert.DeserializeObject<Theory>(el.ToString()));
+                });
+                // Расшифровываем данные класса.
+                registeredTheories.ForEach(u => u.Decrypt());
+                // Возвращаем список классов.
+                return registeredTheories;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

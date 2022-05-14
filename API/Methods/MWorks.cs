@@ -48,12 +48,19 @@ namespace nsAPI.Methods
             Console.WriteLine(workJson);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("works.add/", workJson, urlParams);
-            // Конвертируем данные из нулевой ячейки массива ответа в тип IdentifierClassroom.
-            id = Identifier.FromJson(httpResponse.data[0].ToString());
-            // Расшифровываем.
-            id.DecryptByAES();
-            //
-            return id.ID;
+            if (httpResponse.data != null)
+            {
+                // Конвертируем данные из нулевой ячейки массива ответа в тип IdentifierClassroom.
+                id = Identifier.FromJson(httpResponse.data[0].ToString());
+                // Расшифровываем.
+                id.DecryptByAES();
+                //
+                return id.ID;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -90,12 +97,19 @@ namespace nsAPI.Methods
             Console.WriteLine(workJson);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("works.add/", workJson, urlParams);
-            // Конвертируем данные из нулевой ячейки массива ответа в тип IdentifierClassroom.
-            id = Identifier.FromJson(httpResponse.data[0].ToString());
-            // Расшифровываем.
-            id.DecryptByAES();
-            //
-            return id.ID;
+            if (httpResponse.data != null)
+            {
+                // Конвертируем данные из нулевой ячейки массива ответа в тип IdentifierClassroom.
+                id = Identifier.FromJson(httpResponse.data[0].ToString());
+                // Расшифровываем.
+                id.DecryptByAES();
+                //
+                return id.ID;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -123,51 +137,68 @@ namespace nsAPI.Methods
             string dataJSON = JsonConvert.SerializeObject(d);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("works.get/", dataJSON, urlParam);
-            // Список работ.
-            Works works = new Works();
-            //
-            httpResponse.data.ForEach(el =>
+            if (httpResponse != null)
             {
-                JObject work = JsonConvert.DeserializeObject<JObject>(el.ToString());
-                if (work.ContainsKey("WorkHeader"))
+                // Список работ.
+                Works works = new Works();
+                //
+                httpResponse.data.ForEach(el =>
                 {
+                    JObject work = JsonConvert.DeserializeObject<JObject>(el.ToString());
+                    if (work.ContainsKey("WorkHeader"))
+                    {
                     // Получение заголовка.
                     WorkHeader workHeader = JsonConvert.DeserializeObject<WorkHeader>(work["WorkHeader"].ToString());
                     // Расшифровка заголовка.
                     workHeader.DecryptByAES();
                     // Test
                     if (workHeader.id_TypeWork == "1")
-                    {
+                        {
                         //
                         TestWork testWork = new TestWork();
                         //
                         testWork.WorkHeader = workHeader;
-                        if (work.ContainsKey("WorkBody"))
-                        {
-                            testWork.WorkBody = JsonConvert.DeserializeObject<List<TestTask>>(work["WorkBody"].ToString());
-                            testWork.DecryptBodyByAES();
-                        }
+                            if (work.ContainsKey("WorkBody"))
+                            {
+                                testWork.WorkBody = JsonConvert.DeserializeObject<List<TestTask>>(work["WorkBody"].ToString());
+                                testWork.DecryptBodyByAES();
+                            }
                         // Сохраняем работу.
                         works.TestWorks.Add(testWork);
-                    }// Text
+                        }// Text
                     else if (workHeader.id_TypeWork == "2")
-                    {
+                        {
                         //
                         TextWork textWork = new TextWork();
-                        textWork.WorkHeader = workHeader;
-                        if (work.ContainsKey("WorkBody"))
-                        {
-                            textWork.WorkBody = JsonConvert.DeserializeObject<List<TextTask>>(work["WorkBody"].ToString());
-                            textWork.DecryptBodyByAES();
-                        }
+                            textWork.WorkHeader = workHeader;
+                            if (work.ContainsKey("WorkBody"))
+                            {
+                                textWork.WorkBody = JsonConvert.DeserializeObject<List<TextTask>>(work["WorkBody"].ToString());
+                                textWork.DecryptBodyByAES();
+                            }
                         // Сохраняем работу.
                         works.TextWorks.Add(textWork);
+                        }
                     }
-                }
-            });
-            // Возвращаем список классов.
-            return works;
+                });
+                // Возвращаем список классов.
+                return works;
+            }
+            else
+            {
+                return null;
+            }
         }
+
+        /// <summary>
+        /// Список работ по списку классов.
+        /// </summary>
+        /// <param name="api_token"></param>
+        /// <param name="classes"></param>
+        /// <param name="onlyHeaders"></param>
+        /// <returns></returns>
+        public async Task<Works> ByClassesAsync(string api_token, List<RegisteredClassroom> classes, bool onlyHeaders = true) =>
+            await ByClassesIdsAsync(api_token, classes?.Select(c => c.ID).ToArray(), onlyHeaders);
 
         /// <summary>
         /// Получает информацию о работах с заданным ID класса.

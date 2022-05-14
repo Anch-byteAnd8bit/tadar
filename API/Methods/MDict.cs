@@ -50,8 +50,15 @@ namespace nsAPI.Methods
             string wordsJson = JsonConvert.SerializeObject(words);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("dict.add/", wordsJson, urlParams);
-            // 
-            return httpResponse.data[0].ToString() == OK;
+            if (httpResponse.data != null)
+            {
+                // 
+                return httpResponse.data[0].ToString() == OK;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -88,17 +95,24 @@ namespace nsAPI.Methods
             string postDataJSON = JsonConvert.SerializeObject(d);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("dict.get/", postDataJSON, urlParam);
-            // Возвращаем список классов.
-            List<Word> dict = new List<Word>();
-            //
-            httpResponse.data.ForEach(el =>
+            if (httpResponse.data != null)
             {
-                dict.Add(JsonConvert.DeserializeObject<Word>(el.ToString()));
-            });
-            // Расшифровываем данные словаря.
-            dict.ForEach(u => u.Decrypte());
-            // Возвращаем список слов.
-            return dict;
+                // Возвращаем список классов.
+                List<Word> dict = new List<Word>();
+                //
+                httpResponse.data.ForEach(el =>
+                {
+                    dict.Add(JsonConvert.DeserializeObject<Word>(el.ToString()));
+                });
+                // Расшифровываем данные словаря.
+                dict.ForEach(u => u.Decrypte());
+                // Возвращаем список слов.
+                return dict;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<List<Word>> GetCommonAsync(string api_token, SettingsFind settingsFind)
@@ -118,22 +132,28 @@ namespace nsAPI.Methods
             string postDataJSON = JsonConvert.SerializeObject(d);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("dict.get/", postDataJSON, urlParam);
-            // Возвращаем список классов.
-            List<Word> dict = new List<Word>();
-            //
-            httpResponse.data.ForEach(el =>
+            if (httpResponse.data != null)
             {
-                dict.Add(JsonConvert.DeserializeObject<Word>(el.ToString()));
-            });
-            // Расшифровываем данные словаря.
-            dict.ForEach(u => u.Decrypte());
-            // Возвращаем список слов.
-            return dict;
+                // Возвращаем список классов.
+                List<Word> dict = new List<Word>();
+                //
+                httpResponse.data.ForEach(el =>
+                {
+                    dict.Add(JsonConvert.DeserializeObject<Word>(el.ToString()));
+                });
+                // Расшифровываем данные словаря.
+                dict.ForEach(u => u.Decrypte());
+                // Возвращаем список слов.
+                return dict;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<List<Word>> GetCombinedAsync(string api_token, string id_User, SettingsFind settingsFind)
         {
-
             if (settingsFind == null) settingsFind = new SettingsFind();
 
             // Обязательно добавляем в запрос НЕ зашифрованный ключ доступа.
@@ -150,17 +170,24 @@ namespace nsAPI.Methods
             string postDataJSON = JsonConvert.SerializeObject(d);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("dict.get/", postDataJSON, urlParam);
-            // Возвращаем список классов.
-            List<Word> dict = new List<Word>();
-            //
-            httpResponse.data.ForEach(el =>
+            if (httpResponse.data != null)
             {
-                dict.Add(JsonConvert.DeserializeObject<Word>(el.ToString()));
-            });
-            // Расшифровываем данные словаря.
-            dict.ForEach(u => u.Decrypte());
-            // Возвращаем список слов.
-            return dict;
+                // Возвращаем список классов.
+                List<Word> dict = new List<Word>();
+                //
+                httpResponse.data.ForEach(el =>
+                {
+                    dict.Add(JsonConvert.DeserializeObject<Word>(el.ToString()));
+                });
+                // Расшифровываем данные словаря.
+                dict.ForEach(u => u.Decrypte());
+                // Возвращаем список слов.
+                return dict;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         

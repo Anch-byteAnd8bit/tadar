@@ -23,15 +23,22 @@ namespace nsAPI.Methods
             urlParams["refbook"] = nameRefbook;
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpGetAsync( "refbooks.get", urlParams);
-            // Если пришел пустой ответ - значит в справочнике еще нет данных!
-            if (httpResponse.data[0].ToString().Contains(Nothing)) return null;
-            // Конвертируем данные из массива ответа в список типа Refbook.
-            List<Refbook> res = new List<Refbook>();
-            httpResponse.data.ForEach(x =>
+            if (httpResponse.data != null)
             {
-                res.Add(JsonConvert.DeserializeObject<Refbook>(x.ToString()));
-            });
-            return res;
+                // Если пришел пустой ответ - значит в справочнике еще нет данных!
+                if (httpResponse.data[0].ToString().Contains(Nothing)) return null;
+                // Конвертируем данные из массива ответа в список типа Refbook.
+                List<Refbook> res = new List<Refbook>();
+                httpResponse.data.ForEach(x =>
+                {
+                    res.Add(JsonConvert.DeserializeObject<Refbook>(x.ToString()));
+                });
+                return res;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -86,7 +93,7 @@ namespace nsAPI.Methods
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("refbook.add/", refbookJson, urlParams);
             // Ответ.
-            return httpResponse.data[0].ToString() == "OK";
+            return httpResponse.data?[0]?.ToString() == "OK";
         }
     }
 }

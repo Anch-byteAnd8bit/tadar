@@ -11,6 +11,7 @@ using nsAPI.JSON;
 
 namespace nsAPI.Methods
 {
+
     /// <summary>
     /// Параметры возврата количества и сдвига.
     /// </summary>
@@ -38,8 +39,8 @@ namespace nsAPI.Methods
         public static string OK = "OK";
 
         // Ссылка для запросов.
-        protected readonly string apiURL = "http://api.great-duet.localhost/";
-        //protected readonly string apiURL = "http://api.great-duet.ru/";
+        //protected readonly string apiURL = "http://api.great-duet.localhost/";
+        protected readonly string apiURL = "http://api.great-duet.ru/";
 
         /// <summary>
         /// Вспопогмательная строка при POST-запросах.
@@ -48,6 +49,8 @@ namespace nsAPI.Methods
 
         /// Для работы с HTTP.
         protected HttpClient httpClient;
+
+        public Response Response { get; set; }
 
         public Basic(string apiURL = null)
         {
@@ -65,29 +68,7 @@ namespace nsAPI.Methods
             httpClient.DefaultRequestHeaders.Add("User-Agent", UserAgent.Chrome);
 
             //httpRequest.EnableEncodingContent = true;
-        }
-
-        protected Response ProcessingHttpResponse(string httpResponse)
-        {
-            // Если вернулась ошибка.
-            if (JSONHelper.IsError(httpResponse))
-            {
-                // Произошла ошибка при попытке получения информации из БД.
-                Error error = Error.FromJson(httpResponse);
-                // Обработка ошибки.
-                throw new ErrorResponseException(error);
-            }
-            else if (JSONHelper.IsResponse(httpResponse))
-            {
-                // Конвертируем строку JSON в тип response.
-                return Response.FromJson(httpResponse);
-            }
-            // Если полученная строка незнакома.
-            else
-            {
-                throw new UnknownHttpResponseException(httpResponse);
-            }
-        }
+        }        
 
         /// <summary>
         /// Отправляет POST-запрос на указанный метод с данными в формате JSON.
@@ -113,17 +94,12 @@ namespace nsAPI.Methods
                 // Проверяем ответ. Если код ответа НЕ 200-299, то ошибка.
                 if (!httpResponse.IsSuccessStatusCode)
                 {
-                    throw new HttpResponseException(httpResponse);
+                    return Response = new Response(httpResponse);
                 }
                 // Получаем ответ ассинхронно в виде строки.
                 string jsonResponse = await httpResponse.Content.ReadAsStringAsync();
-                // Пришёл пустой ответ от сервера.
-                if (string.IsNullOrEmpty(jsonResponse))
-                {
-                    throw new EmptyHttpResponseException();
-                }
                 // Вовзвращаем.
-                return ProcessingHttpResponse(jsonResponse);
+                return Response = new Response(jsonResponse);
             }
         }
 
@@ -140,19 +116,12 @@ namespace nsAPI.Methods
             // Проверяем ответ. Если код ответа НЕ 200-299, то возвращаем пустую строку.
             if (!httpResponse.IsSuccessStatusCode)
             {
-                throw new HttpResponseException(httpResponse);
+                return Response = new Response(httpResponse);
             }
             // Получаем ответ ассинхронно в виде строки.
             string jsonResponse = await httpResponse.Content.ReadAsStringAsync();
-            // Пришёл пустой ответ от сервера.
-            if (string.IsNullOrEmpty(jsonResponse))
-            {
-                throw new EmptyHttpResponseException();
-            }
-            // Выводим в консоль.
-            Log.Write(jsonResponse);
             // Вовзвращаем.
-            return ProcessingHttpResponse(jsonResponse);
+            return Response = new Response(jsonResponse);
         }
     }
 }

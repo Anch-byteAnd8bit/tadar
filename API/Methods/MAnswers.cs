@@ -10,7 +10,6 @@ namespace nsAPI.Methods
 {
     class MAnswers: Basic
     {
-
         public async Task<string> TestAnswerAddAsync(string api_token, TestAnswerForAdd answer)
         {
             // Тут Будет храниться результат запроса.
@@ -40,11 +39,18 @@ namespace nsAPI.Methods
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("answers.add/", answerJson, urlParams);
             // Конвертируем данные из нулевой ячейки массива ответа в тип IdentifierClassroom.
-            id = Identifier.FromJson(httpResponse.data[0].ToString());
-            // Расшифровываем.
-            id.DecryptByAES();
-            //
-            return id.ID;
+            if (httpResponse.data != null)
+            {
+                id = Identifier.FromJson(httpResponse.data[0].ToString());
+                // Расшифровываем.
+                id.DecryptByAES();
+                //
+                return id.ID;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<string> TextAnswerAddAsync(string api_token, TextAnswerForAdd answer)
@@ -74,12 +80,19 @@ namespace nsAPI.Methods
             string answerJson = answer.ToJson();
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("answers.add/", answerJson, urlParams);
-            // Конвертируем данные из нулевой ячейки массива ответа в тип IdentifierClassroom.
-            id = Identifier.FromJson(httpResponse.data[0].ToString());
-            // Расшифровываем.
-            id.DecryptByAES();
-            //
-            return id.ID;
+            if (httpResponse.data != null)
+            {
+                // Конвертируем данные из нулевой ячейки массива ответа в тип IdentifierClassroom.
+                id = Identifier.FromJson(httpResponse.data[0].ToString());
+                // Расшифровываем.
+                id.DecryptByAES();
+                //
+                return id.ID;
+            }
+            else
+            {
+                return null;
+            }
         }
 
 
@@ -101,54 +114,62 @@ namespace nsAPI.Methods
             string dataJSON = JsonConvert.SerializeObject(d);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("answers.get/", dataJSON, urlParam);
-            // Список работ.
-            Answers answers = new Answers();
-            //
-            httpResponse.data.ForEach(el =>
+
+            if (httpResponse.data != null)
             {
-                JObject answer = JsonConvert.DeserializeObject<JObject>(el.ToString());
-                if (answer.ContainsKey("AnswerHeader"))
+                // Список работ.
+                Answers answers = new Answers();
+                //
+                httpResponse.data.ForEach(el =>
                 {
+                    JObject answer = JsonConvert.DeserializeObject<JObject>(el.ToString());
+                    if (answer.ContainsKey("AnswerHeader"))
+                    {
                     // Получение заголовка.
                     AnswerHeader answerHeader = JsonConvert.DeserializeObject<AnswerHeader>(answer["AnswerHeader"].ToString());
                     // Расшифровка заголовка.
                     answerHeader.DecryptByAES();
                     // Test
                     if (answerHeader.id_TypeWork == "1")
-                    {
+                        {
                         //
                         TestAnswer testAnswer = new TestAnswer();
                         //
                         testAnswer.AnswerHeader = answerHeader;
-                        if (answer.ContainsKey("AnswerBody"))
-                        {
-                            testAnswer.AnswerBody = JsonConvert.DeserializeObject<List<TestAnswerBody>>(answer["AnswerBody"].ToString());
-                            testAnswer.DecryptBodyByAES();
-                        }
+                            if (answer.ContainsKey("AnswerBody"))
+                            {
+                                testAnswer.AnswerBody = JsonConvert.DeserializeObject<List<TestAnswerBody>>(answer["AnswerBody"].ToString());
+                                testAnswer.DecryptBodyByAES();
+                            }
                         // Сохраняем работу.
                         answers.TestAnswers.Add(testAnswer);
-                    }// Text
+                        }// Text
                     else if (answerHeader.id_TypeWork == "2")
-                    {
+                        {
                         //
                         TextAnswer textAnswer = new TextAnswer();
-                        textAnswer.AnswerHeader = answerHeader;
-                        if (answer.ContainsKey("AnswerBody"))
-                        {
-                            textAnswer.AnswerBody = JsonConvert.DeserializeObject<List<TextAnswerBody>>(answer["AnswerBody"].ToString());
-                            textAnswer.DecryptBodyByAES();
-                        }
+                            textAnswer.AnswerHeader = answerHeader;
+                            if (answer.ContainsKey("AnswerBody"))
+                            {
+                                textAnswer.AnswerBody = JsonConvert.DeserializeObject<List<TextAnswerBody>>(answer["AnswerBody"].ToString());
+                                textAnswer.DecryptBodyByAES();
+                            }
                         // Сохраняем работу.
                         answers.TextAnswers.Add(textAnswer);
+                        }
+                        else
+                        {
+                            throw new Exception("При получении ответов на работу не задан тип работы!");
+                        }
                     }
-                    else
-                    {
-                        throw new Exception("При получении ответов на работу не задан тип работы!");
-                    }
-                }
-            });
-            // Возвращаем список классов.
-            return answers;
+                });
+                // Возвращаем список классов.
+                return answers;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<Answers> ByWorkIdAsync(string api_token, string workId, bool onlyHeaders = true)
@@ -191,8 +212,15 @@ namespace nsAPI.Methods
             Console.WriteLine(postParamsJson);
             // Отправляем на сервер.
             var httpResponse = await httpPostJSONAsync("mark.add/", postParamsJson, urlParams);
-            // Ответ.
-            return httpResponse.data[0].ToString() == "OK";
+            if (httpResponse.data != null)
+            {
+                // Ответ.
+                return httpResponse.data[0].ToString() == "OK";
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>

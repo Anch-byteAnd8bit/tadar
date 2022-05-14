@@ -33,12 +33,19 @@ namespace nsAPI.Methods
             string classroomJson = classroom.ToJson();
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("classes.add/", classroomJson, urlParams);
-            // Конвертируем данные из нулевой ячейки массива ответа в тип RegisteredClassroom.
-            var registeredClassroom = RegisteredClassroom.FromJson(httpResponse.data[0].ToString());
-            // Расшифровываем токен.
-            registeredClassroom.DecryptByAES();
-            //
-            return registeredClassroom;
+            if (httpResponse.data != null)
+            {
+                // Конвертируем данные из нулевой ячейки массива ответа в тип RegisteredClassroom.
+                var registeredClassroom = RegisteredClassroom.FromJson(httpResponse.data[0].ToString());
+                // Расшифровываем токен.
+                registeredClassroom.DecryptByAES();
+                //
+                return registeredClassroom;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -63,17 +70,24 @@ namespace nsAPI.Methods
             string usersJSON = JsonConvert.SerializeObject(d);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("class.get/", usersJSON, urlParam);
-            // Возвращаем список классов.
-            List<RegisteredClassroom> registeredClassroom = new List<RegisteredClassroom>();
-            //
-            httpResponse.data.ForEach(el =>
+            if (httpResponse.data != null)
             {
-                registeredClassroom.Add(JsonConvert.DeserializeObject<RegisteredClassroom>(el.ToString()));
-            });
-            // Расшифровываем данные класса.
-            registeredClassroom.ForEach(u => u.DecryptByAES());
-            // Возвращаем список классов.
-            return registeredClassroom;
+                // Возвращаем список классов.
+                List<RegisteredClassroom> registeredClassroom = new List<RegisteredClassroom>();
+                //
+                httpResponse.data.ForEach(el =>
+                {
+                    registeredClassroom.Add(JsonConvert.DeserializeObject<RegisteredClassroom>(el.ToString()));
+                });
+                // Расшифровываем данные класса.
+                registeredClassroom.ForEach(u => u.DecryptByAES());
+                // Возвращаем список классов.
+                return registeredClassroom;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -86,14 +100,14 @@ namespace nsAPI.Methods
             if (string.IsNullOrWhiteSpace(classroomId))
             {
                 return null;
-                //TODO: exception...
+                throw new Exception("не заданы идентификатор класса!");
             }
             // Засовываем идентификатор класса в массив, чтобы отправить его в функцию получения списка классов.
             string[] classroomIds = { classroomId };
             // Возвращаем список классов.
             List<RegisteredClassroom> registeredClassroom = await ByIdAsync(api_token, classroomIds);
             // Возвращаем класс.
-            return registeredClassroom[0];
+            return registeredClassroom?[0];
         }
 
 
@@ -112,21 +126,28 @@ namespace nsAPI.Methods
             // Добавление в массив по ключу "id", идентификатора пользователя.
             urlParam.Add("id_User", userId);
             // Добавляем роль пользователя в классах в параметры запроса.
-            if (idrole == null) idrole = "0";
+            if (idrole == null) idrole = "3";
             urlParam.Add("id_Role", idrole);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpGetAsync("classes.byUser/", urlParam);
-            // Возвращаем список классов.
-            List<RegisteredClassroom> registeredClassroom = new List<RegisteredClassroom>();
-            //
-            httpResponse.data.ForEach(el =>
+            if (httpResponse.data != null)
             {
-                registeredClassroom.Add(JsonConvert.DeserializeObject<RegisteredClassroom>(el.ToString()));
-            });
-            // Расшифровываем данные класса.
-            registeredClassroom.ForEach(u => u.DecryptByAES());
-            // Возвращаем список классов.
-            return registeredClassroom;
+                // Возвращаем список классов.
+                List<RegisteredClassroom> registeredClassroom = new List<RegisteredClassroom>();
+                //
+                httpResponse.data.ForEach(el =>
+                {
+                    registeredClassroom.Add(JsonConvert.DeserializeObject<RegisteredClassroom>(el.ToString()));
+                });
+                // Расшифровываем данные класса.
+                registeredClassroom.ForEach(u => u.DecryptByAES());
+                // Возвращаем список классов.
+                return registeredClassroom;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<List<RegisteredClassroom>> GetAllAsync(string api_token, SettingsFind settings)
@@ -149,17 +170,24 @@ namespace nsAPI.Methods
 
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpGetAsync("class.getAll", urlParam);
-            // Возвращаем список классов.
-            List<RegisteredClassroom> registeredClassroom = new List<RegisteredClassroom>();
-            //
-            httpResponse.data.ForEach(el =>
+            if (httpResponse.data != null)
             {
-                registeredClassroom.Add(JsonConvert.DeserializeObject<RegisteredClassroom>(el.ToString()));
-            });
-            // Расшифровываем данные класса.
-            registeredClassroom.ForEach(u => u.DecryptByAES());
-            // Возвращаем список классов.
-            return registeredClassroom;
+                // Возвращаем список классов.
+                List<RegisteredClassroom> registeredClassroom = new List<RegisteredClassroom>();
+                //
+                httpResponse.data.ForEach(el =>
+                {
+                    registeredClassroom.Add(JsonConvert.DeserializeObject<RegisteredClassroom>(el.ToString()));
+                });
+                // Расшифровываем данные класса.
+                registeredClassroom.ForEach(u => u.DecryptByAES());
+                // Возвращаем список классов.
+                return registeredClassroom;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<bool> AddStudent(string api_token, string id_user, string id_class)
@@ -184,8 +212,15 @@ namespace nsAPI.Methods
             string postParamsJson = JsonConvert.SerializeObject(postParam);
             // Отправляем на сервер.
             var httpResponse = await httpPostJSONAsync("user.intoclass/", postParamsJson, urlParam);
-            // Ответ.
-            return httpResponse.data[0].ToString() == "OK";
+            if (httpResponse.data == null) { 
+                // Ответ.
+                return httpResponse.data[0].ToString() == "OK";
+            }
+            else
+            {
+                return false;
+            }
+
         }
     }
 }

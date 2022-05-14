@@ -1,4 +1,5 @@
-﻿using nsAPI.Entities;
+﻿using Helpers;
+using nsAPI.Entities;
 using nsAPI.Helpers;
 using nsAPI.Methods;
 using System;
@@ -81,7 +82,7 @@ namespace nsAPI.Examples
             }
             catch (Exception ex)
             {
-                _ = MessageBox.Show(ex.Message);
+                Msg.Write(ex.Message);
             }
         }
 
@@ -91,8 +92,8 @@ namespace nsAPI.Examples
         public async Task AddUserInClassroom()
         {
             bool result = await api.AddStudent(api.MainUser.ID, curClassroom.ID);
-            if (result) _ = MessageBox.Show("Пользователь добавлен в класс!");
-            else _ = MessageBox.Show("Не удалось добавить пользователя в класс!");
+            if (result) Msg.Write("Пользователь добавлен в класс!");
+            else Msg.Write("Не удалось добавить пользователя в класс!");
         }
 
         /// <summary>
@@ -261,13 +262,13 @@ namespace nsAPI.Examples
                 Count = 8
             };
             List<RegisteredClassroom> classrooms = await api.GetAllClassess(settingsFind);
-            MessageBox.Show(classrooms.Count.ToString());
+            Msg.Write(classrooms.Count.ToString());
         }
 
         public async Task GetClassroomByIdAsync()
         {
             RegisteredClassroom classroom = await api.GetClassroomByIdAsync("1");
-            _ = MessageBox.Show(classroom.DateTimeCreate);
+            Msg.Write(classroom.DateTimeCreate);
         }
 
         /// <summary>
@@ -277,7 +278,7 @@ namespace nsAPI.Examples
         public async Task GetClassroomByUserIdAsync()
         {
             List<RegisteredClassroom> classrooms = await api.GetClassroomsByUserIdAsync("1");
-            _ = MessageBox.Show(classrooms.Count.ToString());
+            Msg.Write(classrooms.Count.ToString());
         }
 
         /// <summary>
@@ -296,7 +297,7 @@ namespace nsAPI.Examples
         public async Task GetListOfWorksByClassesIDsAsync()
         {
             Works works = await api.GetWorksByClassesIDAsync(new string[] { "10", "16" }, false);
-            MessageBox.Show(works.TestWorks.Count.ToString() + " and " + works.TextWorks.Count.ToString());
+            Msg.Write(works.TestWorks.Count.ToString() + " and " + works.TextWorks.Count.ToString());
         }
 
         /// <summary>
@@ -306,7 +307,7 @@ namespace nsAPI.Examples
         public async Task GetListOfWorksByClassIdAsync()
         {
             Works works = await api.GetWorksByClassIDAsync("10");
-            MessageBox.Show(works.TestWorks.Count.ToString() + " and " + works.TextWorks.Count.ToString());
+            Msg.Write(works.TestWorks.Count.ToString() + " and " + works.TextWorks.Count.ToString());
         }
 
         /// <summary>
@@ -331,7 +332,7 @@ namespace nsAPI.Examples
             };
 
             theory = await api.AddTheory(theory);
-            _ = MessageBox.Show(theory.ID);
+            Msg.Write(theory.ID);
         }
 
         /// <summary>
@@ -341,7 +342,7 @@ namespace nsAPI.Examples
         public async Task GetTheoryByIDAsync()
         {
             Theory theory = await api.GetTheoryByIDAsync("1");
-            _ = MessageBox.Show(theory.ID);
+            Msg.Write(theory.ID);
         }
 
         /// <summary>
@@ -351,7 +352,7 @@ namespace nsAPI.Examples
         public async Task GetTheoriesByClassroomIDAsync()
         {
             List<Theory> theories = await api.GetTheoriesByClassroomIDAsync("38");
-            _ = MessageBox.Show(theories.Count.ToString());
+            Msg.Write(theories.Count.ToString());
         }
 
         /// <summary>
@@ -361,7 +362,7 @@ namespace nsAPI.Examples
         {
             SettingsFind set = new SettingsFind { Shift = 0, Count = 5 };
             List<Word> words = await api.GetUserWords("1", set);
-            _ = MessageBox.Show(string.Join(" ", words.Select(word => word.RusWord)));
+            Msg.Write(string.Join(" ", words.Select(word => word.RusWord)));
         }
          
         /// <summary>
@@ -371,7 +372,7 @@ namespace nsAPI.Examples
         {
             SettingsFind set = new SettingsFind { Shift = 0, Count = 5 };
             List<Word> words = await api.GetCommonWords(set);
-            _ = MessageBox.Show(string.Join(" ", words.Select(word => word.RusWord)));
+            Msg.Write(string.Join(" ", words.Select(word => word.RusWord)));
         }
 
         /// <summary>
@@ -381,7 +382,7 @@ namespace nsAPI.Examples
         {
             SettingsFind set = new SettingsFind { Shift = 0, Count = 5 };
             List<Word> words = await api.GetCombiWords("3", set);
-            _ = MessageBox.Show(string.Join(" ", words.Select(word => word.RusWord)));
+            Msg.Write(string.Join(" ", words.Select(word => word.RusWord)));
         }
 
         /// <summary>
@@ -399,11 +400,11 @@ namespace nsAPI.Examples
             };
             if (await api.AddWordAsync(word))
             {
-                _ = MessageBox.Show("OK");
+                Msg.Write("OK");
             }
             else
             {
-                _ = MessageBox.Show("Not OK");
+                Msg.Write("Not OK");
             }
         }
 
@@ -422,11 +423,11 @@ namespace nsAPI.Examples
             };
             if (await api.AddWordAsync(word))
             {
-                _ = MessageBox.Show("OK");
+                Msg.Write("OK");
             }
             else
             {
-                _ = MessageBox.Show("Not OK");
+                Msg.Write("Not OK");
             }
         }
     }
