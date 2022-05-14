@@ -378,6 +378,15 @@ namespace nsAPI.Entities
         [JsonProperty("id_Test")]
         public string IdTest { get; set; }
 
+        [JsonIgnore]
+        public bool SelAnsw1 { get; set; }
+        [JsonIgnore]
+        public bool SelAnsw2 { get; set; }
+        [JsonIgnore]
+        public bool SelAnsw3 { get; set; }
+        [JsonIgnore]
+        public bool SelAnsw4 { get; set; }
+
         /// <summary>
         /// Расшифровка тела.
         /// </summary>

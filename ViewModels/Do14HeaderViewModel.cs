@@ -29,7 +29,7 @@ namespace Tadar.ViewModels
                 classrooms = value;
                 OnPropertyChanged(nameof(Classrooms));
                 // Задаем новый выбранный жлемент из списка.
-                SelectedClassroom = Classrooms[0];
+                SelectedClassroom = Classrooms?[0];
             }
         }
 
@@ -136,12 +136,14 @@ namespace Tadar.ViewModels
             }
         }
 
-  
-
-
-
         private void Create_Click(object ob)
         {
+            if (selectedclassroom == null)
+            {
+                Msg.Write("Сначала создайте класс!");
+                return;
+            }
+
             First.Base_frame.Navigate(new Do14(isChecked,Nametest, Desctest,  selectedclassroom));
             //открытие новой страницы с вводом логина и пароля 
         }

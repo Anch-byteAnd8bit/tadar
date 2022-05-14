@@ -9,7 +9,6 @@
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="900"
       Title="Reg">
-
     <Grid x:Name="gris_ent" Background="#FFCAACFF" ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>

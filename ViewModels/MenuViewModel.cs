@@ -32,10 +32,7 @@ namespace Tadar.ViewModels
         {
             try
             {
-                if (api == null)
-                {
-                    throw new Exception("api не создан!!!");
-                }
+                api = nsAPI.API.Instance;
 
                 classrooms = await api.GetClassroomsByUserIdAsync(api.MainUser.ID);
 
@@ -108,6 +105,7 @@ namespace Tadar.ViewModels
         }
         private void make_test_Click(object ob)
         {
+            
             First.Base_frame.Navigate(new DoChoseTypePage());
             //открытие новой страницы с вводом логина и пароля 
         }

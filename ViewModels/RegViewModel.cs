@@ -1,8 +1,10 @@
 ﻿using Helpers;
 using nsAPI;
 using nsAPI.Entities;
+using nsAPI.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,10 +23,10 @@ namespace Tadar.ViewModels
                 // Это надо делать, т.к. это свойство влияет на элемент интерфейса
                 // и если оно не задано, то элементу будет задаваться значение null
                 // что приведет к ошибке.
-                BDate = DateTime.Now.ToString("d"),
+                BDate = ToConvert.DB_DateTimeToStringD(DateTime.Now),
                 GenderID = "1"
             };
-           RegCommand = new Command(OnSave, ValidateSave);
+            RegCommand = new Command(OnSave, ValidateSave);
             // Создаем команду для кнопки. Выполняться при нажатии будет
             // OnSave, а проверять доступна ли кнопка для нажатия,
             // будет метод ValidateSave
@@ -33,22 +35,23 @@ namespace Tadar.ViewModels
                 new Refbook{ ID = "1", Name = "Женский"},
                 new Refbook{ ID = "2", Name = "Мужской"},
             };
-           // Genders = api.Refbooks[TRefbooks.Genders];
+            // Genders = api.Refbooks[TRefbooks.Genders];
             // Получаем список полов от сервера.
-           GettingGenders();
+            GettingGenders();
 
             //
 
-           
+
 
         }
-       public bool isChecked=false;
-       public bool IsChecked { 
+        public bool isChecked = false;
+        public bool IsChecked
+        {
             get => isChecked;
-            set 
+            set
             {
                 isChecked = value;
-                OnPropertyChanged(nameof(isChecked)); 
+                OnPropertyChanged(nameof(isChecked));
             }
         }
         /// <summary>
@@ -180,7 +183,7 @@ namespace Tadar.ViewModels
                 // Если такой элемент в списке не найден, то возвращаем первый элемент
                 // из списка.
                 return
-                    Genders.SingleOrDefault(el=>el.ID == userreg.GenderID)?? Genders[0];
+                    Genders.SingleOrDefault(el => el.ID == userreg.GenderID) ?? Genders[0];
             }
             set
             {
@@ -203,17 +206,21 @@ namespace Tadar.ViewModels
         /// </summary>
         public DateTime BDate
         {
-            get => DateTime.Parse(userreg.BDate);
+            get
+            {
+                var dt = DateTime.Parse(userreg.BDate + " 12:00:00", CultureInfo.InvariantCulture);
+                return dt;
+            }
             set
             {
                 // Задавемое значение конвертируем в формат DateTime.
-                userreg.BDate = value.ToString("d");
+                userreg.BDate = ToConvert.DB_DateTimeToStringD(value);
                 // Уведомление.
                 OnPropertyChanged(nameof(BDate));
             }
         }
 
-        
+
 
         /// <summary>
         /// Валидация - проверка на правильность введенных данных.
@@ -234,7 +241,7 @@ namespace Tadar.ViewModels
                 //birth.BorderBrush = Brushes.Transparent;
             }
 
-            
+
             if (string.IsNullOrWhiteSpace(userreg.Surname))
             {
                 //f_Box.ToolTip = "Введите фамилию!";
@@ -331,12 +338,24 @@ namespace Tadar.ViewModels
             // Во время любой операции с сервером может вылезти ошибка!
             try
             {
-                await api.UserRegAsync(userreg);
+                if (await api.UserRegAsync(userreg))
+                {
+                    Msg.Write(api.MainUser.ID + ": " + api.MainUser.Login + " ("
+                        + api.MainUser.Surname + " " + api.MainUser.Name + ")");
 
-                Msg.Write(api.MainUser.ID + ": " + api.MainUser.Login + " ("
-                    + api.MainUser.Surname + " " + api.MainUser.Name + ")");
-                
-                Models.First.Base_frame.Navigate(new MenuPage());
+                    Models.First.Base_frame.Navigate(new MenuPage());
+                }
+                else
+                {
+                    if (api.LastException.TypeError == TError.DefinedError)
+                    {
+                        if (api.LastException.Code == CODE_ERROR.ERR_UserAlreadyReg)
+                        {
+                            _ = MessageBox.Show("Такой пользователь уже зарегистрирован!");
+                        }
+                    }
+                }
+
             }
             // TODO: надо потом определять тип ошибки и выводить соотвествующие сообщения...
             catch (Exception ex)

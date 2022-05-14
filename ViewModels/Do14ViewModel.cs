@@ -1,13 +1,10 @@
 ﻿using Helpers;
-using nsAPI;
 using nsAPI.Entities;
 using nsAPI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using Tadar.Helpers;
 using Tadar.Models;
@@ -17,9 +14,7 @@ namespace Tadar.ViewModels
 {
     public class Do14ViewModel : BaseViewModel
     {
-        private TestWork test =new TestWork();
-
-       
+        private TestWork test = new TestWork();
 
         public Do14ViewModel(bool nonmark, string nametest, string desctest, RegisteredClassroom classroom)
         {
@@ -30,7 +25,7 @@ namespace Tadar.ViewModels
             }
             else mark = "0";
 
-           
+
             test.WorkHeader = new WorkHeader
             {
                 Description = desctest,
@@ -53,8 +48,8 @@ namespace Tadar.ViewModels
                      PossibleAnsw3="",
                      RightNum="",
                      PossibleAnsw4="",
-                     Word=""
-
+                     Word="",
+                     SelAnsw3 = true
                 },
                 new TestTask
                 {
@@ -65,20 +60,17 @@ namespace Tadar.ViewModels
                      PossibleAnsw3="",
                      RightNum="",
                      PossibleAnsw4="",
-                     Word=""
-
+                     Word="",
+                     SelAnsw1 = true,
                 }
 
             };
-
-            
             CreateClick = new Command(Create_Click);
             AddClick = new Command(Add_Click);
-            
-
         }
 
-        public ObservableCollection<TestTask> TasksList { 
+        public ObservableCollection<TestTask> TasksList
+        {
             get
             {
                 return new ObservableCollection<TestTask>(test.WorkBody);
@@ -86,13 +78,10 @@ namespace Tadar.ViewModels
             set
             {
                 test.WorkBody = value.ToList();
-                OnPropertyChanged("TasksList");
-            } 
+                OnPropertyChanged(nameof(TasksList));
+            }
         }
-    
 
-
-       
         private async void Create_Click(object ob)
         {
             // Во время любой операции с сервером может вылезти ошибка!
@@ -103,10 +92,10 @@ namespace Tadar.ViewModels
                 work.WorkHeader = test.WorkHeader;
                 work.WorkBody = test.WorkBody;
                 //string testwork;
-               work.WorkHeader.ID = await api.AddTestWorkAsync(work);
+                work.WorkHeader.ID = await api.AddTestWorkAsync(work);
+                
                 MessageBox.Show(work.WorkHeader.ID + ": " + work.WorkHeader.Name + work.WorkBody[1].Word);
 
-               
 
                 First.Base_frame.Navigate(new MenuPage());
             }
@@ -115,9 +104,6 @@ namespace Tadar.ViewModels
             {
                 Msg.Write(ex);
             }
-
-
-           
             //открытие новой страницы с вводом логина и пароля 
         }
         public Command CreateClick
@@ -140,26 +126,15 @@ namespace Tadar.ViewModels
 
             };
             test.WorkBody.Add(t);
-            OnPropertyChanged("TasksList");
-
-          
-            
-
+            OnPropertyChanged(nameof(TasksList));
         }
         public Command AddClick
         {
             get;
             set;
         }
-
-
-
-
-
-
-
     }
-    }
+}
 
    
 

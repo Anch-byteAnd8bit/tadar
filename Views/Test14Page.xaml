@@ -6,7 +6,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:viewmodels="clr-namespace:Tadar.ViewModels" xmlns:rules="clr-namespace:Tadar.Views"
       mc:Ignorable="d" 
-     d:DesignHeight="700" d:DesignWidth="900"
+      d:DesignHeight="700" d:DesignWidth="900"
       Title="Test14Page">
 
     <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False" >
@@ -23,15 +23,14 @@
 
         <TextBlock Grid.Row="0"
             Text="{Binding NameTest}"
-                            Foreground="White"
-            Style="{StaticResource MaterialDesignHeadline3TextBlock}"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"/>
+                   Foreground="White"
+                   Style="{StaticResource MaterialDesignHeadline3TextBlock}"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"/>
         
         
         <ListView
             HorizontalAlignment="Center"
-            
             Grid.Row="1"
             Grid.Column="1" 
             x:Name="lvs"
@@ -45,59 +44,54 @@
                             Foreground="White"
                             FontWeight="DemiBold"
                             FontSize="25"
-                            Text="{Binding NumTask}"
-                            ></TextBlock>
-
-
-
+                            Text="{Binding NumTask}">
+                        </TextBlock>
+                        
                         <ItemsControl ItemsSource="{Binding Data}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-
-
+                                    
                                     <StackPanel>
-                                    <RadioButton
-                            GroupName="{Binding ID}"
-                            Style="{StaticResource MaterialDesignRadioButton}" 
-                            FontSize="14"
-                            Content="{ Binding PossibleAnsw1}"
-                            Command="{Binding DataContext.SelectionChengedCommand,
-                            RelativeSource={RelativeSource FindAncestor,
-                            AncestorType={x:Type ItemsControl}}}"
-                            CommandParameter="{Binding}"
-                            >
-                        </RadioButton>
-                        <RadioButton
-                            GroupName="{Binding ID}"
-                            Style="{StaticResource MaterialDesignRadioButton}" 
-                            FontSize="14"
-                            Content="{ Binding PossibleAnsw2}"
-                            Command="{Binding DataContext.SelectionChengedCommand,
-                            RelativeSource={RelativeSource FindAncestor,
-                            AncestorType={x:Type ItemsControl}}}"
-                            CommandParameter="{Binding}"
-                            >
-                        </RadioButton>
-                        <RadioButton
-                            GroupName="{Binding ID}"
-                            Style="{StaticResource MaterialDesignRadioButton}" 
-                            FontSize="14"
-                            Content="{ Binding PossibleAnsw3}"
-                            Command="{Binding DataContext.SelectionChengedCommand,
-                            RelativeSource={RelativeSource FindAncestor,
-                            AncestorType={x:Type ItemsControl}}}"
-                            CommandParameter="{Binding}"
-                            />
-                        <RadioButton
-                            GroupName="{Binding ID}"
-                            Style="{StaticResource MaterialDesignRadioButton}" 
-                            FontSize="14"
-                            Content="{ Binding PossibleAnsw4}"
-                            Command="{Binding DataContext.SelectionChengedCommand,
-                            RelativeSource={RelativeSource FindAncestor,
-                            AncestorType={x:Type ItemsControl}}}"
-                            CommandParameter="{Binding}"
-                            />
+                                        <RadioButton
+                                            GroupName="{Binding ID}"
+                                            Style="{StaticResource MaterialDesignRadioButton}" 
+                                            FontSize="14"
+                                            Content="{ Binding PossibleAnsw1}"
+                                            Command="{Binding DataContext.SelectionChengedCommand,
+                                            RelativeSource={RelativeSource FindAncestor,
+                                            AncestorType={x:Type ItemsControl}}}"
+                                            CommandParameter="{Binding}"
+                                            IsChecked="{Binding SelAnsw1}"/>
+                                        <RadioButton
+                                            GroupName="{Binding ID}"
+                                            Style="{StaticResource MaterialDesignRadioButton}" 
+                                            FontSize="14"
+                                            Content="{ Binding PossibleAnsw2}"
+                                            Command="{Binding DataContext.SelectionChengedCommand,
+                                            RelativeSource={RelativeSource FindAncestor,
+                                            AncestorType={x:Type ItemsControl}}}"
+                                            CommandParameter="{Binding}"
+                                            IsChecked="{Binding SelAnsw2}"/>
+                                        <RadioButton
+                                            GroupName="{Binding ID}"
+                                            Style="{StaticResource MaterialDesignRadioButton}" 
+                                            FontSize="14"
+                                            Content="{ Binding PossibleAnsw3}"
+                                            Command="{Binding DataContext.SelectionChengedCommand,
+                                            RelativeSource={RelativeSource FindAncestor,
+                                            AncestorType={x:Type ItemsControl}}}"
+                                            CommandParameter="{Binding}"
+                                            IsChecked="{Binding SelAnsw3}"/>
+                                        <RadioButton
+                                            GroupName="{Binding ID}"
+                                            Style="{StaticResource MaterialDesignRadioButton}" 
+                                            FontSize="14"
+                                            Content="{ Binding PossibleAnsw4}"
+                                            Command="{Binding DataContext.SelectionChengedCommand,
+                                            RelativeSource={RelativeSource FindAncestor,
+                                            AncestorType={x:Type ItemsControl}}}"
+                                            CommandParameter="{Binding}"
+                                            IsChecked="{Binding SelAnsw4}"/>
                                     </StackPanel>
 
                                 </DataTemplate>
