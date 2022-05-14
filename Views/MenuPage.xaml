@@ -153,7 +153,17 @@
                 Grid.Row="1"
                 Content="Игры"
                 HorizontalAlignment="Center" 
-                Width="255" FontSize="25" 
+                Width="255" FontSize="25" Cursor="Hand" 
+                />
+                <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
+             materialDesign:ButtonAssist.CornerRadius="25" 
+               Height="45"
+                Command="{Binding TheClick}"
+                Grid.Column="2"
+                Grid.Row="2"
+                Content="Теория"
+                HorizontalAlignment="Center" 
+                Width="255" FontSize="25" Cursor="Hand" 
                 />
                 <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
              materialDesign:ButtonAssist.CornerRadius="25" x:Name="mark"

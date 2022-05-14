@@ -37,6 +37,7 @@ namespace Tadar.ViewModels
         }
         private void SelectionChenged(TestTask item) => SelectedItem = item;
 
+
         public string NameTest
         {
             // Когда надо вернуть фамилию.

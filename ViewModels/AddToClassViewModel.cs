@@ -42,23 +42,32 @@ namespace Tadar.ViewModels
                 }
                 classrooms =
                   await api.GetAllClassess();
+                try 
+                { 
                 classroomsuser = await api.GetClassroomsByUserIdAsync(api.MainUser.ID);
 
                 //test = new TestWork();
                 //test.WorkHeader = (WorkHeader)ob;
                 //test.WorkBody = works.TestWorks.SingleOrDefault(w => w.WorkHeader == test.WorkHeader).WorkBody;
                 //First.Base_frame.Navigate(new Test14Page(test));
-
-                for (int i = 0; i < classrooms.Count; i++)
+                if (classroomsuser != null)
                 {
-                    if (classroomsuser.SingleOrDefault(cl=>cl.ID==classrooms[i].ID)!=null)
+                    for (int i = 0; i < classrooms.Count; i++)
                     {
-                        classrooms.Remove(classrooms[i]);
+                        if (classroomsuser.SingleOrDefault(cl => cl.ID == classrooms[i].ID) != null)
+                        {
+                            classrooms.Remove(classrooms[i]);
+                        }
                     }
                 }
-               
-              //  ClasssList = new ObservableCollection<RegisteredClassroom>();
-              
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+                //  ClasssList = new ObservableCollection<RegisteredClassroom>();
+
                 OnPropertyChanged(nameof(Classrooms));
             }
             catch (Exception ex)

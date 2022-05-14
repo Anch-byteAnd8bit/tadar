@@ -207,7 +207,7 @@
             
          Style="{StaticResource MaterialDesignFloatingActionButton}"
         ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Cursor="Hand">
                 ӧ
             </Button>
 

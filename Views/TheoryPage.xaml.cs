@@ -17,24 +17,14 @@ using Tadar.ViewModels;
 namespace Tadar.Views
 {
     /// <summary>
-    /// Логика взаимодействия для marks.xaml
+    /// Логика взаимодействия для TheoryPage.xaml
     /// </summary>
-    public partial class marks : Page
+    public partial class TheoryPage : Page
     {
-       
-        public marks()
+        public TheoryPage()
         {
             InitializeComponent();
-            DataContext = new MarkViewModel();
-           
-            //Journ.DataContext = custDataTable;
-            //journclass.ItemsSource = LoadCollectionData();
-
+            DataContext = new TheoryViewModel();
         }
-        
-
-       
-       
-
     }
 }

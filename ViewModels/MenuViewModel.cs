@@ -24,6 +24,7 @@ namespace Tadar.ViewModels
             MaketestClick = new Command(make_test_Click);
             SelftestClick = new Command(selftest_Click);
             DicktClick= new Command(Dickt_Click);
+            TheClick = new Command(The_Click);
             LoadClasssAsync();
         }
 
@@ -73,6 +74,11 @@ namespace Tadar.ViewModels
         private void mark_Click(object ob)
         {
             First.Base_frame.Navigate(new marks());
+            //открытие новой страницы с вводом логина и пароля 
+        }
+        private void The_Click(object ob)
+        {
+            First.Base_frame.Navigate(new TheoryPage());
             //открытие новой страницы с вводом логина и пароля 
         }
         private void Dickt_Click(object ob)
@@ -129,7 +135,11 @@ namespace Tadar.ViewModels
                 OnPropertyChanged(nameof(Fullname));
             }
         }
-
+        public Command TheClick
+        {
+            get;
+            set;
+        }
         public Command MarkClick
         {
             get;

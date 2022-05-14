@@ -1,7 +1,10 @@
 ﻿using Helpers;
 using nsAPI.Entities;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 using Tadar.Helpers;
 using Tadar.Models;
 using Tadar.Views;
@@ -10,18 +13,21 @@ namespace Tadar.ViewModels
 {
   public class DictViewModel : BaseViewModel
     {
-       
 
+        private List<Word> words = new List<Word>();
         public DictViewModel()
         {
             //api.MainUser.Name
             AddClick = new Command(Add_Click);
-            DelClick = new Command(Del_Click);
+            //DelClick = new Command(Del_Click);
            
-            LoadUsersAsync();
+            LoadDictAsync();
         }
 
-        public async void LoadUsersAsync()
+       
+
+
+        public async void LoadDictAsync()
         {
             try
             {
@@ -29,28 +35,46 @@ namespace Tadar.ViewModels
                 {
                     throw new Exception("api не создан!!!");
                 }
-                WordsList = new ObservableCollection<RegisteredUser>(await api.FindUsersAsync());
+
+                words = await api.GetCommonWords();
+
+                words.Sort(delegate (Word teacher1, Word teacher2)
+                { return teacher1.RusWord.CompareTo(teacher2.RusWord); });
+
                 OnPropertyChanged(nameof(WordsList));
             }
             catch (Exception ex)
-            {
-                Log.Write(ex.Message);
+            { 
+                MessageBox.Show(ex.Message);
             }
         }
-        public ObservableCollection<RegisteredUser> WordsList { get; set; }
 
+
+        // public ObservableCollection<Word> WordsList { get; set; }
+
+        public List<Word> WordsList
+        {
+            get { return words; }
+            set
+            {
+                words = value;
+                OnPropertyChanged(nameof(WordsList));
+                // Задаем новый выбранный жлемент из списка.
+                // SelectedClassroom = Classrooms[0];
+            }
+        }
 
 
         private void Add_Click(object ob)
         {
-            First.Base_frame.Navigate(new marks());
+            First.Base_frame.Navigate(new AddWordPage());
             //открытие новой страницы с вводом логина и пароля 
         }
-        private void Del_Click(object ob)
-        {
-            First.Base_frame.Navigate(new marks());
-            //открытие новой страницы с вводом логина и пароля 
-        }
+        //private void Del_Click(object ob)
+        //{
+        //    First.Base_frame.Navigate(new marks());
+        //    //открытие новой страницы с вводом логина и пароля 
+        //}
 
 
         public Command AddClick
@@ -58,24 +82,24 @@ namespace Tadar.ViewModels
             get;
             set;
         }
-        public Command DelClick
-        {
-            get;
-            set;
-        }
-        public string Surname
-        {
-            // Когда надо вернуть фамилию.
-            get => api.MainUser.Surname;
-            // Когда надо задать фамилию.
-            set
-            {
-                // Присваиваем новое значение фамилии.
-                api.MainUser.Surname = value;
-                // Уведомляем форму, что свойство "Surname" изменилось.
-                OnPropertyChanged(nameof(Surname));
-            }
-        }
+        //public Command DelClick
+        //{
+        //    get;
+        //    set;
+        //}
+        //public string Surname
+        //{
+        //    // Когда надо вернуть фамилию.
+        //    get => api.MainUser.Surname;
+        //    // Когда надо задать фамилию.
+        //    set
+        //    {
+        //        // Присваиваем новое значение фамилии.
+        //        api.MainUser.Surname = value;
+        //        // Уведомляем форму, что свойство "Surname" изменилось.
+        //        OnPropertyChanged(nameof(Surname));
+        //    }
+        //}
         public string Name
         {
             // Получить.

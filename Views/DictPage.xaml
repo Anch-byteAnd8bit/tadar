@@ -21,6 +21,9 @@
 
         </Grid.ColumnDefinitions>
 
+
+      
+
         <TextBlock Grid.Row="0"
             Text="Словарь"
                             Foreground="White"
@@ -43,14 +46,14 @@
                         <TextBlock 
                             HorizontalAlignment="Left" 
                             Grid.Column="0"  
-                            Text="{Binding Name}"
+                            Text="{Binding HakWord}"
                             
                             FontSize="25"
                             Foreground="White"
                             >
                              <Run Text=" –"  FontSize="25"
                             Foreground="White"></Run>
-                            <Run Text="{Binding Surname}"  FontSize="25"
+                            <Run Text="{Binding RusWord}"  FontSize="25"
                             Foreground="White"></Run>
                         </TextBlock>
                         
@@ -63,7 +66,7 @@
         <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
              materialDesign:ButtonAssist.CornerRadius="25" x:Name="class"
                Height="45"
-                Command="{Binding RegCommand}"
+                Command="{Binding AddClick}"
                 Grid.Column="1"
                 Grid.Row="2"
                 Content="Добавить слово"
