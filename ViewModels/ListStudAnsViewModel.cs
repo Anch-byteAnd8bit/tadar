@@ -35,10 +35,10 @@ namespace Tadar.ViewModels
                 }
                 var ansbywork =
                   await api.GetAnswersByWork(test.WorkHeader.ID);
-                string[] usersid = new string[] { };
+                List <string> usersid = new List<string> { };
                 for (int i = 0; i < ansbywork.TestAnswers.Count; i++)
                 {
-                   usersid[i] = ansbywork.TestAnswers[i].AnswerHeader.id_Student;
+                   usersid.Add(ansbywork.TestAnswers[i].AnswerHeader.id_Student);
 
                 }
                 LoadClassAsync(usersid);
@@ -53,7 +53,7 @@ namespace Tadar.ViewModels
         }
 
 
-        public async void LoadClassAsync(string[] iclass)
+        public async void LoadClassAsync(List<string> iclass)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace Tadar.ViewModels
                     throw new Exception("api не создан!!!");
                 }
                 classroomsusers =
-                  await api.GetUsersByIdAsync(iclass);
+                  await api.GetUsersByIdAsync(iclass.ToArray());
 
                 //  ClasssList = new ObservableCollection<RegisteredClassroom>();
 
