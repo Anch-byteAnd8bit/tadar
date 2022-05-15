@@ -58,16 +58,16 @@ namespace Tadar.ViewModels
                 {
                     throw new Exception("api не создан!!!");
                 }
-                
-                
+
+
                 works = await api.GetWorksByClassesIDAsync(idjourn.ToArray(), false);
-                
-               TextsList = new ObservableCollection<WorkHeader>();
+
+                TextsList = new ObservableCollection<WorkHeader>();
                 TestsList = new ObservableCollection<WorkHeader>();
 
                 for (int i = 0; i < works.TestWorks.Count; i++)
                 {
-                    TestsList.Add(works.TestWorks[i].WorkHeader) ;
+                    TestsList.Add(works.TestWorks[i].WorkHeader);
                 }
 
                 for (int i = 0; i < works.TextWorks.Count; i++)

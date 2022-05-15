@@ -191,7 +191,7 @@ namespace Tadar.ViewModels
                 if (Genders?.Exists(el => el == value) != null)
                 {
                     // ...присваиваем его ID полу регистрируемого пользователя.
-                    userreg.GenderID = value.ID;
+                    userreg.GenderID = value?.ID;
                 }
                 // Иначе, полу регистрируемого пользователя
                 // присваиваем ID первого элемент списка.
@@ -208,7 +208,7 @@ namespace Tadar.ViewModels
         {
             get
             {
-                var dt = DateTime.Parse(userreg.BDate + " 12:00:00", CultureInfo.InvariantCulture);
+                var dt = DateTime.Parse(userreg.BDate + " 12:00:00", CultureInfo.CurrentCulture);
                 return dt;
             }
             set

@@ -16,9 +16,7 @@ namespace Tadar.ViewModels
         {
             //api.MainUser.Name
             WriteClick = new Command(Write_Click);
-            Test14Click = new Command(Test14_Click);
-            
-          
+            Test14Click = new Command(Test14_Click);   
         }
 
 
