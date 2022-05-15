@@ -12,14 +12,16 @@ namespace Tadar.ViewModels
 {
    public class AnsTestViewModel : BaseViewModel
     {
-        private TestWork work;
-        string idus;
-        private Answers answers= new Answers();
+        private TestWork work = new TestWork();
+        private string idus;
+        private Answers answers = new Answers();
+        Answers myanswers = new Answers();
 
         //private Answers answers;
         public AnsTestViewModel(string iduser,TestWork test)
         {
             work = test;
+            OnPropertyChanged(nameof(TasksList));
             idus = iduser;
             LoadAnsAsync(work, idus);
             //SendClick = new Command(Send_Click);
@@ -39,19 +41,11 @@ namespace Tadar.ViewModels
 
 
                 answers = await api.GetAnswersByWork(work.WorkHeader.ID, false);
+                myanswers = answers.GetAnswersByIDUser(idus);
                 
-                for (int i = answers.TestAnswers.Count-1; i >= 0; i--)
-                {
-                   if (idus  != answers.TestAnswers[i].AnswerHeader.id_Student)
-                    {
-                        answers.TestAnswers.Remove(answers.TestAnswers[i]);
-                    }
-                }
-                
-
                
                 //TODO: сохранять works, из него получать список заголовков ВСЕХ работ
-                OnPropertyChanged(nameof(TasksList));
+                OnPropertyChanged(nameof(Answers));
                 
             }
             catch (Exception ex)
@@ -61,11 +55,23 @@ namespace Tadar.ViewModels
             }
         }
 
+        public List<TestAnswer> Answers
+        {
+            get
+            {
+                return new myanswers.TestAnswers;
+            }
+            set
+            {
+                myanswers.TestAnswers = value;
+                OnPropertyChanged("Answers");
+            }
+        }
         public ObservableCollection<TestTask> TasksList
         {
             get
             {
-                return new ObservableCollection<Answers>(answers.TestAnswers.);
+                return new ObservableCollection<TestTask>(work.WorkBody);
             }
             set
             {
