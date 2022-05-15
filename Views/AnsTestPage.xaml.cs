@@ -9,10 +9,10 @@ namespace Tadar.Views
     /// </summary>
     public partial class AnsTestPage : Page
     {
-        public AnsTestPage(TestWork test)
+        public AnsTestPage(string iduser,TestWork test)
         {
             InitializeComponent();
-            DataContext = new AnsTestViewModel(test);
+            DataContext = new AnsTestViewModel(iduser,test);
         }
     }
 }

@@ -5,12 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Tadar.Helpers;
+using Tadar.Models;
+using Tadar.Views;
 
 namespace Tadar.ViewModels
 {
    public class ListStudAnsViewModel : BaseViewModel
     {
         private TestWork work;
+        private RegisteredUser user;
         private List<RegisteredUser> classroomsusers = new List<RegisteredUser>();
         public ListStudAnsViewModel(TestWork test)
         {
@@ -18,10 +22,24 @@ namespace Tadar.ViewModels
             LoadAnsAsync(test);
             //LoadClassAsync(iclass);
 
-            //SendClick = new Command(Send_Click);
+            SendClick = new Command(Send_Click);
 
 
 
+        }
+
+
+        public Command SendClick
+        {
+            get;
+            set;
+        }
+        private void Send_Click(object ob)
+        {
+            user = new RegisteredUser();
+            user = (RegisteredUser)ob;
+            string iduser = user.ID;
+            First.Base_frame.Navigate(new AnsTestPage(iduser, work));
         }
 
 
