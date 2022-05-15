@@ -55,11 +55,11 @@ namespace Tadar.ViewModels
             }
         }
 
-        public List<TestAnswer> Answers
+        public List<TestAnswer> AnswersList
         {
             get
             {
-                return new myanswers.TestAnswers;
+                return myanswers.TestAnswers;
             }
             set
             {
