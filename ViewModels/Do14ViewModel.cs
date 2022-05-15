@@ -104,7 +104,7 @@ namespace Tadar.ViewModels
                 work.WorkBody = test.WorkBody;
                 //string testwork;
                work.WorkHeader.ID = await api.AddTestWorkAsync(work);
-                MessageBox.Show(work.WorkHeader.ID + ": " + work.WorkHeader.Name + work.WorkBody[1].Word);
+               // MessageBox.Show(work.WorkHeader.ID + ": " + work.WorkHeader.Name + work.WorkBody[1].Word);
 
                
 

@@ -46,17 +46,20 @@ namespace Tadar.ViewModels
                 { 
                 classroomsuser = await api.GetClassroomsByUserIdAsync(api.MainUser.ID);
 
-                //test = new TestWork();
-                //test.WorkHeader = (WorkHeader)ob;
-                //test.WorkBody = works.TestWorks.SingleOrDefault(w => w.WorkHeader == test.WorkHeader).WorkBody;
-                //First.Base_frame.Navigate(new Test14Page(test));
+                    //test = new TestWork();
+                    //test.WorkHeader = (WorkHeader)ob;
+                    //test.WorkBody = works.TestWorks.SingleOrDefault(w => w.WorkHeader == test.WorkHeader).WorkBody;
+                    //First.Base_frame.Navigate(new Test14Page(test));
+                    int co = classrooms.Count;
                 if (classroomsuser != null)
                 {
-                    for (int i = 0; i < classrooms.Count; i++)
+                    for (int i = 0; i < co; i++)
                     {
                         if (classroomsuser.SingleOrDefault(cl => cl.ID == classrooms[i].ID) != null)
                         {
                             classrooms.Remove(classrooms[i]);
+                            i--;
+                            co--;
                         }
                     }
                 }

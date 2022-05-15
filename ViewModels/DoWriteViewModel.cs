@@ -82,27 +82,27 @@ namespace Tadar.ViewModels
                 work.WorkBody = textwork.WorkBody;
                 //string testwork;
                 work.WorkHeader.ID = await api.AddTextWorkAsync(work);
-                MessageBox.Show(work.WorkHeader.ID + ": " + work.WorkHeader.Name + work.WorkBody[0].TaskTitle);
+              //  MessageBox.Show(work.WorkHeader.ID + ": " + work.WorkHeader.Name + work.WorkBody[0].TaskTitle);
 
 
 
                 First.Base_frame.Navigate(new MenuPage());
             }
             // TODO: надо потом определять тип ошибки и выводить соотвествующие сообщения...
-            catch (ErrorResponseException ex)
-            {
-                switch (ex.ErrCode)
-                {
-                    case CODE_ERROR.ERR_UserAlreadyReg:
-                        MessageBox.Show("is registered");
-                        break;
-                    default:
-                        break;
-                }
-            }
+            //catch (ErrorResponseException ex)
+            //{
+            //    switch (ex.ErrCode)
+            //    {
+            //        case CODE_ERROR.ERR_UserAlreadyReg:
+            //            MessageBox.Show("is registered");
+            //            break;
+            //        default:
+            //            break;
+            //    }
+            //}
             catch (Exception ex)
             {
-                Log.Write(ex);
+               // Log.Write(ex);
             }
 
         }
