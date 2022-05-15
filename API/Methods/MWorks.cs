@@ -48,10 +48,10 @@ namespace nsAPI.Methods
             Console.WriteLine(workJson);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("works.add/", workJson, urlParams);
-            if (httpResponse.data != null)
+            if (httpResponse.Data != null)
             {
                 // Конвертируем данные из нулевой ячейки массива ответа в тип IdentifierClassroom.
-                id = Identifier.FromJson(httpResponse.data[0].ToString());
+                id = Identifier.FromJson(httpResponse.Data[0].ToString());
                 // Расшифровываем.
                 id.DecryptByAES();
                 //
@@ -97,10 +97,10 @@ namespace nsAPI.Methods
             Console.WriteLine(workJson);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("works.add/", workJson, urlParams);
-            if (httpResponse.data != null)
+            if (httpResponse.Data != null)
             {
                 // Конвертируем данные из нулевой ячейки массива ответа в тип IdentifierClassroom.
-                id = Identifier.FromJson(httpResponse.data[0].ToString());
+                id = Identifier.FromJson(httpResponse.Data[0].ToString());
                 // Расшифровываем.
                 id.DecryptByAES();
                 //
@@ -142,7 +142,7 @@ namespace nsAPI.Methods
                 // Список работ.
                 Works works = new Works();
                 //
-                httpResponse.data.ForEach(el =>
+                httpResponse.Data.ForEach(el =>
                 {
                     JObject work = JsonConvert.DeserializeObject<JObject>(el.ToString());
                     if (work.ContainsKey("WorkHeader"))

@@ -16,15 +16,25 @@ namespace Tadar.ViewModels
         public MenuViewModel()
         {
             //api.MainUser.Name
+            //Оценки.
             MarkClick = new Command(mark_Click);
+            // 
             AkkClick = new Command(Akk_Click);
+            //
             TestClick = new Command(Test_Click);
+            //
             ClassClick = new Command(Class_Click);
+            // Игра.
             GameClick = new Command(Game_Click);
+            // Создать работу (открокется страница создания заголовка работы).
             MaketestClick = new Command(make_test_Click);
+            // выполнить работу?
             SelftestClick = new Command(selftest_Click);
+            // Словарь.
             DicktClick= new Command(Dickt_Click);
+            // 
             TheClick = new Command(The_Click);
+            // Ассинхронная загрузка списка классов.
             LoadClasssAsync();
         }
 
@@ -33,15 +43,23 @@ namespace Tadar.ViewModels
             try
             {
                 api = nsAPI.API.Instance;
-
                 classrooms = await api.GetClassroomsByUserIdAsync(api.MainUser.ID);
+                if (classrooms == null)
+                {
+                    if (api.LastException!= null && api.LastException.TypeError == TError.DefinedError)
+                    {
+                        if (api.LastException.Code == CODE_ERROR.ERR_ClassNotFound)
+                        {
+                            // У пользователя нет классов!
+                            // В таком случае вместо списка классов пишем что их пока нет.
+                        }
+                    }
+                }
 
                 //test = new TestWork();
                 //test.WorkHeader = (WorkHeader)ob;
                 //test.WorkBody = works.TestWorks.SingleOrDefault(w => w.WorkHeader == test.WorkHeader).WorkBody;
                 //First.Base_frame.Navigate(new Test14Page(test));
-
-                
 
                 //  ClasssList = new ObservableCollection<RegisteredClassroom>();
 
@@ -49,7 +67,7 @@ namespace Tadar.ViewModels
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                Msg.Write(ex.Message);
             }
         }
         public List<RegisteredClassroom> Classrooms
@@ -63,10 +81,6 @@ namespace Tadar.ViewModels
                 // SelectedClassroom = Classrooms[0];
             }
         }
-
-
-
-
 
         private void mark_Click(object ob)
         {

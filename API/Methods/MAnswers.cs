@@ -39,9 +39,9 @@ namespace nsAPI.Methods
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("answers.add/", answerJson, urlParams);
             // Конвертируем данные из нулевой ячейки массива ответа в тип IdentifierClassroom.
-            if (httpResponse.data != null)
+            if (httpResponse.Data != null)
             {
-                id = Identifier.FromJson(httpResponse.data[0].ToString());
+                id = Identifier.FromJson(httpResponse.Data[0].ToString());
                 // Расшифровываем.
                 id.DecryptByAES();
                 //
@@ -80,10 +80,10 @@ namespace nsAPI.Methods
             string answerJson = answer.ToJson();
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("answers.add/", answerJson, urlParams);
-            if (httpResponse.data != null)
+            if (httpResponse.Data != null)
             {
                 // Конвертируем данные из нулевой ячейки массива ответа в тип IdentifierClassroom.
-                id = Identifier.FromJson(httpResponse.data[0].ToString());
+                id = Identifier.FromJson(httpResponse.Data[0].ToString());
                 // Расшифровываем.
                 id.DecryptByAES();
                 //
@@ -115,12 +115,12 @@ namespace nsAPI.Methods
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("answers.get/", dataJSON, urlParam);
 
-            if (httpResponse.data != null)
+            if (httpResponse.Data != null)
             {
                 // Список работ.
                 Answers answers = new Answers();
                 //
-                httpResponse.data.ForEach(el =>
+                httpResponse.Data.ForEach(el =>
                 {
                     JObject answer = JsonConvert.DeserializeObject<JObject>(el.ToString());
                     if (answer.ContainsKey("AnswerHeader"))
@@ -212,10 +212,10 @@ namespace nsAPI.Methods
             Console.WriteLine(postParamsJson);
             // Отправляем на сервер.
             var httpResponse = await httpPostJSONAsync("mark.add/", postParamsJson, urlParams);
-            if (httpResponse.data != null)
+            if (httpResponse.Data != null)
             {
                 // Ответ.
-                return httpResponse.data[0].ToString() == "OK";
+                return httpResponse.Data[0].ToString() == "OK";
             }
             else
             {

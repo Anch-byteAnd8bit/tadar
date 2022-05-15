@@ -33,10 +33,10 @@ namespace nsAPI.Methods
 
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var responseJson = await httpPostJSONAsync("users.reg/", userJson);
-            if (responseJson.data != null)
+            if (responseJson.Data != null)
             {
                 // Конвертируем данные из нулевой ячейки массива ответа в тип AccessToken.
-                var decToken = AccessToken.FromJson(responseJson.data[0].ToString());
+                var decToken = AccessToken.FromJson(responseJson.Data[0].ToString());
                 // Расшифровываем токен.
                 decToken.DecryptByAES();
                 // Успех!
@@ -72,9 +72,9 @@ namespace nsAPI.Methods
             string userJson = Serialize.ToJson(enсUser);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("users.auth/", userJson);
-            if (httpResponse.data != null)
+            if (httpResponse.Data != null)
             {
-                var accessToken = AccessToken.FromJson(httpResponse.data[0].ToString());
+                var accessToken = AccessToken.FromJson(httpResponse.Data[0].ToString());
                 // Расшифровываем токен.
                 accessToken.DecryptByAES();
                 // Успех!
@@ -138,12 +138,12 @@ namespace nsAPI.Methods
             string JSONSearch = JsonConvert.SerializeObject(d);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("users.find/", JSONSearch, urlParam);
-            if (httpResponse.data != null)
+            if (httpResponse.Data != null)
             {
                 // Возвращаем список пользователей.
                 List<RegisteredUser> registeredUsers = new List<RegisteredUser>();
                 // Конвертируем юзеров из JSON в известный нам тип RegisteredUser.
-                httpResponse.data.ForEach(el =>
+                httpResponse.Data.ForEach(el =>
                 {
                     registeredUsers.Add(JsonConvert.DeserializeObject<RegisteredUser>(el.ToString()));
                 });
@@ -180,12 +180,12 @@ namespace nsAPI.Methods
             string usersJSON = JsonConvert.SerializeObject(d);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("users.get/", usersJSON, urlParam);
-            if (httpResponse.data != null)
+            if (httpResponse.Data != null)
             {
                 // Возвращаем список пользователей.
                 List<RegisteredUser> registeredUsers = new List<RegisteredUser>();
                 //
-                httpResponse.data.ForEach(el =>
+                httpResponse.Data.ForEach(el =>
                 {
                     registeredUsers.Add(JsonConvert.DeserializeObject<RegisteredUser>(el.ToString()));
                 });
@@ -229,12 +229,12 @@ namespace nsAPI.Methods
             urlParam.Add("id_Class", id_Class);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpGetAsync("users.byClass/", urlParam);
-            if (httpResponse.data != null)
+            if (httpResponse.Data != null)
             {
                 // Возвращаем список классов.
                 List<RegisteredUser> registeredUsers = new List<RegisteredUser>();
                 //
-                httpResponse.data.ForEach(el =>
+                httpResponse.Data.ForEach(el =>
                 {
                     registeredUsers.Add(JsonConvert.DeserializeObject<RegisteredUser>(el.ToString()));
                 });

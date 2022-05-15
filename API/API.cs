@@ -327,11 +327,27 @@ namespace nsAPI
         /// <summary>
         /// Получает подробную информацию о пользоателях с заданными ID.
         /// </summary>
-        /// <param name="userIds">ID пользователей.</param>
+        /// <param name="userIds">ID пользователей в массиве.</param>
         /// <returns>Информация о пользователях.</returns>
         public async Task<List<RegisteredUser>> GetUsersByIdAsync(string[] userIds)
         {
             var regu = await users.ByIdAsync(api_token, userIds);
+            if (regu == null)
+            {
+                LastException = users.Response.Exception;
+            }
+            return regu;
+        }
+
+
+        /// <summary>
+        /// Получает подробную информацию о пользоателях с заданными ID.
+        /// </summary>
+        /// <param name="userIds">ID пользователей в списке.</param>
+        /// <returns>Информация о пользователях.</returns>
+        public async Task<List<RegisteredUser>> GetUsersByIdAsync(List<string> userIds)
+        {
+            var regu = await users.ByIdAsync(api_token, userIds.ToArray());
             if (regu == null)
             {
                 LastException = users.Response.Exception;

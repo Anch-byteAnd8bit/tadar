@@ -50,10 +50,10 @@ namespace nsAPI.Methods
             string wordsJson = JsonConvert.SerializeObject(words);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("dict.add/", wordsJson, urlParams);
-            if (httpResponse.data != null)
+            if (httpResponse.Data != null)
             {
                 // 
-                return httpResponse.data[0].ToString() == OK;
+                return httpResponse.Data[0].ToString() == OK;
             }
             else
             {
@@ -95,12 +95,12 @@ namespace nsAPI.Methods
             string postDataJSON = JsonConvert.SerializeObject(d);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("dict.get/", postDataJSON, urlParam);
-            if (httpResponse.data != null)
+            if (httpResponse.Data != null)
             {
                 // Возвращаем список классов.
                 List<Word> dict = new List<Word>();
                 //
-                httpResponse.data.ForEach(el =>
+                httpResponse.Data.ForEach(el =>
                 {
                     dict.Add(JsonConvert.DeserializeObject<Word>(el.ToString()));
                 });
@@ -132,12 +132,12 @@ namespace nsAPI.Methods
             string postDataJSON = JsonConvert.SerializeObject(d);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("dict.get/", postDataJSON, urlParam);
-            if (httpResponse.data != null)
+            if (httpResponse.Data != null)
             {
                 // Возвращаем список классов.
                 List<Word> dict = new List<Word>();
                 //
-                httpResponse.data.ForEach(el =>
+                httpResponse.Data.ForEach(el =>
                 {
                     dict.Add(JsonConvert.DeserializeObject<Word>(el.ToString()));
                 });
@@ -170,12 +170,12 @@ namespace nsAPI.Methods
             string postDataJSON = JsonConvert.SerializeObject(d);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("dict.get/", postDataJSON, urlParam);
-            if (httpResponse.data != null)
+            if (httpResponse.Data != null)
             {
                 // Возвращаем список классов.
                 List<Word> dict = new List<Word>();
                 //
-                httpResponse.data.ForEach(el =>
+                httpResponse.Data.ForEach(el =>
                 {
                     dict.Add(JsonConvert.DeserializeObject<Word>(el.ToString()));
                 });

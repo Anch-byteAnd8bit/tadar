@@ -15,7 +15,7 @@ namespace Tadar.ViewModels
     {
         public EntViewModel()
         {
-            api = new API(loadRefbooks: false, OnLoadedRefbooks: null);
+            api = API.Instance;
             userent = new UserForAuthorization();
             EntCommand = new Command(OnSave);
 
@@ -51,17 +51,41 @@ namespace Tadar.ViewModels
             // Во время любой операции с сервером может вылезти ошибка!
             try
             {
-                await api.UserAuthAsync(userent);
-
-                Msg.Write(api.MainUser.ID + ": " + api.MainUser.Login + " ("
-                    + api.MainUser.Surname + " " + api.MainUser.Name + ")");
-                
-                Models.First.Base_frame.Navigate(new MenuPage());
+                if (await api.UserAuthAsync(userent))
+                {
+                    // Переходим к странице "Меню".
+                    Models.First.Base_frame.Navigate(new MenuPage());
+                }
+                else
+                {
+                    if (api.LastException != null && api.LastException.TypeError == TError.DefinedError)
+                    {
+                        switch (api.LastException.Code)
+                        {
+                            case CODE_ERROR.ERR_NotEnoughInf:
+                                // Пользователь сумел отправить одно из полей пустым.
+                                break;
+                            case CODE_ERROR.ERR_UserNotFound:
+                                // Такой пользователь не найден в БД - либо неправильно ввели логин-пароль,
+                                // либо еще не регистрировались.
+                                break;
+                            case CODE_ERROR.ERR_IsTooLong:
+                                // Слишком длинный пароль или логин
+                                break;
+                        }                        
+                    }
+                    else if (api.LastException.TypeError == TError.ConnectError)
+                    {
+                        // Проблемы с интерентом, либо с сервером. КОроче не удалось связаться с сервером.
+                    }
+                    else
+                        Msg.Write(api.LastException.Message);
+                }
             }
             // TODO: надо потом определять тип ошибки и выводить соотвествующие сообщения...
             catch (Exception ex)
             {
-                Msg.Write(ex);
+                Msg.Write(ex.Message);
             }
         }
     }

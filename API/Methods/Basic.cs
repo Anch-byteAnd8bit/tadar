@@ -89,8 +89,18 @@ namespace nsAPI.Methods
             {
                 // Указываем в заголовке пакета, что данные JSON.
                 content.Headers.ContentType = new MediaTypeHeaderValue(MIME_JSON);
-                // Ассинхронно отправляем запрос и получаем ответ.
-                var httpResponse = await httpClient.PostAsync(url, content).ConfigureAwait(false);
+                //
+                HttpResponseMessage httpResponse = null;
+                //
+                try
+                {
+                    // Ассинхронно отправляем запрос и получаем ответ.
+                    httpResponse = await httpClient.PostAsync(url, content).ConfigureAwait(false);
+                }
+                catch (HttpRequestException reqexp)
+                {
+                    return Response = new Response(TError.ConnectError, reqexp.Message);
+                }
                 // Проверяем ответ. Если код ответа НЕ 200-299, то ошибка.
                 if (!httpResponse.IsSuccessStatusCode)
                 {
@@ -111,9 +121,19 @@ namespace nsAPI.Methods
             if (reqParams != null) mynet.AddDict(reqParams);
             // Получаем URL.
             string url = mynet.GetUrl();
-            // Ассинхронно отправляем запрос и получаем ответ.
-            HttpResponseMessage httpResponse = await httpClient.GetAsync(url).ConfigureAwait(false);
-            // Проверяем ответ. Если код ответа НЕ 200-299, то возвращаем пустую строку.
+            //
+            HttpResponseMessage httpResponse;
+            //
+            try
+            {
+                // Ассинхронно отправляем запрос и получаем ответ.
+                httpResponse = await httpClient.GetAsync(url).ConfigureAwait(false);
+                // Проверяем ответ. Если код ответа НЕ 200-299, то возвращаем пустую строку.
+            }
+            catch (HttpRequestException reqexp)
+            {
+                return Response = new Response(TError.ConnectError, reqexp.Message);
+            }
             if (!httpResponse.IsSuccessStatusCode)
             {
                 return Response = new Response(httpResponse);

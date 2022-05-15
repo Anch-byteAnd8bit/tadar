@@ -9,12 +9,23 @@ namespace nsAPI.Entities
     public class Response
     {
         [JsonProperty("response")]
-        public List<object> data { get; set; }
+        public List<object> Data { get; set; }
         //public Dictionary<string, object> data { get; set; }
 
         public Response()
         {
-            data = new List<object>();
+            Data = null;
+        }
+
+        /// <summary>
+        ///Ответ с ошибкой определяемого типа.
+        /// </summary>
+        /// <param name="typeError">Тип ошибки.</param>
+        /// <param name="message">Сообщение об ошибке.</param>
+        public Response(TError typeError, string message)
+        {
+            Data = null;
+            Exception = new ResponseError(typeError, message);
         }
 
         /// <summary>
@@ -24,7 +35,7 @@ namespace nsAPI.Entities
         /// <param name="message"></param>
         public Response(HttpResponseMessage httpResponseMessage)
         {
-            data = null;
+            Data = null;
             Exception = new ResponseError(httpResponseMessage);
         }
 
@@ -39,7 +50,7 @@ namespace nsAPI.Entities
             if (string.IsNullOrEmpty(httpResponse))
             {
                 Exception = new ResponseError();
-                data = null;
+                Data = null;
             }
             else
             // Если вернулась ошибка.
@@ -47,19 +58,19 @@ namespace nsAPI.Entities
             {
                 // ошибка.
                 Exception = new ResponseError(TError.DefinedError, httpResponse);
-                data = null;
+                Data = null;
             }
             else if (JSONHelper.IsResponse(httpResponse))
             {
                 // Конвертируем строку JSON в тип response.
                 var t = FromJson(httpResponse);
-                data = t.data;
+                Data = t.Data;
             }
             // Если полученная строка незнакома.
             else
             {
                 Exception = new ResponseError(TError.UnknownError, httpResponse);
-                data = null;
+                Data = null;
             }
         }
 
@@ -69,7 +80,9 @@ namespace nsAPI.Entities
         [JsonIgnore()]
         public readonly ResponseError Exception;
     }
-
+    /// <summary>
+    /// Тип API-ошибки.
+    /// </summary>
     public enum CODE_ERROR
     {
         ERR_NotEnoughInf = 100,
@@ -91,12 +104,31 @@ namespace nsAPI.Entities
         ERR_WordAlreadyExist = 116,
     }
 
+    /// <summary>
+    /// Тип ошибки.
+    /// </summary>
     public enum TError
     {
+        /// <summary>
+        /// Не известная ошибка.
+        /// </summary>
         UnknownError,
+        /// <summary>
+        /// Пустой ответ.
+        /// </summary>
         Empty,
+        /// <summary>
+        /// Известная ошибка.
+        /// </summary>
         DefinedError,
+        /// <summary>
+        /// Ошибка сервера - типа 404 - не найден ресурс и т.д.
+        /// </summary>
         ServerError,
+        /// <summary>
+        /// Ошибка со связью.
+        /// </summary>
+        ConnectError,
     }
 
 
@@ -118,7 +150,11 @@ namespace nsAPI.Entities
         /// <summary>
         /// Ответ от сервера, который не удалось распознать.
         /// </summary>
-        public string Text { get; set; } = null;
+        public string ServerText { get; set; } = null;
+        /// <summary>
+        /// Ошибка при соединении.
+        /// </summary>
+        public string SocketText { get; set; } = null;
         public string Message
         {
             get
@@ -135,9 +171,13 @@ namespace nsAPI.Entities
                         "Description: " + ErrorInfo.Description + "\n" +
                         "Additional" + ErrorInfo.Additional + "\n";
                 }
-                else if (Text != null)
+                else if (ServerText != null)
                 {
-                    return Text;
+                    return ServerText;
+                }
+                else if (SocketText != null)
+                {
+                    return SocketText;
                 }
                 else
                 {
@@ -169,16 +209,22 @@ namespace nsAPI.Entities
             TypeError = typeError;
         }
 
-        public ResponseError(TError typeError, string responseErrorMessage)
+        public ResponseError(TError typeError, string errorMessage)
         {
             if (typeError == TError.UnknownError)
             {
-                Text = responseErrorMessage;
+                TypeError = typeError;
+                ServerText = errorMessage;
+            }
+            else if (typeError == TError.ConnectError)
+            {
+                TypeError = typeError;
+                SocketText = errorMessage;
             }
             else
             {
                 // Произошла ошибка при попытке получения информации из БД.
-                Error error = Error.FromJson(responseErrorMessage);
+                Error error = Error.FromJson(errorMessage);
                 ErrorInfo = error.errorInfo;
                 Code = (CODE_ERROR)error.errorInfo.Type;
                 TypeError = typeError;

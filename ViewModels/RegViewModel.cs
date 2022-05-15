@@ -30,14 +30,21 @@ namespace Tadar.ViewModels
             // Создаем команду для кнопки. Выполняться при нажатии будет
             // OnSave, а проверять доступна ли кнопка для нажатия,
             // будет метод ValidateSave
-            Genders = api.Refbooks[TRefbooks.Genders] ?? new List<Refbook>()
+            if (api.Refbooks.ContainsKey(TRefbooks.Genders))
             {
-                new Refbook{ ID = "1", Name = "Женский"},
-                new Refbook{ ID = "2", Name = "Мужской"},
-            };
+                Genders = api.Refbooks[TRefbooks.Genders];
+            }
+            else
+            {
+                Genders = new List<Refbook>()
+                {
+                    new Refbook{ ID = "1", Name = "Женский"},
+                    new Refbook{ ID = "2", Name = "Мужской"},
+                };
+            }
             // Genders = api.Refbooks[TRefbooks.Genders];
             // Получаем список полов от сервера.
-            GettingGenders();
+            //GettingGenders();
 
             //
 
@@ -57,10 +64,10 @@ namespace Tadar.ViewModels
         /// <summary>
         /// Асинхронный метод получения списка полов от сервера.
         /// </summary>
-        private async void GettingGenders()
-        {
-            Genders = await api.GetGendersAsync();
-        }
+        //private async void GettingGenders()
+        //{
+        //    Genders = await api.GetGendersAsync();
+        //}
 
         /// <summary>
         /// Модель данных - пользотваель длля регистрации.
@@ -326,7 +333,7 @@ namespace Tadar.ViewModels
         {
             // Получаем пароль.
             userreg.Pass = (PassElem as PasswordBox).Password;
-            // Вызываем асинхронно пароль.
+            // Вызываем асинхронно сохранение.
             SaveAsync();
             // TODO: блокируем кнопку регистрации и все элементы ввода. Можно добавить
             // символ выполенния операции...
@@ -340,27 +347,22 @@ namespace Tadar.ViewModels
             {
                 if (await api.UserRegAsync(userreg))
                 {
-                    Msg.Write(api.MainUser.ID + ": " + api.MainUser.Login + " ("
-                        + api.MainUser.Surname + " " + api.MainUser.Name + ")");
-
                     Models.First.Base_frame.Navigate(new MenuPage());
                 }
                 else
                 {
-                    if (api.LastException.TypeError == TError.DefinedError)
+                    if (api.LastException!=null && api.LastException.TypeError == TError.DefinedError)
                     {
                         if (api.LastException.Code == CODE_ERROR.ERR_UserAlreadyReg)
                         {
-                            _ = MessageBox.Show("Такой пользователь уже зарегистрирован!");
+                            Msg.Write("Такой пользователь уже зарегистрирован!");
                         }
                     }
                 }
-
             }
-            // TODO: надо потом определять тип ошибки и выводить соотвествующие сообщения...
             catch (Exception ex)
             {
-                Msg.Write(ex);
+                Msg.Write(ex.Message);
             }
         }
     }
