@@ -63,6 +63,7 @@ namespace Tadar.ViewModels
 
                 //  ClasssList = new ObservableCollection<RegisteredClassroom>();
 
+                
                 OnPropertyChanged(nameof(Classrooms));
             }
             catch (Exception ex)
