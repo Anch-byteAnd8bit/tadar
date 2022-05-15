@@ -76,12 +76,19 @@ namespace Tadar.ViewModels
                     }
                     else if (api.LastException.TypeError == TError.ConnectionError)
                     {// Проблемы с интерентом, либо с сервером. КОроче не удалось связаться с сервером.
-
-                        if (api.LastException.SocketError == System.Net.Sockets.SocketError.HostNotFound)
-                        {// Не нашел хост, что также может говорить об отсутствии интернета, но это не точно.
-
+                        switch (api.LastException.SocketError)
+                        {
+                            case System.Net.Sockets.SocketError.NetworkDown:
+                                // Проблемы с сетью на этом компе.
+                                break;
+                            case System.Net.Sockets.SocketError.ConnectionRefused:
+                                // СБрошено соединение - серверный комп работает, но сервер не запущен.
+                                break;
+                            case System.Net.Sockets.SocketError.HostNotFound:
+                                // Не нашел хост, что также может говорить об отсутствии интернета,
+                                // но это не точно.
+                                break;
                         }
-                        
                     }
                     else
                         Msg.Write(api.LastException.Message);
