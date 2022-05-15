@@ -87,7 +87,7 @@ namespace Tadar.Views
                 var eAPI = new ExampleAPI();
                 //await eAPI.UserRegAsync();
                 //await eAPI.UserAuthAsync();
-                //await eAPI.CreateClass();
+                await eAPI.CreateClass();
                 //await eAPI.AddTestWork();
                 //await eAPI.AddTextWork();
                 //await eAPI.AddAnswerTestWork();
@@ -99,7 +99,7 @@ namespace Tadar.Views
                 //await eAPI.GetListOfWorksByClassesIDsAsync();
                 //await eAPI.GetListOfWorksByClassIdAsync();
                 //await eAPI.AddMark();
-                //await eAPI.AddTheory();
+                await eAPI.AddTheory();
                 //await eAPI.GetTheoryByIDAsync();
                 //await eAPI.GetTheoriesByClassroomIDAsync();
                 //await eAPI.GetListUserWords();

@@ -132,7 +132,7 @@ namespace Tadar.ViewModels
 
             {
                 theory.id_Class = selectedclassroom.ID;
-                theory = await api.AddTheory(theory);
+                theory = await api.AddTheoryAsync(theory);
                 //  MessageBox.Show(work.WorkHeader.ID + ": " + work.WorkHeader.Name + work.WorkBody[0].TaskTitle);
 
 
@@ -153,7 +153,7 @@ namespace Tadar.ViewModels
             //}
             catch (Exception ex)
             {
-                Log.Write(ex);
+                Msg.Write(ex);
             }
 
         }

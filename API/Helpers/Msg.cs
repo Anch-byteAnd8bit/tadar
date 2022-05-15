@@ -8,7 +8,7 @@ namespace Helpers
         public static void Write(string text)
         {
             if (text == null) text = "NULL";
-            //DependencyService.Get<IMessageBox>().Show(DateTime.Now.ToString("T") + ":\t" + text, null);
+            //Xamarin.Forms.DependencyService.Get<IMessageBox>().Show(DateTime.Now.ToString("T") + ":\t" + text, null);
             _ = System.Windows.MessageBox.Show(text);
         }
 
