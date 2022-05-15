@@ -800,9 +800,9 @@ namespace nsAPI
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Task<Theory> GetTheoryByIDAsync(string id)
+        public async Task<Theory> GetTheoryByIDAsync(string id)
         {
-            var t = theories.ByIdAsync(Access_Token, id);
+            var t = await theories.ByIdAsync(Access_Token, id);
             if (t == null)
             {
                 LastException = theories.Response.Exception;
@@ -815,9 +815,9 @@ namespace nsAPI
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public Task<List<Theory>> GetTheoriesByIDsAsync(string[] ids)
+        public async Task<List<Theory>> GetTheoriesByIDsAsync(string[] ids)
         {
-            var t = theories.ByIDsAsync(Access_Token, new List<string>(ids));
+            var t = await theories.ByIDsAsync(Access_Token, new List<string>(ids));
             if (t == null)
             {
                 LastException = theories.Response.Exception;
@@ -829,8 +829,8 @@ namespace nsAPI
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public Task<List<Theory>> GetTheoriesByIDsAsync(List<string> ids) {
-            var t = theories.ByIDsAsync(Access_Token, ids);
+        public async Task<List<Theory>> GetTheoriesByIDsAsync(List<string> ids) {
+            var t = await theories.ByIDsAsync(Access_Token, ids);
             if (t == null)
             {
                 LastException = theories.Response.Exception;
@@ -843,8 +843,8 @@ namespace nsAPI
         /// </summary>
         /// <param name="id_class"></param>
         /// <returns></returns>
-        public Task<List<Theory>> GetTheoriesByClassroomIDAsync(string id_class) {
-            var t = theories.ByClassIdAsync(Access_Token, id_class);
+        public async Task<List<Theory>> GetTheoriesByClassroomIDAsync(string id_class) {
+            var t = await theories.ByClassIdAsync(Access_Token, id_class);
             if (t == null)
             {
                 LastException = theories.Response.Exception;
@@ -857,7 +857,7 @@ namespace nsAPI
         /// </summary>
         /// <param name="theory">Теория, которую надо добавить в БД.</param>
         /// <returns>Теория с идентификаторами самой теории и заголовка</returns>
-        public async Task<Theory> AddTheory(Theory theory) {
+        public async Task<Theory> AddTheoryAsync(Theory theory) {
             var t = await theories.RegAsync(Access_Token, theory);
             if (t == null)
             {

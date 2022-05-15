@@ -351,7 +351,7 @@ namespace nsAPI.Examples
                 Content = "Теория №1",
             };
 
-            theory = await api.AddTheory(theory);
+            theory = await api.AddTheoryAsync(theory);
             Msg.Write(theory.ID);
         }
 
