@@ -1,13 +1,13 @@
-﻿<Page x:Class="Tadar.Views.Test14Page"
+﻿<Page x:Class="Tadar.Views.AnsTestPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:viewmodels="clr-namespace:Tadar.ViewModels" xmlns:rules="clr-namespace:Tadar.Views"
+       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:Tadar.Views"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="900"
-      Title="Test14Page">
+      Title="AnsTestPage">
 
     <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False" >
         <Grid.RowDefinitions>
@@ -27,8 +27,8 @@
                    Style="{StaticResource MaterialDesignHeadline3TextBlock}"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"/>
-        
-        
+
+
         <ListView
             HorizontalAlignment="Center"
             Grid.Row="1"
@@ -39,6 +39,7 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
+                    
                     <StackPanel Margin="10">
                         <TextBlock
                             Foreground="White"
@@ -60,36 +61,35 @@
                             Text="{ Binding Word}" >
 
                         </TextBlock>
+                        <TextBlock 
+                                 Margin="10"
+                             Grid.Row="1" 
+                             Grid.Column="1"
+                             Style="{StaticResource MaterialDesignBody1TextBlock}" 
+                             FontSize="14"
+                             Width="500" Height="40" 
+                             Background="White"
+                             TextAlignment="Center"
+                             Foreground="Black" Cursor="Arrow"
+                            Text="{ Binding PossibleAnsw1}" >
+                        </TextBlock>
 
-                        <StackPanel>
-                            <RadioButton
-                                            GroupName="{Binding ID}"
-                                            Style="{StaticResource MaterialDesignRadioButton}" 
-                                            FontSize="14"
-                                            Content="{ Binding PossibleAnsw1}"
-                                            
-                                            IsChecked="{Binding selAnsws[0]}"/>
-                            <RadioButton
-                                            GroupName="{Binding ID}"
-                                            Style="{StaticResource MaterialDesignRadioButton}" 
-                                            FontSize="14"
-                                            Content="{ Binding PossibleAnsw2}"
-                                            IsChecked="{Binding selAnsws[1]}"/>
-                            <RadioButton
-                                            GroupName="{Binding ID}"
-                                            Style="{StaticResource MaterialDesignRadioButton}" 
-                                            FontSize="14"
-                                            Content="{ Binding PossibleAnsw3}"
-                                            IsChecked="{Binding selAnsws[2]}"/>
-                            <RadioButton
-                                            GroupName="{Binding ID}"
-                                            Style="{StaticResource MaterialDesignRadioButton}" 
-                                            FontSize="14"
-                                            Content="{ Binding PossibleAnsw4}"
-                                            IsChecked="{Binding selAnsws[3]}"/>
-                        </StackPanel>
+                        <TextBlock 
+                                 Margin="10"
+                             Grid.Row="1" 
+                             Grid.Column="1"
+                             Style="{StaticResource MaterialDesignBody1TextBlock}" 
+                             FontSize="14"
+                             Width="500" Height="40" 
+                             Background="White"
+                             TextAlignment="Center"
+                             Foreground="Black" Cursor="Arrow"
+                            Text="{ Binding PossibleAnsw1}" >
+
+                        </TextBlock>
 
                        
+
 
                     </StackPanel>
                 </DataTemplate>
@@ -110,7 +110,7 @@
                  VerticalAlignment="Center"
                 Width="200" Height="40" FontSize="21" Cursor="Hand"   
                 />
-        
-        
+
+
     </Grid>
 </Page>
