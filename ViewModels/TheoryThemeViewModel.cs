@@ -28,18 +28,11 @@ namespace Tadar.ViewModels
         {
             try
             {
-                if (api == null)
-                {
-                    throw new Exception("api не создан!!!");
-                }
-
-                
-                   
-                    themes = await api.GetTheoriesByClassroomIDAsync(idclass);
+                Themes = await api.GetTheoriesByClassroomIDAsync(idclass);
                 
 
                 
-                OnPropertyChanged(nameof(Themes));
+                //OnPropertyChanged(nameof(Themes));
                 //OnPropertyChanged(nameof(TextsList));
             }
             catch (Exception ex)
@@ -49,9 +42,20 @@ namespace Tadar.ViewModels
             }
         }
 
-        public ObservableCollection<Theory> Themes { get; set; }
+     //   public ObservableCollection<Theory> Themes { get; set; }
+        public List<Theory> Themes
+        {
+            get { return themes; }
+            set
+            {
+                themes = value;
+                OnPropertyChanged(nameof(Themes));
+                // Задаем новый выбранный жлемент из списка.
+                // SelectedClassroom = Classrooms[0];
+            }
+        }
 
-       
+
 
     }
 }

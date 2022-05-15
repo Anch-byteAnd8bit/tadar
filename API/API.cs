@@ -857,8 +857,8 @@ namespace nsAPI
         /// </summary>
         /// <param name="theory">Теория, которую надо добавить в БД.</param>
         /// <returns>Теория с идентификаторами самой теории и заголовка</returns>
-        public Task<Theory> AddTheory(Theory theory) {
-            var t = theories.RegAsync(Access_Token, theory);
+        public async Task<Theory> AddTheory(Theory theory) {
+            var t = await theories.RegAsync(Access_Token, theory);
             if (t == null)
             {
                 LastException = theories.Response.Exception;

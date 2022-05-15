@@ -11,7 +11,7 @@ using Tadar.Views;
 
 namespace Tadar.ViewModels
 {
-    class MarkViewModel: BaseViewModel
+   public class MarkViewModel: BaseViewModel
     {
         private List<RegisteredClassroom> classroomsuser = new List<RegisteredClassroom>();
         private RegisteredClassroom cls;
@@ -19,7 +19,7 @@ namespace Tadar.ViewModels
         public MarkViewModel()
         {
             LoadClasssAsync();
-            //EnterClick = new Command(Enter_Click);
+            EnterClick = new Command(Enter_Click);
         }
 
 
@@ -63,10 +63,8 @@ namespace Tadar.ViewModels
             cls = new RegisteredClassroom();
             cls = (RegisteredClassroom)ob;
             string iclass = cls.ID;
-            await api.AddStudent(api.MainUser.ID.ToString(), iclass);
-            OnPropertyChanged(nameof(Classrooms));
-            MessageBox.Show(api.MainUser.Name.ToString() + " в классе " + cls.Name.ToString());
-            First.Base_frame.Navigate(new MenuPage());
+            
+            First.Base_frame.Navigate(new StudentsPage(iclass));
 
         }
 
