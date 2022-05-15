@@ -14,6 +14,7 @@ namespace nsAPI.Entities
         public List<TestAnswer> TestAnswers { get; set; }
         public List<TextAnswer> TextAnswers { get; set; }
 
+
         /// <summary>
         /// Возвращает список только тех, ответов, которые решал пользователь с указанным ID.
         /// </summary>
