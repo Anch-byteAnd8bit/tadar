@@ -40,7 +40,7 @@ namespace nsAPI.Methods
 
         // Ссылка для запросов.
         protected readonly string apiURL = "http://api.great-duet.localhost/";
-       // protected readonly string apiURL = "http://api.great-duet.ru/";
+        //protected readonly string apiURL = "http://api.great-duet.ru/";
 
         /// <summary>
         /// Вспопогмательная строка при POST-запросах.
@@ -99,7 +99,8 @@ namespace nsAPI.Methods
                 }
                 catch (HttpRequestException reqexp)
                 {
-                    return Response = new Response(TError.ConnectError, reqexp.Message);
+                    var k = (System.Net.Sockets.SocketException)(reqexp.InnerException);
+                    return Response = new Response(k);
                 }
                 // Проверяем ответ. Если код ответа НЕ 200-299, то ошибка.
                 if (!httpResponse.IsSuccessStatusCode)
@@ -132,7 +133,8 @@ namespace nsAPI.Methods
             }
             catch (HttpRequestException reqexp)
             {
-                return Response = new Response(TError.ConnectError, reqexp.Message);
+                var k = (System.Net.Sockets.SocketException)(reqexp.InnerException);
+                return Response = new Response(k);
             }
             if (!httpResponse.IsSuccessStatusCode)
             {

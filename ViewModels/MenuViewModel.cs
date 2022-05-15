@@ -48,7 +48,7 @@ namespace Tadar.ViewModels
                 {
                     if (api.LastException!= null && api.LastException.TypeError == TError.DefinedError)
                     {
-                        if (api.LastException.Code == CODE_ERROR.ERR_ClassNotFound)
+                        if (api.LastException.CodeAPI == CODE_ERROR.ERR_ClassNotFound)
                         {
                             // У пользователя нет классов!
                             // В таком случае вместо списка классов пишем что их пока нет.
