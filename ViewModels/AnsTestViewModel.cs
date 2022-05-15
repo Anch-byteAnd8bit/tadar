@@ -27,7 +27,6 @@ namespace Tadar.ViewModels
             //SendClick = new Command(Send_Click);
 
 
-
         }
 
         public async void LoadAnsAsync(TestWork work, string idus)

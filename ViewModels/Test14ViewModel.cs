@@ -95,7 +95,7 @@ namespace Tadar.ViewModels
             }
             answers.AnswerHeader.DateTimeE = ToConvert.DB_DateTimeToStringDT(DateTime.Now);
           answers.AnswerHeader.ID =  await api.AddTestAnswerAsync(answers);
-            //  First.Base_frame.Navigate(new marks());
+            First.Base_frame.Navigate(new MenuPage());
             //открытие новой страницы с вводом логина и пароля 
         }
 
