@@ -29,7 +29,7 @@ namespace Tadar.ViewModels
             answers.AnswerHeader.id_Work = work.WorkHeader.ID;
             //answers.AnswerHeader.id_TypeWork = work.WorkHeader.id_TypeWork;
             answers.AnswerHeader.Mark = null;
-
+           
            // AnswerClick = new Command(Answer_Click);
             SendClick = new Command(Send_Click);
             SelectionChengedCommand = new RelayCommand<TestTask>(SelectionChenged);
@@ -66,13 +66,7 @@ namespace Tadar.ViewModels
             }
         }
 
-        //private async void Answer_Click(object ob)
-        //{
-            
-        //    await api.AddTestAnswerAsync(answers);
-        //    First.Base_frame.Navigate(new marks());
-        //    //открытие новой страницы с вводом логина и пароля 
-        //}
+        
 
         public Command AnswerClick
         {
