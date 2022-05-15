@@ -15,7 +15,7 @@ namespace Tadar.ViewModels
         private TestWork work = new TestWork();
         private string idus;
         private Answers answers = new Answers();
-        Answers myanswers = new Answers();
+        TestAnswer myanswer = new TestAnswer();
 
         //private Answers answers;
         public AnsTestViewModel(string iduser,TestWork test)
@@ -25,7 +25,6 @@ namespace Tadar.ViewModels
             idus = iduser;
             LoadAnsAsync(work, idus);
             //SendClick = new Command(Send_Click);
-
 
         }
 
@@ -38,13 +37,33 @@ namespace Tadar.ViewModels
                     throw new Exception("api не создан!!!");
                 }
 
-
+                // Получаем список ответов.
                 answers = await api.GetAnswersByWork(work.WorkHeader.ID, false);
-                myanswers = answers.GetAnswersByIDUser(idus);
-                
-               
-                //TODO: сохранять works, из него получать список заголовков ВСЕХ работ
-                OnPropertyChanged(nameof(AnswersList));
+                if (answers != null)
+                {
+
+                    // Получаем только мои ответы.
+                    Answers myAnswers = answers.GetAnswersByIDUser(idus);
+                    // А есть ли тут мои ответы?
+                    if (myAnswers.TestAnswers.Count > 0)
+                    {
+                        // Я мог решить эту работу толлько один раз, значит ответ будет только
+                        // один!! Берем опэтому превый элемент - это и есть мой ответ.
+                        myanswer = myAnswers.TestAnswers[0];
+                    }
+                    // Моих ответов нет...
+                    else
+                    {
+                        // Чтоже делать???
+                    }
+
+                    //TODO: сохранять works, из него получать список заголовков ВСЕХ работ
+                    OnPropertyChanged(nameof(AnswersList));
+                }
+                else
+                {
+                    // Нет ответов - нет проблем... или есть??.... хм....
+                }
                 
             }
             catch (Exception ex)
@@ -54,17 +73,17 @@ namespace Tadar.ViewModels
             }
         }
 
-        public List<TestAnswer> AnswersList
+        public List<TestAnswerBody> AnswersList
         {
             get
             {
-                return myanswers.TestAnswers;
+                return myanswer.AnswerBody;
             }
-            set
-            {
-                myanswers.TestAnswers = value;
-                OnPropertyChanged("AnswersList");
-            }
+            //set
+            //{
+            //    myanswer.TestAnswers. = value;
+            //    OnPropertyChanged("AnswersList");
+            //}
         }
         public ObservableCollection<TestTask> TasksList
         {
@@ -72,11 +91,11 @@ namespace Tadar.ViewModels
             {
                 return new ObservableCollection<TestTask>(work.WorkBody);
             }
-            set
-            {
-                work.WorkBody = value.ToList();
-                OnPropertyChanged("TasksList");
-            }
+            //set
+            //{
+            //    work.WorkBody = value.ToList();
+            //    OnPropertyChanged("TasksList");
+            //}
         }
 
 
