@@ -126,7 +126,8 @@ namespace nsAPI.Methods
             // Добавление в массив по ключу "id", идентификатора пользователя.
             urlParam.Add("id_User", userId);
             // Добавляем роль пользователя в классах в параметры запроса.
-            //if (idrole == null) idrole = "3";
+            if (idrole == null) idrole = "0"; // ВАЖНО: на сервере 0 воспринимается как
+                                              // указание что роль не надо учитывать вообще!
             urlParam.Add("id_Role", idrole);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpGetAsync("classes.byUser/", urlParam);
