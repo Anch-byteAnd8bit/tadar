@@ -45,7 +45,7 @@ namespace Tadar.ViewModels
                 
                
                 //TODO: сохранять works, из него получать список заголовков ВСЕХ работ
-                OnPropertyChanged(nameof(Answers));
+                OnPropertyChanged(nameof(AnswersList));
                 
             }
             catch (Exception ex)
@@ -64,7 +64,7 @@ namespace Tadar.ViewModels
             set
             {
                 myanswers.TestAnswers = value;
-                OnPropertyChanged("Answers");
+                OnPropertyChanged("AnswersList");
             }
         }
         public ObservableCollection<TestTask> TasksList

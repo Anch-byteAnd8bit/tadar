@@ -54,7 +54,7 @@
                              Grid.Column="1"
                              Style="{StaticResource MaterialDesignBody1TextBlock}" 
                              FontSize="14"
-                             Width="500" Height="40" 
+                             Width="300" Height="40" 
                              Background="White"
                              TextAlignment="Center"
                              Foreground="Black" Cursor="Arrow"
@@ -67,7 +67,7 @@
                              Grid.Column="1"
                              Style="{StaticResource MaterialDesignBody1TextBlock}" 
                              FontSize="14"
-                             Width="500" Height="40" 
+                             Width="300" Height="40" 
                              Background="White"
                              TextAlignment="Center"
                              Foreground="Black" Cursor="Arrow"
@@ -89,7 +89,7 @@
             Grid.Row="1"
             Grid.Column="1" 
             x:Name="lvs1"
-            ItemsSource="{Binding Answers}"
+            ItemsSource="{Binding AnswersList}"
             IsSynchronizedWithCurrentItem="True">
 
             <ListView.ItemTemplate>

@@ -49,7 +49,7 @@
                             BorderBrush="Transparent"
                             Background="White"
                             Command="{Binding ElementName=lv,
-                            Path=DataContext.EnterClick}" 
+                            Path=DataContext.SendClick}" 
                             CommandParameter="{Binding}"
                             Width="390"
                             Height="100"
