@@ -39,7 +39,7 @@ namespace Tadar.ViewModels
                     new TextAnswerBody
                     {
                          // ИД задачи (хранятся в списке тела работы.
-                        AnswText = ""
+                        AnswText = "",id_Task="1"
                     }
                 }
             };
@@ -52,9 +52,15 @@ namespace Tadar.ViewModels
         {
             answers.AnswerHeader.DateTimeE = ToConvert.DB_DateTimeToStringDT(DateTime.Now);
 
-            answers.AnswerHeader.ID =  await api.AddTextAnswerAsync(answers);
-            MessageBox.Show("Ответ отправлен!");
-
+            answers.AnswerHeader.ID = await api.AddTextAnswerAsync(answers);
+            if (answers.AnswerHeader.ID != null)
+            {
+                Msg.Write("Ответ отправлен!");
+            }
+            else
+            {
+                Msg.Write(api.LastException.Message);
+            }
             First.Base_frame.Navigate(new MenuPage());
             //открытие новой страницы с вводом логина и пароля 
 

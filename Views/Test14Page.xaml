@@ -46,59 +46,35 @@
                             FontSize="25"
                             Text="{Binding NumTask}">
                         </TextBlock>
-                        
-                        <ItemsControl ItemsSource="{Binding Data}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    
-                                    <StackPanel>
-                                        <RadioButton
+
+
+                        <StackPanel>
+                            <RadioButton
                                             GroupName="{Binding ID}"
                                             Style="{StaticResource MaterialDesignRadioButton}" 
                                             FontSize="14"
                                             Content="{ Binding PossibleAnsw1}"
-                                            Command="{Binding DataContext.SelectionChengedCommand,
-                                            RelativeSource={RelativeSource FindAncestor,
-                                            AncestorType={x:Type ItemsControl}}}"
-                                            CommandParameter="{Binding}"
-                                            IsChecked="{Binding SelAnsw1}"/>
-                                        <RadioButton
+                                            
+                                            IsChecked="{Binding selAnsws[0]}"/>
+                            <RadioButton
                                             GroupName="{Binding ID}"
                                             Style="{StaticResource MaterialDesignRadioButton}" 
                                             FontSize="14"
                                             Content="{ Binding PossibleAnsw2}"
-                                            Command="{Binding DataContext.SelectionChengedCommand,
-                                            RelativeSource={RelativeSource FindAncestor,
-                                            AncestorType={x:Type ItemsControl}}}"
-                                            CommandParameter="{Binding}"
-                                            IsChecked="{Binding SelAnsw2}"/>
-                                        <RadioButton
+                                            IsChecked="{Binding selAnsws[1]}"/>
+                            <RadioButton
                                             GroupName="{Binding ID}"
                                             Style="{StaticResource MaterialDesignRadioButton}" 
                                             FontSize="14"
                                             Content="{ Binding PossibleAnsw3}"
-                                            Command="{Binding DataContext.SelectionChengedCommand,
-                                            RelativeSource={RelativeSource FindAncestor,
-                                            AncestorType={x:Type ItemsControl}}}"
-                                            CommandParameter="{Binding}"
-                                            IsChecked="{Binding SelAnsw3}"/>
-                                        <RadioButton
+                                            IsChecked="{Binding selAnsws[2]}"/>
+                            <RadioButton
                                             GroupName="{Binding ID}"
                                             Style="{StaticResource MaterialDesignRadioButton}" 
                                             FontSize="14"
                                             Content="{ Binding PossibleAnsw4}"
-                                            Command="{Binding DataContext.SelectionChengedCommand,
-                                            RelativeSource={RelativeSource FindAncestor,
-                                            AncestorType={x:Type ItemsControl}}}"
-                                            CommandParameter="{Binding}"
-                                            IsChecked="{Binding SelAnsw4}"/>
-                                    </StackPanel>
-
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-
-
+                                            IsChecked="{Binding selAnsws[3]}"/>
+                        </StackPanel>
 
                         <TextBlock 
                                  Margin="10"

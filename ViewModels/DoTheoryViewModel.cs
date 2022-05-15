@@ -132,7 +132,7 @@ namespace Tadar.ViewModels
 
             {
                 theory.id_Class = selectedclassroom.ID;
-                theory = await api.AddTheory(theory);
+                theory = await api.AddTheoryAsync(theory);
                 if (theory==null)
                 {
                     Msg.Write(api.LastException.Message);

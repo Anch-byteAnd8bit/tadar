@@ -48,8 +48,7 @@ namespace Tadar.ViewModels
                      PossibleAnsw3="",
                      RightNum="",
                      PossibleAnsw4="",
-                     Word="",
-                     SelAnsw3 = true
+                     Word=""
                 },
                 new TestTask
                 {
@@ -60,8 +59,7 @@ namespace Tadar.ViewModels
                      PossibleAnsw3="",
                      RightNum="",
                      PossibleAnsw4="",
-                     Word="",
-                     SelAnsw1 = true,
+                     Word=""
                 }
 
             };

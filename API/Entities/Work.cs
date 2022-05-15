@@ -351,6 +351,11 @@ namespace nsAPI.Entities
     /// </summary>
     public partial class TestTask
     {
+        public TestTask()
+        {
+            selAnsws = new List<bool>() { false, false, false, false};
+        }
+
         [JsonProperty("ID")]
         public string ID { get; set; }
 
@@ -379,13 +384,7 @@ namespace nsAPI.Entities
         public string IdTest { get; set; }
 
         [JsonIgnore]
-        public bool SelAnsw1 { get; set; }
-        [JsonIgnore]
-        public bool SelAnsw2 { get; set; }
-        [JsonIgnore]
-        public bool SelAnsw3 { get; set; }
-        [JsonIgnore]
-        public bool SelAnsw4 { get; set; }
+        public List<bool> selAnsws { get; set; }
 
         /// <summary>
         /// Расшифровка тела.

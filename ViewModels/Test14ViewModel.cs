@@ -23,14 +23,15 @@ namespace Tadar.ViewModels
         public Test14ViewModel(TestWork test)
         {
             work = test;
-            //answers.AnswerHeader.DateTimeS = ToConvert.DB_DateTimeToStringDT(DateTime.Now);
-            //answers.AnswerHeader.id_Student = api.MainUser.ID;
-            //answers.AnswerHeader.id_Work = work.WorkHeader.ID;
-            ////answers.AnswerHeader.id_TypeWork = work.WorkHeader.id_TypeWork;
-            //answers.AnswerHeader.Mark = null;
+            answers.AnswerHeader = new AnswerHeader();
+            answers.AnswerHeader.DateTimeS = ToConvert.DB_DateTimeToStringDT(DateTime.Now);
+            answers.AnswerHeader.id_Student = api.MainUser.ID;
+            answers.AnswerHeader.id_Work = work.WorkHeader.ID;
+            //answers.AnswerHeader.id_TypeWork = work.WorkHeader.id_TypeWork;
+            answers.AnswerHeader.Mark = null;
 
-            //AnswerClick = new Command(Answer_Click);
-            //SendClick = new Command(Send_Click);
+           // AnswerClick = new Command(Answer_Click);
+            SendClick = new Command(Send_Click);
             SelectionChengedCommand = new RelayCommand<TestTask>(SelectionChenged);
             
 
@@ -83,13 +84,26 @@ namespace Tadar.ViewModels
             get;
             set;
         }
-        //private async void Send_Click(object ob)
-        //{
-        //    answers.AnswerHeader.DateTimeE = ToConvert.DB_DateTimeToStringDT(DateTime.Now);
-        //    //await api.AddTestAnswerAsync(answers);
-        //    //  First.Base_frame.Navigate(new marks());
-        //    //открытие новой страницы с вводом логина и пароля 
-        //}
+        private async void Send_Click(object ob)
+        {
+            var wwww = work;
+
+            answers.AnswerBody = new System.Collections.Generic.List<TestAnswerBody>();
+            for (int i = 0; i < work.WorkBody.Count; i++)
+            {
+                answers.AnswerBody.Add(
+                    new TestAnswerBody
+                {
+                    id_Task = work.WorkBody[i].ID,
+                    num_Answ = (work.WorkBody[i].selAnsws.IndexOf(true)+1).ToString(),
+                }) ;
+            
+            }
+            answers.AnswerHeader.DateTimeE = ToConvert.DB_DateTimeToStringDT(DateTime.Now);
+          answers.AnswerHeader.ID =  await api.AddTestAnswerAsync(answers);
+            //  First.Base_frame.Navigate(new marks());
+            //открытие новой страницы с вводом логина и пароля 
+        }
 
 
 
