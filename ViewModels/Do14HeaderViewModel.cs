@@ -62,7 +62,7 @@ namespace Tadar.ViewModels
 
             //userent = new UserForAuthorization();
             // EntCommand = new Command(OnSave);
-            GettingClassrooms();
+            
             //
 
             Classrooms = new List<RegisteredClassroom>()
@@ -77,6 +77,7 @@ namespace Tadar.ViewModels
                     DateTimeClose=null,
                     DateTimeCreate=null},
             };
+            GettingClassrooms();
             CreateClick = new Command(Create_Click);
             
 

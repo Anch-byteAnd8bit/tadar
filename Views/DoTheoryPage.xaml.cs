@@ -27,5 +27,85 @@ namespace Tadar.Views
             InitializeComponent();
             DataContext = new DoTheoryViewModel();
         }
+
+
+        private void SmJClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            //Paragraph p = worktext.Document
+            // Blocks += "v";
+            Clipboard.SetText("ҷ");
+
+
+        }
+
+        private void SmNClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Clipboard.SetText("ң");
+
+        }
+
+        private void SmFClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Clipboard.SetText("ғ");
+
+        }
+
+        private void SmYClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Clipboard.SetText("ӱ");
+
+        }
+
+        private void SmIClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Clipboard.SetText("і");
+
+        }
+
+        private void SmOClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Clipboard.SetText("ӧ");
+
+        }
+
+        private void BigOClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Clipboard.SetText("Ӧ");
+
+        }
+
+        private void BigIClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Clipboard.SetText("І");
+
+        }
+
+        private void BigYClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Clipboard.SetText("Ӱ");
+
+        }
+
+        private void BigFClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Clipboard.SetText("Ғ");
+
+
+        }
+
+        private void BigNClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Clipboard.SetText("Ң");
+
+        }
+
+        private void BigJClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Clipboard.SetText("Ҷ");
+
+        }
+
+
+
     }
 }

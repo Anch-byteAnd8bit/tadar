@@ -111,7 +111,7 @@ namespace Tadar.ViewModels
         }
         private void selftest_Click(object ob)
         {
-            First.Base_frame.Navigate(new Ent_page());
+            First.Base_frame.Navigate(new ListNonMarkPage());
             //открытие новой страницы с вводом логина и пароля 
         }
         //public string 

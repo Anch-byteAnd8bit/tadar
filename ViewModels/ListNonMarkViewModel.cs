@@ -1,30 +1,30 @@
-﻿using Helpers;
-using nsAPI.Entities;
+﻿using nsAPI.Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
 using Tadar.Helpers;
 using Tadar.Models;
 using Tadar.Views;
 
 namespace Tadar.ViewModels
 {
-   public class ListTestViewModel : BaseViewModel
+    class ListNonMarkViewModel : BaseViewModel
     {
-       private TestWork test;
-       private TextWork text;
-       private Works works;
-        public ListTestViewModel()
+        private TestWork test;
+        private TextWork text;
+        private Works works;
+        public ListNonMarkViewModel()
         {
-            
+
             TestClick = new Command(Test_Click);
             TextClick = new Command(Text_Click);
             LoadClasssAsync();
-           
-           
+
+
         }
         public async void LoadClasssAsync()
         {
@@ -36,11 +36,11 @@ namespace Tadar.ViewModels
                 }
                 List<RegisteredClassroom> classes =
                     await api.GetClassroomsByUserIdAsync(api.MainUser.ID);
-                List<string> idjourn= new List<string>();
+                List<string> idjourn = new List<string>();
                 for (int i = 0; i < classes.Count; i++)
                 {
                     idjourn.Add(classes[i].ID);
-                   // nameclass[i] = classes[i].Name;
+                    // nameclass[i] = classes[i].Name;
 
                 }
                 LoadTestsAsync(idjourn);
@@ -67,15 +67,15 @@ namespace Tadar.ViewModels
 
                 for (int i = 0; i < works.TestWorks.Count; i++)
                 {
-                    if (works.TestWorks[i].WorkHeader.IsNonMark == "0")
+                    if (works.TestWorks[i].WorkHeader.IsNonMark== "1")
                     {
-                        TestsList.Add(works.TestWorks[i].WorkHeader);
+                    TestsList.Add(works.TestWorks[i].WorkHeader);
                     }
                 }
 
                 for (int i = 0; i < works.TextWorks.Count; i++)
                 {
-                    if (works.TextWorks[i].WorkHeader.IsNonMark == "0")
+                    if (works.TextWorks[i].WorkHeader.IsNonMark == "1")
                     {
                         TextsList.Add(works.TextWorks[i].WorkHeader);
                     }
@@ -99,14 +99,14 @@ namespace Tadar.ViewModels
         {
             test = new TestWork();
             test.WorkHeader = (WorkHeader)ob;
-            test.WorkBody=works.TestWorks.SingleOrDefault(w => w.WorkHeader == test.WorkHeader).WorkBody;
+            test.WorkBody = works.TestWorks.SingleOrDefault(w => w.WorkHeader == test.WorkHeader).WorkBody;
             First.Base_frame.Navigate(new Test14Page(test));
 
         }
         public Command TestClick
         {
             get;
-            
+
         }
         private void Text_Click(object ob)
         {
@@ -122,7 +122,6 @@ namespace Tadar.ViewModels
 
         }
 
-      
 
     }
 }

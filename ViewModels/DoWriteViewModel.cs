@@ -82,7 +82,7 @@ namespace Tadar.ViewModels
                 work.WorkBody = textwork.WorkBody;
                 //string testwork;
                 work.WorkHeader.ID = await api.AddTextWorkAsync(work);
-                MessageBox.Show(work.WorkHeader.ID + ": " + work.WorkHeader.Name + work.WorkBody[0].TaskTitle);
+              //  MessageBox.Show(work.WorkHeader.ID + ": " + work.WorkHeader.Name + work.WorkBody[0].TaskTitle);
 
 
 

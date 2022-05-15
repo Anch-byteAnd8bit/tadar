@@ -17,14 +17,14 @@ using Tadar.ViewModels;
 namespace Tadar.Views
 {
     /// <summary>
-    /// Логика взаимодействия для TheoryThemePage.xaml
+    /// Логика взаимодействия для ListNonMarkPage.xaml
     /// </summary>
-    public partial class TheoryThemePage : Page
+    public partial class ListNonMarkPage : Page
     {
-        public TheoryThemePage(string clsid)
+        public ListNonMarkPage()
         {
             InitializeComponent();
-            DataContext = new TheoryThemeViewModel(clsid);
+            DataContext = new ListNonMarkViewModel();
         }
     }
 }

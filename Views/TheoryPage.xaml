@@ -38,9 +38,9 @@
                 Command="{Binding ListClick}"
                 Grid.Column="0"
                 Grid.Row="2"
-                Content="Список тем"
+                Content="Список классов для просмотра теории"
                 HorizontalAlignment="Center" 
-                Width="400" FontSize="25" Cursor="Hand" 
+                Width="490" FontSize="25" Cursor="Hand" 
                 />
 
 

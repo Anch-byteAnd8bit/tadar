@@ -21,12 +21,12 @@ namespace Tadar.ViewModels
         }
         private void Create_Click(object ob)
         {
-            First.Base_frame.Navigate(new DoWriteHeaderPage());
+            First.Base_frame.Navigate(new DoTheoryPage());
             //открытие новой страницы с вводом логина и пароля 
         }
         private void List_Click(object ob)
         {
-            First.Base_frame.Navigate(new TheoryThemePage());
+            First.Base_frame.Navigate(new TheListClassPage());
             //открытие новой страницы с вводом логина и пароля 
         }
 
