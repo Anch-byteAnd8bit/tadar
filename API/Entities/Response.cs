@@ -27,7 +27,11 @@ namespace nsAPI.Entities
             Data = null;
             Exception = new ResponseError(typeError, message);
         }
-
+        public Response(System.Net.Sockets.SocketException ex)
+        {
+            Data = null;
+            Exception = new ResponseError(ex);
+        }
         /// <summary>
         /// Создаёт ответ, содержащий только ошибку сервера.
         /// </summary>
@@ -128,7 +132,7 @@ namespace nsAPI.Entities
         /// <summary>
         /// Ошибка со связью.
         /// </summary>
-        ConnectError,
+        ConnectionError,
     }
 
 
@@ -142,19 +146,33 @@ namespace nsAPI.Entities
         /// <summary>
         /// Код ошибки от API.
         /// </summary>
-        public CODE_ERROR Code { get; set; }
+        public CODE_ERROR CodeAPI { get; set; }
         /// <summary>
         /// Информация об ошибке от API.
         /// </summary>
-        public ErrorInfo ErrorInfo { get; set; }
+        public ErrorInfo ErrorInfoAPI { get; set; }
         /// <summary>
         /// Ответ от сервера, который не удалось распознать.
         /// </summary>
         public string ServerText { get; set; } = null;
+
         /// <summary>
         /// Ошибка при соединении.
         /// </summary>
         public string SocketText { get; set; } = null;
+        /// <summary>
+        /// Код ошибки соединения.
+        /// </summary>
+        public int SocketCode { get; set; } = -1;
+        /// <summary>
+        /// Имя(описание) ошибки соединения.
+        /// </summary>
+        public string SocketErrName { get; set; } = null;
+        /// <summary>
+        /// Ошибка соккета. (Перечисление)!
+        /// </summary>
+        public System.Net.Sockets.SocketError SocketError { get; set; }
+
         public string Message
         {
             get
@@ -165,11 +183,11 @@ namespace nsAPI.Entities
                     return HttpResponseMessage.StatusCode.ToString() + " - " +
                         HttpResponseMessage.ReasonPhrase + ". Content: " + contentMsg??"empty";
                 }
-                else if (ErrorInfo != null)
+                else if (ErrorInfoAPI != null)
                 {
-                    return "Message: " + ErrorInfo.Message + "\n" +
-                        "Description: " + ErrorInfo.Description + "\n" +
-                        "Additional" + ErrorInfo.Additional + "\n";
+                    return "Message: " + ErrorInfoAPI.Message + "\n" +
+                        "Description: " + ErrorInfoAPI.Description + "\n" +
+                        "Additional" + ErrorInfoAPI.Additional + "\n";
                 }
                 else if (ServerText != null)
                 {
@@ -193,6 +211,14 @@ namespace nsAPI.Entities
             //Content.ReadAsStringAsync()
         }
 
+        public ResponseError(System.Net.Sockets.SocketException ex)
+        {
+            TypeError = TError.ConnectionError;
+            SocketErrName = ex.SocketErrorCode.ToString();
+            SocketError = ex.SocketErrorCode;
+            SocketCode = ex.ErrorCode;
+        }
+
         public ResponseError()
         {
             TypeError = TError.Empty;
@@ -204,8 +230,8 @@ namespace nsAPI.Entities
 
         public ResponseError(TError typeError, Error error)
         {
-            ErrorInfo = error.errorInfo;
-            Code = (CODE_ERROR)error.errorInfo.Type;
+            ErrorInfoAPI = error.errorInfo;
+            CodeAPI = (CODE_ERROR)error.errorInfo.Type;
             TypeError = typeError;
         }
 
@@ -216,7 +242,7 @@ namespace nsAPI.Entities
                 TypeError = typeError;
                 ServerText = errorMessage;
             }
-            else if (typeError == TError.ConnectError)
+            else if (typeError == TError.ConnectionError)
             {
                 TypeError = typeError;
                 SocketText = errorMessage;
@@ -225,8 +251,8 @@ namespace nsAPI.Entities
             {
                 // Произошла ошибка при попытке получения информации из БД.
                 Error error = Error.FromJson(errorMessage);
-                ErrorInfo = error.errorInfo;
-                Code = (CODE_ERROR)error.errorInfo.Type;
+                ErrorInfoAPI = error.errorInfo;
+                CodeAPI = (CODE_ERROR)error.errorInfo.Type;
                 TypeError = typeError;
             }
         }

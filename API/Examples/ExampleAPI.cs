@@ -48,7 +48,7 @@ namespace nsAPI.Examples
             {
                 if (api.LastException.TypeError == TError.DefinedError)
                 {
-                    if (api.LastException.Code == CODE_ERROR.ERR_UserAlreadyReg)
+                    if (api.LastException.CodeAPI == CODE_ERROR.ERR_UserAlreadyReg)
                     {
                         Msg.Write("Такой пользователь уже зарегистрирован!");
                     }

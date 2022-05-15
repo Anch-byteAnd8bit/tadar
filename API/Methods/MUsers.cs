@@ -46,7 +46,7 @@ namespace nsAPI.Methods
             {
                 if (responseJson.Exception.TypeError == TError.DefinedError)
                 {
-                    if (responseJson.Exception.Code == CODE_ERROR.ERR_UserAlreadyReg)
+                    if (responseJson.Exception.CodeAPI == CODE_ERROR.ERR_UserAlreadyReg)
                     {
 
                     }
