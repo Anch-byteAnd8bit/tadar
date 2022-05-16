@@ -19,12 +19,14 @@ namespace Tadar.ViewModels
         private string idus;
         private Answers answers = new Answers();
         TestAnswer myanswer = new TestAnswer();
+        ObservableCollection<AnsAndWork> ansandwork = new ObservableCollection<AnsAndWork>();
+        private int countrightansw = 0;
 
         //private Answers answers;
         public AnsTestViewModel(string iduser,TestWork test)
         {
             work = test;
-            OnPropertyChanged(nameof(TasksList));
+           // OnPropertyChanged(nameof(TasksList));
             idus = iduser;
             LoadAnsAsync(work, idus);
             SendClick = new Command(Send_Click);
@@ -46,14 +48,31 @@ namespace Tadar.ViewModels
                 {
                     // Получаем только мои ответы.
                     Answers myAnswers = answers.GetAnswersByIDUser(idus);
+
                     // А есть ли тут мои ответы?
                     if (myAnswers.TestAnswers.Count > 0)
                     {
+
+                        
+                        work.WorkBody.ForEach(wb =>
+                            {
+                                var answtask = myAnswers.TestAnswers[0].AnswerBody.FirstOrDefault(t => t.id_Task == wb.ID);
+                                if (wb.RightNum == answtask.num_Answ) countrightansw++;
+
+
+                            });
+                        OnPropertyChanged(nameof(Countb));
+                        // Msg.Write($"Правильно отвечено: {countrightansw} вопросов из {work.WorkBody.Count}. Оценку выставит учитель!");
+
+
+
+
                         // Я мог решить эту работу толлько один раз, значит ответ будет только
                         // один!! Берем поэтому первый элемент - это и есть мой ответ.
                         myanswer = myAnswers.TestAnswers[0];
                         //
-                        Rate = int.Parse(myanswer.AnswerHeader.Mark);
+                        var s = myanswer.AnswerHeader.Mark == "NULL" ? "0": myanswer.AnswerHeader.Mark;
+                        Rate = int.Parse(s);
                     }
                     // Моих ответов нет...
                     else
@@ -62,7 +81,52 @@ namespace Tadar.ViewModels
                     }
 
                     //TODO: сохранять works, из него получать список заголовков ВСЕХ работ
-                    OnPropertyChanged(nameof(AnswersList));
+                    for (int i = 0; i < myanswer.AnswerBody.Count; i++)
+                    {
+                        AnsAndWork anss = new AnsAndWork();
+
+                        anss.NumTask = work.WorkBody[i].NumTask;
+                        anss.Word = work.WorkBody[i].Word;
+                        anss.AnsRightid = work.WorkBody[i].RightNum;
+                        switch (anss.AnsRightid)
+                        {
+                            case "1":
+                                anss.AnsRight = work.WorkBody[i].PossibleAnsw1;
+                                    break;
+                            case "2":
+                                anss.AnsRight = work.WorkBody[i].PossibleAnsw2;
+                                break;
+                            case "3":
+                                anss.AnsRight = work.WorkBody[i].PossibleAnsw3;
+                                break;
+                            case "4":
+                                anss.AnsRight = work.WorkBody[i].PossibleAnsw4;
+                                break;
+                            default:
+                                break;
+                        }
+
+                        anss.AnsStudid = myanswer.AnswerBody[i].num_Answ;
+                        switch (anss.AnsStudid)
+                        {
+                            case "1":
+                                anss.AnsStud = work.WorkBody[i].PossibleAnsw1;
+                                break;
+                            case "2":
+                                anss.AnsStud = work.WorkBody[i].PossibleAnsw2;
+                                break;
+                            case "3":
+                                anss.AnsStud = work.WorkBody[i].PossibleAnsw3;
+                                break;
+                            case "4":
+                                anss.AnsStud = work.WorkBody[i].PossibleAnsw4;
+                                break;
+                            default:
+                                break;
+                        }
+                        ansandwork.Add(anss);
+                        OnPropertyChanged(nameof(AnswersList));
+                    }
                 }
                 else
                 {
@@ -77,20 +141,29 @@ namespace Tadar.ViewModels
             }
         }
 
-        public List<TestAnswerBody> AnswersList
+
+        public ObservableCollection<AnsAndWork> AnswersList
         {
             get
             {
-                return myanswer.AnswerBody;
+                return ansandwork;
             }
         }
-        public ObservableCollection<TestTask> TasksList
-        {
-            get
-            {
-                return new ObservableCollection<TestTask>(work.WorkBody);
-            }
-        }
+
+        //public List<TestAnswerBody> AnswersList
+        //{
+        //    get
+        //    {
+        //        return myanswer.AnswerBody;
+        //    }
+        //}
+        //public ObservableCollection<TestTask> TasksList
+        //{
+        //    get
+        //    {
+        //        return new ObservableCollection<TestTask>(work.WorkBody);
+        //    }
+        //}
 
         /// <summary>
         /// Название работы.
@@ -98,6 +171,15 @@ namespace Tadar.ViewModels
         public string NameTest
         {
             get { return work.WorkHeader.Name; }
+        }
+
+        public string Countb
+        {
+            get { return countrightansw.ToString(); }
+        }
+        public string CountAll
+        {
+            get { return work.WorkBody.Count.ToString(); }
         }
 
 

@@ -13,7 +13,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"></RowDefinition>
             <RowDefinition Height="25*"></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -24,7 +24,7 @@
         <TextBlock Grid.Row="0"
             Text="{Binding NameTest}"
                    Foreground="White"
-                   Style="{StaticResource MaterialDesignHeadline3TextBlock}"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"/>
         
@@ -39,11 +39,11 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Margin="10">
+                    <StackPanel Background="White" Margin="2">
                         <TextBlock
-                            Foreground="White"
+                            Foreground="Black"
                             FontWeight="DemiBold"
-                            FontSize="25"
+                            FontSize="22"
                             Text="{Binding NumTask}">
                         </TextBlock>
 
@@ -52,39 +52,42 @@
                              Grid.Row="1" 
                              Grid.Column="1"
                              Style="{StaticResource MaterialDesignBody1TextBlock}" 
-                             FontSize="14"
+                             FontSize="22"
                              Width="500" Height="40" 
-                             Background="White"
+                             Background="#FFE4C1FC"
                              TextAlignment="Center"
                              Foreground="Black" Cursor="Arrow"
                             Text="{ Binding Word}" >
 
                         </TextBlock>
 
-                        <StackPanel>
+                        <StackPanel
+                            HorizontalAlignment="Center"
+                            Margin="2"
+                            >
                             <RadioButton
                                             GroupName="{Binding ID}"
-                                            Style="{StaticResource MaterialDesignRadioButton}" 
-                                            FontSize="14"
+                                            Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
+                                            FontSize="16"
                                             Content="{ Binding PossibleAnsw1}"
                                             
                                             IsChecked="{Binding selAnsws[0]}"/>
                             <RadioButton
                                             GroupName="{Binding ID}"
-                                            Style="{StaticResource MaterialDesignRadioButton}" 
-                                            FontSize="14"
+                                            Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
+                                            FontSize="16"
                                             Content="{ Binding PossibleAnsw2}"
                                             IsChecked="{Binding selAnsws[1]}"/>
                             <RadioButton
                                             GroupName="{Binding ID}"
-                                            Style="{StaticResource MaterialDesignRadioButton}" 
-                                            FontSize="14"
+                                            Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
+                                            FontSize="16"
                                             Content="{ Binding PossibleAnsw3}"
                                             IsChecked="{Binding selAnsws[2]}"/>
                             <RadioButton
                                             GroupName="{Binding ID}"
-                                            Style="{StaticResource MaterialDesignRadioButton}" 
-                                            FontSize="14"
+                                            Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
+                                            FontSize="16"
                                             Content="{ Binding PossibleAnsw4}"
                                             IsChecked="{Binding selAnsws[3]}"/>
                         </StackPanel>
