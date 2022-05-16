@@ -53,12 +53,12 @@ namespace Tadar.ViewModels
                         // один!! Берем поэтому первый элемент - это и есть мой ответ.
                         myanswer = myAnswers.TestAnswers[0];
                         //
-                        Rate = int.Parse(myanswer.AnswerHeader.Mark);
+                        Rate = int.Parse(myanswer.AnswerHeader.Mark??"0");
                     }
                     // Моих ответов нет...
                     else
                     {
-                        // Чтоже делать???
+                        // Что же делать???
                     }
 
                     //TODO: сохранять works, из него получать список заголовков ВСЕХ работ
