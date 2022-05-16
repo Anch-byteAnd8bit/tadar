@@ -96,12 +96,12 @@
                 <DataTemplate>
 
                     <StackPanel Margin="10">
-                        <TextBlock
+                        <!--<TextBlock
                             Foreground="White"
                             FontWeight="DemiBold"
                             FontSize="25"
                             Text="{Binding id_Task}">
-                        </TextBlock>
+                        </TextBlock>-->
 
                         <TextBlock 
                                  Margin="10"
