@@ -7,23 +7,41 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Tadar.Helpers;
+using Tadar.Models;
+using Tadar.Views;
 
 namespace Tadar.ViewModels
 {
     class TheoryThemeViewModel : BaseViewModel
     {
         private List <Theory> themes;
+        private Theory theory;
         private string idclass;
         public TheoryThemeViewModel(string clsid)
         {
             idclass = clsid;
-            //TestClick = new Command(Test_Click);
+            TestClick = new Command(Test_Click);
             // TextClick = new Command(Text_Click);
             LoadTestsAsync(idclass);
 
 
         }
-        
+
+        private void Test_Click(object ob)
+        {
+            theory = new Theory();
+            theory = (Theory)ob;
+            
+            First.Base_frame.Navigate(new ViewTheoryPage(theory));
+
+        }
+        public Command TestClick
+        {
+            get;
+
+        }
+
+
         public async void LoadTestsAsync(string idclass)
         {
             try

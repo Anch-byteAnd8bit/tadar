@@ -111,8 +111,8 @@ namespace Tadar.ViewModels
                 if (api.LastException != null)
                     Msg.Write(api.LastException.Message);
             }
-            answers.AnswerHeader.DateTimeE = ToConvert.DB_DateTimeToStringDT(DateTime.Now);
-          answers.AnswerHeader.ID =  await api.AddTestAnswerAsync(answers);
+          //  answer.AnswerHeader.DateTimeE = ToConvert.DB_DateTimeToStringDT(DateTime.Now);
+          //answer.AnswerHeader.ID =  await api.AddTestAnswerAsync(answer);
             First.Base_frame.Navigate(new MenuPage());
             //открытие новой страницы с вводом логина и пароля 
         }
