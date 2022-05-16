@@ -230,6 +230,15 @@ namespace nsAPI.Entities
         [JsonProperty("WorkBody")]
         public List<TestTask> WorkBody { get; set; }
 
+        public TestWork Clone()
+        {
+            var tw = new TestWork();
+            tw.WorkHeader = WorkHeader.Clone();
+            tw.WorkBody = new List<TestTask>();
+            WorkBody.ForEach(wb => tw.WorkBody.Add(wb.Clone()));
+            return tw;
+        }
+
         /// <summary>
         /// Расшифровка тела.
         /// </summary>
@@ -355,7 +364,6 @@ namespace nsAPI.Entities
         {
             selAnsws = new List<bool>() { false, false, false, false};
         }
-
         [JsonProperty("ID")]
         public string ID { get; set; }
 
@@ -385,6 +393,24 @@ namespace nsAPI.Entities
 
         [JsonIgnore]
         public List<bool> selAnsws { get; set; }
+
+        public TestTask Clone()
+        {
+            var tt = new TestTask
+            {
+                ID = ID,
+                NumTask = NumTask,
+                Word = Word,
+                PossibleAnsw1 = PossibleAnsw1,
+                PossibleAnsw2 = PossibleAnsw2,
+                PossibleAnsw3 = PossibleAnsw3,
+                PossibleAnsw4 = PossibleAnsw4,
+                RightNum = RightNum,
+                IdTest = IdTest,
+                selAnsws = selAnsws,
+            };
+            return tt;
+        }
 
         /// <summary>
         /// Расшифровка тела.
@@ -496,6 +522,23 @@ namespace nsAPI.Entities
         [JsonProperty("MaxDuration")]
         public string MaxDuration { get; set; }
 
+
+        public WorkHeader Clone()
+        {
+            var wh = new WorkHeader()
+            {
+                DateTimeStart = DateTimeStart,
+                MaxDuration = MaxDuration,
+                Name = Name,
+                Description = Description,
+                IsNonMark = IsNonMark,
+                id_Class = id_Class,
+                ID = ID,
+                DateTimeCreate = DateTimeCreate,
+                id_TypeWork = id_TypeWork,
+            };
+            return wh;
+        }
 
         /// <summary>
         /// Расшифровка заголовка.

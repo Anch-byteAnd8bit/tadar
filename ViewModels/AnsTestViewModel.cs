@@ -1,4 +1,5 @@
-﻿using nsAPI.Entities;
+﻿using Helpers;
+using nsAPI.Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Tadar.Helpers;
+using Tadar.Models;
+using Tadar.Views;
 
 namespace Tadar.ViewModels
 {
@@ -24,7 +27,7 @@ namespace Tadar.ViewModels
             OnPropertyChanged(nameof(TasksList));
             idus = iduser;
             LoadAnsAsync(work, idus);
-            //SendClick = new Command(Send_Click);
+            SendClick = new Command(Send_Click);
 
         }
 
@@ -41,7 +44,6 @@ namespace Tadar.ViewModels
                 answers = await api.GetAnswersByWork(work.WorkHeader.ID, false);
                 if (answers != null)
                 {
-
                     // Получаем только мои ответы.
                     Answers myAnswers = answers.GetAnswersByIDUser(idus);
                     // А есть ли тут мои ответы?
@@ -66,7 +68,7 @@ namespace Tadar.ViewModels
                 }
                 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //MessageBox.Show(ex.Message);
                 MessageBox.Show("Вы не состоите ни в одном классе или в классе нет заданий!");
@@ -98,10 +100,15 @@ namespace Tadar.ViewModels
             //}
         }
 
-
-
-
-
+        private int rate;
+        /// <summary>
+        /// Оценка работе.
+        /// </summary>
+        public int Rate
+        {
+            get { return rate; }
+            set { rate = value; }
+        }
 
         public Command SendClick
         {
@@ -110,23 +117,16 @@ namespace Tadar.ViewModels
         }
         private async void Send_Click(object ob)
         {
-            //var wwww = work;
+            // Получаем оценку.
+            answers.TestAnswers[0].AnswerHeader.Mark = Rate.ToString();
+            // Отправляем оценку на работу.
+            if (!await api.AddMark(answers.TestAnswers[0].AnswerHeader))
+            {
+                // Что-то пошло не так...
+                Msg.Write("Не удалось сохранить оценку! :(");
+            }
 
-            //answers.AnswerBody = new System.Collections.Generic.List<TestAnswerBody>();
-            //for (int i = 0; i < work.WorkBody.Count; i++)
-            //{
-            //    answers.AnswerBody.Add(
-            //        new TestAnswerBody
-            //        {
-            //            id_Task = work.WorkBody[i].ID,
-            //            num_Answ = (work.WorkBody[i].selAnsws.IndexOf(true) + 1).ToString(),
-            //        });
-
-            //}
-            //answers.AnswerHeader.DateTimeE = ToConvert.DB_DateTimeToStringDT(DateTime.Now);
-            //answers.AnswerHeader.ID = await api.AddTestAnswerAsync(answers);
-            ////  First.Base_frame.Navigate(new marks());
-            ////открытие новой страницы с вводом логина и пароля 
+            First.Base_frame.Navigate(new MenuPage());
         }
 
     }

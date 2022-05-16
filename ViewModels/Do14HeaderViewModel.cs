@@ -86,14 +86,14 @@ namespace Tadar.ViewModels
 
         public string Testname
         {
-            // Когда надо вернуть фамилию.
+            // Когда надо вернуть Testname.
             get => Nametest;
-            // Когда надо задать фамилию.
+            // Когда надо задать Testname.
             set
             {
-                // Присваиваем новое значение фамилии.
+                // Присваиваем новое значение Testname.
                 Nametest = value;
-                // Уведомляем форму, что свойство "Surname" изменилось.
+                // Уведомляем форму, что свойство "Testname" изменилось.
                 OnPropertyChanged(nameof(Testname));
             }
         }
@@ -107,7 +107,7 @@ namespace Tadar.ViewModels
             {
                 // Присваиваем новое значение фамилии.
                 Desctest = value;
-                // Уведомляем форму, что свойство "Surname" изменилось.
+                // Уведомляем форму, что свойство "TestDesc" изменилось.
                 OnPropertyChanged(nameof(TestDesc));
             }
         }
@@ -129,7 +129,18 @@ namespace Tadar.ViewModels
         {
             try
             {
-                Classrooms = await api.GetAllClassess();
+                string id_TeacherRole = api.Refbooks[TRefbooks.Roles].SingleOrDefault(r => r.Name == "Учитель")?.ID ?? "3";
+                Classrooms = await api.GetClassroomsByUserIdAsync(api.MainUser.ID, id_TeacherRole);
+                if (Classrooms == null)
+                {
+                    if (api.LastException != null && api.LastException.TypeError == TError.DefinedError)
+                    {
+                        if (api.LastException.CodeAPI == CODE_ERROR.ERR_ClassNotFound)
+                        {
+                            // Классы не найдены.
+                        }
+                    }
+                }
             }
             catch (Exception)
             {

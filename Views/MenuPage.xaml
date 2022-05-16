@@ -117,9 +117,9 @@
                 Command="{Binding AkkClick}"
                 Grid.Column="0"
                 Grid.Row="2"
-                Content="Проверить тест"
+                Content="Проверить задания"
                 HorizontalAlignment="Center" 
-                Width="255" FontSize="25" 
+                Width="255" FontSize="21" 
                 />
 
 
@@ -181,9 +181,9 @@
                 Command="{Binding MaketestClick}"
                 Grid.Column="0"
                 Grid.Row="1"
-                Content="Создать тест"
+                Content="Создать задание"
                 HorizontalAlignment="Center" 
-                Width="255" FontSize="25" 
+                Width="255" FontSize="25" Cursor="Hand" 
                 />
                 <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
              materialDesign:ButtonAssist.CornerRadius="25" x:Name="class"

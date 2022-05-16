@@ -13,6 +13,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"></RowDefinition>
             <RowDefinition Height="25*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
 
         </Grid.RowDefinitions>
@@ -125,7 +126,11 @@
             </ListView.ItemTemplate>
         </ListView>
 
-
+        <materialDesign:RatingBar
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            x:Name="BasicRatingBar"
+            Value="{Binding Rate}"/>
 
         <Button  Style="{StaticResource MaterialDesignFlatMidBgButton}"
              materialDesign:ButtonAssist.CornerRadius="25" 

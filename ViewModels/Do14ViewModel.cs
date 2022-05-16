@@ -94,7 +94,6 @@ namespace Tadar.ViewModels
                 
                 MessageBox.Show(work.WorkHeader.ID + ": " + work.WorkHeader.Name + work.WorkBody[1].Word);
 
-
                 First.Base_frame.Navigate(new MenuPage());
             }
             // TODO: надо потом определять тип ошибки и выводить соотвествующие сообщения...
