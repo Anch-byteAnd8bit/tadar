@@ -27,14 +27,14 @@ namespace nsAPI.Methods
                 answer.AnswerHeader.id_TypeWork = (worktype?.ID) ?? "1";
             }
             else answer.AnswerHeader.id_TypeWork = "1";
-
+            var answToSend = answer.Clone();
             // Получаем пользователя с зашифрованными данными.
-            answer.EncryptByAES();
+            answToSend.EncryptByAES();
 
             // ВСЕГДА, ПРИ ОТПРАВКЕ POST-ЗАПРОСА, НАДО ДОБАВЛЯТЬ В КОНЦЕ АДРЕСА СЛЭШ!
 
             // Конвертируем объект в строку в формате JSON.
-            string answerJson = answer.ToJson();
+            string answerJson = answToSend.ToJson();
             Console.WriteLine(answerJson);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("answers.add/", answerJson, urlParams);
