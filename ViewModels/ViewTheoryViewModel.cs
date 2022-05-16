@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tadar.Helpers;
+using Tadar.Models;
+using Tadar.Views;
 
 namespace Tadar.ViewModels
 {
@@ -13,8 +16,20 @@ namespace Tadar.ViewModels
         public ViewTheoryViewModel(Theory theory)
         {
             theo = theory;
+            BackClick = new Command(Back_Click);
            // LoadTestsAsync(theo.ID);
 
+        }
+        private void Back_Click(object ob)
+        {
+            First.Base_frame.Navigate(new MenuPage());
+
+        }
+
+        public Command BackClick
+        {
+            get;
+            set;
         }
 
         public string Topic

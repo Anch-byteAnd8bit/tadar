@@ -8,6 +8,8 @@
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="900"
       Title="ViewTheoryPage">
+    
+    
 
     <Grid Background="#FFA25DED" ShowGridLines="False">
         <Grid.RowDefinitions>
@@ -23,7 +25,18 @@
             <ColumnDefinition Width="3*"></ColumnDefinition>
 
         </Grid.ColumnDefinitions>
-        
+
+        <Button x:Name="back_but"
+                Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                Content="{materialDesign:PackIcon Kind=Home}"
+                
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Command="{Binding BackClick}"
+                Grid.Column="0"
+                FontSize="20"
+                Width="50" Cursor="Hand"/>
+
         <TextBlock
             Grid.Row="0"
             Grid.Column="0"
