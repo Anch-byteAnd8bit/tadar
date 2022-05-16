@@ -7,14 +7,27 @@ using System.Threading.Tasks;
 
 namespace Tadar.Models
 {
-    internal class WorksMark
+    internal class WorksAnswers
     {
-        private Works works;
+        public WorksAnswers(Works works, Answers answers)
+        {
+            this.works = works;
+            this.answers = answers;
+        }
+
+        public Works works;
+        public Answers answers;
 
         public Works Works
         {
             get { return works; }
             set { works = value; }
+        }
+        
+        public Answers Answers
+        {
+            get { return answers; }
+            set { answers = value; }
         }
 
     }
