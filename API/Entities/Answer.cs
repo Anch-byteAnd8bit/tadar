@@ -121,6 +121,15 @@ namespace nsAPI.Entities
             AnswerHeader.EncryptByAES();
             AnswerBody.ForEach(e => e.EncryptByAES());
         }
+
+        public TestAnswerForAdd Clone()
+        {
+            var d = new TestAnswerForAdd();
+            d.AnswerHeader = AnswerHeader.Clone();
+            d.AnswerBody = new List<TestAnswerBody>();
+            AnswerBody.ForEach(ab => d.AnswerBody.Add(ab.Clone()));
+            return d;
+        }
     }
 
     /// <summary>
@@ -160,6 +169,16 @@ namespace nsAPI.Entities
 
         [JsonProperty("num_Answ")]
         public string num_Answ { get; set; }
+
+        public TestAnswerBody Clone()
+        {
+            var ab = new TestAnswerBody();
+            ab.num_Answ = num_Answ;
+            ab.id_Task = id_Task;
+            ab.ID = ID;
+            ab.id_ExecutionOfWork = id_ExecutionOfWork;
+            return ab;
+        }
 
         /// <summary>
         /// Расшифровка тела.
@@ -258,6 +277,19 @@ namespace nsAPI.Entities
         /// </summary>
         [JsonProperty("id_TypeWork")]
         public string id_TypeWork { get; set; }
+
+        public AnswerHeader Clone()
+        {
+            var a = new AnswerHeader();
+            a.DateTimeE = DateTimeE;
+            a.ID = ID;
+            a.Mark = Mark;
+            a.DateTimeS = DateTimeS;
+            a.id_Student = id_Student;
+            a.id_Work = id_Work;
+            a.id_TypeWork = id_TypeWork;
+            return a;
+        }
 
         /// <summary>
         /// Расшифровка заголовка.

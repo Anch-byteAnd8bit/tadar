@@ -14,7 +14,7 @@ namespace Tadar.ViewModels
    public class Test14ViewModel: BaseViewModel
     {
        private TestWork work;
-       private TestAnswerForAdd answers = new TestAnswerForAdd();
+       private TestAnswerForAdd answer = new TestAnswerForAdd();
 
         public TestTask SelectedItem { get; set; }
 
@@ -23,12 +23,12 @@ namespace Tadar.ViewModels
         public Test14ViewModel(TestWork test)
         {
             work = test;
-            answers.AnswerHeader = new AnswerHeader();
-            answers.AnswerHeader.DateTimeS = ToConvert.DB_DateTimeToStringDT(DateTime.Now);
-            answers.AnswerHeader.id_Student = api.MainUser.ID;
-            answers.AnswerHeader.id_Work = work.WorkHeader.ID;
+            answer.AnswerHeader = new AnswerHeader();
+            answer.AnswerHeader.DateTimeS = ToConvert.DB_DateTimeToStringDT(DateTime.Now);
+            answer.AnswerHeader.id_Student = api.MainUser.ID;
+            answer.AnswerHeader.id_Work = work.WorkHeader.ID;
             //answers.AnswerHeader.id_TypeWork = work.WorkHeader.id_TypeWork;
-            answers.AnswerHeader.Mark = null;
+            answer.AnswerHeader.Mark = null;
            
            // AnswerClick = new Command(Answer_Click);
             SendClick = new Command(Send_Click);
@@ -80,18 +80,36 @@ namespace Tadar.ViewModels
         }
         private async void Send_Click(object ob)
         {
-            var wwww = work;
-
-            answers.AnswerBody = new System.Collections.Generic.List<TestAnswerBody>();
+            answer.AnswerBody = new System.Collections.Generic.List<TestAnswerBody>();
             for (int i = 0; i < work.WorkBody.Count; i++)
             {
-                answers.AnswerBody.Add(
+                answer.AnswerBody.Add(
                     new TestAnswerBody
                 {
                     id_Task = work.WorkBody[i].ID,
                     num_Answ = (work.WorkBody[i].selAnsws.IndexOf(true)+1).ToString(),
                 }) ;
             
+            }
+            answer.AnswerHeader.DateTimeE = ToConvert.DB_DateTimeToStringDT(DateTime.Now);
+            answer.AnswerHeader.ID = await api.AddTestAnswerAsync(answer);
+            //Success
+            int countrightansw = 0;
+            if (answer.AnswerHeader.ID != null)
+            {
+                    work.WorkBody.ForEach(wb =>
+                    {
+                        var answtask = answer.AnswerBody.FirstOrDefault(t => t.id_Task == wb.ID);
+                        if (wb.RightNum == answtask.num_Answ) countrightansw++;
+
+                    });
+                Msg.Write($"Правильно отвечено: {countrightansw} вопросов из {work.WorkBody.Count}. Оценку выставит учитель!");
+            }
+            // Fail
+            else
+            {
+                if (api.LastException != null)
+                    Msg.Write(api.LastException.Message);
             }
             answers.AnswerHeader.DateTimeE = ToConvert.DB_DateTimeToStringDT(DateTime.Now);
           answers.AnswerHeader.ID =  await api.AddTestAnswerAsync(answers);

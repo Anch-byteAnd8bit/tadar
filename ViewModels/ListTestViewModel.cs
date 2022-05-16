@@ -37,7 +37,8 @@ namespace Tadar.ViewModels
                 List<RegisteredClassroom> classes =
                     await api.GetClassroomsByUserIdAsync(api.MainUser.ID);
                 List<string> idjourn= new List<string>();
-                for (int i = 0; i < classes.Count; i++)
+
+                for (int i = 0; i < (classes?.Count ?? 0); i++)
                 {
                     idjourn.Add(classes[i].ID);
                    // nameclass[i] = classes[i].Name;
@@ -54,11 +55,7 @@ namespace Tadar.ViewModels
         {
             try
             {
-                if (api == null)
-                {
-                    throw new Exception("api не создан!!!");
-                }
-
+                if (idjourn == null || idjourn.Count == 0) return;
 
                 works = await api.GetWorksByClassesIDAsync(idjourn.ToArray(), false);
 
