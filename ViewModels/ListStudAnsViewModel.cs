@@ -47,12 +47,7 @@ namespace Tadar.ViewModels
         {
             try
             {
-                if (api == null)
-                {
-                    throw new Exception("api не создан!!!");
-                }
-                var ansbywork =
-                  await api.GetAnswersByWork(test.WorkHeader.ID);
+                var ansbywork = await api.GetAnswersByWork(test.WorkHeader.ID);
                 List <string> usersid = new List<string> { };
                 for (int i = 0; i < ansbywork.TestAnswers.Count; i++)
                 {
@@ -60,9 +55,6 @@ namespace Tadar.ViewModels
 
                 }
                 LoadClassAsync(usersid);
-
-
-               // OnPropertyChanged(nameof(Classrooms));
             }
             catch (Exception ex)
             {
@@ -70,17 +62,16 @@ namespace Tadar.ViewModels
             }
         }
 
-
+        /// <summary>
+        /// Асинхронная загрузка списка классов указанного пользователя,
+        /// чтобы получить потом его работы.
+        /// </summary>
+        /// <param name="iclass"></param>
         public async void LoadClassAsync(List<string> iclass)
         {
             try
             {
-                if (api == null)
-                {
-                    throw new Exception("api не создан!!!");
-                }
-                classroomsusers =
-                  await api.GetUsersByIdAsync(iclass.ToArray());
+                classroomsusers = await api.GetUsersByIdAsync(iclass.ToArray());
 
                 //  ClasssList = new ObservableCollection<RegisteredClassroom>();
 

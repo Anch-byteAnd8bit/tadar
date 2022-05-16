@@ -52,6 +52,8 @@ namespace Tadar.ViewModels
                         // Я мог решить эту работу толлько один раз, значит ответ будет только
                         // один!! Берем поэтому первый элемент - это и есть мой ответ.
                         myanswer = myAnswers.TestAnswers[0];
+                        //
+                        Rate = int.Parse(myanswer.AnswerHeader.Mark);
                     }
                     // Моих ответов нет...
                     else
@@ -81,11 +83,6 @@ namespace Tadar.ViewModels
             {
                 return myanswer.AnswerBody;
             }
-            //set
-            //{
-            //    myanswer.TestAnswers. = value;
-            //    OnPropertyChanged("AnswersList");
-            //}
         }
         public ObservableCollection<TestTask> TasksList
         {
@@ -93,12 +90,16 @@ namespace Tadar.ViewModels
             {
                 return new ObservableCollection<TestTask>(work.WorkBody);
             }
-            //set
-            //{
-            //    work.WorkBody = value.ToList();
-            //    OnPropertyChanged("TasksList");
-            //}
         }
+
+        /// <summary>
+        /// Название работы.
+        /// </summary>
+        public string NameTest
+        {
+            get { return work.WorkHeader.Name; }
+        }
+
 
         private int rate;
         /// <summary>
@@ -107,7 +108,7 @@ namespace Tadar.ViewModels
         public int Rate
         {
             get { return rate; }
-            set { rate = value; }
+            set { rate = value; OnPropertyChanged(nameof(Rate)); }
         }
 
         public Command SendClick

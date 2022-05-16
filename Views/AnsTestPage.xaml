@@ -127,10 +127,13 @@
         </ListView>
 
         <materialDesign:RatingBar
+            Grid.Column="0"
+            Grid.ColumnSpan="4"
+            Grid.Row="2"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             x:Name="BasicRatingBar"
-            Value="{Binding Rate}"/>
+            Value="{Binding Rate, Mode=TwoWay}"/>
 
         <Button  Style="{StaticResource MaterialDesignFlatMidBgButton}"
              materialDesign:ButtonAssist.CornerRadius="25" 
