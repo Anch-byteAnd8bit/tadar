@@ -85,11 +85,10 @@ namespace Tadar.ViewModels
             {
                 answer.AnswerBody.Add(
                     new TestAnswerBody
-                {
-                    id_Task = work.WorkBody[i].ID,
-                    num_Answ = (work.WorkBody[i].selAnsws.IndexOf(true)+1).ToString(),
-                }) ;
-            
+                    {
+                        id_Task = work.WorkBody[i].ID,
+                        num_Answ = (work.WorkBody[i].selAnsws.IndexOf(true) + 1).ToString(),
+                    });
             }
             answer.AnswerHeader.DateTimeE = ToConvert.DB_DateTimeToStringDT(DateTime.Now);
             answer.AnswerHeader.ID = await api.AddTestAnswerAsync(answer);

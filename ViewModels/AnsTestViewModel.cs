@@ -109,6 +109,9 @@ namespace Tadar.ViewModels
                         anss.AnsStudid = myanswer.AnswerBody[i].num_Answ;
                         switch (anss.AnsStudid)
                         {
+                            case "0":
+                                anss.AnsStud = null;
+                                break;
                             case "1":
                                 anss.AnsStud = work.WorkBody[i].PossibleAnsw1;
                                 break;

@@ -41,94 +41,48 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
 
-                    <StackPanel
+                    <StackPanel Margin="2">
+                        <TextBlock Grid.Row="1" Grid.Column="1"
+                                   Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                   FontSize="14" Width="20" Height="20"
+                                   TextAlignment="Center" HorizontalAlignment="Center"
+                                   Foreground="Black" Cursor="Arrow"
+                                   Text="{Binding NumTask}"> 
+                        </TextBlock>
+
+                        <TextBlock  Grid.Row="1" Grid.Column="1"
+                                    Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                    FontSize="14" Width="500" Height="40"
+                                    Padding="5, 0 ,0 ,0" TextAlignment="Left"
+                                    Foreground="Black" Cursor="Arrow"
+                                    VerticalAlignment="Center">
+                            <Run Text="Вопрос: "></Run>
+                            <Run Text="{Binding Word}"></Run>
+                        </TextBlock>
                         
-                        Margin="2">
-                        <TextBlock 
-                             Margin="1"
-                             Grid.Row="1" 
-                             Grid.Column="1"
-                             Style="{StaticResource MaterialDesignBody1TextBlock}" 
-                             FontSize="14"
-                             Width="20" Height="20" 
-                             TextAlignment="Left"
-                            HorizontalAlignment="Left"
-                             Foreground="Black" Cursor="Arrow"
-                            Text="{ Binding NumTask}" >
-
+                        <TextBlock Grid.Row="1" Grid.Column="1"
+                                   Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                   FontSize="14" Width="500" Height="40" Background="#FFCEFFB5"
+                                   TextAlignment="Left" Foreground="Black" Cursor="Arrow"
+                                   VerticalAlignment="Center" Padding="5, 0 ,0 ,0">
+                            <Run Text="Правильный ответ: "></Run>
+                            <Run Text="{Binding AnsRightid}"></Run>
+                            <Run Text=" - "></Run>
+                            <Run Text="{Binding AnsRight}"></Run>
                         </TextBlock>
 
-                        <TextBlock 
-                             Margin="1"
-                             Grid.Row="1" 
-                             Grid.Column="1"
-                             Style="{StaticResource MaterialDesignBody1TextBlock}" 
-                             FontSize="14"
-                             Width="500" Height="40" 
-                             TextAlignment="Left"
-                             Foreground="Black" Cursor="Arrow"
-                              >
-                             <Run
-                                Text="Вопрос: "
-                                ></Run>
-                            <Run
-                                Text="{Binding Word}"
-                                ></Run>
-
-                        </TextBlock>
-                        <TextBlock 
-                             Margin="1"
-                             Grid.Row="1" 
-                             Grid.Column="1"
-                             Style="{StaticResource MaterialDesignBody1TextBlock}" 
-                             FontSize="14"
-                             Width="500" Height="40"
-                            Background="#FFCEFFB5"
-                             TextAlignment="Left"
-                             Foreground="Black" Cursor="Arrow"
-                              >
-                             <Run
-                                Text="Правильный ответ: "
-                                ></Run>
-                            <Run
-                                Text="{Binding AnsRightid}"
-                                ></Run>
-                              <Run
-                                Text=" - "
-                                ></Run>
-                            <Run
-                                Text="{Binding AnsRight}"
-                                ></Run>
-
-
-                        </TextBlock>
-
-
-                        <TextBlock 
-                             Margin="1"
-                             Grid.Row="1" 
-                             Grid.Column="1"
-                             Style="{StaticResource MaterialDesignBody1TextBlock}" 
-                             FontSize="14"
-                             Width="500" Height="40" 
-                            Background="#FFCBA9E2"
-                             TextAlignment="Left"
-                             Foreground="Black" Cursor="Arrow"
-                              >
-                             <Run
-                                Text="Ответ обучающегося: "
-                                ></Run>
-                            <Run
-                                Text="{Binding AnsStudid}"
-                                ></Run>
-                              <Run
-                                Text=" - "
-                                ></Run>
-                            <Run
-                                Text="{Binding AnsStud}"
-                                ></Run>
-
-                        </TextBlock>
+                        <TextBlock Grid.Row="1" Grid.Column="1"
+                                   Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                   FontSize="14" Width="500" Height="40"
+                                   Background="#FFCBA9E2"
+                                   TextAlignment="Left"
+                                   Foreground="Black" Cursor="Arrow"
+                                   VerticalAlignment="Center" Padding="5, 0 ,0 ,0">
+                            <Run Text="Ответ обучающегося: "></Run>
+                            <Run Text="{Binding AnsStudid}"></Run>
+                            <Run Text=" - "></Run>
+                            <Run Text="{Binding AnsStud, TargetNullValue=Без ответа}"></Run>
+                        </TextBlock> 
 
 
 
@@ -143,7 +97,7 @@
             Grid.Column="0"
             Style="{StaticResource MaterialDesignHeadline6TextBlock}"
              FontSize="20"
-             Width="50" Height="30" 
+             Width="50" Height="35" 
               TextAlignment="Center"
             HorizontalAlignment="Left"
              Foreground="Black" Cursor="Arrow"
@@ -157,7 +111,7 @@
             Grid.Column="0"
             Style="{StaticResource MaterialDesignHeadline6TextBlock}"
              FontSize="20"
-             Width="50" Height="30" 
+             Width="50" Height="35" 
               TextAlignment="Center"
             HorizontalAlignment="Left"
              Foreground="Black" Cursor="Arrow"
@@ -172,7 +126,7 @@
             Grid.Column="0"
             Style="{StaticResource MaterialDesignHeadline6TextBlock}"
              FontSize="20"
-             Width="50" Height="30" 
+             Width="50" Height="35" 
               TextAlignment="Center"
             HorizontalAlignment="Left"
              Foreground="Black" Cursor="Arrow"
