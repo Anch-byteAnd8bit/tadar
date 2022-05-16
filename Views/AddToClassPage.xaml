@@ -90,6 +90,16 @@
                 HorizontalAlignment="Center" 
                 Width="255" FontSize="25" Cursor="Hand" 
                 />
+        <Button x:Name="back_but"
+                Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                Content="{materialDesign:PackIcon Kind=Home}"
+                
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Command="{Binding BackClick}"
+                Grid.Column="0"
+                FontSize="20"
+                Width="50" Cursor="Hand"/>
 
     </Grid>
 </Page>

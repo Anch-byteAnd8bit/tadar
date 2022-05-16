@@ -24,6 +24,7 @@ namespace Tadar.ViewModels
             LoadClasssAsync();
             EnterClick = new Command(Enter_Click);
             ClassClick = new Command(Class_Click);
+            BackClick = new Command(Back_Click);
 
         }
         //SettingsFind settingsFind = new SettingsFind
@@ -118,6 +119,17 @@ namespace Tadar.ViewModels
             get;
             set;
         }
-       
+        private void Back_Click(object ob)
+        {
+            First.Base_frame.Navigate(new MenuPage());
+
+        }
+
+        public Command BackClick
+        {
+            get;
+            set;
+        }
+
     }
 }
