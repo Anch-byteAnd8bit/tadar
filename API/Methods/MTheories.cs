@@ -124,8 +124,6 @@ namespace nsAPI.Methods
             var httpResponse = await httpGetAsync("theory.get/", urlParam);
             if (httpResponse.Data != null)
             {
-
-
                 // Возвращаем список классов.
                 List<Theory> registeredTheories = new List<Theory>();
                 //

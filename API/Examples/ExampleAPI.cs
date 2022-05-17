@@ -270,7 +270,7 @@ namespace nsAPI.Examples
         {
             SettingsFind settingsFind = new SettingsFind
             {
-                Shift = 7, // + 1 = 8
+                Shift = 0, // + 1 = 8
                 Count = 8
             };
             List<RegisteredClassroom> classrooms = await api.GetAllClassess(settingsFind);
@@ -316,7 +316,7 @@ namespace nsAPI.Examples
         /// <returns></returns>
         public async Task GetListOfWorksByClassesIDsAsync()
         {
-            Works works = await api.GetWorksByClassesIDAsync(new string[] { "10", "16" }, false);
+            Works works = await api.GetWorksByClassesIDAsync(new string[] { "1", "2" }, false);
             Msg.Write(works.TestWorks.Count.ToString() + " and " + works.TextWorks.Count.ToString());
         }
 
@@ -326,7 +326,7 @@ namespace nsAPI.Examples
         /// <returns></returns>
         public async Task GetListOfWorksByClassIdAsync()
         {
-            Works works = await api.GetWorksByClassIDAsync("10");
+            Works works = await api.GetWorksByClassIDAsync("1");
             Msg.Write(works.TestWorks.Count.ToString() + " and " + works.TextWorks.Count.ToString());
         }
 
@@ -336,7 +336,6 @@ namespace nsAPI.Examples
         /// <returns></returns>
         public async Task AddMark()
         {
-
             await api.AddMark("123","1");
         }
 
@@ -362,7 +361,14 @@ namespace nsAPI.Examples
         public async Task GetTheoryByIDAsync()
         {
             Theory theory = await api.GetTheoryByIDAsync("1");
-            Msg.Write(theory.ID);
+            if (theory != null)
+            {
+                Msg.Write(theory.ID);
+            }
+            else if (api.LastException != null)
+            {
+                Msg.Write(api.LastException.Message);
+            }
         }
 
         /// <summary>
@@ -371,8 +377,15 @@ namespace nsAPI.Examples
         /// <returns></returns>
         public async Task GetTheoriesByClassroomIDAsync()
         {
-            List<Theory> theories = await api.GetTheoriesByClassroomIDAsync("38");
-            Msg.Write(theories.Count.ToString());
+            List<Theory> theories = await api.GetTheoriesByClassroomIDAsync("1");
+            if (theories != null)
+            {
+                Msg.Write(theories.Count.ToString());
+            }
+            else if (api.LastException != null)
+            {
+                Msg.Write(api.LastException.Message);
+            }
         }
 
         /// <summary>
