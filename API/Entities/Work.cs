@@ -153,6 +153,11 @@ namespace nsAPI.Entities
                         ((filter.HasFlag(FilterWorks.Marked) && (answer.AnswerHeader.Mark != null)) ||
                         ((filter.HasFlag(FilterWorks.NotMarked) && (answer.AnswerHeader.Mark == null))));
                 }
+
+                //var d1 = DateTime.Parse(TestWorks[i].WorkHeader.DateTimeStart);
+                //var d2 = DateTime.Today;
+                //var g = d1 <= d2;
+
                 // Работа уже стартовала.
                 isgood = isgood && (
                     (filter.HasFlag(FilterWorks.Started) &&

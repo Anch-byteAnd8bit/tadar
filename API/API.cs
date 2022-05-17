@@ -198,20 +198,26 @@ namespace nsAPI
             var roles = await GetRolesAsync();
             var states = await GetStatesAsync();
             var typeWords = await GetTypeWordsAsync();
-
-            Refbooks.Add(TRefbooks.Genders, genders);
-            Refbooks.Add(TRefbooks.WorkTypes, typeWorks);
-            Refbooks.Add(TRefbooks.Roles, roles);
-            Refbooks.Add(TRefbooks.States, states);
-            Refbooks.Add(TRefbooks.TypeWords, typeWords);
-            if (action != null)
+            if ((genders != null) && (typeWorks != null) && (roles != null) &&
+                    (states != null) && (typeWords != null))
             {
-                if ((cond == "both" && (MainUser != null)) ||
-                    (cond == "first" && (MainUser == null)) ||
-                    (cond == "refbooks"))
-                    action();
+                Refbooks.Add(TRefbooks.Genders, genders);
+                Refbooks.Add(TRefbooks.WorkTypes, typeWorks);
+                Refbooks.Add(TRefbooks.Roles, roles);
+                Refbooks.Add(TRefbooks.States, states);
+                Refbooks.Add(TRefbooks.TypeWords, typeWords);
+                if (action != null)
+                {
+                    if ((cond == "both" && (MainUser != null)) ||
+                        (cond == "first" && (MainUser == null)) ||
+                        (cond == "refbooks"))
+                        action();
+                }
             }
-            //if (LastException != null) Msg.Write(LastException.Message);
+            else
+            {
+                if (LastException != null) Msg.Write(LastException.Message);
+            }
         }
 
         #region Users
