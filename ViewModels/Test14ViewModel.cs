@@ -81,7 +81,7 @@ namespace Tadar.ViewModels
         private async void Send_Click(object ob)
         {
             answer.AnswerBody = new System.Collections.Generic.List<TestAnswerBody>();
-            for (int i = 0; i < work.WorkBody.Count; i++)
+            for ( int i = 0; i < work.WorkBody.Count; i++)
             {
                 answer.AnswerBody.Add(
                     new TestAnswerBody

@@ -206,6 +206,21 @@
             >
             Ввести
         </Button>
+
+        <Button
+            x:Name="next"
+            
+            Click="next_Click_1"
+            Grid.Row="2" Cursor="Hand"
+            Width="100"
+            Height="40"
+            HorizontalAlignment="Left" Margin="789,30,0,30"
+            >
+            2 игра
+        </Button>
+
+
+
         <TextBox 
             x:Name="txtbox"
             materialDesign:HintAssist.Hint="Положите слово" Style="{StaticResource MaterialDesignTextBox}"
