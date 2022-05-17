@@ -66,7 +66,10 @@ namespace nsAPI.Methods
             httpClient = new HttpClient(clientHandler);
             // Настройка HTTP.
             httpClient.DefaultRequestHeaders.Add("User-Agent", UserAgent.Chrome);
-
+            // Чтобы не появлялась ошибка: "Unable to read data from the transport
+            // connection: Operation aborted.'"
+            // Источник: https://stackoverflow.com/questions/66209674/unable-to-read-data-from-the-transport-connection-operation-canceled
+            httpClient.Timeout = TimeSpan.FromMinutes(10); //Eg. 10mins timeout
             //httpRequest.EnableEncodingContent = true;
         }        
 

@@ -147,37 +147,37 @@ namespace nsAPI.Methods
                     JObject work = JsonConvert.DeserializeObject<JObject>(el.ToString());
                     if (work.ContainsKey("WorkHeader"))
                     {
-                    // Получение заголовка.
-                    WorkHeader workHeader = JsonConvert.DeserializeObject<WorkHeader>(work["WorkHeader"].ToString());
-                    // Расшифровка заголовка.
-                    workHeader.DecryptByAES();
-                    // Test
-                    if (workHeader.id_TypeWork == "1")
+                        // Получение заголовка.
+                        WorkHeader workHeader = JsonConvert.DeserializeObject<WorkHeader>(work["WorkHeader"].ToString());
+                        // Расшифровка заголовка.
+                        workHeader.DecryptByAES();
+                        // Test
+                        if (workHeader.id_TypeWork == "1")
                         {
-                        //
-                        TestWork testWork = new TestWork();
-                        //
-                        testWork.WorkHeader = workHeader;
+                            //
+                            TestWork testWork = new TestWork();
+                            //
+                            testWork.WorkHeader = workHeader;
                             if (work.ContainsKey("WorkBody"))
                             {
                                 testWork.WorkBody = JsonConvert.DeserializeObject<List<TestTask>>(work["WorkBody"].ToString());
                                 testWork.DecryptBodyByAES();
                             }
-                        // Сохраняем работу.
-                        works.TestWorks.Add(testWork);
+                            // Сохраняем работу.
+                            works.AddTest(testWork);
                         }// Text
-                    else if (workHeader.id_TypeWork == "2")
+                        else if (workHeader.id_TypeWork == "2")
                         {
-                        //
-                        TextWork textWork = new TextWork();
+                            //
+                            TextWork textWork = new TextWork();
                             textWork.WorkHeader = workHeader;
                             if (work.ContainsKey("WorkBody"))
                             {
                                 textWork.WorkBody = JsonConvert.DeserializeObject<List<TextTask>>(work["WorkBody"].ToString());
                                 textWork.DecryptBodyByAES();
                             }
-                        // Сохраняем работу.
-                        works.TextWorks.Add(textWork);
+                            // Сохраняем работу.
+                            works.AddText(textWork);
                         }
                     }
                 });

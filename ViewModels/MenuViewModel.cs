@@ -78,7 +78,7 @@ namespace Tadar.ViewModels
             {
                 classrooms = value;
                 OnPropertyChanged(nameof(Classrooms));
-                // Задаем новый выбранный жлемент из списка.
+                // Задаем новый выбранный элемент из списка.
                 // SelectedClassroom = Classrooms[0];
             }
         }

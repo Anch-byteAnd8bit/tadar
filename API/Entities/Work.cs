@@ -156,9 +156,9 @@ namespace nsAPI.Entities
                 // Работа уже стартовала.
                 isgood = isgood && (
                     (filter.HasFlag(FilterWorks.Started) &&
-                    (DateTime.Parse(TestWorks[i].WorkHeader.DateTimeStart) >= DateTime.Today)) ||
+                    (DateTime.Parse(TestWorks[i].WorkHeader.DateTimeStart) <= DateTime.Today)) ||
                     (filter.HasFlag(FilterWorks.NotStarted) &&
-                    (DateTime.Parse(TestWorks[i].WorkHeader.DateTimeStart) < DateTime.Today)));
+                    (DateTime.Parse(TestWorks[i].WorkHeader.DateTimeStart) > DateTime.Today)));
                 // Проверяем, прошла ли эта работа через фильтры.
                 if (isgood) filteredworks.AddTest(TestWorks[i]);
             }
@@ -199,9 +199,9 @@ namespace nsAPI.Entities
                 // Работа уже стартовала.
                 isgood = isgood && (
                     (filter.HasFlag(FilterWorks.Started) &&
-                    (DateTime.Parse(TextWorks[i].WorkHeader.DateTimeStart) >= DateTime.Today)) ||
+                    (DateTime.Parse(TextWorks[i].WorkHeader.DateTimeStart) <= DateTime.Today)) ||
                     (filter.HasFlag(FilterWorks.NotStarted) &&
-                    (DateTime.Parse(TextWorks[i].WorkHeader.DateTimeStart) < DateTime.Today)));
+                    (DateTime.Parse(TextWorks[i].WorkHeader.DateTimeStart) > DateTime.Today)));
                 // Проверяем, прошла ли эта работа через фильтры.
                 if (isgood) filteredworks.AddText(TextWorks[i]);
             }

@@ -125,37 +125,37 @@ namespace nsAPI.Methods
                     JObject answer = JsonConvert.DeserializeObject<JObject>(el.ToString());
                     if (answer.ContainsKey("AnswerHeader"))
                     {
-                    // Получение заголовка.
-                    AnswerHeader answerHeader = JsonConvert.DeserializeObject<AnswerHeader>(answer["AnswerHeader"].ToString());
-                    // Расшифровка заголовка.
-                    answerHeader.DecryptByAES();
-                    // Test
-                    if (answerHeader.id_TypeWork == "1")
+                        // Получение заголовка.
+                        AnswerHeader answerHeader = JsonConvert.DeserializeObject<AnswerHeader>(answer["AnswerHeader"].ToString());
+                        // Расшифровка заголовка.
+                        answerHeader.DecryptByAES();
+                        // Test
+                        if (answerHeader.id_TypeWork == "1")
                         {
-                        //
-                        TestAnswer testAnswer = new TestAnswer();
-                        //
-                        testAnswer.AnswerHeader = answerHeader;
+                            //
+                            TestAnswer testAnswer = new TestAnswer();
+                            //
+                            testAnswer.AnswerHeader = answerHeader;
                             if (answer.ContainsKey("AnswerBody"))
                             {
                                 testAnswer.AnswerBody = JsonConvert.DeserializeObject<List<TestAnswerBody>>(answer["AnswerBody"].ToString());
                                 testAnswer.DecryptBodyByAES();
                             }
-                        // Сохраняем работу.
-                        answers.TestAnswers.Add(testAnswer);
+                            // Сохраняем работу.
+                            answers.TestAnswers.Add(testAnswer);
                         }// Text
-                    else if (answerHeader.id_TypeWork == "2")
+                        else if (answerHeader.id_TypeWork == "2")
                         {
-                        //
-                        TextAnswer textAnswer = new TextAnswer();
+                            //
+                            TextAnswer textAnswer = new TextAnswer();
                             textAnswer.AnswerHeader = answerHeader;
                             if (answer.ContainsKey("AnswerBody"))
                             {
                                 textAnswer.AnswerBody = JsonConvert.DeserializeObject<List<TextAnswerBody>>(answer["AnswerBody"].ToString());
                                 textAnswer.DecryptBodyByAES();
                             }
-                        // Сохраняем работу.
-                        answers.TextAnswers.Add(textAnswer);
+                            // Сохраняем работу.
+                            answers.TextAnswers.Add(textAnswer);
                         }
                         else
                         {

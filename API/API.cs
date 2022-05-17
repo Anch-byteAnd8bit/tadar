@@ -102,29 +102,20 @@ namespace nsAPI
             answers = new MAnswers();
             // Для работы с запросами касающимися словарей.
             dict = new MDict();
-            // Если возможно, то загружаем данные пользователя из файла.
-            try
+            if (File.Exists(pathAccessToken))
             {
-                if (File.Exists(pathAccessToken))
-                {
-                    LoadUserDataFromFile();
-                    if (loadRefbooks) LoadRefBooks(OnLoadedRefbooks);
-                    if (loadMainUser) LoadMainUser(OnLoadedMainUser);
-                }
-                else
-                {
-                    Msg.Write("При попытке считать из файла пользователя произошла ошибка:\n" +
-                        "Не найден файл с данными пользователя.");
-                }
+                // Если возможно, то загружаем данные пользователя из файла.
+                LoadUserDataFromFile();
+
+                if (loadRefbooks) LoadRefBooks(OnLoadedRefbooks);
+                if (loadMainUser) LoadMainUser(OnLoadedMainUser);
             }
-            catch (Exception e)
+            else
             {
-                Msg.Write("При попытке считать из файла пользователя произошла ошибка: \n" + e.Message);
+                Msg.Write("При попытке считать из файла пользователя произошла ошибка:\n" +
+                    "Не найден файл с данными пользователя.");
             }
-            finally
-            {
-                instance = this;
-            }
+            instance = this;
         }
 
         private readonly string cond = "both";
@@ -159,27 +150,17 @@ namespace nsAPI
             //
             if (loadRefbooks) LoadRefBooks(OnLoaded);
             // Если возможно, то загружаем данные пользователя из файла.
-            try
+            if (File.Exists(pathAccessToken))
             {
-                if (File.Exists(pathAccessToken))
-                {
-                    LoadUserDataFromFile();
-                    if (loadMainUser) LoadMainUser(OnLoaded);
-                }
-                else
-                {
-                    Msg.Write("При попытке считать из файла пользователя произошла ошибка:\n" +
-                        "Не найден файл с данными пользователя.");
-                }
+                LoadUserDataFromFile();
+                if (loadMainUser) LoadMainUser(OnLoaded);
             }
-            catch (Exception e)
+            else
             {
-                Msg.Write("При попытке считать из файла пользователя произошла ошибка: \n" + e.Message);
+                /*Msg.Write("При попытке считать из файла пользователя произошла ошибка:\n" +
+                    "Не найден файл с данными пользователя.");*/
             }
-            finally
-            {
-                instance = this;
-            }
+            instance = this;
         }
 
         /// <summary>
@@ -189,9 +170,9 @@ namespace nsAPI
         /// которую надо вызвать после успешной загрузки пользователя.</param>
         private async void LoadMainUser(Action action = null)
         {
-            try
+            MainUser = await users.ByIdAsync(Access_Token, id_user);
+            if (MainUser != null)
             {
-                MainUser = await users.ByIdAsync(Access_Token, id_user);
                 if (action != null)
                 {
                     if ((cond == "both" && (Refbooks.Count == 5)) ||
@@ -200,9 +181,9 @@ namespace nsAPI
                         action();
                 }
             }
-            catch (Exception ex)
+            else if (LastException != null)
             {
-                Msg.Write(ex.Message);
+                //Msg.Write(LastException.Message);
             }
         }
         /// <summary>
@@ -211,32 +192,26 @@ namespace nsAPI
         /// <param name="action"></param>
         private async void LoadRefBooks(Action action = null)
         {
-            try
-            {
-                Refbooks = new Dictionary<TRefbooks, List<Refbook>>();
-                var genders = await GetGendersAsync();
-                var typeWorks = await GetWorkTypesAsync();
-                var roles = await GetRolesAsync();
-                var states = await GetStatesAsync();
-                var typeWords = await GetTypeWordsAsync();
+            Refbooks = new Dictionary<TRefbooks, List<Refbook>>();
+            var genders = await GetGendersAsync();
+            var typeWorks = await GetWorkTypesAsync();
+            var roles = await GetRolesAsync();
+            var states = await GetStatesAsync();
+            var typeWords = await GetTypeWordsAsync();
 
-                Refbooks.Add(TRefbooks.Genders, genders);
-                Refbooks.Add(TRefbooks.WorkTypes, typeWorks);
-                Refbooks.Add(TRefbooks.Roles, roles);
-                Refbooks.Add(TRefbooks.States, states);
-                Refbooks.Add(TRefbooks.TypeWords, typeWords);
-                if (action != null)
-                {
-                    if ((cond == "both" && (MainUser != null)) ||
-                        (cond == "first" && (MainUser == null)) ||
-                        (cond == "refbooks"))
-                        action();
-                }
-            }
-            catch (Exception ex)
+            Refbooks.Add(TRefbooks.Genders, genders);
+            Refbooks.Add(TRefbooks.WorkTypes, typeWorks);
+            Refbooks.Add(TRefbooks.Roles, roles);
+            Refbooks.Add(TRefbooks.States, states);
+            Refbooks.Add(TRefbooks.TypeWords, typeWords);
+            if (action != null)
             {
-                Msg.Write(ex.Message);
+                if ((cond == "both" && (MainUser != null)) ||
+                    (cond == "first" && (MainUser == null)) ||
+                    (cond == "refbooks"))
+                    action();
             }
+            //if (LastException != null) Msg.Write(LastException.Message);
         }
 
         #region Users
