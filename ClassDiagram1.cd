@@ -1,0 +1,487 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Tadar.ViewModels.AddToClassViewModel" Collapsed="true">
+    <Position X="72.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAwAQAAEAAAAAAAASAAAAIAAAACAAgAgQ=</HashCode>
+      <FileName>ViewModels\AddToClassViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.AddWordViewModel" Collapsed="true">
+    <Position X="73.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAEAAAABAAAAEAAAARBAAAQAAAAAAAAAAACAAAAAAAI=</HashCode>
+      <FileName>ViewModels\AddWordViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.AnsTestViewModel" Collapsed="true">
+    <Position X="81.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ZAAACEAIAAAAAAAAEAAAgAQAAABAEAAAAAACAACAICA=</HashCode>
+      <FileName>ViewModels\AnsTestViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.BaseViewModel" Collapsed="true">
+    <Position X="76.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\BaseViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tadar.ViewModels.CheckTestViewModel" Collapsed="true">
+    <Position X="80.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAkAAAAAABAAAAAAAAAAAIAAQAAAAACAA=</HashCode>
+      <FileName>ViewModels\CheckTestViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.DictViewModel" Collapsed="true">
+    <Position X="76.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAACAAAAAAAAAAAAAAAQgAAAAAAAAACCAAAAAAAA=</HashCode>
+      <FileName>ViewModels\DictViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.Do14HeaderViewModel" Collapsed="true">
+    <Position X="81.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAACAIQAABAEAAAACAACAAAACAAQAACICAAAA=</HashCode>
+      <FileName>ViewModels\Do14HeaderViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.Do14ViewModel" Collapsed="true">
+    <Position X="74.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKAQCACAAAAAA=</HashCode>
+      <FileName>ViewModels\Do14ViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.DoChoseTypeViewModel" Collapsed="true">
+    <Position X="79.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAACgA=</HashCode>
+      <FileName>ViewModels\DoChoseTypeViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.DoClassViewModel" Collapsed="true">
+    <Position X="77.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAQACAAAAAQAAIAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>ViewModels\DoClassViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.DoTheoryViewModel" Collapsed="true">
+    <Position X="79.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIQAABAEBAABQAACAAAAAAAQAACgAAAAA=</HashCode>
+      <FileName>ViewModels\DoTheoryViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.DoWriteHeaderViewModel" Collapsed="true">
+    <Position X="74.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAACAIQAABAEAAAACAACAAAACAAQAACICAAAA=</HashCode>
+      <FileName>ViewModels\DoWriteHeaderViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.DoWriteViewModel" Collapsed="true">
+    <Position X="75.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACCQAACAAAAAA=</HashCode>
+      <FileName>ViewModels\DoWriteViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.EntViewModel" Collapsed="true">
+    <Position X="75.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAIAKAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>ViewModels\EntViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.ListNonMarkViewModel" Collapsed="true">
+    <Position X="78.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAkAAAAAABAAAAAAAAAAAIAAQAAAAACAA=</HashCode>
+      <FileName>ViewModels\ListNonMarkViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.ListStudAnsViewModel" Collapsed="true">
+    <Position X="71.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAACAAIAAAACAAAAEAAAAAAAAQAAAAAAAAAAAAAASA=</HashCode>
+      <FileName>ViewModels\ListStudAnsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.ListTestViewModel" Collapsed="true">
+    <Position X="73.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAkAAAAAABAAAAAAAAAAAIAAQAAAAACAA=</HashCode>
+      <FileName>ViewModels\ListTestViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.MarkViewModel" Collapsed="true">
+    <Position X="72.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAQAAEAAAAAAAAQAAAAAAAAACAAgAAA=</HashCode>
+      <FileName>ViewModels\MarkViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.MenuViewModel" Collapsed="true">
+    <Position X="76.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAMQREgAAAAAwAAABEABAQQAFEAAgAAEJIAAAAAAAgQ=</HashCode>
+      <FileName>ViewModels\MenuViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.PerfomingWorkViewModel" Collapsed="true">
+    <Position X="80.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAEAAAABBAAAAAABABAAAAAAAAgCAAAA=</HashCode>
+      <FileName>ViewModels\PerfomingWorkViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.RegViewModel" Collapsed="true">
+    <Position X="77.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAIIAAACAAAASAAEAAAgRAFIAAAAAAAAAQAAgAACA=</HashCode>
+      <FileName>ViewModels\RegViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.StudentsViewModel" Collapsed="true">
+    <Position X="72.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAEAAAAAAAAQAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>ViewModels\StudentsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.Test14ViewModel" Collapsed="true">
+    <Position X="78.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAIAAAAAAAACQAAAAAAAAAAAAACABAAQACAACI=</HashCode>
+      <FileName>ViewModels\Test14ViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.TheListClassViewModel" Collapsed="true">
+    <Position X="74.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAwAQAAEAAAAAAAAAAAAAAAAAACAAgAAA=</HashCode>
+      <FileName>ViewModels\TheListClassViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.TheoryThemeViewModel" Collapsed="true">
+    <Position X="76.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAgABAAAAAQAAABAAAAAAAAAAAAAAAAAgAACAA=</HashCode>
+      <FileName>ViewModels\TheoryThemeViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.UserSecViewModel" Collapsed="true">
+    <Position X="78.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\UserSecViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.UserViewModel" Collapsed="true">
+    <Position X="71.75" Y="11" Width="1.5" />
+    <InheritanceLine Type="Tadar.ViewModels.BaseViewModel" ManuallyRouted="true">
+      <Path>
+        <Point X="77.5" Y="7.562" />
+        <Point X="77.5" Y="7.817" />
+        <Point X="74.535" Y="7.817" />
+        <Point X="74.535" Y="8.863" />
+        <Point X="73.495" Y="8.863" />
+        <Point X="73.495" Y="9.757" />
+        <Point X="72.5" Y="9.757" />
+        <Point X="72.5" Y="11" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAACQAAACAAAAAAAQAFAAAAAAAAAAQAAAAAQA=</HashCode>
+      <FileName>ViewModels\UserViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.ViewModels.ViewTheoryViewModel" Collapsed="true">
+    <Position X="80.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAgAAAAACAAAAIAAAAACAAAAA=</HashCode>
+      <FileName>ViewModels\ViewTheoryViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.Views.AddToClassPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="37.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\AddToClassPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.AddWordPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="39.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAEgACAAAAAAAAAAgAgAABA=</HashCode>
+      <FileName>Views\AddWordPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.AnsTestPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="41" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\AnsTestPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tadar.Views.CheckTestPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="43.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\CheckTestPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tadar.Views.DictPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="45" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\DictPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.Do14" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="46.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAEgACAAAAAAAAAAgAgAABA=</HashCode>
+      <FileName>Views\Do14.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.Do14HeaderPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="37.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAEgACAAAAAAAAAAgAgAABA=</HashCode>
+      <FileName>Views\Do14HeaderPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.DoChoseTypePage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="39.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\DoChoseTypePage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.DoClassPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="41" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\DoClassPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.DoTheoryPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="43.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAEgACAAAAAAAAAAgAgAABA=</HashCode>
+      <FileName>Views\DoTheoryPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.DoWriteHeaderPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="45" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAEgACAAAAAAAAAAgAgAABA=</HashCode>
+      <FileName>Views\DoWriteHeaderPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.DoWritePage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="46.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAEgACAAAAAAAAAAgAgAABA=</HashCode>
+      <FileName>Views\DoWritePage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.FirstPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="37.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAQAAAAAAAAEAAAAAAAAACAAQgAAAACAAAAAAAIA=</HashCode>
+      <FileName>Views\FirstPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.Game" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="39.25" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAQAAAAABAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Game.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.ListNonMarkPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="41" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ListNonMarkPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.ListStudAnsPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="43.25" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ListStudAnsPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.ListTest_Page" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="45" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ListTestPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="46.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAIAAAAAAAAAAA=</HashCode>
+      <FileName>Views\MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.marks" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="37.5" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\MarksPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.MenuPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="39.25" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\MenuPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.PerfomingWorkPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="43.25" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAEgACAAAAAAAAAAgAwAABA=</HashCode>
+      <FileName>Views\PerfomingWorkPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.NotEmptyValidationRule" Collapsed="true">
+    <Position X="41" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\RegPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.Views.Reg" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="45" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Views\RegPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.SecondGamePage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="46.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAABAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\SecondGamePage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.StudentsPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="37.5" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\StudentsPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.Test14Page" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="39.25" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Test14Page.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.TheListClassPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="41" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\TheListClassPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.TheoryPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="43.25" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\TheoryPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.TheoryThemePage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="45" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\TheoryThemePage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Views.ViewTheoryPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="46.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ViewTheoryPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Models.First" Collapsed="true">
+    <Position X="44.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Models\First.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Windows.Controls.Page" Collapsed="true">
+    <Position X="42" Y="6.5" Width="1.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tadar.Models.AnsAndWork" Collapsed="true">
+    <Position X="81.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEEAAAAAAAAARAAAAIAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AnsAndWork.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tadar.Ent_page" Collapsed="true">
+    <Position X="42" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\EntPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tadar.Helpers.Command" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="40.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEACAAQAAECAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\Command.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
