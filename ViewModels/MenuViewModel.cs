@@ -3,6 +3,7 @@ using nsAPI.Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using Tadar.Helpers;
 using Tadar.Models;
@@ -13,6 +14,7 @@ namespace Tadar.ViewModels
     public class MenuViewModel : BaseViewModel
     {
         private List<RegisteredClassroom> classrooms = new List<RegisteredClassroom>();
+        private List<WorkAndMark> marks = new List<WorkAndMark>();
         public MenuViewModel()
         {
             //api.MainUser.Name
@@ -65,12 +67,90 @@ namespace Tadar.ViewModels
 
                 
                 OnPropertyChanged(nameof(Classrooms));
+                LoadMarks();
             }
             catch (Exception ex)
             {
                 Msg.Write(ex.Message);
             }
         }
+
+        public async void LoadMarks()
+        {
+            try
+            {
+                if (classrooms != null)
+                {
+                    // Получаем массив идентификаторов классов пользовталея.
+                    var classromsIDs = classrooms.Select(c => c.ID).ToArray();
+                    // Получаем список работ пользователя (только заголовки).
+                    var works = await api.GetWorksByClassesIDAsync(classromsIDs, true);
+                    if (works != null)
+                    {
+                        // Получаем массив идентификаторов классов пользователя.
+                        var worksIDs = works.Headers.Select(wh => wh.ID).ToArray();
+                        // Получаем список ответов на работы пользователя (только заголовки).
+                        var userAnswers = await api.GetAnswersByUser(api.MainUser.ID, true);
+                        if (userAnswers != null)
+                        {
+                            // Получаем работы пользователя только те, у которых есть оценки.
+                            // Заодно происходит фильтр работ, отбрасывая работы не пользоввателя
+                            // т.к. ответы были только текущего пользователя. Как-то так.
+                            works = works.GetFilteredWorks(FilterWorks.Marked, userAnswers);
+                            // Ищем ответы на тестовые задания.
+                            foreach (var testAnswer in userAnswers.TestAnswers)
+                            {
+                                foreach (var testWork in works.TestWorks)
+                                {
+                                    if (testAnswer.AnswerHeader.id_Work == testWork.WorkHeader.ID)
+                                    {
+                                        // Добавляем ответ-задание в список оценок.
+                                        marks.Add(new WorkAndMark(testWork, testAnswer));
+                                        OnPropertyChanged(nameof(Marks));
+                                        break;
+                                    }
+                                }
+                            }
+
+                            // Ищем ответы на текстовые задания.
+                            foreach (var textAnswer in userAnswers.TextAnswers)
+                            {
+                                foreach (var textWork in works.TextWorks)
+                                {
+                                    if (textAnswer.AnswerHeader.id_Work == textWork.WorkHeader.ID)
+                                    {
+                                        // Добавляем ответ-задание в список оценок.
+                                        marks.Add(new WorkAndMark(textWork, textAnswer));
+                                        OnPropertyChanged(nameof(Marks));
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (api.LastException != null)
+                            {
+                                Msg.Write(api.LastException.Message);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (api.LastException != null)
+                        {
+                            Msg.Write(api.LastException.Message);
+                        }
+                    }
+                }
+                OnPropertyChanged(nameof(Marks));
+            }
+            catch (Exception ex)
+            {
+                Msg.Write(ex.Message);
+            }
+        }
+
         public List<RegisteredClassroom> Classrooms
         {
             get { return classrooms; }
@@ -80,6 +160,21 @@ namespace Tadar.ViewModels
                 OnPropertyChanged(nameof(Classrooms));
                 // Задаем новый выбранный элемент из списка.
                 // SelectedClassroom = Classrooms[0];
+            }
+        }
+
+        /// <summary>
+        /// Список оценок пользователя.
+        /// </summary>
+        public List<WorkAndMark> Marks
+        {
+            get { return marks; }
+            set
+            {
+                marks = value;
+                OnPropertyChanged(nameof(Marks));
+                // Задаем новый выбранный элемент из списка.
+                // SelectedMark = marks[0];
             }
         }
 

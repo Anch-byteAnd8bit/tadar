@@ -71,7 +71,7 @@
 
         <ScrollViewer Grid.Row="4">
             <StackPanel Grid.Row="4" Background="White">
-                <ListView ItemsSource="{Binding Classrooms}" 
+                <ListView ItemsSource="{Binding Marks}" 
                           Background="White"
                           IsSynchronizedWithCurrentItem="True" Grid.Row="4"
                >
@@ -81,7 +81,11 @@
                                 <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}"
                                            Foreground="#FF673AB7"
                                             
-                                           Text="{Binding Name}" />
+                                           Text="{Binding NameWork}" />
+                                <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                           Foreground="#FF673AB7"
+                                            
+                                           Text="{Binding Mark}" />
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>

@@ -27,14 +27,14 @@ namespace nsAPI.Entities
             answers.TestAnswers = new List<TestAnswer>();
             TestAnswers.ForEach(ta =>
             {
-                if (ta.AnswerHeader.id_Student == id_User)
+                if (ta.AnswerHeader.id_UserInClasses == id_User)
                     answers.TestAnswers.Add(ta);
             });
 
             answers.TextAnswers = new List<TextAnswer>();
             TextAnswers.ForEach(ta =>
             {
-                if (ta.AnswerHeader.id_Student == id_User)
+                if (ta.AnswerHeader.id_UserInClasses == id_User)
                     answers.TextAnswers.Add(ta);
             });
 
@@ -42,19 +42,33 @@ namespace nsAPI.Entities
         }
     }
 
+    public abstract class Answer
+    {
+        [JsonProperty("AnswerHeader")]
+        public AnswerHeader AnswerHeader { get; set; }
+
+        public Answer()
+        {
+            AnswerHeader = new AnswerHeader();
+        }
+
+        public void DecryptHeaderByAES()
+        {
+            AnswerHeader.DecryptByAES();
+        }
+
+    }
+
     /// <summary>
     /// Ответ на тестовую работу.
     /// </summary>
-    public class TestAnswer
+    public class TestAnswer : Answer
     {
-        public TestAnswer()
+        public TestAnswer():base()
         {
-            AnswerHeader = new AnswerHeader();
             AnswerBody = new List<TestAnswerBody>();
         }
 
-        [JsonProperty("AnswerHeader")]
-        public AnswerHeader AnswerHeader { get; set; }
 
         [JsonProperty("AnswerBody")]
         public List<TestAnswerBody> AnswerBody { get; set; }
@@ -69,21 +83,14 @@ namespace nsAPI.Entities
                 AnswerBody.ForEach(e => e.DecryptByAES());
             }
         }
-
-        public void DecryptHeaderByAES()
-        {
-            AnswerHeader.DecryptByAES();
-        }
         
     }
 
     /// <summary>
     /// Ответы на текстовую работу.
     /// </summary>
-    public class TextAnswer
+    public class TextAnswer : Answer
     {
-        [JsonProperty("AnswerHeader")]
-        public AnswerHeader AnswerHeader { get; set; }
 
         [JsonProperty("AnswerBody")]
         public List<TextAnswerBody> AnswerBody { get; set; }
@@ -98,20 +105,13 @@ namespace nsAPI.Entities
                 AnswerBody.ForEach(e => e.DecryptByAES());
             }
         }
-
-        public void DecryptHeaderByAES()
-        {
-            AnswerHeader.DecryptByAES();
-        }
     }
 
     /// <summary>
     /// Класс ответа ТЕСТОВОЙ работы для добавления.
     /// </summary>
-    public class TestAnswerForAdd
+    public class TestAnswerForAdd : Answer
     {
-        [JsonProperty("AnswerHeader")]
-        public AnswerHeader AnswerHeader { get; set; }
 
         [JsonProperty("AnswerBody")]
         public List<TestAnswerBody> AnswerBody { get; set; }
@@ -135,11 +135,8 @@ namespace nsAPI.Entities
     /// <summary>
     /// Класс ответа ПИСЬМЕНОЙ работы для добавления.
     /// </summary>
-    public class TextAnswerForAdd
+    public class TextAnswerForAdd : Answer
     {
-        [JsonProperty("AnswerHeader")]
-        public AnswerHeader AnswerHeader { get; set; }
-
         [JsonProperty("AnswerBody")]
         public List<TextAnswerBody> AnswerBody { get; set; }
 
@@ -260,7 +257,7 @@ namespace nsAPI.Entities
         public string id_Work { get; set; }
 
         [JsonProperty("id_Student")]
-        public string id_Student { get; set; }
+        public string id_UserInClasses { get; set; }
 
         [JsonProperty("Mark")]
         public string Mark { get; set; }
@@ -285,7 +282,7 @@ namespace nsAPI.Entities
             a.ID = ID;
             a.Mark = Mark;
             a.DateTimeS = DateTimeS;
-            a.id_Student = id_Student;
+            a.id_UserInClasses = id_UserInClasses;
             a.id_Work = id_Work;
             a.id_TypeWork = id_TypeWork;
             return a;
@@ -298,7 +295,7 @@ namespace nsAPI.Entities
         {
             ID = Encryption.AESHelper.DecryptString(ID);
             id_Work = Encryption.AESHelper.DecryptString(id_Work);
-            id_Student = Encryption.AESHelper.DecryptString(id_Student);
+            id_UserInClasses = Encryption.AESHelper.DecryptString(id_UserInClasses);
             Mark = Encryption.AESHelper.DecryptString(Mark);
             DateTimeS = Encryption.AESHelper.DecryptString(DateTimeS);
             DateTimeE = Encryption.AESHelper.DecryptString(DateTimeE);
@@ -312,7 +309,7 @@ namespace nsAPI.Entities
         {
             ID = Encryption.AESHelper.EncryptString(ID);
             id_Work = Encryption.AESHelper.EncryptString(id_Work);
-            id_Student = Encryption.AESHelper.EncryptString(id_Student);
+            id_UserInClasses = Encryption.AESHelper.EncryptString(id_UserInClasses);
             Mark = Encryption.AESHelper.EncryptString(Mark);
             DateTimeS = Encryption.AESHelper.EncryptString(DateTimeS);
             DateTimeE = Encryption.AESHelper.EncryptString(DateTimeE);

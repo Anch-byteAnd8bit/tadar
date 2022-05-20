@@ -51,7 +51,7 @@ namespace Tadar.ViewModels
                 List <string> usersid = new List<string> { };
                 for (int i = 0; i < ansbywork.TestAnswers.Count; i++)
                 {
-                   usersid.Add(ansbywork.TestAnswers[i].AnswerHeader.id_Student);
+                   usersid.Add(ansbywork.TestAnswers[i].AnswerHeader.id_UserInClasses);
 
                 }
                 LoadClassAsync(usersid);

@@ -147,11 +147,15 @@ namespace nsAPI.Entities
                     // Флаг наличия ответа.
                     isgood = isgood && 
                         ((filter.HasFlag(FilterWorks.HaveAnsw) && (answer != null)) ||
-                        (filter.HasFlag(FilterWorks.HaveNotAnsw) && (answer == null)));
+                        (filter.HasFlag(FilterWorks.HaveNotAnsw) && (answer == null)) ||
+                        (!filter.HasFlag(FilterWorks.HaveAnsw) && !filter.HasFlag(FilterWorks.HaveNotAnsw)));
                     // Наличие оценки.
                     isgood = isgood && (answer != null) &&
-                        ((filter.HasFlag(FilterWorks.Marked) && (answer.AnswerHeader.Mark != null)) ||
-                        ((filter.HasFlag(FilterWorks.NotMarked) && (answer.AnswerHeader.Mark == null))));
+                        ((filter.HasFlag(FilterWorks.Marked) && ((answer.AnswerHeader.Mark != null) ||
+                        (answer.AnswerHeader.Mark != "NULL"))) ||
+                        ((filter.HasFlag(FilterWorks.NotMarked) && ((answer.AnswerHeader.Mark == null) ||
+                        (answer.AnswerHeader.Mark == "NULL")))) ||
+                        (!filter.HasFlag(FilterWorks.Marked) && !filter.HasFlag(FilterWorks.NotMarked)));
                 }
 
                 //var d1 = DateTime.Parse(TestWorks[i].WorkHeader.DateTimeStart);
@@ -160,10 +164,11 @@ namespace nsAPI.Entities
 
                 // Работа уже стартовала.
                 isgood = isgood && (
-                    (filter.HasFlag(FilterWorks.Started) &&
+                    ((filter.HasFlag(FilterWorks.Started) &&
                     (DateTime.Parse(TestWorks[i].WorkHeader.DateTimeStart) <= DateTime.Today)) ||
                     (filter.HasFlag(FilterWorks.NotStarted) &&
-                    (DateTime.Parse(TestWorks[i].WorkHeader.DateTimeStart) > DateTime.Today)));
+                    (DateTime.Parse(TestWorks[i].WorkHeader.DateTimeStart) > DateTime.Today))) ||
+                    (!filter.HasFlag(FilterWorks.Started) && !filter.HasFlag(FilterWorks.NotStarted)));
                 // Проверяем, прошла ли эта работа через фильтры.
                 if (isgood) filteredworks.AddTest(TestWorks[i]);
             }
@@ -195,18 +200,24 @@ namespace nsAPI.Entities
                     // Флаг наличия ответа.
                     isgood = isgood &&
                         ((filter.HasFlag(FilterWorks.HaveAnsw) && (answer != null)) ||
-                        (filter.HasFlag(FilterWorks.HaveNotAnsw) && (answer == null)));
+                        (filter.HasFlag(FilterWorks.HaveNotAnsw) && (answer == null)) ||
+                        (!filter.HasFlag(FilterWorks.HaveAnsw) && !filter.HasFlag(FilterWorks.HaveNotAnsw)));
                     // Наличие оценки.
                     isgood = isgood && (answer != null) &&
-                        ((filter.HasFlag(FilterWorks.Marked) && (answer.AnswerHeader.Mark != null)) ||
-                        ((filter.HasFlag(FilterWorks.NotMarked) && (answer.AnswerHeader.Mark == null))));
+                        (((filter.HasFlag(FilterWorks.Marked) && ((answer.AnswerHeader.Mark != null) ||
+                        (answer.AnswerHeader.Mark != "NULL"))) ||
+                        (filter.HasFlag(FilterWorks.NotMarked) && ((answer.AnswerHeader.Mark == null) ||
+                        (answer.AnswerHeader.Mark == "NULL")))) ||
+                        (!filter.HasFlag(FilterWorks.Marked) && !filter.HasFlag(FilterWorks.NotMarked)));
                 }
+
                 // Работа уже стартовала.
                 isgood = isgood && (
-                    (filter.HasFlag(FilterWorks.Started) &&
+                    ((filter.HasFlag(FilterWorks.Started) &&
                     (DateTime.Parse(TextWorks[i].WorkHeader.DateTimeStart) <= DateTime.Today)) ||
                     (filter.HasFlag(FilterWorks.NotStarted) &&
-                    (DateTime.Parse(TextWorks[i].WorkHeader.DateTimeStart) > DateTime.Today)));
+                    (DateTime.Parse(TextWorks[i].WorkHeader.DateTimeStart) > DateTime.Today))) ||
+                    (!filter.HasFlag(FilterWorks.Started) && !filter.HasFlag(FilterWorks.NotStarted)));
                 // Проверяем, прошла ли эта работа через фильтры.
                 if (isgood) filteredworks.AddText(TextWorks[i]);
             }
@@ -219,18 +230,38 @@ namespace nsAPI.Entities
     }
 
     /// <summary>
-    /// Тестовая работа.
+    /// Базовый класс работы.
     /// </summary>
-    public class TestWork
+    public abstract class Work
     {
-        public TestWork()
-        {
-            WorkHeader = new WorkHeader();
-            WorkBody = new List<TestTask>();
-        }
-
         [JsonProperty("WorkHeader")]
         public WorkHeader WorkHeader { get; set; }
+     
+        public Work(WorkHeader workHeader)
+        {
+            WorkHeader = workHeader;
+        }
+
+        public Work()
+        {
+            WorkHeader = new WorkHeader();
+        }
+
+        public void EncryptHeaderByAES()
+        {
+            WorkHeader.EncryptByAES();
+        }
+    }
+
+    /// <summary>
+    /// Базовый класс работа.
+    /// </summary>
+    public class TestWork : Work
+    {
+        public TestWork() : base()
+        {
+            WorkBody = new List<TestTask>();
+        }
 
         [JsonProperty("WorkBody")]
         public List<TestTask> WorkBody { get; set; }
@@ -279,11 +310,6 @@ namespace nsAPI.Entities
             }
         }
 
-        public void EncryptHeaderByAES()
-        {
-            WorkHeader.EncryptByAES();
-        }
-
         public void Encrypt()
         {
             EncryptBodyByAES();
@@ -300,11 +326,8 @@ namespace nsAPI.Entities
     /// <summary>
     /// Текстовая работа.
     /// </summary>
-    public class TextWork
+    public class TextWork : Work
     {
-        [JsonProperty("WorkHeader")]
-        public WorkHeader WorkHeader { get; set; }
-
         [JsonProperty("WorkBody")]
         public List<TextTask> WorkBody { get; set; }
 
