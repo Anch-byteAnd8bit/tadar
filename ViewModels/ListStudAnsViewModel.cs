@@ -55,8 +55,7 @@ namespace Tadar.ViewModels
                 {
                     for (int i = 0; i < ansbywork.TestAnswers.Count; i++)
                     {
-                        //TODO: было id_Student, но это не правильно.
-                        //usersid.Add(ansbywork.TestAnswers[i].AnswerHeader.id_UserInClasses);
+                        usersid.Add(ansbywork.TestAnswers[i].AnswerHeader.id_UserInClasses);
 
                     }
                     LoadStudentsAsync(usersid);
@@ -75,11 +74,11 @@ namespace Tadar.ViewModels
         /// Асинхронная загрузка списка учеников
         /// </summary>
         /// <param name="iclass"></param>
-        public async void LoadStudentsAsync(List<string> iclass)
+        public async void LoadStudentsAsync(List<string> StudentsIDs)
         {
             try
             {
-                classroomsusers = await api.GetUsersByIdAsync(iclass.ToArray());
+                classroomsusers = await api.GetUsersByStudentsIDsAsync(StudentsIDs);
 
                 //  ClasssList = new ObservableCollection<RegisteredClassroom>();
 
