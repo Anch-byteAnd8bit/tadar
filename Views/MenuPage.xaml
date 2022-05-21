@@ -42,7 +42,7 @@
             Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
             VerticalAlignment="Top" />
 
-        <ScrollViewer Grid.Row="2">
+        <ScrollViewer Grid.Row="2" Grid.RowSpan="3">
             <StackPanel Grid.Row="2" Background="White">
                 <ListView ItemsSource="{Binding Classrooms}" 
                           
@@ -69,7 +69,7 @@
                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
                    VerticalAlignment="Top" />
 
-        <ScrollViewer Grid.Row="4">
+        <!--<ScrollViewer Grid.Row="4">
             <StackPanel Grid.Row="4" Background="White">
                 <ListView ItemsSource="{Binding Marks}" 
                           Background="White"
@@ -89,7 +89,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </StackPanel>
-        </ScrollViewer>
+        </ScrollViewer>-->
 
         <GroupBox
             Background="White"

@@ -49,28 +49,42 @@
         <StackPanel
             Grid.Row="1"
             Grid.Column="1">
-        <TextBlock
+        <TextBox
             Grid.Row="0"
             Grid.Column="1"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Foreground="White"
+            Foreground="Black"
             TextWrapping="Wrap"
+            IsReadOnly="True"
             ScrollViewer.VerticalScrollBarVisibility="Auto"
             ScrollViewer.CanContentScroll="True" FontSize="18"
-            Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+            Style="{StaticResource MaterialDesignTextBox}"
             Text="{Binding Source}"/>
+
+
+        <ScrollViewer VerticalScrollBarVisibility="Visible" CanContentScroll="True"
+                       >
+            
         <TextBlock
+            
             Grid.Row="0"
             Grid.Column="1"
             TextWrapping="Wrap"
             ScrollViewer.VerticalScrollBarVisibility="Auto"
-            ScrollViewer.CanContentScroll="True" FontSize="18"
+            ScrollViewer.CanContentScroll="True"
+            FontSize="20"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Foreground="White"
-            Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+            Foreground="Black"
+            Background="White"
+            Height="450"
+            Width="645"
+            Style="{StaticResource MaterialDesignBody1TextBlock}"
             Text="{Binding Content}"/>
+            
+        </ScrollViewer>
+
         </StackPanel>
         
         
