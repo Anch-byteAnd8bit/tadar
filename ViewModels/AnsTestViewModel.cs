@@ -43,12 +43,13 @@ namespace Tadar.ViewModels
                 }
 
                 // Получаем список ответов.
-                answers = await api.GetAnswersByWork(work.WorkHeader.ID, false);
+                answers = await api.GetAnswersByUser(idus, false);
                 if (answers != null)
                 {
                     // Получаем только мои ответы.
-                    Answers myAnswers = answers.GetAnswersByIDUser(idus);
-
+                    Answers myAnswers = new Answers();
+                    myAnswers.TestAnswers.Add(answers.TestAnswers.SingleOrDefault(an => an.AnswerHeader.id_Work == work.WorkHeader.ID));
+                    
                     // А есть ли тут мои ответы?
                     if (myAnswers.TestAnswers.Count > 0)
                     {
