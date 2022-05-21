@@ -118,6 +118,13 @@ namespace nsAPI
             instance = this;
         }
 
+        public void LogOut()
+        {
+            //Refbooks = null;
+            MainUser = null;
+            ClearUserData();
+        }
+
         private readonly string cond = "both";
         /// <summary>
         /// Конструктор API.
@@ -1077,6 +1084,16 @@ namespace nsAPI
                 // Ошибка!
                 throw new IOException("File of UserData already exist");
             }
+        }
+
+        private void ClearUserData()
+        {
+            // Проверяем, что папка user существует, если нет, то создаем её.
+            if (Directory.Exists(Path.GetDirectoryName(pathAccessToken)))
+                Directory.Delete(Path.GetDirectoryName(pathAccessToken), true);
+            api_token = null;
+            id_user = null;
+
         }
 
         /// <summary>
