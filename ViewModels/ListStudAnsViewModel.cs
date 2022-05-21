@@ -49,12 +49,20 @@ namespace Tadar.ViewModels
             {
                 var ansbywork = await api.GetAnswersByWork(test.WorkHeader.ID);
                 List <string> usersid = new List<string> { };
-                for (int i = 0; i < ansbywork.TestAnswers.Count; i++)
-                {
-                   usersid.Add(ansbywork.TestAnswers[i].AnswerHeader.id_Student);
 
+
+                if (ansbywork != null)
+                {
+                    for (int i = 0; i < ansbywork.TestAnswers.Count; i++)
+                    {
+                        usersid.Add(ansbywork.TestAnswers[i].AnswerHeader.id_Student);
+
+                    }
+                    LoadClassAsync(usersid);
                 }
-                LoadClassAsync(usersid);
+                else
+
+                    MessageBox.Show("Никто не решал этот тест");
             }
             catch (Exception ex)
             {
