@@ -27,8 +27,17 @@
                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"/>
-        
-        
+
+        <Button x:Name="back_but"
+                Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                Content="{materialDesign:PackIcon Kind=Home}"
+                
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Command="{Binding BackClick}"
+                Grid.Column="0"
+                FontSize="20"
+                Width="50" Cursor="Hand"/>
         <ListView
             HorizontalAlignment="Center"
             Grid.Row="1"

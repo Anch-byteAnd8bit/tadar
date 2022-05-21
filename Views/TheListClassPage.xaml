@@ -29,6 +29,17 @@
             Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                    > Список классов</TextBlock>
 
+        <Button x:Name="back_but"
+                Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                Content="{materialDesign:PackIcon Kind=Home}"
+                
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Command="{Binding BackClick}"
+                Grid.Column="0"
+                FontSize="20"
+                Width="50" Cursor="Hand"/>
+
         <ListView ItemsSource="{Binding Classrooms}" IsSynchronizedWithCurrentItem="True"
                   materialDesign:ListBoxItemAssist.ShowSelection="False"
                   Name="lv"

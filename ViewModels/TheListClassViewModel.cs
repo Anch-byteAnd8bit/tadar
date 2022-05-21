@@ -20,8 +20,21 @@ namespace Tadar.ViewModels
         {
             LoadClasssAsync();
             EnterClick = new Command(Enter_Click);
-            
+            BackClick = new Command(Back_Click);
 
+
+        }
+
+        private void Back_Click(object ob)
+        {
+            First.Base_frame.Navigate(new MenuPage());
+
+        }
+
+        public Command BackClick
+        {
+            get;
+            set;
         }
 
         private void Enter_Click(object ob)
