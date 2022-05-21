@@ -63,27 +63,34 @@
             Text="{Binding Source}"/>
 
 
-        <ScrollViewer VerticalScrollBarVisibility="Visible" CanContentScroll="True"
-                       >
+            <ScrollViewer Grid.Row="0"
+            Grid.Column="1"  MaxHeight="450"  
+              Width="Auto"  
+              HorizontalScrollBarVisibility="Disabled"
+              VerticalScrollBarVisibility="Auto">
+                <TextBlock Background="White" FontSize="18" Text="{Binding Content}" 
+                Style="{StaticResource MaterialDesignBody1TextBlock}"
+                TextWrapping="Wrap" />
+            </ScrollViewer>
+
+            <!--<ScrollViewer >-->
             
-        <TextBlock
+        <!--<TextBlock
             
             Grid.Row="0"
             Grid.Column="1"
             TextWrapping="Wrap"
-            ScrollViewer.VerticalScrollBarVisibility="Auto"
-            ScrollViewer.CanContentScroll="True"
             FontSize="20"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Foreground="Black"
             Background="White"
-            Height="450"
-            Width="645"
+            Height="auto"
+            Width="auto"
             Style="{StaticResource MaterialDesignBody1TextBlock}"
             Text="{Binding Content}"/>
             
-        </ScrollViewer>
+        </ScrollViewer>-->
 
         </StackPanel>
         
