@@ -137,7 +137,7 @@ namespace nsAPI.Methods
             string dataJSON = JsonConvert.SerializeObject(d);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("works.get/", dataJSON, urlParam);
-            if (httpResponse != null)
+            if (httpResponse.Data != null)
             {
                 // Список работ.
                 Works works = new Works();
