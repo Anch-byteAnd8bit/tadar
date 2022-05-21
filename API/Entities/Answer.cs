@@ -17,32 +17,6 @@ namespace nsAPI.Entities
 
 
         /// <summary>
-        /// Возвращает список только тех, ответов, которые решал пользователь с указанным ID.
-        /// </summary>
-        /// <param name="id_User">ID пользователя.</param>
-        /// <returns></returns>
-        public Answers GetAnswersByIDUser(string id_User)
-        {
-            Answers answers = new Answers();
-
-            answers.TestAnswers = new List<TestAnswer>();
-            TestAnswers.ForEach(ta =>
-            {
-                if (ta.AnswerHeader.id_UserInClasses == id_User)
-                    answers.TestAnswers.Add(ta);
-            });
-
-            answers.TextAnswers = new List<TextAnswer>();
-            TextAnswers.ForEach(ta =>
-            {
-                if (ta.AnswerHeader.id_UserInClasses == id_User)
-                    answers.TextAnswers.Add(ta);
-            });
-
-            return answers;
-        }
-
-        /// <summary>
         /// Ответы, на которые есть оценки.
         /// </summary>
         public Answers GetMarkedAnswers() => GetMarkedOrNonMarkedAnswers(true);
