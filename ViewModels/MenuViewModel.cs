@@ -14,9 +14,10 @@ namespace Tadar.ViewModels
     public class MenuViewModel : BaseViewModel
     {
         private List<RegisteredClassroom> classrooms = new List<RegisteredClassroom>();
-        private List<WorkAndMark> marks = new List<WorkAndMark>();
+        private ObservableCollection<WorkAndMark> marks = new ObservableCollection<WorkAndMark>();
         public MenuViewModel()
         {
+            api = nsAPI.API.Instance;
             //api.MainUser.Name
             //Оценки.
             MarkClick = new Command(mark_Click);
@@ -44,7 +45,6 @@ namespace Tadar.ViewModels
         {
             try
             {
-                api = nsAPI.API.Instance;
                 classrooms = await api.GetClassroomsByUserIdAsync(api.MainUser.ID);
                 if (classrooms == null)
                 {
@@ -166,7 +166,7 @@ namespace Tadar.ViewModels
         /// <summary>
         /// Список оценок пользователя.
         /// </summary>
-        public List<WorkAndMark> Marks
+        public ObservableCollection<WorkAndMark> Marks
         {
             get { return marks; }
             set

@@ -33,7 +33,7 @@
                   />
 
 
-        <ListView ItemsSource="{Binding Classrooms}" IsSynchronizedWithCurrentItem="True"
+        <ListView ItemsSource="{Binding Students}" IsSynchronizedWithCurrentItem="True"
                   materialDesign:ListBoxItemAssist.ShowSelection="False"
                   Name="lv"
                   Grid.Row="1"

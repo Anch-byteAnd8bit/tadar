@@ -42,7 +42,43 @@
             Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
             VerticalAlignment="Top" />
 
-        <ScrollViewer Grid.Row="2" Grid.RowSpan="3">
+        <ScrollViewer Grid.Row="4" >
+            <StackPanel Grid.Row="4" Background="White">
+                <ListView ItemsSource="{Binding Marks}" 
+                          
+                          IsSynchronizedWithCurrentItem="True" Grid.Row="2"
+                  >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="1">
+
+                                <TextBlock
+                                    Foreground="#FF673AB7"
+           
+                                    Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                    Text="{Binding NameWork}"
+                                   
+                                    />
+                                <TextBlock
+                                    Foreground="#FF673AB7"
+           
+                                    Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                   
+                                    Text="{Binding Mark}"
+                                    />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </ScrollViewer>
+        <TextBlock Grid.Row="3"
+                   Text="Мои оценки:"
+                   Foreground="White"
+                   Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                   VerticalAlignment="Top" />
+
+        <ScrollViewer Grid.Row="2" >
             <StackPanel Grid.Row="2" Background="White">
                 <ListView ItemsSource="{Binding Classrooms}" 
                           
@@ -63,33 +99,6 @@
                 </ListView>
             </StackPanel>
         </ScrollViewer>
-        <TextBlock Grid.Row="3"
-                   Text="Мои оценки:"
-                   Foreground="White"
-                   Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                   VerticalAlignment="Top" />
-
-        <!--<ScrollViewer Grid.Row="4">
-            <StackPanel Grid.Row="4" Background="White">
-                <ListView ItemsSource="{Binding Marks}" 
-                          Background="White"
-                          IsSynchronizedWithCurrentItem="True" Grid.Row="4">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="1">
-                                <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}"
-                                           Foreground="#FF673AB7"
-                                           Text="{Binding Marks.NameWork}" />
-                                
-                                <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}"
-                                           Foreground="#FF673AB7"
-                                           Text="{Binding Marks.Mark}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackPanel>
-        </ScrollViewer>-->
 
         <GroupBox
             Background="White"
