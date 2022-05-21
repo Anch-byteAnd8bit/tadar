@@ -108,6 +108,8 @@ namespace Tadar.Views
                 //await eAPI.GetListCommonWords();
                 //await eAPI.GetListCombiWords();
                 //await eAPI.GetUsersByClass();
+                await eAPI.GetUserByAnswerAsync();
+                await eAPI.GetUsersByAnswersAsync();
             }
             catch (Exception ex)
             {

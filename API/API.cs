@@ -364,6 +364,55 @@ namespace nsAPI
             }
             return regu;
         }
+
+        /// <summary>
+        /// Возвращает список пользователей по заданному списоку значений полей id_Student из таблицы
+        /// ответов "executionofworks"
+        /// </summary>
+        /// <param name="studentsIDs">Массив id_Student</param>
+        /// <returns></returns>
+        public async Task<List<RegisteredUser>> GetUsersByStudentsIDsAsync(string[] studentsIDs)
+        {
+            var regu = await users.ByStudentsIDsAsync(Access_Token, studentsIDs);
+            if (regu == null)
+            {
+                LastException = users.Response.Exception;
+            }
+            return regu;
+        }
+
+        /// <summary>
+        /// Возвращает список пользователей по заданному списоку значений полей id_Student из таблицы
+        /// ответов "executionofworks"
+        /// </summary>
+        /// <param name="studentsIDs">Список id_Student</param>
+        /// <returns></returns>
+        public async Task<List<RegisteredUser>> GetUsersByStudentsIDsAsync(List<string> studentsIDs)
+        {
+            var regu = await users.ByStudentsIDsAsync(Access_Token, studentsIDs);
+            if (regu == null)
+            {
+                LastException = users.Response.Exception;
+            }
+            return regu;
+        }
+
+        /// <summary>
+        /// Возвращает пользователя по заданному значению поля id_Student из таблицы
+        /// ответов "executionofworks"
+        /// </summary>
+        /// <param name="studentID"></param>
+        /// <returns></returns>
+        public async Task<RegisteredUser> GetUserByStudentIDAsync(string studentID)
+        {
+            var regu = await users.ByStudentIDAsync(Access_Token, studentID);
+            if (regu == null)
+            {
+                LastException = users.Response.Exception;
+            }
+            return regu;
+        }
+
         #endregion
 
         #region Refbooks

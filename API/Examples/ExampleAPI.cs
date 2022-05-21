@@ -465,5 +465,33 @@ namespace nsAPI.Examples
             }
             
         }
+
+
+        public async Task GetUsersByAnswersAsync()
+        {
+            var users = await api.GetUsersByStudentsIDsAsync(new List<string> { "1" });
+            if (users != null)
+            {
+                Msg.Write(users.Count.ToString());
+            }
+            else
+            {
+                Msg.Write(api.LastException.Message);
+            }
+
+        }
+        public async Task GetUserByAnswerAsync()
+        {
+            var user = await api.GetUserByStudentIDAsync("1");
+            if (user != null)
+            {
+                Msg.Write(user.Surname);
+            }
+            else
+            {
+                Msg.Write(api.LastException.Message);
+            }
+
+        }
     }
 }

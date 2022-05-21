@@ -200,6 +200,97 @@ namespace nsAPI.Methods
             }
         }
 
+
+        /// <summary>
+        /// Получает подробную информацию о пользователях с заданными ID.
+        /// </summary>
+        /// <param name="studentsIDs">Значения полей id_Student из таблицы executionofworks.</param>
+        /// <returns>Информация о пользователях.</returns>
+        public async Task<List<RegisteredUser>> ByStudentsIDsAsync(string api_token, List<string> studentsIDs)
+        {
+            if (studentsIDs == null || studentsIDs.Count() <= 0)
+            {
+                return null;
+            }
+            // Обязательно добавляем в запрос НЕ зашифрованный ключ доступа.
+            Dictionary<string, string> urlParam = new Dictionary<string, string>();
+            urlParam.Add("secure_key", api_token);
+            // Создание ассоциативного массива.
+            var d = new Dictionary<string, object>();
+            // Добавление в массив по ключу "ids", список идентификаторов пользователей.
+            d.Add("ids", studentsIDs);
+            // Сериализация (конвертирование в формат JSON).
+            string usersJSON = JsonConvert.SerializeObject(d);
+            // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
+            var httpResponse = await httpPostJSONAsync("users.byanswer/", usersJSON, urlParam);
+            if (httpResponse.Data != null)
+            {
+                // Возвращаем список пользователей.
+                List<RegisteredUser> registeredUsers = new List<RegisteredUser>();
+                //
+                httpResponse.Data.ForEach(el =>
+                {
+                    registeredUsers.Add(JsonConvert.DeserializeObject<RegisteredUser>(el.ToString()));
+                });
+                // Расшифровываем данные пользователя.
+                registeredUsers.ForEach(u => u.DecryptDataByAES());
+                // Возвращаем список пользователей.
+                return registeredUsers;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public async Task<RegisteredUser> ByStudentIDAsync(string api_token, string studentID)
+        {
+            var s = await ByStudentsIDsAsync(api_token, new string[] { studentID });
+            return s?[0];
+        }
+
+        /// <summary>
+        /// Получает подробную информацию о пользователях с заданными ID.
+        /// </summary>
+        /// <param name="studentsIDs">Значения полей id_Student из таблицы executionofworks.</param>
+        /// <returns>Информация о пользователях.</returns>
+        public async Task<List<RegisteredUser>> ByStudentsIDsAsync(string api_token, string[] studentsIDs)
+        {
+            if (studentsIDs == null || studentsIDs.Count() <= 0)
+            {
+                return null;
+            }
+            // Обязательно добавляем в запрос НЕ зашифрованный ключ доступа.
+            Dictionary<string, string> urlParam = new Dictionary<string, string>();
+            urlParam.Add("secure_key", api_token);
+            // Создание ассоциативного массива.
+            var d = new Dictionary<string, object>();
+            // Добавление в массив по ключу "ids", список идентификаторов пользователей.
+            d.Add("ids", studentsIDs);
+            // Сериализация (конвертирование в формат JSON).
+            string usersJSON = JsonConvert.SerializeObject(d);
+            // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
+            var httpResponse = await httpPostJSONAsync("users.byanswer/", usersJSON, urlParam);
+            if (httpResponse.Data != null)
+            {
+                // Возвращаем список пользователей.
+                List<RegisteredUser> registeredUsers = new List<RegisteredUser>();
+                //
+                httpResponse.Data.ForEach(el =>
+                {
+                    registeredUsers.Add(JsonConvert.DeserializeObject<RegisteredUser>(el.ToString()));
+                });
+                // Расшифровываем данные пользователя.
+                registeredUsers.ForEach(u => u.DecryptDataByAES());
+                // Возвращаем список пользователей.
+                return registeredUsers;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         /// <summary>
         /// Получение информации о пользователе с заданным ID
         /// </summary>
