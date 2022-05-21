@@ -93,12 +93,12 @@ namespace Tadar.ViewModels
                         var userAnswers = await api.GetAnswersByUser(api.MainUser.ID, true);
                         if (userAnswers != null)
                         {
-                            // Получаем работы пользователя только те, у которых есть оценки.
-                            // Заодно происходит фильтр работ, отбрасывая работы не пользоввателя
-                            // т.к. ответы были только текущего пользователя. Как-то так.
-                            works = works.GetFilteredWorks(FilterWorks.Marked, userAnswers);
+                            // Получаем ответы только те, у которых есть оценки.
+                            var resolvedAnswers = userAnswers.GetMarkedAnswers();
+                            //
+                            works = works.GetResolvedWorks(resolvedAnswers);
                             // Ищем ответы на тестовые задания.
-                            foreach (var testAnswer in userAnswers.TestAnswers)
+                            foreach (var testAnswer in resolvedAnswers.TestAnswers)
                             {
                                 foreach (var testWork in works.TestWorks)
                                 {
@@ -113,7 +113,7 @@ namespace Tadar.ViewModels
                             }
 
                             // Ищем ответы на текстовые задания.
-                            foreach (var textAnswer in userAnswers.TextAnswers)
+                            foreach (var textAnswer in resolvedAnswers.TextAnswers)
                             {
                                 foreach (var textWork in works.TextWorks)
                                 {

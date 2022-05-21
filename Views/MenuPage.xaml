@@ -63,40 +63,33 @@
                 </ListView>
             </StackPanel>
         </ScrollViewer>
-        <TextBlock Grid.Row="3" 
-            Text="Мои оценки:"
-          Foreground="White"
-            Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-            VerticalAlignment="Top" />
+        <TextBlock Grid.Row="3"
+                   Text="Мои оценки:"
+                   Foreground="White"
+                   Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                   VerticalAlignment="Top" />
 
         <ScrollViewer Grid.Row="4">
             <StackPanel Grid.Row="4" Background="White">
                 <ListView ItemsSource="{Binding Marks}" 
                           Background="White"
-                          IsSynchronizedWithCurrentItem="True" Grid.Row="4"
-               >
+                          IsSynchronizedWithCurrentItem="True" Grid.Row="4">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="1">
                                 <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}"
                                            Foreground="#FF673AB7"
-                                            
-                                           Text="{Binding NameWork}" />
+                                           Text="{Binding Marks.NameWork}" />
+                                
                                 <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}"
                                            Foreground="#FF673AB7"
-                                            
-                                           Text="{Binding Mark}" />
+                                           Text="{Binding Marks.Mark}" />
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </StackPanel>
         </ScrollViewer>
-
-
-
-
-
 
         <GroupBox
             Background="White"

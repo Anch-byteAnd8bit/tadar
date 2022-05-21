@@ -6,41 +6,6 @@ using System.Linq;
 
 namespace nsAPI.Entities
 {
-    /// <summary>
-    /// Битовый фильтр.
-    /// </summary>
-    [Flags]
-    public enum FilterWorks
-    {
-        None = 0,
-        //Answers
-        /// <summary>
-        /// Есть ответ
-        /// </summary>
-        HaveAnsw = 1,
-        /// <summary>
-        /// Нет ответов
-        /// </summary>
-        HaveNotAnsw = 2,
-        /// <summary>
-        /// Дата начала уже прошла
-        /// </summary>
-        Started = 4,
-        /// <summary>
-        /// Жата начала еще не прошла
-        /// </summary>
-        NotStarted = 8,
-        /// <summary>
-        /// Есть оценка
-        /// </summary>
-        Marked = 16,
-        /// <summary>
-        /// Без оценки
-        /// </summary>
-        NotMarked = 32,
-
-    }
-
     public class Works
     {
         public Works()
@@ -103,130 +68,125 @@ namespace nsAPI.Entities
         }
 
         /// <summary>
-        /// Не решенные работы, определяются по заданным ответам на эти работы.
+        /// Нерешенные работы, определяются по заданным ответам на эти работы.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Работы, не имеющие ответа в заданном списке ответов.</returns>
         public Works GetUnresolvedWorks(Answers answers) =>
-            GetFilteredWorks(FilterWorks.HaveNotAnsw, answers);
+            GetUnresolvedOrResolvedWorks(answers, true);
 
         /// <summary>
-        /// Фильтрует работы.
-        /// Важно: Для некоторых фильтров обязательно надо задать ответы на эти работы;
-        /// Возвращаемые работы связаны с исходными!
+        /// Решенные работы, определяются по заданным ответам на эти работы.
         /// </summary>
-        /// <param name="answers">Ответы на эти рабты.</param>
-        /// <param name="filter">Битовый фильтр.</param>
-        /// <returns></returns>
-        public Works GetFilteredWorks(FilterWorks filter, Answers answers)
+        /// <returns>Работы, уже имеющие ответы в заданном списке ответов.</returns>
+        public Works GetResolvedWorks(Answers answers) =>
+            GetUnresolvedOrResolvedWorks(answers, false);
+
+        private Works GetUnresolvedOrResolvedWorks(Answers answers, bool isUnresolved = true)
         {
+            // Ответы.
+            if (answers == null)
+            {
+                throw new Exception("Не задан параметр!");
+            }
+
             Works filteredworks = new Works();
             // Ищем тестовые работы.
             for (int i = 0; i < TestWorks.Count; i++)
             {
-                bool isgood = true;
+                TestAnswer answer = null;
 
-                // Ответы.
-                if (answers != null)
+                // Перебираем список ответов и, когда находим ответ, запоминаем его.
+                for (int j = 0; j < answers.TestAnswers.Count; j++)
                 {
-                    TestAnswer answer = null;
-                    // Нужно ли находить ответ?
-                    if (filter.HasFlag(FilterWorks.HaveAnsw) || filter.HasFlag(FilterWorks.Marked) ||
-                        filter.HasFlag(FilterWorks.HaveNotAnsw) || filter.HasFlag(FilterWorks.NotMarked))
+                    if (TestWorks[i].WorkHeader.ID == answers.TestAnswers[j].AnswerHeader.id_Work)
                     {
-                        // Перебираем список ответов и, когда находим ответ, запоминаем его.
-                        for (int j = 0; j < answers.TestAnswers.Count; j++)
-                        {
-                            if (TestWorks[i].WorkHeader.ID == answers.TestAnswers[j].AnswerHeader.id_Work)
-                            {
-                                answer = answers.TestAnswers[j];
-                                break;
-                            }
-                        }
+                        answer = answers.TestAnswers[j];
+                        break;
                     }
-
-                    // Флаг наличия ответа.
-                    isgood = isgood && 
-                        ((filter.HasFlag(FilterWorks.HaveAnsw) && (answer != null)) ||
-                        (filter.HasFlag(FilterWorks.HaveNotAnsw) && (answer == null)) ||
-                        (!filter.HasFlag(FilterWorks.HaveAnsw) && !filter.HasFlag(FilterWorks.HaveNotAnsw)));
-                    // Наличие оценки.
-                    isgood = isgood && (answer != null) &&
-                        ((filter.HasFlag(FilterWorks.Marked) && ((answer.AnswerHeader.Mark != null) ||
-                        (answer.AnswerHeader.Mark != "NULL"))) ||
-                        ((filter.HasFlag(FilterWorks.NotMarked) && ((answer.AnswerHeader.Mark == null) ||
-                        (answer.AnswerHeader.Mark == "NULL")))) ||
-                        (!filter.HasFlag(FilterWorks.Marked) && !filter.HasFlag(FilterWorks.NotMarked)));
                 }
 
-                //var d1 = DateTime.Parse(TestWorks[i].WorkHeader.DateTimeStart);
-                //var d2 = DateTime.Today;
-                //var g = d1 <= d2;
-
-                // Работа уже стартовала.
-                isgood = isgood && (
-                    ((filter.HasFlag(FilterWorks.Started) &&
-                    (DateTime.Parse(TestWorks[i].WorkHeader.DateTimeStart) <= DateTime.Today)) ||
-                    (filter.HasFlag(FilterWorks.NotStarted) &&
-                    (DateTime.Parse(TestWorks[i].WorkHeader.DateTimeStart) > DateTime.Today))) ||
-                    (!filter.HasFlag(FilterWorks.Started) && !filter.HasFlag(FilterWorks.NotStarted)));
-                // Проверяем, прошла ли эта работа через фильтры.
-                if (isgood) filteredworks.AddTest(TestWorks[i]);
+                // Проверяем.
+                if (isUnresolved)
+                {
+                    if (answer == null) filteredworks.AddTest(TestWorks[i]);
+                }
+                else if (answer != null) filteredworks.AddTest(TestWorks[i]);
             }
 
             // Ищем письменные работы.
             for (int i = 0; i < TextWorks.Count; i++)
             {
-                bool isgood = true;
-
-                // Ответы.
-                if (answers != null)
+                TextAnswer answer = null;
+                
+                // Перебираем список ответов и, когда находим ответ, запоминаем его.
+                for (int j = 0; j < answers.TextAnswers.Count; j++)
                 {
-                    TextAnswer answer = null;
-                    // Нужно ли находить ответ?
-                    if (filter.HasFlag(FilterWorks.HaveAnsw) || filter.HasFlag(FilterWorks.Marked) ||
-                        filter.HasFlag(FilterWorks.HaveNotAnsw) || filter.HasFlag(FilterWorks.NotMarked))
+                    if (TextWorks[i].WorkHeader.ID == answers.TextAnswers[j].AnswerHeader.id_Work)
                     {
-                        // Перебираем список ответов и, когда находим ответ, запоминаем его.
-                        for (int j = 0; j < answers.TextAnswers.Count; j++)
-                        {
-                            if (TextWorks[i].WorkHeader.ID == answers.TextAnswers[j].AnswerHeader.id_Work)
-                            {
-                                answer = answers.TextAnswers[j];
-                                break;
-                            }
-                        }
+                        answer = answers.TextAnswers[j];
+                        break;
                     }
-
-                    // Флаг наличия ответа.
-                    isgood = isgood &&
-                        ((filter.HasFlag(FilterWorks.HaveAnsw) && (answer != null)) ||
-                        (filter.HasFlag(FilterWorks.HaveNotAnsw) && (answer == null)) ||
-                        (!filter.HasFlag(FilterWorks.HaveAnsw) && !filter.HasFlag(FilterWorks.HaveNotAnsw)));
-                    // Наличие оценки.
-                    isgood = isgood && (answer != null) &&
-                        (((filter.HasFlag(FilterWorks.Marked) && ((answer.AnswerHeader.Mark != null) ||
-                        (answer.AnswerHeader.Mark != "NULL"))) ||
-                        (filter.HasFlag(FilterWorks.NotMarked) && ((answer.AnswerHeader.Mark == null) ||
-                        (answer.AnswerHeader.Mark == "NULL")))) ||
-                        (!filter.HasFlag(FilterWorks.Marked) && !filter.HasFlag(FilterWorks.NotMarked)));
                 }
-
-                // Работа уже стартовала.
-                isgood = isgood && (
-                    ((filter.HasFlag(FilterWorks.Started) &&
-                    (DateTime.Parse(TextWorks[i].WorkHeader.DateTimeStart) <= DateTime.Today)) ||
-                    (filter.HasFlag(FilterWorks.NotStarted) &&
-                    (DateTime.Parse(TextWorks[i].WorkHeader.DateTimeStart) > DateTime.Today))) ||
-                    (!filter.HasFlag(FilterWorks.Started) && !filter.HasFlag(FilterWorks.NotStarted)));
-                // Проверяем, прошла ли эта работа через фильтры.
-                if (isgood) filteredworks.AddText(TextWorks[i]);
+                // Проверяем.
+                if (isUnresolved)
+                {
+                    if (answer == null) filteredworks.AddText(TextWorks[i]);
+                }
+                else if (answer != null) filteredworks.AddText(TextWorks[i]);
             }
 
             return filteredworks;
         }
 
+        /// <summary>
+        /// Возвращает работы только те, которые уже начались.
+        /// Возвращаемые работы связаны с исходными!
+        /// </summary>
+        /// <returns></returns>
+        public Works GetStartedWorks() =>
+            GetStartedOrNotStartedWorks(true);
 
+        /// <summary>
+        /// Возвращает работы только те, которые еще не начались.
+        /// Возвращаемые работы связаны с исходными!
+        /// </summary>
+        /// <returns></returns>
+        public Works GetNotStartedWorks() =>
+            GetStartedOrNotStartedWorks(true);
 
+        private Works GetStartedOrNotStartedWorks(bool isStarted = true)
+        {
+            Works filteredworks = new Works();
+            // Ищем тестовые работы.
+            for (int i = 0; i < TestWorks.Count; i++)
+            {
+                var dts = DateTime.Parse(TestWorks[i].WorkHeader.DateTimeStart);
+                var dtn = DateTime.Now;
+
+                // Проверяем.
+                if (isStarted)
+                {
+                    if (dtn >= dts) filteredworks.AddTest(TestWorks[i]);
+                }
+                else if (dtn < dts) filteredworks.AddTest(TestWorks[i]);
+            }
+
+            // Ищем письменные работы.
+            for (int i = 0; i < TextWorks.Count; i++)
+            {
+                var dts = DateTime.Parse(TextWorks[i].WorkHeader.DateTimeStart);
+                var dtn = DateTime.Now;
+
+                // Проверяем.
+                if (isStarted)
+                {
+                    if (dtn >= dts) filteredworks.AddText(TextWorks[i]);
+                }
+                else if (dtn < dts) filteredworks.AddText(TextWorks[i]);
+            }
+
+            return filteredworks;
+        }
     }
 
     /// <summary>

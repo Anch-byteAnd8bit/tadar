@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace nsAPI.Entities
@@ -39,6 +40,52 @@ namespace nsAPI.Entities
             });
 
             return answers;
+        }
+
+        /// <summary>
+        /// Ответы, на которые есть оценки.
+        /// </summary>
+        public Answers GetMarkedAnswers() => GetMarkedOrNonMarkedAnswers(true);
+        /// <summary>
+        /// Ответы, на которые нет оценки.
+        /// </summary>
+        public Answers GetNonMarkedAnswers() => GetMarkedOrNonMarkedAnswers(false);
+
+        private Answers GetMarkedOrNonMarkedAnswers(bool isMarked = true)
+        {
+            Answers filteredAnswers = new Answers();
+            // Ищем тестовые работы.
+            for (int i = 0; i < TestAnswers.Count; i++)
+            {
+                Answer answer = TestAnswers[i];
+
+                if (isMarked)
+                {
+                    if ((answer.AnswerHeader.Mark != null) && (answer.AnswerHeader.Mark != "NULL"))
+                        filteredAnswers.TestAnswers.Add(TestAnswers[i]);
+                }
+                else if ((answer.AnswerHeader.Mark == null) || (answer.AnswerHeader.Mark == "NULL"))
+                    filteredAnswers.TestAnswers.Add(TestAnswers[i]);
+
+            }
+
+            // Ищем письменные работы.
+            for (int i = 0; i < TextAnswers.Count; i++)
+            {
+
+                Answer answer = TextAnswers[i];
+
+                if (isMarked)
+                {
+                    if ((answer.AnswerHeader.Mark != null) && (answer.AnswerHeader.Mark != "NULL"))
+                        filteredAnswers.TextAnswers.Add(TextAnswers[i]);
+                }
+                else if ((answer.AnswerHeader.Mark == null) || (answer.AnswerHeader.Mark == "NULL"))
+                    filteredAnswers.TextAnswers.Add(TextAnswers[i]);
+
+            }
+
+            return filteredAnswers;
         }
     }
 
