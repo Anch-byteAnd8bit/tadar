@@ -195,9 +195,10 @@ namespace nsAPI.Examples
         }
 
         /// <summary>
-        /// Пример создания и отправки ответа на тетсовую работу.
+        /// Пример создания и отправки ответа на тестовую работу.
+        /// Через передачу значения поля id_UserInClasses
         /// </summary>
-        public async Task AddAnswerTestWork()
+        public async Task AddAnswerTestWork_idUserInClasses()
         {
             TestAnswerForAdd testAnswer = new TestAnswerForAdd
             {
@@ -208,7 +209,7 @@ namespace nsAPI.Examples
                     id_Work = "1", // ИД работы.
                     DateTimeS = ToConvert.DB_DateTimeToStringDT(DateTime.Now),
                     DateTimeE = ToConvert.DB_DateTimeToStringDT(DateTime.Now),
-                    id_UserInClasses = api.MainUser.ID,
+                    id_UserInClasses = "3",
                 },
                 AnswerBody = new List<TestAnswerBody>
                 {
@@ -231,8 +232,63 @@ namespace nsAPI.Examples
 
             // Получаем ID ответа на тестовую работу.
             string answerTestID = await api.AddTestAnswerAsync(testAnswer);
+            if (answerTestID != null)
+            {
+                Msg.Write("ID: " + answerTestID);
+            }
+            else if (api.LastException!= null)
+            {
+                Msg.Write(api.LastException.Message);
+            }
         }
 
+        /// <summary>
+        /// Пример создания и отправки ответа на тестовую работу.
+        /// Через передачу ижентификатора пользователя.
+        /// </summary>
+        public async Task AddAnswerTestWork_idUser()
+        {
+            TestAnswerForAdd testAnswer = new TestAnswerForAdd
+            {
+                AnswerHeader = new AnswerHeader
+                {
+                    //ID
+                    //id_TypeWork = "1",  <- не надо заполнять.
+                    id_Work = "1", // ИД работы.
+                    DateTimeS = ToConvert.DB_DateTimeToStringDT(DateTime.Now),
+                    DateTimeE = ToConvert.DB_DateTimeToStringDT(DateTime.Now),
+                    id_User = "4",
+                },
+                AnswerBody = new List<TestAnswerBody>
+                {
+                    new TestAnswerBody
+                    {
+                        //ID
+                        //id_ExecutionOfWork
+                        id_Task = "1", // ИД задачи (хранятся в списке тела работы.
+                        num_Answ = "1", // Номер выбранного варианта
+                    },
+                    new TestAnswerBody
+                    {
+                        //ID
+                        //id_ExecutionOfWork
+                        id_Task = "2", // ИД задачи (хранятся в списке тела работы.
+                        num_Answ = "4", // Номер выбранного варианта
+                    },
+                }
+            };
+
+            // Получаем ID ответа на тестовую работу.
+            string answerTestID = await api.AddTestAnswerAsync(testAnswer);
+            if (answerTestID != null)
+            {
+                Msg.Write("ID: " + answerTestID);
+            }
+            else if (api.LastException != null)
+            {
+                Msg.Write(api.LastException.Message);
+            }
+        }
 
         /// <summary>
         /// Пример создания и отправки ответа на текстовую работу.
@@ -245,7 +301,7 @@ namespace nsAPI.Examples
                 {
                     //ID
                     //id_TypeWork = "2", <- не надо заполнять.
-                    id_Work = "1", // ИД работы.
+                    id_Work = "2", // ИД работы.
                     DateTimeS = ToConvert.DB_DateTimeToStringDT(DateTime.Now),
                     DateTimeE = ToConvert.DB_DateTimeToStringDT(DateTime.Now),
                     id_UserInClasses = api.MainUser.ID,
@@ -264,6 +320,46 @@ namespace nsAPI.Examples
 
             // Получаем ID ответа на текстовую работу.
             string answerTextID = await api.AddTextAnswerAsync(textAnswer);
+            if (answerTextID != null)
+            {
+                Msg.Write("ID: " + answerTextID);
+            }
+            else if (api.LastException != null)
+            {
+                Msg.Write(api.LastException.Message);
+            }
+        }
+
+        /// <summary>
+        /// Список отыетов по ИД пользователя.
+        /// </summary>
+        /// <returns></returns>
+        public async Task GetAnswersByUser()
+        {
+            var Answers = await api.GetAnswersByUser("1");
+            if (Answers != null)
+            {
+                Msg.Write("TestAnswers.Count: " + Answers.TestAnswers.Count.ToString() + '\n' +
+                    "TextAnswers.Count: " + Answers.TextAnswers.Count.ToString() + '\n');
+            }
+            else if (api.LastException != null)
+            {
+                Msg.Write(api.LastException.Message);
+            }
+        }
+
+        public async Task GetAnswersByWork()
+        {
+            var Answers = await api.GetAnswersByWork("1");
+            if (Answers != null)
+            {
+                Msg.Write("TestAnswers.Count: " + Answers.TestAnswers.Count.ToString() + '\n' +
+                    "TextAnswers.Count: " + Answers.TextAnswers.Count.ToString());
+            }
+            else if (api.LastException != null)
+            {
+                Msg.Write(api.LastException.Message);
+            }
         }
 
         public async Task GetListOfClasrooms()

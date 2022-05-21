@@ -187,7 +187,7 @@ namespace nsAPI.Entities
                 {
                     return "Message: " + ErrorInfoAPI.Message + "\n" +
                         "Description: " + ErrorInfoAPI.Description + "\n" +
-                        "Additional" + ErrorInfoAPI.Additional + "\n";
+                        "Additional: " + ErrorInfoAPI.Additional + "\n";
                 }
                 else if (ServerText != null)
                 {

@@ -90,7 +90,8 @@ namespace Tadar.Views
                 //await eAPI.CreateClass();
                 //await eAPI.AddTestWork();
                 //await eAPI.AddTextWork();
-                await eAPI.AddAnswerTestWork();
+                //await eAPI.AddAnswerTestWork_idUserInClasses();
+                await eAPI.AddAnswerTestWork_idUser();
                 //await eAPI.AddAnswerTextWork();
                 //await eAPI.GetListOfClasrooms();
                 //await eAPI.GetClassroomByIdAsync();
@@ -108,8 +109,8 @@ namespace Tadar.Views
                 //await eAPI.GetListCommonWords();
                 //await eAPI.GetListCombiWords();
                 //await eAPI.GetUsersByClass();
-                await eAPI.GetUserByAnswerAsync();
-                await eAPI.GetUsersByAnswersAsync();
+                //await eAPI.GetUserByAnswerAsync();
+                //await eAPI.GetUsersByAnswersAsync();
             }
             catch (Exception ex)
             {

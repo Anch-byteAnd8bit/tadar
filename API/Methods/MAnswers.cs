@@ -35,7 +35,6 @@ namespace nsAPI.Methods
 
             // Конвертируем объект в строку в формате JSON.
             string answerJson = answToSend.ToJson();
-            Console.WriteLine(answerJson);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpPostJSONAsync("answers.add/", answerJson, urlParams);
             // Конвертируем данные из нулевой ячейки массива ответа в тип IdentifierClassroom.

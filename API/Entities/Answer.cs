@@ -61,6 +61,31 @@ namespace nsAPI.Entities
 
             return filteredAnswers;
         }
+        /// <summary>
+        /// Возвращает список только тех, ответов, которые решал пользователь с указанным ID.
+        /// </summary>
+        /// <param name="id_User">ID пользователя.</param>
+        /// <returns></returns>
+        public Answers GetAnswersByIDUser(string id_User)
+        {
+            Answers answers = new Answers();
+
+            answers.TestAnswers = new List<TestAnswer>();
+            TestAnswers.ForEach(ta =>
+            {
+                if (ta.AnswerHeader.id_User == id_User)
+                    answers.TestAnswers.Add(ta);
+            });
+
+            answers.TextAnswers = new List<TextAnswer>();
+            TextAnswers.ForEach(ta =>
+            {
+                if (ta.AnswerHeader.id_User == id_User)
+                    answers.TextAnswers.Add(ta);
+            });
+
+            return answers;
+        }
     }
 
     public abstract class Answer
@@ -277,8 +302,11 @@ namespace nsAPI.Entities
         [JsonProperty("id_Work")]
         public string id_Work { get; set; }
 
-        [JsonProperty("id_Student")]
+        [JsonProperty("id_UserInClasses")]
         public string id_UserInClasses { get; set; }
+
+        [JsonProperty("id_User")]
+        public string id_User { get; set; }
 
         [JsonProperty("Mark")]
         public string Mark { get; set; }
@@ -306,6 +334,7 @@ namespace nsAPI.Entities
             a.id_UserInClasses = id_UserInClasses;
             a.id_Work = id_Work;
             a.id_TypeWork = id_TypeWork;
+            a.id_User = id_User;
             return a;
         }
 
@@ -321,6 +350,7 @@ namespace nsAPI.Entities
             DateTimeS = Encryption.AESHelper.DecryptString(DateTimeS);
             DateTimeE = Encryption.AESHelper.DecryptString(DateTimeE);
             id_TypeWork = Encryption.AESHelper.DecryptString(id_TypeWork);
+            id_User = Encryption.AESHelper.DecryptString(id_User);
         }
 
         /// <summary>
@@ -335,6 +365,7 @@ namespace nsAPI.Entities
             DateTimeS = Encryption.AESHelper.EncryptString(DateTimeS);
             DateTimeE = Encryption.AESHelper.EncryptString(DateTimeE);
             id_TypeWork = Encryption.AESHelper.EncryptString(id_TypeWork);
+            id_User = Encryption.AESHelper.EncryptString(id_User);
         }
     }
 

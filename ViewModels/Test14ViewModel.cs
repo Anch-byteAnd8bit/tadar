@@ -25,7 +25,11 @@ namespace Tadar.ViewModels
             work = test;
             answer.AnswerHeader = new AnswerHeader();
             answer.AnswerHeader.DateTimeS = ToConvert.DB_DateTimeToStringDT(DateTime.Now);
-            answer.AnswerHeader.id_UserInClasses = api.MainUser.ID;
+            
+            // Задаем ID пользователя, а id_UserInClasses не задаем!!!!
+            // Теперь можно так!
+            answer.AnswerHeader.id_User = api.MainUser.ID;
+            
             answer.AnswerHeader.id_Work = work.WorkHeader.ID;
             //answers.AnswerHeader.id_TypeWork = work.WorkHeader.id_TypeWork;
             answer.AnswerHeader.Mark = null;
@@ -122,8 +126,8 @@ namespace Tadar.ViewModels
                 if (api.LastException != null)
                     Msg.Write(api.LastException.Message);
             }
-          //  answer.AnswerHeader.DateTimeE = ToConvert.DB_DateTimeToStringDT(DateTime.Now);
-          //answer.AnswerHeader.ID =  await api.AddTestAnswerAsync(answer);
+            //answer.AnswerHeader.DateTimeE = ToConvert.DB_DateTimeToStringDT(DateTime.Now);
+            //answer.AnswerHeader.ID =  await api.AddTestAnswerAsync(answer);
             First.Base_frame.Navigate(new MenuPage());
             //открытие новой страницы с вводом логина и пароля 
         }

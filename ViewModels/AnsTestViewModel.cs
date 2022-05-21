@@ -46,7 +46,7 @@ namespace Tadar.ViewModels
                 answers = await api.GetAnswersByWork(work.WorkHeader.ID, false);
                 if (answers != null)
                 {
-                    // Получаем только мои ответы.
+                    // Получаем только мои ответы. Теперь это работает!!! (22.05.2022 00:04)
                     Answers myAnswers = answers.GetAnswersByIDUser(idus);
 
                     // А есть ли тут мои ответы?
