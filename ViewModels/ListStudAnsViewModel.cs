@@ -55,10 +55,11 @@ namespace Tadar.ViewModels
                 {
                     for (int i = 0; i < ansbywork.TestAnswers.Count; i++)
                     {
-                        usersid.Add(ansbywork.TestAnswers[i].AnswerHeader.id_Student);
+                        //TODO: было id_Student, но это не правильно.
+                        //usersid.Add(ansbywork.TestAnswers[i].AnswerHeader.id_UserInClasses);
 
                     }
-                    LoadClassAsync(usersid);
+                    LoadStudentsAsync(usersid);
                 }
                 else
 
@@ -71,11 +72,10 @@ namespace Tadar.ViewModels
         }
 
         /// <summary>
-        /// Асинхронная загрузка списка классов указанного пользователя,
-        /// чтобы получить потом его работы.
+        /// Асинхронная загрузка списка учеников
         /// </summary>
         /// <param name="iclass"></param>
-        public async void LoadClassAsync(List<string> iclass)
+        public async void LoadStudentsAsync(List<string> iclass)
         {
             try
             {
@@ -83,7 +83,7 @@ namespace Tadar.ViewModels
 
                 //  ClasssList = new ObservableCollection<RegisteredClassroom>();
 
-                OnPropertyChanged(nameof(Classrooms));
+                OnPropertyChanged(nameof(Students));
             }
             catch (Exception ex)
             {
@@ -91,13 +91,13 @@ namespace Tadar.ViewModels
             }
         }
 
-        public List<RegisteredUser> Classrooms
+        public List<RegisteredUser> Students
         {
             get { return classroomsusers; }
             set
             {
                 classroomsusers = value;
-                OnPropertyChanged(nameof(Classrooms));
+                OnPropertyChanged(nameof(Students));
                 // Задаем новый выбранный жлемент из списка.
                 // SelectedClassroom = Classrooms[0];
             }

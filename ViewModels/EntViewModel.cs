@@ -64,13 +64,16 @@ namespace Tadar.ViewModels
                         {
                             case CODE_ERROR.ERR_NotEnoughInf:
                                 // Пользователь сумел отправить одно из полей пустым.
+                                Msg.Write("Пользователь сумел отправить одно из полей пустым.");
                                 break;
                             case CODE_ERROR.ERR_UserNotFound:
                                 // Такой пользователь не найден в БД - либо неправильно ввели логин-пароль,
                                 // либо еще не регистрировались.
+                                Msg.Write("Такой пользователь не найден в БД.");
                                 break;
                             case CODE_ERROR.ERR_IsTooLong:
                                 // Слишком длинный пароль или логин
+                                Msg.Write("Слишком длинный пароль или логин.");
                                 break;
                         }                        
                     }

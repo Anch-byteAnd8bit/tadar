@@ -696,6 +696,38 @@ namespace nsAPI
         }
 
         /// <summary>
+        /// Возвращает список ответов по заданному ИД пользователя.
+        /// </summary>
+        /// <param name="id_User"></param>
+        /// <param name="onlyHeaders">Если True - то тело загружать НЕ будет.</param>
+        /// <returns></returns>
+        public async Task<Answers> GetAnswersByUser(string id_User, bool onlyHeaders = true)
+        {
+            var a = await answers.ByUserIdAsync(Access_Token, id_User, onlyHeaders);
+            if (a == null)
+            {
+                LastException = answers.Response.Exception;
+            }
+            return a;
+        }
+        /// <summary>
+        ///  Возвращает список ответов по заданному объекту класса RegisteredUser.
+        /// </summary>
+        /// <param name="user">Объект класса RegisteredUser</param>
+        /// <param name="onlyHeaders">Если True - то тело загружать НЕ будет.</param>
+        /// <returns>Answers</returns>
+        public async Task<Answers> GetAnswersByUser(RegisteredUser user, bool onlyHeaders = true)
+        {
+            var a = await answers.ByUserIdAsync(Access_Token, user.ID, onlyHeaders);
+            if (a == null)
+            {
+                LastException = answers.Response.Exception;
+            }
+            return a;
+        }
+
+
+        /// <summary>
         /// Добавляет ответы на тестовую работу.
         /// </summary>
         /// <param name="testAnswer"></param>

@@ -208,7 +208,7 @@ namespace nsAPI.Examples
                     id_Work = "1", // ИД работы.
                     DateTimeS = ToConvert.DB_DateTimeToStringDT(DateTime.Now),
                     DateTimeE = ToConvert.DB_DateTimeToStringDT(DateTime.Now),
-                    id_Student = api.MainUser.ID,
+                    id_UserInClasses = api.MainUser.ID,
                 },
                 AnswerBody = new List<TestAnswerBody>
                 {
@@ -248,7 +248,7 @@ namespace nsAPI.Examples
                     id_Work = "1", // ИД работы.
                     DateTimeS = ToConvert.DB_DateTimeToStringDT(DateTime.Now),
                     DateTimeE = ToConvert.DB_DateTimeToStringDT(DateTime.Now),
-                    id_Student = api.MainUser.ID,
+                    id_UserInClasses = api.MainUser.ID,
                 },
                 AnswerBody = new List<TextAnswerBody>
                 {

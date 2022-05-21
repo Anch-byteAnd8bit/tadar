@@ -96,6 +96,78 @@ namespace nsAPI.Methods
         }
 
 
+        public async Task<Answers> ByUserIdAsync(string api_token, string id_User, bool onlyHeaders = true)
+        {
+            if (string.IsNullOrWhiteSpace(id_User))
+            {
+                return null;
+            }
+            // Обязательно добавляем в запрос НЕ зашифрованный ключ доступа.
+            Dictionary<string, string> urlParam = new Dictionary<string, string>();
+            urlParam.Add("secure_key", api_token);
+            urlParam.Add("onlyHeaders", onlyHeaders ? "1" : "0");
+            // Добавление в массив ID пользователя.
+            urlParam.Add("id_User", id_User);
+            // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
+            var httpResponse = await httpGetAsync("answers.byuser", urlParam);
+
+            if (httpResponse.Data != null)
+            {
+                // Список работ.
+                Answers answers = new Answers();
+                //
+                httpResponse.Data.ForEach(el =>
+                {
+                    JObject answer = JsonConvert.DeserializeObject<JObject>(el.ToString());
+                    if (answer.ContainsKey("AnswerHeader"))
+                    {
+                        // Получение заголовка.
+                        AnswerHeader answerHeader = JsonConvert.DeserializeObject<AnswerHeader>(answer["AnswerHeader"].ToString());
+                        // Расшифровка заголовка.
+                        answerHeader.DecryptByAES();
+                        // Test
+                        if (answerHeader.id_TypeWork == "1")
+                        {
+                            //
+                            TestAnswer testAnswer = new TestAnswer();
+                            //
+                            testAnswer.AnswerHeader = answerHeader;
+                            if (answer.ContainsKey("AnswerBody"))
+                            {
+                                testAnswer.AnswerBody = JsonConvert.DeserializeObject<List<TestAnswerBody>>(answer["AnswerBody"].ToString());
+                                testAnswer.DecryptBodyByAES();
+                            }
+                            // Сохраняем работу.
+                            answers.TestAnswers.Add(testAnswer);
+                        }// Text
+                        else if (answerHeader.id_TypeWork == "2")
+                        {
+                            //
+                            TextAnswer textAnswer = new TextAnswer();
+                            textAnswer.AnswerHeader = answerHeader;
+                            if (answer.ContainsKey("AnswerBody"))
+                            {
+                                textAnswer.AnswerBody = JsonConvert.DeserializeObject<List<TextAnswerBody>>(answer["AnswerBody"].ToString());
+                                textAnswer.DecryptBodyByAES();
+                            }
+                            // Сохраняем работу.
+                            answers.TextAnswers.Add(textAnswer);
+                        }
+                        else
+                        {
+                            throw new Exception("При получении ответов на работу не задан тип работы!");
+                        }
+                    }
+                });
+                // Возвращаем список классов.
+                return answers;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public async Task<Answers> ByWorksIdsAsync(string api_token, string[] worksIDs, bool onlyHeaders = true)
         {
             if (worksIDs == null || worksIDs.Count() <= 0)
