@@ -16,6 +16,9 @@ namespace Tadar.Views
             DataContext = new MenuViewModel();
         }
 
-        
+        private void TextBlock_TargetUpdated(object sender, System.Windows.Data.DataTransferEventArgs e)
+        {
+
+        }
     }
 }

@@ -33,8 +33,20 @@ namespace Tadar.ViewModels
            // AnswerClick = new Command(Answer_Click);
             SendClick = new Command(Send_Click);
             SelectionChengedCommand = new RelayCommand<TestTask>(SelectionChenged);
-            
+            BackClick = new Command(Back_Click);
 
+        }
+
+        private void Back_Click(object ob)
+        {
+            First.Base_frame.Navigate(new MenuPage());
+
+        }
+
+        public Command BackClick
+        {
+            get;
+            set;
         }
         private void SelectionChenged(TestTask item) => SelectedItem = item;
 

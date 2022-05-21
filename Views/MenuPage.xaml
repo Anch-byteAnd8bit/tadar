@@ -43,10 +43,30 @@
             VerticalAlignment="Top" />
 
         <ScrollViewer Grid.Row="4" >
-            <StackPanel Grid.Row="4" Background="White">
+            <StackPanel Grid.Row="4" Background="White" Orientation="Horizontal">
+            <StackPanel Grid.Row="4"  Width="20" HorizontalAlignment="Left">
                 <ListView ItemsSource="{Binding Marks}" 
-                          
+                          materialDesign:ListBoxItemAssist.ShowSelection="False"
                           IsSynchronizedWithCurrentItem="True" Grid.Row="2"
+                  >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="1">
+                                <TextBlock
+                                    Foreground="#FF673AB7"
+                                    Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                    Text="{Binding Mark}"
+                                    />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+
+                <StackPanel Grid.Row="4"  HorizontalAlignment="Left" Margin="0 0 0 0">
+                <ListView ItemsSource="{Binding Marks}" 
+                          materialDesign:ListBoxItemAssist.ShowSelection="False"
+                          IsSynchronizedWithCurrentItem="True"
                   >
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -58,20 +78,16 @@
                                     Style="{StaticResource MaterialDesignBody1TextBlock}"
                                     Text="{Binding NameWork}"
                                    
-                                    />
-                                <TextBlock
-                                    Foreground="#FF673AB7"
-           
-                                    Style="{StaticResource MaterialDesignBody1TextBlock}"
-                                   
-                                    Text="{Binding Mark}"
-                                    />
+                                    ></TextBlock>
+                                
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </StackPanel>
+            </StackPanel>
         </ScrollViewer>
+
         <TextBlock Grid.Row="3"
                    Text="Мои оценки:"
                    Foreground="White"
@@ -81,7 +97,7 @@
         <ScrollViewer Grid.Row="2" >
             <StackPanel Grid.Row="2" Background="White">
                 <ListView ItemsSource="{Binding Classrooms}" 
-                          
+                          materialDesign:ListBoxItemAssist.ShowSelection="False"
                           IsSynchronizedWithCurrentItem="True" Grid.Row="2"
                   >
                     <ListView.ItemTemplate>

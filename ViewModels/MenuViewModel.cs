@@ -169,13 +169,13 @@ namespace Tadar.ViewModels
         public ObservableCollection<WorkAndMark> Marks
         {
             get { return marks; }
-            set
-            {
-                marks = value;
-                OnPropertyChanged(nameof(Marks));
-                // Задаем новый выбранный элемент из списка.
-                // SelectedMark = marks[0];
-            }
+            //set
+            //{
+            //    marks = value;
+            //    OnPropertyChanged(nameof(Marks));
+            //    // Задаем новый выбранный элемент из списка.
+            //    // SelectedMark = marks[0];
+            //}
         }
 
         private void mark_Click(object ob)

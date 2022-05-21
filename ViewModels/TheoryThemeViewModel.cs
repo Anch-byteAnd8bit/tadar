@@ -23,10 +23,20 @@ namespace Tadar.ViewModels
             TestClick = new Command(Test_Click);
             // TextClick = new Command(Text_Click);
             LoadTestsAsync(idclass);
+            BackClick = new Command(Back_Click);
 
+        }
+        private void Back_Click(object ob)
+        {
+            First.Base_frame.Navigate(new MenuPage());
 
         }
 
+        public Command BackClick
+        {
+            get;
+            set;
+        }
         private void Test_Click(object ob)
         {
             theory = new Theory();

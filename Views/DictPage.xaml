@@ -36,6 +36,7 @@
             
             Grid.Row="1"
             Grid.Column="1" 
+            Width="600"
             x:Name="lvs"
             ItemsSource="{Binding WordsList}"
             IsSynchronizedWithCurrentItem="True">

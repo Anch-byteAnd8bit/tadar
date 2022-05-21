@@ -16,8 +16,19 @@ namespace Tadar.ViewModels
             //api.MainUser.Name
             CreateClick = new Command(Create_Click);
             ListClick = new Command(List_Click);
+            BackClick = new Command(Back_Click);
 
+        }
+        private void Back_Click(object ob)
+        {
+            First.Base_frame.Navigate(new MenuPage());
 
+        }
+
+        public Command BackClick
+        {
+            get;
+            set;
         }
         private void Create_Click(object ob)
         {
