@@ -325,11 +325,6 @@ namespace nsAPI.Entities
             }
         }
 
-        public void EncryptHeaderByAES()
-        {
-            WorkHeader.EncryptByAES();
-        }
-
         public void Encrypt()
         {
             EncryptBodyByAES();
