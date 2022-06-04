@@ -62,17 +62,23 @@
                     Grid.Column="1"
                     Width="650"
                     Background="White">
-                
+
                 <TextBlock TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto"
                     ScrollViewer.CanContentScroll="True" FontSize="18"
                     Foreground="Black" 
-                    Text="{Binding Title}">
-                    </TextBlock>
-               
+                    Height="10"
+                    Style="{StaticResource MaterialDesignBody2TextBlock}"
+                    Text=""
+                   />
+
+                <!--Text="{Binding Title}">-->
+                
                 <TextBlock TextWrapping="Wrap"
                            ScrollViewer.VerticalScrollBarVisibility="Auto"
+                           Height="40"
                            ScrollViewer.CanContentScroll="True" FontSize="18"
                            Foreground="Black" 
+                           Style="{StaticResource MaterialDesignBody2TextBlock}"
                            Text="{Binding Body}">
                             </TextBlock>
                         </StackPanel>   

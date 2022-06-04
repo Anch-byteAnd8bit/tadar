@@ -13,12 +13,16 @@
   <ItemGroup>
     <None Remove=".gitattributes" />
     <None Remove=".gitignore" />
+    <None Remove="111.png" />
+    <None Remove="g6.png" />
     <None Remove="pic\famil.jpg" />
     <None Remove="pic\login.jpg" />
     <None Remove="pic\mail101.jpg" />
     <None Remove="pic\name101.jpg" />
     <None Remove="pic\otches.jpg" />
     <None Remove="pic\pass.jpg" />
+    <None Remove="Tadat_white.png" />
+    <None Remove="uzor.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,12 +37,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="111.png" />
+    <Resource Include="g6.png" />
     <Resource Include="pic\famil.jpg" />
     <Resource Include="pic\login.jpg" />
     <Resource Include="pic\mail101.jpg" />
     <Resource Include="pic\name101.jpg" />
     <Resource Include="pic\otches.jpg" />
     <Resource Include="pic\pass.jpg" />
+    <Resource Include="Tadat_white.png" />
+    <Resource Include="uzor.png" />
   </ItemGroup>
 
 </Project>

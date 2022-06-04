@@ -70,7 +70,7 @@
             MaxLines="1" MaxLength="57"
             TextAlignment="Center"
             AutoWordSelection="True"
-            Foreground="Black"
+            Foreground="Black" Cursor="Arrow"
             >
             <TextBox.Text>
                 <Binding Path="Name" UpdateSourceTrigger="PropertyChanged">
