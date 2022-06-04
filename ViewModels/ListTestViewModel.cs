@@ -12,7 +12,8 @@ using Tadar.Views;
 
 namespace Tadar.ViewModels
 {
-   public class ListTestViewModel : BaseViewModel
+
+    public class ListTestViewModel : BaseViewModel
     {
        private TestWork test;
        private TextWork text;

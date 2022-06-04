@@ -45,5 +45,8 @@
                Grid.Column="0"
                Content=""
                Margin="0,22,0,0" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+        <Image Grid.Column="1"
+               Margin="555,3,9,3" 
+               Stretch="Fill" Source="D:\ХГУ\4 курс\проектдиплос\tadar\Tadat_white.png"/>
     </Grid>
 </Window>
