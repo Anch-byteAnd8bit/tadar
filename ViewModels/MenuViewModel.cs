@@ -127,6 +127,7 @@ namespace Tadar.ViewModels
                                 }
                             }
                         }
+                        // Нет ответов у ученика.
                         else
                         {
                             if (api.LastException != null)
