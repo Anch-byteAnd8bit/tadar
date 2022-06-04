@@ -56,9 +56,9 @@ namespace nsAPI.Entities
             OnChangedWorks();
         }
 
-        public void AddText(TextWork test)
+        public void AddText(TextWork text)
         {
-            TextWorks.Add(test);
+            TextWorks.Add(text);
             OnChangedWorks();
         }
 

@@ -53,7 +53,7 @@ namespace nsAPI.Methods
             if (httpResponse.Data != null)
             {
                 // 
-                return httpResponse.Data[0].ToString() == OK;
+                return httpResponse.Data[0].ToString() == Response.OK;
             }
             else
             {

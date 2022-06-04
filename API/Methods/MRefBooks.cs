@@ -26,7 +26,7 @@ namespace nsAPI.Methods
             if (httpResponse.Data != null)
             {
                 // Если пришел пустой ответ - значит в справочнике еще нет данных!
-                if (httpResponse.Data[0].ToString().Contains(Nothing)) return null;
+                if (httpResponse.Data[0].ToString().Contains(Response.Nothing)) return null;
                 // Конвертируем данные из массива ответа в список типа Refbook.
                 List<Refbook> res = new List<Refbook>();
                 httpResponse.Data.ForEach(x =>

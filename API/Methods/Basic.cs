@@ -1,13 +1,11 @@
-﻿using nsAPI.Entities;
-using Helpers;
+﻿using Helpers;
+using nsAPI.Entities;
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using nsAPI.JSON;
 
 namespace nsAPI.Methods
 {
@@ -33,15 +31,12 @@ namespace nsAPI.Methods
         }
     }
 
-    abstract class Basic
+    abstract class Basic: IDisposable
     {
-        public static string Nothing = "Nothing";
-        public static string OK = "OK";
-
         // Ссылка для запросов.
-        protected readonly string apiURL = "http://api.great-duet.localhost/";
+        //protected readonly string apiURL = "http://api.great-duet.localhost/";
         //protected readonly string apiURL = "http://api.great-duet.ru/";
-        //protected readonly string apiURL = "http://10.0.2.2/api/";
+        protected readonly string apiURL = "http://10.0.2.2/api/";
 
         /// <summary>
         /// Вспопогмательная строка при POST-запросах.
@@ -49,7 +44,11 @@ namespace nsAPI.Methods
         protected const string MIME_JSON = "application/json";
 
         /// Для работы с HTTP.
-        protected HttpClient httpClient;
+        //protected HttpClient httpClient;
+
+        //
+
+        private static httpClientFab httpClients;
 
         public Response Response { get; set; }
 
@@ -57,7 +56,7 @@ namespace nsAPI.Methods
         {
             if (apiURL != null) this.apiURL = apiURL;
 
-            // HTTP.
+            /*// HTTP.
             HttpClientHandler clientHandler = new HttpClientHandler
             {
                 // Куки.
@@ -71,7 +70,8 @@ namespace nsAPI.Methods
             // connection: Operation aborted.'"
             // Источник: https://stackoverflow.com/questions/66209674/unable-to-read-data-from-the-transport-connection-operation-canceled
             httpClient.Timeout = TimeSpan.FromMinutes(10); //Eg. 10mins timeout
-            //httpRequest.EnableEncodingContent = true;
+            //httpRequest.EnableEncodingContent = true;*/
+            httpClients = new httpClientFab();
         }        
 
         /// <summary>
@@ -96,6 +96,7 @@ namespace nsAPI.Methods
                 //
                 HttpResponseMessage httpResponse = null;
                 //
+                var httpClient = httpClients.GethttpClient();
                 try
                 {
                     // Ассинхронно отправляем запрос и получаем ответ.
@@ -105,6 +106,10 @@ namespace nsAPI.Methods
                 {
                     var k = (System.Net.Sockets.SocketException)(reqexp.InnerException);
                     return Response = new Response(k);
+                }
+                finally
+                {
+                    httpClients.IsDOne(httpClient);
                 }
                 // Проверяем ответ. Если код ответа НЕ 200-299, то ошибка.
                 if (!httpResponse.IsSuccessStatusCode)
@@ -129,16 +134,21 @@ namespace nsAPI.Methods
             //
             HttpResponseMessage httpResponse;
             //
+
+            var httpClient = httpClients.GethttpClient();
             try
             {
                 // Ассинхронно отправляем запрос и получаем ответ.
                 httpResponse = await httpClient.GetAsync(url).ConfigureAwait(false);
-                // Проверяем ответ. Если код ответа НЕ 200-299, то возвращаем пустую строку.
             }
             catch (HttpRequestException reqexp)
             {
                 var k = (System.Net.Sockets.SocketException)(reqexp.InnerException);
                 return Response = new Response(k);
+            }
+            finally
+            {
+                httpClients.IsDOne(httpClient);
             }
             if (!httpResponse.IsSuccessStatusCode)
             {
@@ -148,6 +158,11 @@ namespace nsAPI.Methods
             string jsonResponse = await httpResponse.Content.ReadAsStringAsync();
             // Вовзвращаем.
             return Response = new Response(jsonResponse);
+        }
+
+        public void Dispose()
+        {
+            httpClients.Dispose();
         }
     }
 }

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Web;
 
@@ -14,6 +17,75 @@ namespace Helpers
 
     }
 
+    public class httpClientFab: IDisposable
+    {
+        public httpClientFab()
+        {
+            httpClients = new List<TClient>();
+            httpClients.Add(new TClient { Client = getNew(), IsBusy = true });
+        }
+        class TClient
+        {
+            public HttpClient Client;
+            public bool IsBusy;
+        }
+
+        private HttpClient getNew()
+        {
+            // HTTP.
+            HttpClientHandler clientHandler = new HttpClientHandler
+            {
+                // Куки.
+                UseCookies = true,
+                CookieContainer = new CookieContainer()
+            };
+            var httpClient = new HttpClient(clientHandler);
+            // Настройка HTTP.
+            httpClient.DefaultRequestHeaders.Add("User-Agent", UserAgent.Chrome);
+            // Чтобы не появлялась ошибка: "Unable to read data from the transport
+            // connection: Operation aborted.'"
+            // Источник: https://stackoverflow.com/questions/66209674/unable-to-read-data-from-the-transport-connection-operation-canceled
+            httpClient.Timeout = TimeSpan.FromMinutes(10); //Eg. 10mins timeout
+                                                           //httpRequest.EnableEncodingContent = true;
+            return httpClient;
+        }
+
+        List<TClient> httpClients;
+        public HttpClient GethttpClient()
+        {
+            TClient client = httpClients.SingleOrDefault(c => !c.IsBusy);
+            if (client != null)
+            {
+                client.IsBusy = true;
+                return client.Client;
+            }
+            else
+            {
+                
+                httpClients.Add(new TClient { Client = getNew(), IsBusy = true });
+                return httpClients.Last().Client;
+            }
+        }
+
+
+        public void IsDOne(HttpClient client)
+        {
+            for (int i = 0; i < httpClients.Count; i++)
+            {
+                if (httpClients[i].Client == client)
+                {
+                    httpClients[i].IsBusy = false;
+                    if (i != 0) httpClients.RemoveAt(i);
+                    break;
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            httpClients.ForEach(c => c.Client.Dispose());
+        }
+    }
 
     public class MyNet
     {

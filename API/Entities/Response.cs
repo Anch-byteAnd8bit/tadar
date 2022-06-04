@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using nsAPI.JSON;
 using System.Collections.Generic;
 using System.Net;
@@ -8,6 +9,9 @@ namespace nsAPI.Entities
 {
     public class Response
     {
+        public static string Nothing = "Nothing";
+        public static string OK = "OK";
+
         [JsonProperty("response")]
         public List<object> Data { get; set; }
         //public Dictionary<string, object> data { get; set; }
@@ -68,7 +72,24 @@ namespace nsAPI.Entities
             {
                 // Конвертируем строку JSON в тип response.
                 var t = FromJson(httpResponse);
-                Data = t.Data;
+                var tmp = t.Data[0].ToString();
+                if (tmp != Nothing)
+                {
+                    Data = t.Data;
+                }
+                else
+                {
+                    Data = null;
+                    Exception = new ResponseError
+                    {
+                        TypeError = TError.Empty,
+                        ErrorInfoAPI = new ErrorInfo
+                        {
+                            Message = "Nothing"
+                        }
+                    };
+                }
+
             }
             // Если полученная строка незнакома.
             else

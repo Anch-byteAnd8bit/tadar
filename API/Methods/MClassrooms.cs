@@ -53,7 +53,7 @@ namespace nsAPI.Methods
         /// </summary>
         /// <param name="userIds">ID классов.</param>
         /// <returns>Информация о классах.</returns>
-        public async Task<List<RegisteredClassroom>> ByIdAsync(string api_token, string[] classroomIds)
+        public async Task<List<RegisteredClassroom>> ByIDsAsync(string api_token, string[] classroomIds)
         {
             if (classroomIds == null || classroomIds.Count() <= 0)
             {
@@ -105,7 +105,7 @@ namespace nsAPI.Methods
             // Засовываем идентификатор класса в массив, чтобы отправить его в функцию получения списка классов.
             string[] classroomIds = { classroomId };
             // Возвращаем список классов.
-            List<RegisteredClassroom> registeredClassroom = await ByIdAsync(api_token, classroomIds);
+            List<RegisteredClassroom> registeredClassroom = await ByIDsAsync(api_token, classroomIds);
             // Возвращаем класс.
             return registeredClassroom?[0];
         }
@@ -212,8 +212,45 @@ namespace nsAPI.Methods
             // Конвертируем объект в строку в формате JSON.
             string postParamsJson = JsonConvert.SerializeObject(postParam);
             // Отправляем на сервер.
-            var httpResponse = await httpPostJSONAsync("user.intoclass/", postParamsJson, urlParam);
-            if (httpResponse.Data == null) { 
+            var httpResponse = await httpPostJSONAsync("student.add/", postParamsJson, urlParam);
+            if (httpResponse.Data != null) {
+                // Ответ.
+                return httpResponse.Data[0].ToString() == "OK";
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        /// <summary>
+        /// Удаляем пользователя из класса, а также всего ответы на задания в классе!
+        /// </summary>
+        /// <param name="api_token">Ключ доступа для выполнения.</param>
+        /// <param name="id_user">Идентификатор пользователя, которого надо исключить из класса.</param>
+        /// <param name="id_class">Идентификатор класса, из которого надо исключить пользователя.</param>
+        /// <returns>True - при успешном выполнении операции.</returns>
+        public async Task<bool> DelStudent(string api_token, string id_User, string id_Class)
+        {
+            // Обязательно добавляем в запрос НЕ зашифрованный ключ доступа.
+            Dictionary<string, string> urlParam = new Dictionary<string, string>();
+            urlParam.Add("secure_key", api_token);
+            // В данные POST добавляем параметры запроса.
+            Dictionary<string, string> postParam = new Dictionary<string, string>();
+            // Добавление по ключу "id" идентификатор пользователя.
+            postParam["id_User"] = Encryption.AESHelper.EncryptString(id_User);
+            // Добавление по ключу "id" идентификатор класса.
+            postParam["id_Class"] = Encryption.AESHelper.EncryptString(id_Class);
+
+            // ВСЕГДА, ПРИ ОТПРАВКЕ POST-ЗАПРОСА, НАДО ДОБАВЛЯТЬ В КОНЦЕ АДРЕСА СЛЭШ!
+
+            // Конвертируем объект в строку в формате JSON.
+            string postParamsJson = JsonConvert.SerializeObject(postParam);
+            // Отправляем на сервер.
+            var httpResponse = await httpPostJSONAsync("student.exclude/", postParamsJson, urlParam);
+            if (httpResponse.Data != null)
+            {
                 // Ответ.
                 return httpResponse.Data[0].ToString() == "OK";
             }

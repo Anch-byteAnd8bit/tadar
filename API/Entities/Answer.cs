@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace nsAPI.Entities
 {
@@ -10,11 +11,58 @@ namespace nsAPI.Entities
         {
             TestAnswers = new List<TestAnswer>();
             TextAnswers = new List<TextAnswer>();
+            Headers = new List<AnswerHeader>();
         }
 
-        public List<TestAnswer> TestAnswers { get; set; }
-        public List<TextAnswer> TextAnswers { get; set; }
+        public List<TestAnswer> testAnswers;
+        public List<TestAnswer> TestAnswers
+        {
+            get => testAnswers;
+            set
+            {
+                testAnswers = value;
+                OnChangedAnswers();
+            }
+        }
+        public List<TextAnswer> textAnswers;
+        public List<TextAnswer> TextAnswers
+        {
+            get => textAnswers;
+            set
+            {
+                textAnswers = value;
+                OnChangedAnswers();
+            }
+        }
 
+        /// <summary>
+        /// Специальное свойство для вывода в XAML.
+        /// </summary>
+        public List<AnswerHeader> Headers { get; set; }
+
+        private void OnChangedAnswers()
+        {
+            if (textAnswers != null || testAnswers != null)
+                Headers = new List<AnswerHeader>();
+            if (textAnswers != null) textAnswers.ForEach(w => Headers.Add(w.AnswerHeader));
+            if (testAnswers != null) testAnswers.ForEach(w => Headers.Add(w.AnswerHeader));
+        }
+
+        public void AddTest(TestAnswer test)
+        {
+            TestAnswers.Add(test);
+            OnChangedAnswers();
+        }
+
+        public void AddText(TextAnswer text)
+        {
+            TextAnswers.Add(text);
+            OnChangedAnswers();
+        }
+        public void Update()
+        {
+            OnChangedAnswers();
+        }
 
         /// <summary>
         /// Ответы, на которые есть оценки.
@@ -36,10 +84,10 @@ namespace nsAPI.Entities
                 if (isMarked)
                 {
                     if ((answer.AnswerHeader.Mark != null) && (answer.AnswerHeader.Mark != "NULL"))
-                        filteredAnswers.TestAnswers.Add(TestAnswers[i]);
+                        filteredAnswers.AddTest(TestAnswers[i]);
                 }
                 else if ((answer.AnswerHeader.Mark == null) || (answer.AnswerHeader.Mark == "NULL"))
-                    filteredAnswers.TestAnswers.Add(TestAnswers[i]);
+                    filteredAnswers.AddTest(TestAnswers[i]);
 
             }
 
@@ -52,10 +100,10 @@ namespace nsAPI.Entities
                 if (isMarked)
                 {
                     if ((answer.AnswerHeader.Mark != null) && (answer.AnswerHeader.Mark != "NULL"))
-                        filteredAnswers.TextAnswers.Add(TextAnswers[i]);
+                        filteredAnswers.AddText(TextAnswers[i]);
                 }
                 else if ((answer.AnswerHeader.Mark == null) || (answer.AnswerHeader.Mark == "NULL"))
-                    filteredAnswers.TextAnswers.Add(TextAnswers[i]);
+                    filteredAnswers.AddText(TextAnswers[i]);
 
             }
 
@@ -74,14 +122,14 @@ namespace nsAPI.Entities
             TestAnswers.ForEach(ta =>
             {
                 if (ta.AnswerHeader.id_User == id_User)
-                    answers.TestAnswers.Add(ta);
+                    answers.AddTest(ta);
             });
 
             answers.TextAnswers = new List<TextAnswer>();
             TextAnswers.ForEach(ta =>
             {
                 if (ta.AnswerHeader.id_User == id_User)
-                    answers.TextAnswers.Add(ta);
+                    answers.AddText(ta);
             });
 
             return answers;

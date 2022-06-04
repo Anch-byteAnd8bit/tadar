@@ -1,5 +1,6 @@
 ﻿using Encryption;
 using Newtonsoft.Json;
+using nsAPI.Helpers;
 using System;
 using System.Collections.Generic;
 
@@ -36,10 +37,10 @@ namespace nsAPI.Entities
         public string StateID { get; set; }
 
         [JsonProperty("BDate")]
-        public DateTimeOffset BDate { get; set; }
+        public string BDate { get; set; }
 
         [JsonProperty("DateTimeReg")]
-        public DateTimeOffset DateTimeReg { get; set; }
+        public string DateTimeReg { get; set; }
 
 
         /// <summary>
@@ -63,6 +64,24 @@ namespace nsAPI.Entities
             Surname = AESHelper.DecryptString(this.Surname);
             StateID = AESHelper.DecryptString(this.StateID);
         }
+        /// <summary>
+        /// Полное имя в формате "Фамилия Имя Отчество"
+        /// </summary>
+        public string FullName
+        {
+            get
+            {
+                return Surname + " " + Name + " " + Middlename;
+            }
+        }
+
+        public string Age
+        {
+            get
+            {
+                return Other.CalcAgeByBDate(DateTime.Parse(BDate)).ToString();
+            }
+        }
     }
 
 
@@ -72,7 +91,7 @@ namespace nsAPI.Entities
 
         public UserForRegistration(RegisteredUser user)
         {
-            this.BDate = user.BDate.ToString("d");
+            this.BDate = user.BDate;
             //this.DateTimeReg = user.Data.DateTimeReg.ToString("d");
             this.Email = user.Email;
             this.GenderID = user.GenderID;

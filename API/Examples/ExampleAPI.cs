@@ -565,7 +565,7 @@ namespace nsAPI.Examples
 
         public async Task GetUsersByAnswersAsync()
         {
-            var users = await api.GetUsersByStudentsIDsAsync(new List<string> { "1" });
+            var users = await api.GetUsersByAnswersAsync(new List<string> { "1" });
             if (users != null)
             {
                 Msg.Write(users.Count.ToString());
@@ -578,7 +578,7 @@ namespace nsAPI.Examples
         }
         public async Task GetUserByAnswerAsync()
         {
-            var user = await api.GetUserByStudentIDAsync("1");
+            var user = await api.GetUserByAnswerAsync("1");
             if (user != null)
             {
                 Msg.Write(user.Surname);

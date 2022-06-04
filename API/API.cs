@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -21,7 +22,7 @@ namespace nsAPI
         TypeWords
     }
 
-    public class API
+    public class API: IDisposable
     {
         public Dictionary<TRefbooks, List<Refbook>> Refbooks;
 
@@ -117,7 +118,6 @@ namespace nsAPI
             }
             instance = this;
         }
-
         public void LogOut()
         {
             //Refbooks = null;
@@ -298,10 +298,13 @@ namespace nsAPI
         /// <summary>
         /// Получает подробную информацию об указанном количестве пользователей.
         /// </summary>
-        /// <param name="count">Кол-во пользователей. Макс: 50</param>
-        /// <param name="shift">Смещение, относительно первого найденного.</param>
+        /// <param name="searchSurname">Фамилия или его часть.</param>
+        /// <param name="searchName">Имя или его часть.</param>
+        /// <param name="searchMName">Отчество или его часть.</param>
+        /// <param name="settingsFind">Настройки поиска - кол-во пользователей (макс: 50) и 
+        /// смещение относительно первого найденного.</param>
         /// <returns>Информация о пользователях.</returns>
-        public async Task<List<RegisteredUser>> FindUsersAsync(SettingsFind settingsFind = null,  string searchName = null, string searchMName = null, string searchSurname = null)
+        public async Task<List<RegisteredUser>> FindUsersAsync(SettingsFind settingsFind = null, string searchSurname = null,  string searchName = null, string searchMName = null)
         {
             // Пробуем найти пользователей.
             var usrs = await users.FindAsync(api_token, settingsFind, searchName, searchMName, searchSurname);
@@ -359,12 +362,12 @@ namespace nsAPI
         /// <summary>
         /// Возвращает список пользователей из указанного класса.
         /// </summary>
-        /// <param name="api_token"></param>
         /// <param name="id_Class">Идентификатор класса.</param>
+        /// <param name="id_Role">Идентификатор роли. Можно оставить null, если роль не важна.</param>
         /// <returns>Список пользователей из указанного класса</returns>
-        public async Task<List<RegisteredUser>> GetUsersByClassIdAsync(string id_Class)
+        public async Task<List<RegisteredUser>> GetUsersByClassIdAsync(string id_Class, string id_Role = null)
         {
-            var regu = await users.ByClassIdAsync(Access_Token, id_Class);
+            var regu = await users.ByClassIdAsync(Access_Token, id_Class, id_Role);
             if (regu == null)
             {
                 LastException = users.Response.Exception;
@@ -373,14 +376,14 @@ namespace nsAPI
         }
 
         /// <summary>
-        /// Возвращает список пользователей по заданному списоку значений полей id_Student из таблицы
+        /// Возвращает список пользователей по заданному списоку значений полей id_UserInClasses из таблицы
         /// ответов "executionofworks"
         /// </summary>
-        /// <param name="studentsIDs">Массив id_Student</param>
+        /// <param name="studentsIDs">Массив id_UserInClasses</param>
         /// <returns></returns>
-        public async Task<List<RegisteredUser>> GetUsersByStudentsIDsAsync(string[] studentsIDs)
+        public async Task<List<RegisteredUser>> GetUsersByAnswersAsync(string[] studentsIDs)
         {
-            var regu = await users.ByStudentsIDsAsync(Access_Token, studentsIDs);
+            var regu = await users.ByUserInClassesIDsAsync(Access_Token, studentsIDs);
             if (regu == null)
             {
                 LastException = users.Response.Exception;
@@ -389,14 +392,14 @@ namespace nsAPI
         }
 
         /// <summary>
-        /// Возвращает список пользователей по заданному списоку значений полей id_Student из таблицы
+        /// Возвращает список пользователей по заданному списоку значений полей id_UserInClasses из таблицы
         /// ответов "executionofworks"
         /// </summary>
-        /// <param name="studentsIDs">Список id_Student</param>
+        /// <param name="studentsIDs">Список id_UserInClasses</param>
         /// <returns></returns>
-        public async Task<List<RegisteredUser>> GetUsersByStudentsIDsAsync(List<string> studentsIDs)
+        public async Task<List<RegisteredUser>> GetUsersByAnswersAsync(List<string> UserInClassesIDs)
         {
-            var regu = await users.ByStudentsIDsAsync(Access_Token, studentsIDs);
+            var regu = await users.ByUserInClassesIDsAsync(Access_Token, UserInClassesIDs);
             if (regu == null)
             {
                 LastException = users.Response.Exception;
@@ -405,14 +408,14 @@ namespace nsAPI
         }
 
         /// <summary>
-        /// Возвращает пользователя по заданному значению поля id_Student из таблицы
+        /// Возвращает пользователя по заданному значению поля id_UserInClasses из таблицы
         /// ответов "executionofworks"
         /// </summary>
         /// <param name="studentID"></param>
         /// <returns></returns>
-        public async Task<RegisteredUser> GetUserByStudentIDAsync(string studentID)
+        public async Task<RegisteredUser> GetUserByAnswerAsync(string studentID)
         {
-            var regu = await users.ByStudentIDAsync(Access_Token, studentID);
+            var regu = await users.ByUserInClassesIDAsync(Access_Token, studentID);
             if (regu == null)
             {
                 LastException = users.Response.Exception;
@@ -563,9 +566,9 @@ namespace nsAPI
         /// <summary>
         /// Получение информации о классах с заданными ID
         /// </summary>
-        public async Task<List<RegisteredClassroom>> GetClassroomsByIdAsync(string[] classroomIds)
+        public async Task<List<RegisteredClassroom>> GetClassroomsByIDsAsync(string[] classroomIds)
         {
-            var cl = await classrooms.ByIdAsync(api_token, classroomIds);
+            var cl = await classrooms.ByIDsAsync(api_token, classroomIds);
             if (cl == null)
             {
                 LastException = classrooms.Response.Exception;
@@ -633,6 +636,21 @@ namespace nsAPI
             return cl;
         }
 
+        /// <summary>
+        /// Удаляем пользователя из класса, а также всего ответы на задания в классе!
+        /// </summary>
+        /// <param name="id_user">Идентификатор пользователя, которого надо исключить из класса.</param>
+        /// <param name="id_class">Идентификатор класса, из которого надо исключить пользователя.</param>
+        /// <returns>True - при успешном выполнении операции.</returns>
+        public async Task<bool> DelStudent(string id_User, string id_Class)
+        {
+            var cl = await classrooms.DelStudent(Access_Token, id_User, id_Class);
+            if (!cl)
+            {
+                LastException = classrooms.Response.Exception;
+            }
+            return cl;
+        }
         #endregion
 
         #region Works
@@ -645,7 +663,7 @@ namespace nsAPI
         /// <returns>Список работ.</returns>
         public async Task<Works> GetWorksByClassesIDAsync(string[] classesID, bool onlyHeaders = true)
         {
-            var w = await works.ByClassesIdsAsync(Access_Token, classesID, onlyHeaders);
+            var w = await works.ByClassesIDsAsync(Access_Token, classesID, onlyHeaders);
             if (w == null)
             {
                 LastException = works.Response.Exception;
@@ -714,6 +732,95 @@ namespace nsAPI
             }
             return w;
         }
+
+        /// <summary>
+        /// Загружает работы по их IDs.
+        /// </summary>
+        /// <param name="IDs">Массив идентификаторов работ. (ID-шники из таблицы listworks)</param>
+        /// <param name="onlyHeaders">True - загрузить только заголвоки работ.</param>
+        /// <returns></returns>
+        public async Task<Works> GetWorksByIDsAsync(string[] IDs, bool onlyHeaders = true)
+        {
+            var w = await works.ByIDsAsync(Access_Token, new List<string>(IDs), onlyHeaders);
+            if (w == null)
+            {
+                LastException = works.Response.Exception;
+            }
+            return w;
+
+        }
+
+        /// <summary>
+        /// Загружает работы по их IDs.
+        /// </summary>
+        /// <param name="IDs">Список идентификаторов работ. (ID-шники из таблицы listworks)</param>
+        /// <param name="onlyHeaders">True - загрузить только заголвоки работ.</param>
+        /// <returns></returns>
+        public async Task<Works> GetWorksByIDsAsync(List<string> IDs, bool onlyHeaders = true)
+        {
+            var w = await works.ByIDsAsync(Access_Token, IDs, onlyHeaders);
+            if (w == null)
+            {
+                LastException = works.Response.Exception;
+            }
+            return w;
+
+        }
+        /// <summary>
+        /// Загружает работу по её ID.
+        /// </summary>
+        /// <param name="ID">Идентификатор работы. (ID из таблицы listworks)</param>
+        /// <param name="onlyHeaders">True - загрузить только заголвок работы.</param>
+        /// <returns>Work</returns>
+        public async Task<Work> GetWorkByIDAsync(string ID, bool onlyHeaders = true)
+        {
+            var w = await works.ByIDsAsync(Access_Token, new List<string>() { ID }, onlyHeaders);
+            if (w == null)
+            {
+                LastException = works.Response.Exception;
+            }
+
+            Work res = null;
+
+            if (w.TestWorks.Count > 0) res = w.TestWorks[0];
+            else if (w.TextWorks.Count > 0) res = w.TextWorks[0];
+
+            return res;
+        }
+        /// <summary>
+        /// Загружает тестовую работу по её ID.
+        /// ID точно должен принадлежать тестовой работе, иначе вызов этого метода вызовет ошибку!
+        /// </summary>
+        /// <param name="ID">Идентификатор тестовой работы. (ID из таблицы listworks)</param>
+        /// <param name="onlyHeaders">True - загрузить только заголвок работы.</param>
+        /// <returns>TestWork</returns>
+        public async Task<TestWork> GetTestWorkByIDAsync(string ID, bool onlyHeaders)
+        {
+            var w = await GetWorkByIDAsync(ID, onlyHeaders);
+            if (w == null)
+            {
+                LastException = works.Response.Exception;
+            }
+            if (w is TestWork) return (w as TestWork);
+            else throw new Exception("Ошибка при определении типа работы!");
+        }
+        /// <summary>
+        /// Загружает письменную работу по её ID.
+        /// ID точно должен принадлежать ПИСЬМЕННОЙ работе, иначе вызов этого метода вызовет ошибку!
+        /// </summary>
+        /// <param name="ID">Идентификатор письменной работы. (ID из таблицы listworks)</param>
+        /// <param name="onlyHeaders">True - загрузить только заголвок работы.</param>
+        /// <returns>TextWork</returns>
+        public async Task<TextWork> GetTextWorkByIDAsync(string ID, bool onlyHeaders)
+        {
+            var w = await GetWorkByIDAsync(ID, onlyHeaders);
+            if (w == null)
+            {
+                LastException = works.Response.Exception;
+            }
+            if (w is TextWork) return (w as TextWork);
+            else throw new Exception("Ошибка при определении типа работы!");
+        }
         #endregion
 
         #region Answers
@@ -736,6 +843,23 @@ namespace nsAPI
         }
 
         /// <summary>
+        /// Возвращает список ответов по заданным ИД работ.
+        /// </summary>
+        /// <param name="works">Объект типа Works</param>
+        /// <param name="onlyHeaders"></param>
+        /// <returns></returns>
+        public async Task<Answers> GetAnswersByWorks(Works works, bool onlyHeaders = true)
+        {
+            string[] worksID = works.Headers.Select(h => h.ID).ToArray();
+            var a = await answers.ByWorksIdsAsync(Access_Token, worksID, onlyHeaders);
+            if (a == null)
+            {
+                LastException = answers.Response.Exception;
+            }
+            return a;
+        }
+
+        /// <summary>
         /// Возвращает список ответов по заданному ИД работы.
         /// </summary>
         /// <param name="workID"></param>
@@ -744,6 +868,22 @@ namespace nsAPI
         public async Task<Answers> GetAnswersByWork(string workID, bool onlyHeaders = true)
         {
             var a =await answers.ByWorkIdAsync(Access_Token, workID, onlyHeaders);
+            if (a == null)
+            {
+                LastException = answers.Response.Exception;
+            }
+            return a;
+        }
+
+        /// <summary>
+        /// Возвращает список ответов по заданному ИД работы.
+        /// </summary>
+        /// <param name="work">Работа типа Work</param>
+        /// <param name="onlyHeaders"></param>
+        /// <returns></returns>
+        public async Task<Answers> GetAnswersByWork(Work work, bool onlyHeaders = true)
+        {
+            var a = await answers.ByWorkIdAsync(Access_Token, work.WorkHeader.ID, onlyHeaders);
             if (a == null)
             {
                 LastException = answers.Response.Exception;
@@ -1086,6 +1226,7 @@ namespace nsAPI
             }
         }
 
+
         private void ClearUserData()
         {
             // Проверяем, что папка user существует, если нет, то создаем её.
@@ -1093,7 +1234,6 @@ namespace nsAPI
                 Directory.Delete(Path.GetDirectoryName(pathAccessToken), true);
             api_token = null;
             id_user = null;
-
         }
 
         /// <summary>
@@ -1119,6 +1259,17 @@ namespace nsAPI
                 throw new IOException("File of UserData not found");
             }
             //return false;
+        }
+
+        public void Dispose()
+        {
+            users.Dispose();
+            classrooms.Dispose();
+            refBooks.Dispose();
+            works.Dispose();
+            theories.Dispose();
+            answers.Dispose();
+            dict.Dispose();
         }
     }
 

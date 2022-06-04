@@ -74,11 +74,11 @@ namespace Tadar.ViewModels
         /// Асинхронная загрузка списка учеников
         /// </summary>
         /// <param name="iclass"></param>
-        public async void LoadStudentsAsync(List<string> StudentsIDs)
+        public async void LoadStudentsAsync(List<string> userInClassIDs)
         {
             try
             {
-                classroomsusers = await api.GetUsersByStudentsIDsAsync(StudentsIDs);
+                classroomsusers = await api.GetUsersByAnswersAsync(userInClassIDs);
 
                 //  ClasssList = new ObservableCollection<RegisteredClassroom>();
 

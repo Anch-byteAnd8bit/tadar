@@ -137,7 +137,7 @@ namespace nsAPI.Methods
                                 testAnswer.DecryptBodyByAES();
                             }
                             // Сохраняем работу.
-                            answers.TestAnswers.Add(testAnswer);
+                            answers.AddTest(testAnswer);
                         }// Text
                         else if (answerHeader.id_TypeWork == "2")
                         {
@@ -150,7 +150,7 @@ namespace nsAPI.Methods
                                 textAnswer.DecryptBodyByAES();
                             }
                             // Сохраняем работу.
-                            answers.TextAnswers.Add(textAnswer);
+                            answers.AddText(textAnswer);
                         }
                         else
                         {
@@ -213,7 +213,7 @@ namespace nsAPI.Methods
                                 testAnswer.DecryptBodyByAES();
                             }
                             // Сохраняем работу.
-                            answers.TestAnswers.Add(testAnswer);
+                            answers.AddTest(testAnswer);
                         }// Text
                         else if (answerHeader.id_TypeWork == "2")
                         {
@@ -226,7 +226,7 @@ namespace nsAPI.Methods
                                 textAnswer.DecryptBodyByAES();
                             }
                             // Сохраняем работу.
-                            answers.TextAnswers.Add(textAnswer);
+                            answers.AddText(textAnswer);
                         }
                         else
                         {

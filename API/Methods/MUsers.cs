@@ -124,9 +124,9 @@ namespace nsAPI.Methods
             settings.Count = Math.Min(settings.Count, 50);
              
             var d = new Dictionary<string, string>();
-            d.Add("name", searchName);
-            d.Add("middlename", searchMName);
-            d.Add("surname", searchSurname);
+            d.Add("Name", searchName);
+            d.Add("Middlename", searchMName);
+            d.Add("Surname", searchSurname);
             Dictionary<string, string> urlParam = new Dictionary<string, string>();
             // Обязательно добавляем в запрос НЕ зашифрованный ключ доступа.
             urlParam["secure_key"] = api_token;
@@ -206,9 +206,9 @@ namespace nsAPI.Methods
         /// </summary>
         /// <param name="studentsIDs">Значения полей id_Student из таблицы executionofworks.</param>
         /// <returns>Информация о пользователях.</returns>
-        public async Task<List<RegisteredUser>> ByStudentsIDsAsync(string api_token, List<string> studentsIDs)
+        public async Task<List<RegisteredUser>> ByUserInClassesIDsAsync(string api_token, List<string> userInClassesIDs)
         {
-            if (studentsIDs == null || studentsIDs.Count() <= 0)
+            if (userInClassesIDs == null || userInClassesIDs.Count() <= 0)
             {
                 return null;
             }
@@ -218,7 +218,7 @@ namespace nsAPI.Methods
             // Создание ассоциативного массива.
             var d = new Dictionary<string, object>();
             // Добавление в массив по ключу "ids", список идентификаторов пользователей.
-            d.Add("ids", studentsIDs);
+            d.Add("ids", userInClassesIDs);
             // Сериализация (конвертирование в формат JSON).
             string usersJSON = JsonConvert.SerializeObject(d);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
@@ -243,9 +243,9 @@ namespace nsAPI.Methods
             }
         }
 
-        public async Task<RegisteredUser> ByStudentIDAsync(string api_token, string studentID)
+        public async Task<RegisteredUser> ByUserInClassesIDAsync(string api_token, string studentID)
         {
-            var s = await ByStudentsIDsAsync(api_token, new string[] { studentID });
+            var s = await ByUserInClassesIDsAsync(api_token, new string[] { studentID });
             return s?[0];
         }
 
@@ -254,7 +254,7 @@ namespace nsAPI.Methods
         /// </summary>
         /// <param name="studentsIDs">Значения полей id_Student из таблицы executionofworks.</param>
         /// <returns>Информация о пользователях.</returns>
-        public async Task<List<RegisteredUser>> ByStudentsIDsAsync(string api_token, string[] studentsIDs)
+        public async Task<List<RegisteredUser>> ByUserInClassesIDsAsync(string api_token, string[] studentsIDs)
         {
             if (studentsIDs == null || studentsIDs.Count() <= 0)
             {
@@ -310,14 +310,17 @@ namespace nsAPI.Methods
         /// </summary>
         /// <param name="api_token"></param>
         /// <param name="id_Class">Идентификатор класса.</param>
+        /// <param name="id_Role">Идентификатор роли. Если роль не важна, то оставить null</param>
         /// <returns>Список пользователей из указанного класса</returns>
-        public async Task<List<RegisteredUser>> ByClassIdAsync(string api_token, string id_Class)
+        public async Task<List<RegisteredUser>> ByClassIdAsync(string api_token, string id_Class, string id_Role)
         {
             // Обязательно добавляем в запрос НЕ зашифрованный ключ доступа.
             Dictionary<string, string> urlParam = new Dictionary<string, string>();
             urlParam.Add("secure_key", api_token);
-            // Добавление в массив по ключу "id", идентификатора класса.
+            // Добавление в массив по ключу "id_Class", идентификатора класса.
             urlParam.Add("id_Class", id_Class);
+            // Добавление в массив по ключу "id_Role", идентификатора роли.
+            urlParam.Add("id_Role", id_Role);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
             var httpResponse = await httpGetAsync("users.byClass/", urlParam);
             if (httpResponse.Data != null)

@@ -119,7 +119,7 @@ namespace nsAPI.Methods
         /// <param name="ClassesIDs">ID классов.</param>
         /// <param name="onlyHeaders">Возвращать только заголовки работ.</param>
         /// <returns>Информация о работах.</returns>
-        public async Task<Works> ByClassesIdsAsync(string api_token, string[] ClassesIDs, bool onlyHeaders = true)
+        public async Task<Works> ByClassesIDsAsync(string api_token, string[] ClassesIDs, bool onlyHeaders = true)
         {
             if (ClassesIDs == null || ClassesIDs.Count() <= 0)
             {
@@ -136,7 +136,7 @@ namespace nsAPI.Methods
             // Сериализация (конвертирование в формат JSON).
             string dataJSON = JsonConvert.SerializeObject(d);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
-            var httpResponse = await httpPostJSONAsync("works.get/", dataJSON, urlParam);
+            var httpResponse = await httpPostJSONAsync("works.getbyclasses/", dataJSON, urlParam);
             if (httpResponse.Data != null)
             {
                 // Список работ.
@@ -198,7 +198,7 @@ namespace nsAPI.Methods
         /// <param name="onlyHeaders"></param>
         /// <returns></returns>
         public async Task<Works> ByClassesAsync(string api_token, List<RegisteredClassroom> classes, bool onlyHeaders = true) =>
-            await ByClassesIdsAsync(api_token, classes?.Select(c => c.ID).ToArray(), onlyHeaders);
+            await ByClassesIDsAsync(api_token, classes?.Select(c => c.ID).ToArray(), onlyHeaders);
 
         /// <summary>
         /// Получает информацию о работах с заданным ID класса.
@@ -217,9 +217,87 @@ namespace nsAPI.Methods
             // Засовываем идентификатор класса в массив, чтобы отправить его в функцию получения списка классов.
             string[] ClassIDs = { сlassID };
             // Возвращаем список работ.
-            Works works = await ByClassesIdsAsync(api_token, ClassIDs, onlyHeaders);
+            Works works = await ByClassesIDsAsync(api_token, ClassIDs, onlyHeaders);
             // Возвращаем класс.
             return works;
+        }
+
+        /// <summary>
+        /// Загружает работы по их IDs.
+        /// </summary>
+        /// <param name="api_token"></param>
+        /// <param name="IDs">Список идентификаторов работ. (ID-шники из таблицы listworks)</param>
+        /// <param name="onlyHeaders">True - загрузить только заголвоки работ.</param>
+        /// <returns></returns>
+        public async Task<Works> ByIDsAsync(string api_token, List<string> IDs, bool onlyHeaders = true)
+        {
+            if (IDs == null || IDs.Count() <= 0)
+            {
+                return null;
+            }
+            // Обязательно добавляем в запрос НЕ зашифрованный ключ доступа.
+            Dictionary<string, string> urlParam = new Dictionary<string, string>();
+            urlParam.Add("secure_key", api_token);
+            urlParam.Add("onlyHeaders", onlyHeaders ? "1" : "0");
+            // Создание ассоциативного массива.
+            var d = new Dictionary<string, object>();
+            // Добавление в массив по ключу "ids", список идентификаторов работ.
+            d.Add("ids", IDs);
+            // Сериализация (конвертирование в формат JSON).
+            string dataJSON = JsonConvert.SerializeObject(d);
+            // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
+            var httpResponse = await httpPostJSONAsync("works.get/", dataJSON, urlParam);
+            if (httpResponse.Data != null)
+            {
+                // Список работ.
+                Works works = new Works();
+                //
+                httpResponse.Data.ForEach(el =>
+                {
+                    JObject work = JsonConvert.DeserializeObject<JObject>(el.ToString());
+                    if (work.ContainsKey("WorkHeader"))
+                    {
+                        // Получение заголовка.
+                        WorkHeader workHeader = JsonConvert.DeserializeObject<WorkHeader>(work["WorkHeader"].ToString());
+                        // Расшифровка заголовка.
+                        workHeader.DecryptByAES();
+                        // Test
+                        if (workHeader.id_TypeWork == "1")
+                        {
+                            //
+                            TestWork testWork = new TestWork();
+                            //
+                            testWork.WorkHeader = workHeader;
+                            if (work.ContainsKey("WorkBody"))
+                            {
+                                testWork.WorkBody = JsonConvert.DeserializeObject<List<TestTask>>(work["WorkBody"].ToString());
+                                testWork.DecryptBodyByAES();
+                            }
+                            // Сохраняем работу.
+                            works.AddTest(testWork);
+                        }// Text
+                        else if (workHeader.id_TypeWork == "2")
+                        {
+                            //
+                            TextWork textWork = new TextWork();
+                            textWork.WorkHeader = workHeader;
+                            if (work.ContainsKey("WorkBody"))
+                            {
+                                textWork.WorkBody = JsonConvert.DeserializeObject<List<TextTask>>(work["WorkBody"].ToString());
+                                textWork.DecryptBodyByAES();
+                            }
+                            // Сохраняем работу.
+                            works.AddText(textWork);
+                        }
+                    }
+                });
+                // Возвращаем список классов.
+                return works;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
