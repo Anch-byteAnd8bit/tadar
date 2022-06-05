@@ -55,6 +55,7 @@
             HorizontalAlignment="Center" 
             Width="266"
             Height="40" Margin="0,200,0,10"/>
+        <Image x:Name="img0" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,0,25" Grid.Row="3" Width="295" Stretch="Fill" Height="223" VerticalAlignment="Bottom"/>
 
 
     </Grid>

@@ -42,7 +42,10 @@ namespace nsAPI.Methods
         /// Вспопогмательная строка при POST-запросах.
         /// </summary>
         protected const string MIME_JSON = "application/json";
-
+        /// <summary>
+        /// Вспопогмательная строка, указывающая на тип полученных данных - JPEG.
+        /// </summary>
+        protected const string MIME_JPEG = "image/jpeg";
         /// Для работы с HTTP.
         //protected HttpClient httpClient;
 
@@ -159,6 +162,92 @@ namespace nsAPI.Methods
             // Вовзвращаем.
             return Response = new Response(jsonResponse);
         }
+
+        protected async Task<Response> httpGetStreamAsync(string method, Dictionary<string, string> reqParams = null)
+        {
+            // Создаем объект для работы с URL и задаем ему базовый адрес: host + method.
+            var mynet = new MyNet(apiURL + method);
+            // Если были заданы параметры, то добавляем их в объект конструирования URL.
+            if (reqParams != null) mynet.AddDict(reqParams);
+            // Получаем URL.
+            string url = mynet.GetUrl();
+            //
+            HttpResponseMessage httpResponse;
+            //
+
+            var httpClient = httpClients.GethttpClient();
+            try
+            {
+                // Ассинхронно отправляем запрос и получаем ответ.
+                httpResponse = await httpClient.GetAsync(url).ConfigureAwait(false);
+            }
+            catch (HttpRequestException reqexp)
+            {
+                var k = (System.Net.Sockets.SocketException)(reqexp.InnerException);
+                return Response = new Response(k);
+            }
+            finally
+            {
+                httpClients.IsDOne(httpClient);
+            }
+            if (!httpResponse.IsSuccessStatusCode)
+            {
+                return Response = new Response(httpResponse);
+            }
+            // Получаем ответ ассинхронно в виде строки.
+            string jsonResponse = await httpResponse.Content.ReadAsStringAsync();
+            var mt = httpResponse.Content.Headers.ContentType.MediaType;
+            if (mt == MIME_JSON)
+            {
+                return Response = new Response(jsonResponse);
+            }
+            else if (mt == MIME_JPEG)
+            {
+                // Вовзвращаем поток.
+                return Response = new Response(httpResponse.Content.ReadAsStream());
+            }
+            else
+            {
+                return Response = new Response(TError.UnknownError, "Получент ответ неизвестного типа!");
+            }
+        }
+
+        /// <summary>
+        /// Получает ответ от сервера в виде потока. [Т.е. нет проверки на то, а точно ли это файл].
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="reqParams"></param>
+        /// <returns></returns>
+        //protected async Task<Response> httpGetStreamAsync(string method, Dictionary<string, string> reqParams = null)
+        //{
+        //    // Создаем объект для работы с URL и задаем ему базовый адрес: host + method.
+        //    var mynet = new MyNet(apiURL + method);
+        //    // Если были заданы параметры, то добавляем их в объект конструирования URL.
+        //    if (reqParams != null) mynet.AddDict(reqParams);
+        //    // Получаем URL.
+        //    string url = mynet.GetUrl();
+        //    //
+        //    System.IO.Stream httpResponseStream;
+        //    //
+
+        //    var httpClient = httpClients.GethttpClient();
+        //    try
+        //    {
+        //        // Ассинхронно отправляем запрос и получаем ответ.
+        //        httpResponseStream = await httpClient.GetStreamAsync(url).ConfigureAwait(false);
+        //    }
+        //    catch (HttpRequestException reqexp)
+        //    {
+        //        var k = (System.Net.Sockets.SocketException)(reqexp.InnerException);
+        //        return Response = new Response(k);
+        //    }
+        //    finally
+        //    {
+        //        httpClients.IsDOne(httpClient);
+        //    }
+        //    // Вовзвращаем.
+        //    return Response = new Response(httpResponseStream);
+        //}
 
         public void Dispose()
         {

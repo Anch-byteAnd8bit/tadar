@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using Tadar.Models;
 
 namespace Tadar.Views
@@ -91,7 +92,7 @@ namespace Tadar.Views
                 //await eAPI.AddTestWork();
                 //await eAPI.AddTextWork();
                 //await eAPI.AddAnswerTestWork_idUserInClasses();
-                await eAPI.AddAnswerTestWork_idUser();
+                //await eAPI.AddAnswerTestWork_idUser();
                 //await eAPI.AddAnswerTextWork();
                 //await eAPI.GetListOfClasrooms();
                 //await eAPI.GetClassroomByIdAsync();
@@ -111,6 +112,8 @@ namespace Tadar.Views
                 //await eAPI.GetUsersByClass();
                 //await eAPI.GetUserByAnswerAsync();
                 //await eAPI.GetUsersByAnswersAsync();
+                var stream = await eAPI.GetMyPhotoAsync();
+                img0.Source = Helpers.Other.StreamToImageSource(stream);
             }
             catch (Exception ex)
             {
