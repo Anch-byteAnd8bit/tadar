@@ -587,7 +587,21 @@ namespace nsAPI.Examples
             {
                 Msg.Write(api.LastException.Message);
             }
+        }
 
+
+        public async Task<System.IO.Stream> GetMyPhotoAsync()
+        {
+            var stream = await api.GetImageByAlias("pic0");
+            if (stream != null)
+            {
+                return stream;
+            }
+            else
+            {
+                Msg.Write(api.LastException.Message);
+                return null;
+            }
         }
     }
 }

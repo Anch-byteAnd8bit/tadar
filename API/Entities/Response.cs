@@ -99,6 +99,11 @@ namespace nsAPI.Entities
             }
         }
 
+        public Response(System.IO.Stream stream)
+        {
+            Data = new List<object>() { stream };
+        }
+
         public static Response FromJson(string json) => JsonConvert.DeserializeObject<Response> (json, Converter.Settings);
 
         //=============================================================================

@@ -50,6 +50,7 @@ namespace nsAPI
         private readonly MTheories theories;
         private readonly MAnswers answers;
         private readonly MDict dict;
+        private readonly MPic pic;
         /// <summary>
         /// Ключ доступа к API.
         /// </summary>
@@ -103,6 +104,8 @@ namespace nsAPI
             answers = new MAnswers();
             // Для работы с запросами касающимися словарей.
             dict = new MDict();
+            // Для работы с изображениями.
+            pic = new MPic();
             if (File.Exists(pathAccessToken))
             {
                 // Если возможно, то загружаем данные пользователя из файла.
@@ -154,6 +157,8 @@ namespace nsAPI
             answers = new MAnswers();
             // Для работы с запросами касающимися словарей.
             dict = new MDict();
+            // Для работы с изображениями.
+            pic = new MPic();
             //
             if (loadRefbooks) LoadRefBooks(OnLoaded);
             // Если возможно, то загружаем данные пользователя из файла.
@@ -1170,6 +1175,54 @@ namespace nsAPI
                 LastException = dict.Response.Exception;
             }
             return d;
+        }
+
+        #endregion
+
+        #region Picrure
+        /// <summary>
+        /// Возвращает изображение в формате потока Stream.
+        /// </summary>
+        /// <param name="pic">Изображение типа Pic.</param>
+        /// <returns>Изображение в потоке Stream.</returns>
+        public async Task<Stream> GetImageByPic(Pic pic_)
+        {
+            Stream i = await pic.GetImage(Access_Token, pic_);
+            if (i == null)
+            {
+                LastException = pic.Response.Exception;
+            }
+            return i;
+        }
+
+        /// <summary>
+        /// Возвращает изображение в формате потока Stream.
+        /// </summary>
+        /// <param name="ID">ID Изображения.</param>
+        /// <returns>Изображение в потоке Stream.</returns>
+        public async Task<Stream> GetImageByID(string ID)
+        {
+            Stream i = await pic.GetImageByID(Access_Token, ID);
+            if (i == null)
+            {
+                LastException = pic.Response.Exception;
+            }
+            return i;
+        }
+
+        /// <summary>
+        /// Возвращает изображение в формате потока Stream.
+        /// </summary>
+        /// <param name="Alias">Alias(имя/псевдоним) изображения.</param>
+        /// <returns>Изображение в потоке Stream.</returns>
+        public async Task<Stream> GetImageByAlias(string Alias)
+        {
+            Stream i = await pic.GetImageByAlias(Access_Token, Alias);
+            if (i == null)
+            {
+                LastException = pic.Response.Exception;
+            }
+            return i;
         }
 
         #endregion
