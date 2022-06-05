@@ -204,7 +204,7 @@ namespace nsAPI.Methods
             else if (mt == MIME_JPEG)
             {
                 // Вовзвращаем поток.
-                return Response = new Response(httpResponse.Content.ReadAsStream());
+                return Response = new Response(await httpResponse.Content.ReadAsStreamAsync());
             }
             else
             {
