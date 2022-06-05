@@ -132,7 +132,9 @@ namespace Tadar.ViewModels
                         {
                             if (api.LastException != null)
                             {
-                                Msg.Write(api.LastException.Message);
+                                //Msg.Write(api.LastException.Message);
+                                marks = new ObservableCollection<WorkAndMark>();
+                                OnPropertyChanged(nameof(Marks));
                             }
                         }
                     }

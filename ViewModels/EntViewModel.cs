@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using Tadar.Helpers;
 using Tadar.Views;
 
@@ -18,8 +19,16 @@ namespace Tadar.ViewModels
             api = API.Instance;
             userent = new UserForAuthorization();
             EntCommand = new Command(OnSave);
-
+            ppp();
         }
+
+        private async void ppp()
+        {
+            var s = await api.GetImageByAlias("pic0");
+            img = Other.StreamToImageSource(s);
+            OnPropertyChanged("Img");
+        }
+
         private UserForAuthorization userent;
         public Command EntCommand { get; set; }
         public string Login
@@ -35,6 +44,16 @@ namespace Tadar.ViewModels
                 OnPropertyChanged(nameof(Login));
             }
         }
+
+        private ImageSource img;
+
+        public ImageSource Img
+        {
+            get { return img; }
+            set { img = value; }
+        }
+
+
         public void OnSave(object PassElem)
         {
             // Получаем пароль.
