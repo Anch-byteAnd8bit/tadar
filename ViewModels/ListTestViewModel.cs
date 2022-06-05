@@ -43,7 +43,7 @@ namespace Tadar.ViewModels
                 {
                     idjourn.Add(classes[i].ID);
                    // nameclass[i] = classes[i].Name;
-
+                   
                 }
                 LoadTestsAsync(idjourn);
             }
