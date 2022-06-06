@@ -603,5 +603,28 @@ namespace nsAPI.Examples
                 return null;
             }
         }
+
+
+        public async Task UpdateTheory()
+        {
+            Theory t = new Theory
+            {
+                ID = "4",
+                id_Class = "17",
+                Topic = "QQQQQQ",
+                Content = "23f4334f34",
+                Source = null
+            };
+
+            var res = await api.UpdateTheoryAsync(t);
+            if (res)
+            {
+                Msg.Write("OK");
+            }
+            else
+            {
+                Msg.Write(api.LastException.Message);
+            }
+        }
     }
 }

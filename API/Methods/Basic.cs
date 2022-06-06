@@ -208,7 +208,7 @@ namespace nsAPI.Methods
             }
             else
             {
-                return Response = new Response(TError.UnknownError, "Получент ответ неизвестного типа!");
+                return Response = new Response(TError.UnknownError, "Получен ответ неизвестного типа!");
             }
         }
 
