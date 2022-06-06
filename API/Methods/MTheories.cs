@@ -143,6 +143,53 @@ namespace nsAPI.Methods
                 return null;
             }
         }
+
+        /// <summary>
+        /// Удаление теории по их идентификаторам.
+        /// </summary>
+        /// <param name="api_token">Ключ доступа к АПИ.</param>
+        /// <param name="IDs">Массив идентификаторов.</param>
+        /// <returns>True - если операция выполнена успешно.</returns>
+        public async Task<bool> DelTheories(string api_token, string[] IDs)
+        {
+            if (IDs == null || IDs.Count() <= 0)
+            {
+                return false;
+            }
+            // Обязательно добавляем в запрос НЕ зашифрованный ключ доступа.
+            Dictionary<string, string> urlParam = new Dictionary<string, string>();
+            urlParam.Add("secure_key", api_token);
+            // Создание ассоциативного массива.
+            var d = new Dictionary<string, object>();
+            // Добавление в массив по ключу "ids", список идентификаторов объектов.
+            d.Add("ids", IDs);
+            // Сериализация (конвертирование в формат JSON).
+            string usersJSON = JsonConvert.SerializeObject(d);
+            // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
+            var httpResponse = await httpPostJSONAsync("theory.del/", usersJSON, urlParam);
+            // Ответ.
+            return httpResponse.Data?[0]?.ToString() == "OK";
+        }
+
+        public async Task<bool> UpdAsync(string api_token, Theory theory)
+        {
+            // Обязательно добавляем в запрос НЕ зашифрованный ключ доступа.
+            Dictionary<string, string> urlParams = new Dictionary<string, string>();
+            urlParams["secure_key"] = api_token;
+
+            // Получаем теорию с зашифрованными данными.
+            Theory theoryToSend = theory.Clone();
+            theoryToSend.Encrypt();
+
+            // ВСЕГДА, ПРИ ОТПРАВКЕ POST-ЗАПРОСА, НАДО ДОБАВЛЯТЬ В КОНЦЕ АДРЕСА СЛЭШ!
+
+            // Конвертируем объект в строку в формате JSON.
+            string theoryJson = theoryToSend.ToJson();
+            // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
+            var httpResponse = await httpPostJSONAsync("theory.upd/", theoryJson, urlParams);
+            //
+            return httpResponse.Data?[0].ToString() == "OK";
+        }
     }
 }
 

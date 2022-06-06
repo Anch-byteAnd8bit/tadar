@@ -1095,6 +1095,67 @@ namespace nsAPI
             }
             return t;
         }
+
+        /// <summary>
+        /// Удаление теории по их идентификаторам.
+        /// </summary>
+        /// <param name="IDs">Массив идентификаторов.</param>
+        /// <returns>True - если операция выполнена успешно.</returns>
+        public async Task<bool> DelTheories(string[] IDs)
+        {
+            var t = await theories.DelTheories(Access_Token, IDs);
+            if (!t)
+            {
+                LastException = theories.Response.Exception;
+            }
+            return t;
+        }
+
+        /// <summary>
+        /// Удаление теории по их идентификаторам.
+        /// </summary>
+        /// <param name="IDs">Список идентификаторов.</param>
+        /// <returns>True - если операция выполнена успешно.</returns>
+        public async Task<bool> DelTheories(List<string> IDs)
+        {
+            var t = await theories.DelTheories(Access_Token, IDs.ToArray());
+            if (!t)
+            {
+                LastException = theories.Response.Exception;
+            }
+            return t;
+        }
+
+        /// <summary>
+        /// Удаление теории по её идентификатору.
+        /// </summary>
+        /// <param name="ID">Идентификатор теории, которую надо удалить.</param>
+        /// <returns>True - если операция выполнена успешно.</returns>
+        public async Task<bool> DelTheory(string ID)
+        {
+            var t = await theories.DelTheories(Access_Token, new string[] { ID });
+            if (!t)
+            {
+                LastException = theories.Response.Exception;
+            }
+            return t;
+        }
+
+        /// <summary>
+        /// Редактирование теории в БД.
+        /// </summary>
+        /// <param name="theory">Теория, которую надо изменить в БД.</param>
+        /// <returns>Данные теории</returns>
+        public async Task<bool> UpdateTheoryAsync(Theory theory)
+        {
+            var t = await theories.UpdAsync(Access_Token, theory);
+            if (!t)
+            {
+                LastException = theories.Response.Exception;
+            }
+            return t;
+        }
+
         #endregion
 
         #region Dict
