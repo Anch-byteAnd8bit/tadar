@@ -54,15 +54,15 @@ namespace nsAPI.Entities
             // Дата не шифруется на сервере.
             //BDate = this.BDate;
             //DateTimeReg = this.DateTimeReg;
-            ID = AESHelper.DecryptString(this.ID);
-            Email = AESHelper.DecryptString(this.Email);
-            GenderID = AESHelper.DecryptString(this.GenderID);
-            Login = AESHelper.DecryptString(this.Login);
-            Middlename = AESHelper.DecryptString(this.Middlename);
-            Name = AESHelper.DecryptString(this.Name);
+            ID = AESHelper.DecryptStringB64(this.ID);
+            Email = AESHelper.DecryptStringB64(this.Email);
+            GenderID = AESHelper.DecryptStringB64(this.GenderID);
+            Login = AESHelper.DecryptStringB64(this.Login);
+            Middlename = AESHelper.DecryptStringB64(this.Middlename);
+            Name = AESHelper.DecryptStringB64(this.Name);
             //Pass = AESHelper.DecryptString(this.Pass);
-            Surname = AESHelper.DecryptString(this.Surname);
-            StateID = AESHelper.DecryptString(this.StateID);
+            Surname = AESHelper.DecryptStringB64(this.Surname);
+            StateID = AESHelper.DecryptStringB64(this.StateID);
         }
         /// <summary>
         /// Полное имя в формате "Фамилия Имя Отчество"
@@ -140,15 +140,15 @@ namespace nsAPI.Entities
         public UserForRegistration GetEncryptedDataByAES()
         {
             UserForRegistration encUser = new UserForRegistration();
-            encUser.BDate = AESHelper.EncryptString(this.BDate);
+            encUser.BDate = AESHelper.EncryptStringB64(this.BDate);
             //encUser.DateTimeReg = AESHelper.EncryptString(this.DateTimeReg);
-            encUser.Email = AESHelper.EncryptString(this.Email);
-            encUser.GenderID = AESHelper.EncryptString(this.GenderID);
-            encUser.Login = AESHelper.EncryptString(this.Login);
-            encUser.Middlename = AESHelper.EncryptString(this.Middlename);
-            encUser.Name = AESHelper.EncryptString(this.Name);
-            encUser.Pass = AESHelper.EncryptString(this.Pass);
-            encUser.Surname = AESHelper.EncryptString(this.Surname);
+            encUser.Email = AESHelper.EncryptStringB64(this.Email);
+            encUser.GenderID = AESHelper.EncryptStringB64(this.GenderID);
+            encUser.Login = AESHelper.EncryptStringB64(this.Login);
+            encUser.Middlename = AESHelper.EncryptStringB64(this.Middlename);
+            encUser.Name = AESHelper.EncryptStringB64(this.Name);
+            encUser.Pass = AESHelper.EncryptStringB64(this.Pass);
+            encUser.Surname = AESHelper.EncryptStringB64(this.Surname);
             return encUser;
         }
 
@@ -165,13 +165,13 @@ namespace nsAPI.Entities
                 BDate = this.BDate,
                 //DateTimeReg = this.DateTimeReg,
 
-                Email = AESHelper.DecryptString(this.Email),
-                GenderID = AESHelper.DecryptString(this.GenderID),
-                Login = AESHelper.DecryptString(this.Login),
-                Middlename = AESHelper.DecryptString(this.Middlename),
-                Name = AESHelper.DecryptString(this.Name),
-                Pass = AESHelper.DecryptString(this.Pass),
-                Surname = AESHelper.DecryptString(this.Surname)
+                Email = AESHelper.DecryptStringB64(this.Email),
+                GenderID = AESHelper.DecryptStringB64(this.GenderID),
+                Login = AESHelper.DecryptStringB64(this.Login),
+                Middlename = AESHelper.DecryptStringB64(this.Middlename),
+                Name = AESHelper.DecryptStringB64(this.Name),
+                Pass = AESHelper.DecryptStringB64(this.Pass),
+                Surname = AESHelper.DecryptStringB64(this.Surname)
             };
         }
 
@@ -214,8 +214,8 @@ namespace nsAPI.Entities
         {
             return new UserForAuthorization
             {
-                Login = AESHelper.DecryptString(this.Login),
-                Pass = AESHelper.DecryptString(this.Pass)
+                Login = AESHelper.DecryptStringB64(this.Login),
+                Pass = AESHelper.DecryptStringB64(this.Pass)
             };
         }
 
@@ -227,8 +227,8 @@ namespace nsAPI.Entities
         public UserForAuthorization GetEncryptedDataByAES()
         {
             UserForAuthorization encUser = new UserForAuthorization();
-            encUser.Login = AESHelper.EncryptString(this.Login);
-            encUser.Pass = AESHelper.EncryptString(this.Pass);
+            encUser.Login = AESHelper.EncryptStringB64(this.Login);
+            encUser.Pass = AESHelper.EncryptStringB64(this.Pass);
             return encUser;
         }
     }

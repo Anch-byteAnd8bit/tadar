@@ -58,6 +58,50 @@ namespace Encryption
             }
 
         }
+        /// <summary>
+        /// TripleDES.
+        /// Шифрование файла в поток. НЕ ПРОВЕРЕНО
+        /// </summary>
+        /// <param name="inputFile"></param>
+        /// <returns></returns>
+        public static byte[] EncryptFileToStream(string inputFile)
+        {
+            using (Aes tdes = Aes.Create())
+            {
+
+                // Для работы TripleDES требуется вектор инициализации (IV) и ключ (Key)
+                // Операции шифрования/деширования должны использовать одинаковые значения IV и Key
+                tdes.IV = AESHelper.IV;
+                tdes.Key = AESHelper.Key;
+                using (var inputStream = File.OpenRead(inputFile))
+                using (MemoryStream ms = new MemoryStream())
+                using (var encStream = new CryptoStream(ms, tdes.CreateEncryptor(), CryptoStreamMode.Write))
+                {
+                    ms.SetLength(0);
+                    inputStream.CopyTo(encStream);
+                    return ms.ToArray();
+                }
+            }
+        }
+        /// <summary>
+        /// TripleDES.
+        /// Расшифровка потока в файл. НЕ ПРОВЕРЕНО
+        /// </summary>
+        /// <param name="inputStream"></param>
+        /// <param name="outputFile"></param>
+        public static void DecryptStreamToFile(MemoryStream inputStream, string outputFile)
+        {
+            using (Aes tdes = Aes.Create())
+            {
+                tdes.IV = AESHelper.IV;
+                tdes.Key = AESHelper.Key;
+                using (var decStream = new CryptoStream(inputStream, tdes.CreateDecryptor(), CryptoStreamMode.Read))
+                using (var outputStream = new FileStream(outputFile, FileMode.Create, FileAccess.Write))
+                {
+                    decStream.CopyTo(outputStream);
+                }
+            }
+        }
 
         /// <summary>
         /// Создает копию файла по указанному пути, шифрует её и сохраняет по заданному пути.
@@ -102,12 +146,59 @@ namespace Encryption
                 }
             }
         }
+
+        /// <summary>
+        /// Шифрует указанный файл алгоритмом AES и конвертирует его в строку формата Base64.
+        /// </summary>
+        /// <param name="inputFile"></param>
+        /// <returns></returns>
+        public static string EncryptFileToStringB64(string inputFile)
+        {
+            using (Aes tdes = Aes.Create())
+            {
+                // Для работы TripleDES требуется вектор инициализации (IV) и ключ (Key)
+                // Операции шифрования/деширования должны использовать одинаковые значения IV и Key
+                tdes.IV = AESHelper.IV;
+                tdes.Key = AESHelper.Key;
+                using (var inputStream = File.OpenRead(inputFile))
+                using (MemoryStream ms = new MemoryStream())
+                using (var encStream = new CryptoStream(ms, tdes.CreateEncryptor(), CryptoStreamMode.Write))
+                {
+                    ms.SetLength(0);
+                    inputStream.CopyTo(encStream);
+                    return Convert.ToBase64String(ms.ToArray());
+                }
+            }
+        }
+
+        /// <summary>
+        /// Расшифровывает строку AES формата Base64 в файл.
+        /// </summary>
+        /// <param name="encStringFile"></param>
+        /// <param name="outputFile">Путь к расшифрованному файлу.</param>
+        public static void DecryptStringB64ToFile(string encStringFile, string outputFile)
+        {
+            byte[] encryptedByte = Convert.FromBase64String(encStringFile);
+            using (Aes tdes = Aes.Create())
+            {
+                tdes.IV = AESHelper.IV;
+                tdes.Key = AESHelper.Key;
+
+                using (var inputStream = new MemoryStream(encryptedByte))
+                using (var decStream = new CryptoStream(inputStream, tdes.CreateDecryptor(), CryptoStreamMode.Read))
+                using (var outputStream = new FileStream(outputFile, FileMode.Create, FileAccess.Write))
+                {
+                    decStream.CopyTo(outputStream);
+                }
+            }
+        }
+
         /// <summary>
         /// Шифрует заданную строку.
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
-        public static string EncryptString(string source)
+        public static string EncryptStringB64(string source)
         {
             if (string.IsNullOrEmpty(source)) return source;
             using (Aes tdes = Aes.Create())
@@ -122,12 +213,13 @@ namespace Encryption
                 return Convert.ToBase64String(ecryptedByteBuff);
             }
         }
+
         /// <summary>
         /// Расшифровывает заданную строку.
         /// </summary>
         /// <param name="encryptedString">Зашифрованная строка</param>
         /// <returns></returns>
-        public static string DecryptString(string encryptedString)
+        public static string DecryptStringB64(string encryptedString)
         {
             if (string.IsNullOrEmpty(encryptedString)) return encryptedString;
             using (Aes aes = Aes.Create())

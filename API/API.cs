@@ -1238,6 +1238,35 @@ namespace nsAPI
             return d;
         }
 
+        /// <summary>
+        /// Загружает аудио звучания хакасского слова, по заданному идентификатору слова.
+        /// </summary>
+        /// <param name="ID">Идентификатор слова</param>
+        /// <returns>Слово типа Word, в свойстве "PathAudio" которого, указан путь к аудиофайлу.</returns>
+        public async Task<Word> GetAudioOfWord(string ID)
+        {
+            var d = await dict.GetAudioByIDAsync(Access_Token, ID);
+            if (d == null)
+            {
+                LastException = dict.Response.Exception;
+            }
+            return d;
+        }
+
+        ///// <summary>
+        ///// Загружает аудио звучания хакасского слова, по заданному слову словаря. Главным образом нужен
+        ///// </summary>
+        ///// <param name="word">Слова словаря.</param>
+        ///// <returns>Слово типа Word, в свойстве "PathAudio" которого, указан путь к аудиофайлу.</returns>
+        //private async Task<Word> GetAudioOfWord(Word word)
+        //{
+        //    var d = await dict.GetAudioByWordAsync(Access_Token, word);
+        //    if (d == null)
+        //    {
+        //        LastException = dict.Response.Exception;
+        //    }
+        //    return d;
+        //}
         #endregion
 
         #region Picrure

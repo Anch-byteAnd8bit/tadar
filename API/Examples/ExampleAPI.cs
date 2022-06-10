@@ -605,15 +605,15 @@ namespace nsAPI.Examples
         }
 
 
-        public async Task UpdateTheory()
+        public async void UpdateTheory()
         {
             Theory t = new Theory
             {
-                ID = "3",
-                id_Class = "8",
-                Topic = "QQQQQQ",
-                Content = "23f4334f34",
-                Source = null
+                ID = "4",
+                id_Class = "17",
+                Topic = "123",
+                Content = "ABCDEFGH",
+                Source = "000"
             };
 
             var res = await api.UpdateTheoryAsync(t);

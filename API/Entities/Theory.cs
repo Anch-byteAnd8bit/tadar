@@ -34,11 +34,11 @@ namespace nsAPI.Entities
         /// </summary>
         public void Decrypt()
         {
-            ID = Encryption.AESHelper.DecryptString(ID);
-            id_Class = Encryption.AESHelper.DecryptString(id_Class);
-            Source = Encryption.AESHelper.DecryptString(Source);
-            Content = Encryption.AESHelper.DecryptString(Content);
-            Topic = Encryption.AESHelper.DecryptString(Topic);
+            ID = Encryption.AESHelper.DecryptStringB64(ID);
+            id_Class = Encryption.AESHelper.DecryptStringB64(id_Class);
+            Source = Encryption.AESHelper.DecryptStringB64(Source);
+            Content = Encryption.AESHelper.DecryptStringB64(Content);
+            Topic = Encryption.AESHelper.DecryptStringB64(Topic);
         }
 
         public static Theory FromJson(string json)
@@ -52,11 +52,11 @@ namespace nsAPI.Entities
         /// </summary>
         public void Encrypt()
         {
-            ID = Encryption.AESHelper.EncryptString(ID);
-            id_Class = Encryption.AESHelper.EncryptString(id_Class);
-            Source = Encryption.AESHelper.EncryptString(Source);
-            Content = Encryption.AESHelper.EncryptString(Content);
-            Topic = Encryption.AESHelper.EncryptString(Topic);
+            ID = Encryption.AESHelper.EncryptStringB64(ID);
+            id_Class = Encryption.AESHelper.EncryptStringB64(id_Class);
+            Source = Encryption.AESHelper.EncryptStringB64(Source);
+            Content = Encryption.AESHelper.EncryptStringB64(Content);
+            Topic = Encryption.AESHelper.EncryptStringB64(Topic);
             
         }
 

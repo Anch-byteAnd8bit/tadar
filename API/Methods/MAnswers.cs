@@ -273,8 +273,8 @@ namespace nsAPI.Methods
 
             // Получаем пользователя с зашифрованными данными.
             Dictionary<string, string> PostParams2 = new Dictionary<string, string>();
-            PostParams2["Mark"] = Encryption.AESHelper.EncryptString(mark);
-            PostParams2["id_ExecutionOfWork"] = Encryption.AESHelper.EncryptString(IDExecutionOfWork);
+            PostParams2["Mark"] = Encryption.AESHelper.EncryptStringB64(mark);
+            PostParams2["id_ExecutionOfWork"] = Encryption.AESHelper.EncryptStringB64(IDExecutionOfWork);
 
             // ВСЕГДА, ПРИ ОТПРАВКЕ POST-ЗАПРОСА, НАДО ДОБАВЛЯТЬ В КОНЦЕ АДРЕСА СЛЭШ!
 

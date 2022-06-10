@@ -22,9 +22,9 @@ namespace nsAPI.Entities
         /// </summary>
         public void EncryptBodyByAES()
         {
-            ID = Encryption.AESHelper.EncryptString(ID);
-            Alias = Encryption.AESHelper.EncryptString(Alias);
-            Path = Encryption.AESHelper.EncryptString(Path);
+            ID = Encryption.AESHelper.EncryptStringB64(ID);
+            Alias = Encryption.AESHelper.EncryptStringB64(Alias);
+            Path = Encryption.AESHelper.EncryptStringB64(Path);
             //Size
         }
 

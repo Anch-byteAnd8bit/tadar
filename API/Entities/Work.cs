@@ -400,15 +400,15 @@ namespace nsAPI.Entities
         /// </summary>
         public void DecryptByAES()
         {
-            ID = Encryption.AESHelper.DecryptString(ID);
-            IdTest = Encryption.AESHelper.DecryptString(IdTest);
-            NumTask = Encryption.AESHelper.DecryptString(NumTask);
-            Word = Encryption.AESHelper.DecryptString(Word);
-            PossibleAnsw1 = Encryption.AESHelper.DecryptString(PossibleAnsw1);
-            PossibleAnsw2 = Encryption.AESHelper.DecryptString(PossibleAnsw2);
-            PossibleAnsw3 = Encryption.AESHelper.DecryptString(PossibleAnsw3);
-            PossibleAnsw4 = Encryption.AESHelper.DecryptString(PossibleAnsw4);
-            RightNum = Encryption.AESHelper.DecryptString(RightNum);
+            ID = Encryption.AESHelper.DecryptStringB64(ID);
+            IdTest = Encryption.AESHelper.DecryptStringB64(IdTest);
+            NumTask = Encryption.AESHelper.DecryptStringB64(NumTask);
+            Word = Encryption.AESHelper.DecryptStringB64(Word);
+            PossibleAnsw1 = Encryption.AESHelper.DecryptStringB64(PossibleAnsw1);
+            PossibleAnsw2 = Encryption.AESHelper.DecryptStringB64(PossibleAnsw2);
+            PossibleAnsw3 = Encryption.AESHelper.DecryptStringB64(PossibleAnsw3);
+            PossibleAnsw4 = Encryption.AESHelper.DecryptStringB64(PossibleAnsw4);
+            RightNum = Encryption.AESHelper.DecryptStringB64(RightNum);
         }
 
 
@@ -417,15 +417,15 @@ namespace nsAPI.Entities
         /// </summary>
         public void EncryptByAES()
         {
-            ID = Encryption.AESHelper.EncryptString(ID);
-            IdTest = Encryption.AESHelper.EncryptString(IdTest);
-            NumTask = Encryption.AESHelper.EncryptString(NumTask);
-            Word = Encryption.AESHelper.EncryptString(Word);
-            PossibleAnsw1 = Encryption.AESHelper.EncryptString(PossibleAnsw1);
-            PossibleAnsw2 = Encryption.AESHelper.EncryptString(PossibleAnsw2);
-            PossibleAnsw3 = Encryption.AESHelper.EncryptString(PossibleAnsw3);
-            PossibleAnsw4 = Encryption.AESHelper.EncryptString(PossibleAnsw4);
-            RightNum = Encryption.AESHelper.EncryptString(RightNum);
+            ID = Encryption.AESHelper.EncryptStringB64(ID);
+            IdTest = Encryption.AESHelper.EncryptStringB64(IdTest);
+            NumTask = Encryption.AESHelper.EncryptStringB64(NumTask);
+            Word = Encryption.AESHelper.EncryptStringB64(Word);
+            PossibleAnsw1 = Encryption.AESHelper.EncryptStringB64(PossibleAnsw1);
+            PossibleAnsw2 = Encryption.AESHelper.EncryptStringB64(PossibleAnsw2);
+            PossibleAnsw3 = Encryption.AESHelper.EncryptStringB64(PossibleAnsw3);
+            PossibleAnsw4 = Encryption.AESHelper.EncryptStringB64(PossibleAnsw4);
+            RightNum = Encryption.AESHelper.EncryptStringB64(RightNum);
         }
     }
 
@@ -452,10 +452,10 @@ namespace nsAPI.Entities
         /// </summary>
         public void DecryptByAES()
         {
-            ID = Encryption.AESHelper.DecryptString(ID);
-            IdTest = Encryption.AESHelper.DecryptString(IdTest);
-            TaskText = Encryption.AESHelper.DecryptString(TaskText);
-            TaskTitle = Encryption.AESHelper.DecryptString(TaskTitle);
+            ID = Encryption.AESHelper.DecryptStringB64(ID);
+            IdTest = Encryption.AESHelper.DecryptStringB64(IdTest);
+            TaskText = Encryption.AESHelper.DecryptStringB64(TaskText);
+            TaskTitle = Encryption.AESHelper.DecryptStringB64(TaskTitle);
         }
 
         /// <summary>
@@ -463,10 +463,10 @@ namespace nsAPI.Entities
         /// </summary>
         public void EncryptByAES()
         {
-            ID = Encryption.AESHelper.EncryptString(ID);
-            IdTest = Encryption.AESHelper.EncryptString(IdTest);
-            TaskText = Encryption.AESHelper.EncryptString(TaskText);
-            TaskTitle = Encryption.AESHelper.EncryptString(TaskTitle);
+            ID = Encryption.AESHelper.EncryptStringB64(ID);
+            IdTest = Encryption.AESHelper.EncryptStringB64(IdTest);
+            TaskText = Encryption.AESHelper.EncryptStringB64(TaskText);
+            TaskTitle = Encryption.AESHelper.EncryptStringB64(TaskTitle);
         }
     }
 
@@ -528,15 +528,15 @@ namespace nsAPI.Entities
         /// </summary>
         public void DecryptByAES()
         {
-            ID = Encryption.AESHelper.DecryptString(ID);
-            id_Class = Encryption.AESHelper.DecryptString(id_Class);
-            DateTimeCreate  = Encryption.AESHelper.DecryptString(DateTimeCreate);
-            id_TypeWork  = Encryption.AESHelper.DecryptString(id_TypeWork);
-            IsNonMark  = Encryption.AESHelper.DecryptString(IsNonMark);
-            Name  = Encryption.AESHelper.DecryptString(Name);
-            Description  = Encryption.AESHelper.DecryptString(Description);
-            DateTimeStart  = Encryption.AESHelper.DecryptString(DateTimeStart);
-            MaxDuration = Encryption.AESHelper.DecryptString(MaxDuration);
+            ID = Encryption.AESHelper.DecryptStringB64(ID);
+            id_Class = Encryption.AESHelper.DecryptStringB64(id_Class);
+            DateTimeCreate  = Encryption.AESHelper.DecryptStringB64(DateTimeCreate);
+            id_TypeWork  = Encryption.AESHelper.DecryptStringB64(id_TypeWork);
+            IsNonMark  = Encryption.AESHelper.DecryptStringB64(IsNonMark);
+            Name  = Encryption.AESHelper.DecryptStringB64(Name);
+            Description  = Encryption.AESHelper.DecryptStringB64(Description);
+            DateTimeStart  = Encryption.AESHelper.DecryptStringB64(DateTimeStart);
+            MaxDuration = Encryption.AESHelper.DecryptStringB64(MaxDuration);
         }
 
         /// <summary>
@@ -544,15 +544,15 @@ namespace nsAPI.Entities
         /// </summary>
         public void EncryptByAES()
         {
-            ID = Encryption.AESHelper.EncryptString(ID);
-            id_Class = Encryption.AESHelper.EncryptString(id_Class);
-            DateTimeCreate = Encryption.AESHelper.EncryptString(DateTimeCreate);
-            id_TypeWork = Encryption.AESHelper.EncryptString(id_TypeWork);
-            IsNonMark = Encryption.AESHelper.EncryptString(IsNonMark);
-            Name = Encryption.AESHelper.EncryptString(Name);
-            Description = Encryption.AESHelper.EncryptString(Description);
-            DateTimeStart = Encryption.AESHelper.EncryptString(DateTimeStart);
-            MaxDuration = Encryption.AESHelper.EncryptString(MaxDuration);
+            ID = Encryption.AESHelper.EncryptStringB64(ID);
+            id_Class = Encryption.AESHelper.EncryptStringB64(id_Class);
+            DateTimeCreate = Encryption.AESHelper.EncryptStringB64(DateTimeCreate);
+            id_TypeWork = Encryption.AESHelper.EncryptStringB64(id_TypeWork);
+            IsNonMark = Encryption.AESHelper.EncryptStringB64(IsNonMark);
+            Name = Encryption.AESHelper.EncryptStringB64(Name);
+            Description = Encryption.AESHelper.EncryptStringB64(Description);
+            DateTimeStart = Encryption.AESHelper.EncryptStringB64(DateTimeStart);
+            MaxDuration = Encryption.AESHelper.EncryptStringB64(MaxDuration);
         }
     }
 

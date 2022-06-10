@@ -172,7 +172,7 @@ namespace nsAPI.Methods
             var httpResponse = await httpPostJSONAsync("dict.get/", postDataJSON, urlParam);
             if (httpResponse.Data != null)
             {
-                // Возвращаем список классов.
+                // Возвращаем список .
                 List<Word> dict = new List<Word>();
                 //
                 httpResponse.Data.ForEach(el =>
@@ -190,6 +190,44 @@ namespace nsAPI.Methods
             }
         }
 
-        
+        /// <summary>
+        /// Загружает аудио звучания хакасского слова, по заданному слову словаря.
+        /// </summary>
+        /// <param name="api_token">Ключ</param>
+        /// <param name="ID">Идентификатор слова</param>
+        /// <returns>Слово типа Word, в свойстве "PathAudio" которого, указан путь к аудиофайлу.</returns>
+        public async Task<Word> GetAudioByIDAsync(string api_token, string ID)
+        {
+            // Обязательно добавляем в запрос НЕ зашифрованный ключ доступа.
+            Dictionary<string, string> urlParam = new Dictionary<string, string>();
+            urlParam.Add("secure_key", api_token);
+            urlParam.Add("ID", ID);
+            // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
+            var httpResponse = await httpGetAsync("dictaud.get/", urlParam);
+            if (httpResponse.Data != null)
+            {
+                //
+                Word w = JsonConvert.DeserializeObject<Word>(httpResponse.Data[0].ToString());
+                
+                // Расшифровываем данные словаря.
+                w.Decrypte();
+                // Возвращаем.
+                return w;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Загружает аудио звучания хакасского слова, по заданному слову словаря.
+        /// </summary>
+        /// <param name="api_token">Ключ доступа.</param>
+        /// <param name="word">Слова словаря.</param>
+        /// <returns>Слово типа Word, в свойстве "PathAudio" которого, указан путь к аудиофайлу.</returns>
+        public async Task<Word> GetAudioByWordAsync(string api_token, Word word) => 
+            await GetAudioByIDAsync(api_token, word.ID);
+
     }
 }

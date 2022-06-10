@@ -40,9 +40,9 @@ namespace nsAPI.Entities
         /// </summary>
         public void EncryptByAES()
         {
-            this.Name = Encryption.AESHelper.EncryptString(this.Name);
-            this.Description = Encryption.AESHelper.EncryptString(this.Description);
-            this.id_User = Encryption.AESHelper.EncryptString(this.id_User);
+            this.Name = Encryption.AESHelper.EncryptStringB64(this.Name);
+            this.Description = Encryption.AESHelper.EncryptStringB64(this.Description);
+            this.id_User = Encryption.AESHelper.EncryptStringB64(this.id_User);
         }
         
 
@@ -78,11 +78,11 @@ namespace nsAPI.Entities
         /// </summary>
         public void DecryptByAES()
         {
-            this.Name = Encryption.AESHelper.DecryptString(this.Name);
-            this.Description = Encryption.AESHelper.DecryptString(this.Description);
-            this.ID = Encryption.AESHelper.DecryptString(this.ID);
-            this.DateTimeCreate = Encryption.AESHelper.DecryptString(this.DateTimeCreate);
-            this.DateTimeClose = Encryption.AESHelper.DecryptString(this.DateTimeClose);
+            this.Name = Encryption.AESHelper.DecryptStringB64(this.Name);
+            this.Description = Encryption.AESHelper.DecryptStringB64(this.Description);
+            this.ID = Encryption.AESHelper.DecryptStringB64(this.ID);
+            this.DateTimeCreate = Encryption.AESHelper.DecryptStringB64(this.DateTimeCreate);
+            this.DateTimeClose = Encryption.AESHelper.DecryptStringB64(this.DateTimeClose);
         }
 
         /// <summary>

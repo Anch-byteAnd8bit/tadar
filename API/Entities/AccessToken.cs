@@ -24,8 +24,8 @@ namespace nsAPI.Entities
         /// </summary>
         public void DecryptByAES()
         {
-            this.Token = Encryption.AESHelper.DecryptString(this.Token);
-            this.id_User = Encryption.AESHelper.DecryptString(this.id_User);
+            this.Token = Encryption.AESHelper.DecryptStringB64(this.Token);
+            this.id_User = Encryption.AESHelper.DecryptStringB64(this.id_User);
         }
 
         /// <summary>

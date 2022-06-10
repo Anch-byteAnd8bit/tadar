@@ -199,13 +199,13 @@ namespace nsAPI.Methods
             // В данные POST добавляем параметры запроса.
             Dictionary<string, string> postParam = new Dictionary<string, string>();
             // Добавление по ключу "id" идентификатор пользователя.
-            postParam["id_User"] = Encryption.AESHelper.EncryptString(id_user);
+            postParam["id_User"] = Encryption.AESHelper.EncryptStringB64(id_user);
             // Добавление по ключу "id" идентификатор класса.
-            postParam["id_Class"] = Encryption.AESHelper.EncryptString(id_class);
+            postParam["id_Class"] = Encryption.AESHelper.EncryptStringB64(id_class);
             // 1 - Администратор, 2 - Ученик, 3 - Учитель.
             // Таблица "roles".
             string id_role = "2";
-            postParam["id_Role"] = Encryption.AESHelper.EncryptString(id_role);
+            postParam["id_Role"] = Encryption.AESHelper.EncryptStringB64(id_role);
 
             // ВСЕГДА, ПРИ ОТПРАВКЕ POST-ЗАПРОСА, НАДО ДОБАВЛЯТЬ В КОНЦЕ АДРЕСА СЛЭШ!
 
@@ -239,9 +239,9 @@ namespace nsAPI.Methods
             // В данные POST добавляем параметры запроса.
             Dictionary<string, string> postParam = new Dictionary<string, string>();
             // Добавление по ключу "id" идентификатор пользователя.
-            postParam["id_User"] = Encryption.AESHelper.EncryptString(id_User);
+            postParam["id_User"] = Encryption.AESHelper.EncryptStringB64(id_User);
             // Добавление по ключу "id" идентификатор класса.
-            postParam["id_Class"] = Encryption.AESHelper.EncryptString(id_Class);
+            postParam["id_Class"] = Encryption.AESHelper.EncryptStringB64(id_Class);
 
             // ВСЕГДА, ПРИ ОТПРАВКЕ POST-ЗАПРОСА, НАДО ДОБАВЛЯТЬ В КОНЦЕ АДРЕСА СЛЭШ!
 
