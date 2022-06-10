@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using System.Windows.Media;
 
 namespace nsAPI.Helpers
 {
@@ -20,6 +22,5 @@ namespace nsAPI.Helpers
             if (bday > now.AddYears(-age)) age--;
             return age;
         }
-
     }
 }

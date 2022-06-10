@@ -9,7 +9,7 @@
       d:DesignHeight="700" d:DesignWidth="900"
       Title="SecondGamePage">
 
-    <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False" >
+    <Grid x:Name="gris_ent" Background="#FF698DE0" ShowGridLines="False" >
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="11*"></RowDefinition>
@@ -48,6 +48,7 @@
             Grid.Row="2" Cursor="Hand"
             Width="150"
             Height="40"
+            Background="#FF3D64C2"
             HorizontalAlignment="Center" Margin="380,0,0,0"
             >
             Ввести
@@ -341,7 +342,7 @@
             Width="90"
             RadiusX="20"
             RadiusY="30"
-            Visibility="Visible" Canvas.Left="180" Canvas.Top="100"
+            Visibility="Hidden" Canvas.Left="180" Canvas.Top="100"
             />
 
             <Rectangle
@@ -351,7 +352,7 @@
             Width="48"
             RadiusX="10"
             RadiusY="10"
-            Visibility="Visible" Grid.Row="1" Canvas.Left="200" Canvas.Top="68"
+            Visibility="Hidden" Grid.Row="1" Canvas.Left="200" Canvas.Top="68"
             />
 
 
@@ -364,7 +365,7 @@
             
             RadiusX="10"
             RadiusY="20"
-            Visibility="Visible" Canvas.Left="182" Canvas.Top="378" 
+            Visibility="Hidden" Canvas.Left="182" Canvas.Top="378" 
             />
 
             <Rectangle
@@ -376,7 +377,7 @@
            
             RadiusX="10"
             RadiusY="20"
-            Visibility="Visible" Canvas.Left="226" Canvas.Top="378" 
+            Visibility="Hidden" Canvas.Left="226" Canvas.Top="378" 
             />
 
             <Rectangle
@@ -386,7 +387,7 @@
             Height="56"
             Width="25"
             
-            Visibility="Visible" Canvas.Left="184" Canvas.Top="201" 
+            Visibility="Hidden" Canvas.Left="184" Canvas.Top="201" 
             />
             <Rectangle
             x:Name="dress2"
@@ -395,7 +396,7 @@
             Height="55"
             Width="25"
             
-            Visibility="Visible" Canvas.Left="241" Canvas.Top="201" 
+            Visibility="Hidden" Canvas.Left="241" Canvas.Top="201" 
             />
 
             <Rectangle
@@ -407,11 +408,11 @@
             RadiusX="10"
             RadiusY="10"
             
-            Visibility="Visible" Canvas.Left="184" Canvas.Top="232" 
+            Visibility="Hidden" Canvas.Left="184" Canvas.Top="232" 
             />
 
             <Polygon
-            Visibility="Visible"
+            Visibility="Hidden"
             x:Name="dress4"
             Fill="#FF9C2BEB"
             Points="
@@ -427,7 +428,7 @@
             Fill="#FF41036D"
             Height="15"
             Width="87"
-            Visibility="Visible" Canvas.Left="183" Canvas.Top="274" 
+            Visibility="Hidden" Canvas.Left="183" Canvas.Top="274" 
             />
 
 

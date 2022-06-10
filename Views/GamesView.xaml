@@ -1,0 +1,77 @@
+﻿<Page x:Class="Tadar.Views.GamesView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:Tadar.Views"
+      mc:Ignorable="d" 
+       d:DesignHeight="700" d:DesignWidth="900"
+      Title="GamesView">
+
+    <Grid x:Name="gris_ent" Background="#FF6054D9" ShowGridLines="False" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+
+        </Grid.ColumnDefinitions>
+
+        <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
+             materialDesign:ButtonAssist.CornerRadius="25"
+               Height="65"
+                Click="Button_Click"
+                Grid.Column="0"
+                Grid.Row="1"
+                Content="Соберите человека"
+                HorizontalAlignment="Center" 
+                Width="400" FontSize="25" Cursor="Hand" 
+                Background="#FF698DE0"
+                
+                />
+        <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
+             materialDesign:ButtonAssist.CornerRadius="25" 
+               Height="65"
+                Click="Button_Click_1"
+                Grid.Column="0"
+                Grid.Row="2"
+                Content="Оденьте человека"
+                HorizontalAlignment="Center" 
+                Width="400" FontSize="25" Cursor="Hand" 
+                 Background="#FF698DE0"
+                />
+        <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
+             materialDesign:ButtonAssist.CornerRadius="25" 
+               Height="65"
+                Click="Button_Click_2"
+                Grid.Column="0"
+                Grid.Row="3"
+                Content="Огород"
+                HorizontalAlignment="Center" 
+                Width="400" FontSize="25" Cursor="Hand" 
+                 Background="#FF698DE0"
+                />
+        <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
+             materialDesign:ButtonAssist.CornerRadius="25" 
+               Height="65"
+                Click="Button_Click_3"
+                Grid.Column="0"
+                Grid.Row="4"
+                Content="Дом"
+                HorizontalAlignment="Center" 
+                Width="400" FontSize="25" Cursor="Hand" 
+                 Background="#FF698DE0"
+                />
+
+
+
+
+    </Grid>
+</Page>

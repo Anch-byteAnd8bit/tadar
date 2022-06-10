@@ -12,7 +12,7 @@
 
 
 
-    <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False" >
+    <Grid x:Name="gris_ent" Background="#FF698DE0" ShowGridLines="False" >
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="11*"></RowDefinition>
@@ -201,7 +201,7 @@
             Click="btn_Click"
             Grid.Row="2" Cursor="Hand"
             Width="150"
-            Height="40"
+            Height="40" Background="#FF3D64C2"
             HorizontalAlignment="Center" Margin="380,0,0,0"
             >
             Ввести
@@ -214,6 +214,7 @@
             Grid.Row="2" Cursor="Hand"
             Width="100"
             Height="40"
+            Background="#FF3D64C2"
             HorizontalAlignment="Left" Margin="789,30,0,30"
             >
             2 игра

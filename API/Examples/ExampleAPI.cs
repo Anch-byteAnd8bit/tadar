@@ -609,8 +609,8 @@ namespace nsAPI.Examples
         {
             Theory t = new Theory
             {
-                ID = "4",
-                id_Class = "17",
+                ID = "3",
+                id_Class = "8",
                 Topic = "QQQQQQ",
                 Content = "23f4334f34",
                 Source = null

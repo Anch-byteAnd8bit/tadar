@@ -62,7 +62,7 @@ namespace Tadar.Views
                     count++;
                     if (count == 10) MessageBox.Show("Вы одели человека!");
                     break;
-                case "харах":
+                case "харах1":
                     lbl9.Visibility = Visibility.Hidden;
                     yey.Visibility = Visibility.Visible;
                     yey1.Visibility = Visibility.Visible;
@@ -79,7 +79,7 @@ namespace Tadar.Views
                     count++;
                     if (count == 10) MessageBox.Show("Вы одели человека!");
                     break;
-                case "мойын":
+                case "мойын1":
                     lbl10.Visibility = Visibility.Hidden;
                     wh.From = 0;
                     wh.To = 30;
@@ -93,7 +93,7 @@ namespace Tadar.Views
                     count++;
                     if (count == 10) MessageBox.Show("Вы одели человека!");
                     break;
-                case "кöгiс":
+                case "кöгiс1":
                     lbl4.Visibility = Visibility.Hidden;
                     wh.From = 0;
                     wh.To = 90;
@@ -107,14 +107,14 @@ namespace Tadar.Views
                     count++;
                     if (count == 10) MessageBox.Show("Вы одели человека!");
                     break;
-                case "ахсы":
+                case "ахсы1":
                     lbl15.Visibility = Visibility.Hidden;
                     mot.Visibility = Visibility.Visible;
                     count++;
                     if (count == 10) MessageBox.Show("Вы одели человека!");
 
                     break;
-                case "пурун":
+                case "пурун1":
                     lbl14.Visibility = Visibility.Hidden;
                     nos.Visibility = Visibility.Visible;
                     count++;
@@ -198,7 +198,7 @@ namespace Tadar.Views
 
 
 
-                case "хулах":
+                case "хулах1":
                     lbl16.Visibility = Visibility.Hidden;
                     uh1.Visibility = Visibility.Visible;
                     uh2.Visibility = Visibility.Visible;
