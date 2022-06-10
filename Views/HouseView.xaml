@@ -155,27 +155,27 @@
 
 
 
-            <Image Height="230" Width="200" Canvas.Top="180" 
-               Source="{Binding House}" Stretch="Fill" Canvas.Left="350"/>
+            <Image Height="230" Width="200" Canvas.Top="130" 
+               Source="{Binding House}" Stretch="Fill" Canvas.Left="352"/>
 
-            <Image Height="70" Width="70" Canvas.Top="220" 
+            <Image Height="70" Width="70" Canvas.Top="160" 
                Source="{Binding Win}" Stretch="Fill" Canvas.Left="360"/>
-            <Image Height="70" Width="70" Canvas.Top="220" 
+            <Image Height="70" Width="70" Canvas.Top="159" 
                Source="{Binding Win}" Stretch="Fill" Canvas.Left="470"/>
 
-            <Image Height="90" Width="90" Canvas.Top="320" 
-               Source="{Binding Door}" Stretch="Fill" Canvas.Left="338"/>
-            <Image Height="90" Width="90" Canvas.Top="402" 
-               Source="{Binding Stairs}" Stretch="Fill" Canvas.Left="329"/>
-            <Image Height="30" Width="30" Canvas.Top="360" 
-               Source="{Binding Pen}" Stretch="Fill" Canvas.Left="389"/>
+            <Image Height="90" Width="90" Canvas.Top="268" 
+               Source="{Binding Door}" Stretch="Fill" Canvas.Left="414"/>
+            <Image Height="140" Width="200" Canvas.Top="299" 
+               Source="{Binding Stairs}" Stretch="Fill" Canvas.Left="351"/>
+            <Image Height="30" Width="30" Canvas.Top="300" 
+               Source="{Binding Pen}" Stretch="Fill" Canvas.Left="445"/>
 
-            <Image Height="70" Width="70" Canvas.Top="216" 
+            <Image Height="70" Width="70" Canvas.Top="154" 
                Source="{Binding Curti}" Stretch="Fill" Canvas.Left="361"/>
-            <Image Height="70" Width="70" Canvas.Top="216" 
+            <Image Height="70" Width="70" Canvas.Top="156" 
                Source="{Binding Curti}" Stretch="Fill" Canvas.Left="466"/>
 
-            <Image Height="70" Width="200" Canvas.Top="122" 
+            <Image Height="70" Width="200" Canvas.Top="76" 
                Source="{Binding Hyrr}" Stretch="Fill" Canvas.Left="349"/>
 
         </Canvas>
