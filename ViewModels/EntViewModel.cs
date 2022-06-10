@@ -24,9 +24,16 @@ namespace Tadar.ViewModels
 
         private async void ppp()
         {
-            var s = await api.GetImageByAlias("pic0");
-            img = Other.StreamToImageSource(s);
-            OnPropertyChanged("Img");
+            var s = await api.GetImageByAlias("carrot");
+            if (s != null)
+            {
+                img = Other.StreamToImageSource(s);
+                OnPropertyChanged("Img");
+            }
+            else
+            {
+                Msg.Write(api.LastException.Message);
+            }
         }
 
         private UserForAuthorization userent;
