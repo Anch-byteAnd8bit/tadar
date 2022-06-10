@@ -66,23 +66,25 @@
             Grid.Row="1"
             >
             <StackPanel
-            Width="150"
-            Canvas.Left="1"
+            Width="155"
+            Canvas.Left="3"
             
             >
 
                 <Label 
-                
+                Visibility="{Binding Cucu}"
                 Name="lbl1" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2"
                    
                    MouseDown="lbl1_MouseDown"
                 
-                >пас</Label>
-                <Label Name="lbl2" Margin="10" Foreground="White"
+                >ӱгӱрсӱ</Label>
+                <Label
+                    Visibility="{Binding Goro}"
+                    Name="lbl2" Margin="10" Foreground="White"
                    FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">ағас</Label>
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">карох</Label>
                 <Label Name="lbl3" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">тура</Label>
@@ -90,62 +92,106 @@
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">кöгiс</Label>
 
-                <Label Name="lbl6" Margin="10" Foreground="White"
+                <Label
+                    Visibility="{Binding Toma}"
+                    Name="lbl6" Margin="10" Foreground="White"
                    FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">tomato</Label>
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">помидор</Label>
                 <Label Name="lbl7" Margin="10" Foreground="White"
                    FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">сас</Label>
-                <Label Name="lbl8" Margin="10" Foreground="White"
+                       Visibility="{Binding Ryab}"
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">мӱндӱргес</Label>
+                <Label 
+                    Visibility="{Binding Carr}"
+                    Name="lbl8" Margin="10" Foreground="White"
                    FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">carrot</Label>
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">моркоп</Label>
 
             </StackPanel>
 
 
             <StackPanel
            
-            Width="150"
-            Canvas.Right="1"
+            Width="190"
+            Canvas.Right="10"
             
             >
                 <Label Name="lbl9" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2"
-                   
-                   MouseDown="lbl1_MouseDown">харах</Label>
+                   Visibility="{Binding Oduv}"
+                   MouseDown="lbl1_MouseDown">пача</Label>
                 <Label Name="lbl10" Margin="10" Foreground="White"
                    FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">мойын</Label>
-                <Label Name="lbl11" Margin="10" Foreground="White"
+                    Visibility="{Binding Red}"
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">cалғынах</Label>
+                <Label
+                    Visibility="{Binding Oni}"
+                    Name="lbl11" Margin="10" Foreground="White"
                    FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">меспек</Label>
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">муксун</Label>
                 <Label Name="lbl13" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">хол</Label>
                 <Label Name="lbl14" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">пурун</Label>
-                <Label Name="lbl15" Margin="10" Foreground="White"
+                <Label 
+                    Visibility="{Binding Pota}"
+                          
+                    Name="lbl15" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">яблах</Label>
-                <Label Name="lbl16" Margin="10" Foreground="White"
+                <Label
+                    Width="164"
+                    Visibility="{Binding Appl}"
+                    Name="lbl16" Margin="10" Foreground="White"
                    FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">хулах</Label>
+               BorderBrush="LightBlue" 
+                    BorderThickness="2"
+                    MouseDown="lbl1_MouseDown">яблоко ағазы</Label>
 
             </StackPanel>
 
-            <Image Height="350" Canvas.Left="183" 
+            <Image Height="350" Canvas.Left="163" 
                    Stretch="Fill" Source="earth.tif"
                    Canvas.Top="123" Width="520"/>
 
-            <Image Height="70" Width="70" Canvas.Top="379" Canvas.Right="300"
-               Source="{Binding Carrot}" Stretch="Fill" Canvas.Left="624"/>
+            <Image Height="70" Width="70" Canvas.Top="387" Canvas.Right="300"
+               Source="{Binding Carrot}" Stretch="Fill" Canvas.Left="606"/>
 
             <Image Height="70" Width="70" Canvas.Top="389" Canvas.Right="400"
-               Source="{Binding Potato}" Stretch="Fill" Canvas.Left="533"/>
+               Source="{Binding Potato}" Stretch="Fill" Canvas.Left="515"/>
+            <Image Height="70" Width="70" Canvas.Top="263" Canvas.Right="400"
+               Source="{Binding Potato}" Stretch="Fill" Canvas.Left="509"/>
             <Image Height="70" Width="70" Canvas.Top="264" Canvas.Right="500"
-               Source="{Binding Tomato}" Stretch="Fill" Canvas.Left="200"/>
+               Source="{Binding Tomato}" Stretch="Fill" Canvas.Left="186"/>
+            <Image Height="70" Width="70" Canvas.Top="388" Canvas.Right="500"
+               Source="{Binding Tomato}" Stretch="Fill" Canvas.Left="402"/>
+            <Image Height="70" Width="70" Canvas.Top="388" Canvas.Right="500"
+               Source="{Binding Cucum}" Stretch="Fill" Canvas.Left="186"/>
+            <Image Height="70" Width="70" Canvas.Top="388" Canvas.Right="500"
+               Source="{Binding Onion}" Stretch="Fill" Canvas.Left="298"/>
+
+            <Image Height="70" Width="70" Canvas.Top="264" Canvas.Right="500"
+               Source="{Binding Gorok}" Stretch="Fill" Canvas.Left="298"/>
+
+            <Image Height="70" Width="70" Canvas.Top="140" Canvas.Right="500"
+               Source="{Binding Apple}" Stretch="Fill" Canvas.Left="180"/>
+
+            <Image Height="70" Width="70" Canvas.Top="141" Canvas.Right="500"
+               Source="{Binding Oduvan}" Stretch="Fill" Canvas.Left="282"/>
+            <Image Height="70" Width="70" Canvas.Top="140" Canvas.Right="500"
+               Source="{Binding Oduvan}" Stretch="Fill" Canvas.Left="499"/>
+            <Image Height="70" Width="70" Canvas.Top="265" Canvas.Right="500"
+               Source="{Binding Oduvan}" Stretch="Fill" Canvas.Left="401"/>
+            <Image Height="70" Width="70" Canvas.Top="140" Canvas.Right="500"
+               Source="{Binding Ryabi}" Stretch="Fill" Canvas.Left="392"/>
+
+            <Image Height="70" Width="70" Canvas.Top="262" Canvas.Right="500"
+               Source="{Binding Redis}" Stretch="Fill" Canvas.Left="602"/>
+            <Image Height="70" Width="70" Canvas.Top="140" Canvas.Right="500"
+               Source="{Binding Redis}" Stretch="Fill" Canvas.Left="601"/>
 
 
 

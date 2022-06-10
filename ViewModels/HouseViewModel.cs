@@ -12,19 +12,19 @@ namespace Tadar.ViewModels
 {
    public class HouseViewModel: BaseViewModel
     {
-        private bool visi;
+        private Visibility visi;
         public HouseViewModel()
         {
             api = API.Instance;
             //EntCommand = new Command(OnSave);
-            Vis = true;
+            //Vis = true;
             LoadClick = new Command(ppp);
         }
 
         
         public string word;
 
-        public bool Vis
+        public Visibility Vis
         {
             get { return visi; }
             private set
@@ -34,7 +34,7 @@ namespace Tadar.ViewModels
             }
         }
         
-        public bool Peni
+        public Visibility Peni
         {
             get { return visi; }
             private set
@@ -43,7 +43,7 @@ namespace Tadar.ViewModels
                 OnPropertyChanged("Peni");
             }
         }
-        public bool Sta
+        public Visibility Sta
         {
             get { return visi; }
             private set
@@ -54,7 +54,7 @@ namespace Tadar.ViewModels
         }
 
 
-        public bool Doori
+        public Visibility Doori
         {
             get { return visi; }
             private set
@@ -63,13 +63,23 @@ namespace Tadar.ViewModels
                 OnPropertyChanged("Doori");
             }
         }
-        public bool Wind
+        public Visibility Wind
         {
             get { return visi; }
             private set
             {
                 visi = value;
                 OnPropertyChanged("Wind");
+            }
+        }
+
+        public Visibility Curt
+        {
+            get { return visi; }
+            private set
+            {
+                visi = value;
+                OnPropertyChanged("Curt");
             }
         }
 
@@ -94,7 +104,7 @@ namespace Tadar.ViewModels
             {
                 switch (word)
                 {
-                    case "house":
+                    case "тура":
                         var s = await api.GetImageByAlias("house");
                         if (s != null)
                         {
@@ -102,11 +112,11 @@ namespace Tadar.ViewModels
                             OnPropertyChanged("House");
                             word = "";
                             OnPropertyChanged(nameof(Word));
-                            visi = false;
+                            visi = Visibility.Hidden;
                             OnPropertyChanged(nameof(Vis));
                         }
                         break;
-                    case "windows":
+                    case "кӧзенек":
                         var d = await api.GetImageByAlias("win");
                         if (d != null)
                         {
@@ -114,11 +124,11 @@ namespace Tadar.ViewModels
                             OnPropertyChanged("Win");
                             word = "";
                             OnPropertyChanged(nameof(Word));
-                            visi = false;
+                            visi = Visibility.Hidden;
                             OnPropertyChanged(nameof(Wind));
                         }
                         break;
-                    case "door":
+                    case "iзiк":
                         var t = await api.GetImageByAlias("door");
                         if (t != null)
                         {
@@ -126,11 +136,11 @@ namespace Tadar.ViewModels
                             OnPropertyChanged("Door");
                             word = "";
                             OnPropertyChanged(nameof(Word));
-                            visi = false;
+                            visi = Visibility.Hidden;
                             OnPropertyChanged(nameof(Doori));
                         }
                         break;
-                    case "stairs":
+                    case "пасхыс":
                         var tt = await api.GetImageByAlias("stairs");
                         if (tt != null)
                         {
@@ -138,11 +148,11 @@ namespace Tadar.ViewModels
                             OnPropertyChanged("Stairs");
                             word = "";
                             OnPropertyChanged(nameof(Word));
-                            visi = false;
+                            visi = Visibility.Hidden;
                             OnPropertyChanged(nameof(Sta));
                         }
                         break;
-                    case "pen":
+                    case "iзiк тудазы":
                         var ttt = await api.GetImageByAlias("pen");
                         if (ttt != null)
                         {
@@ -150,8 +160,20 @@ namespace Tadar.ViewModels
                             OnPropertyChanged("Pen");
                             word = "";
                             OnPropertyChanged(nameof(Word));
-                            visi = false;
+                            visi = Visibility.Hidden;
                             OnPropertyChanged(nameof(Peni));
+                        }
+                        break;
+                    case "кӧзеңе":
+                        var w1 = await api.GetImageByAlias("curtain");
+                        if (w1 != null)
+                        {
+                            img = Helpers.Other.StreamToImageSource(w1);
+                            OnPropertyChanged("Curti");
+                            word = "";
+                            OnPropertyChanged(nameof(Word));
+                            visi = Visibility.Hidden;
+                            OnPropertyChanged(nameof(Curt));
                         }
                         break;
 
@@ -186,6 +208,11 @@ namespace Tadar.ViewModels
             set { img = value; }
         }
         public ImageSource Win
+        {
+            get { return img; }
+            set { img = value; }
+        }
+        public ImageSource Curti
         {
             get { return img; }
             set { img = value; }

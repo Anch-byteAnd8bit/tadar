@@ -79,20 +79,20 @@
             >
 
                 <Label 
-                Visibility="{Binding Sta, Converter={StaticResource BoolToVisibilityConverter}}"
+                Visibility="{Binding Sta}"
                 Name="lbl1" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2"
                    
                    MouseDown="lbl1_MouseDown"
                 
-                >stairs</Label>
+                >пасхыс</Label>
                 <Label Name="lbl2" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">ағас</Label>
                 <Label Name="lbl3" Margin="10" Foreground="White"
                    FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">тура</Label>
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">туура</Label>
                 <Label Name="lbl4" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">кöгiс</Label>
@@ -101,10 +101,10 @@
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">tomato</Label>
                 <Label 
-                    Visibility="{Binding Vis, Converter={StaticResource BoolToVisibilityConverter}}"
+                    Visibility="{Binding Vis}"
                     Name="lbl7" Margin="10" Foreground="White"
                    FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">house</Label>
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">тура</Label>
                 <Label Name="lbl8" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">carrot</Label>
@@ -119,15 +119,17 @@
             
             >
                 <Label
-                    Visibility="{Binding Wind, Converter={StaticResource BoolToVisibilityConverter}}"
+                    Visibility="{Binding Wind}"
                     Name="lbl9" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2"
                    
-                   MouseDown="lbl1_MouseDown">windows</Label>
-                <Label Name="lbl10" Margin="10" Foreground="White"
+                   MouseDown="lbl1_MouseDown">кӧзенек</Label>
+                <Label
+                    Visibility="{Binding Curt}"
+                    Name="lbl10" Margin="10" Foreground="White"
                    FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">мойын</Label>
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">кӧзеңе</Label>
                 <Label Name="lbl11" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">меспек</Label>
@@ -135,18 +137,18 @@
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">хол</Label>
                 <Label 
-                    Visibility="{Binding Doori, Converter={StaticResource BoolToVisibilityConverter}}"
+                    Visibility="{Binding Doori}"
                     Name="lbl14" Margin="10" Foreground="White"
                    FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">door</Label>
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">iзiк</Label>
                 <Label Name="lbl15" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">яблах</Label>
                 <Label 
-                    Visibility="{Binding Peni, Converter={StaticResource BoolToVisibilityConverter}}"
+                    Visibility="{Binding Peni}"
                     Name="lbl16" Margin="10" Foreground="White"
                    FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">pen</Label>
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">iзiк тудазы</Label>
 
             </StackPanel>
 
@@ -166,6 +168,11 @@
                Source="{Binding Stairs}" Stretch="Fill" Canvas.Left="329"/>
             <Image Height="30" Width="30" Canvas.Top="360" 
                Source="{Binding Pen}" Stretch="Fill" Canvas.Left="389"/>
+
+            <Image Height="70" Width="70" Canvas.Top="216" 
+               Source="{Binding Curti}" Stretch="Fill" Canvas.Left="361"/>
+            <Image Height="70" Width="70" Canvas.Top="216" 
+               Source="{Binding Curti}" Stretch="Fill" Canvas.Left="466"/>
 
 
         </Canvas>
