@@ -107,7 +107,8 @@
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">тура</Label>
                 <Label Name="lbl8" Margin="10" Foreground="White"
                    FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">carrot</Label>
+                    Visibility="{Binding Hyr}"
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">хыр</Label>
 
             </StackPanel>
 
@@ -174,6 +175,8 @@
             <Image Height="70" Width="70" Canvas.Top="216" 
                Source="{Binding Curti}" Stretch="Fill" Canvas.Left="466"/>
 
+            <Image Height="70" Width="200" Canvas.Top="122" 
+               Source="{Binding Hyrr}" Stretch="Fill" Canvas.Left="349"/>
 
         </Canvas>
 

@@ -82,6 +82,15 @@ namespace Tadar.ViewModels
                 OnPropertyChanged("Curt");
             }
         }
+        public Visibility Hyr
+        {
+            get { return visi; }
+            private set
+            {
+                visi = value;
+                OnPropertyChanged("Hyr");
+            }
+        }
 
         public string Word
         {
@@ -176,6 +185,18 @@ namespace Tadar.ViewModels
                             OnPropertyChanged(nameof(Curt));
                         }
                         break;
+                    case "хыр":
+                        var w33 = await api.GetImageByAlias("hyr");
+                        if (w33 != null)
+                        {
+                            img = Helpers.Other.StreamToImageSource(w33);
+                            OnPropertyChanged("Hyrr");
+                            word = "";
+                            OnPropertyChanged(nameof(Word));
+                            visi = Visibility.Hidden;
+                            OnPropertyChanged(nameof(Hyr));
+                        }
+                        break;
 
 
                     default:
@@ -228,6 +249,11 @@ namespace Tadar.ViewModels
             set { img = value; }
         }
         public ImageSource Pen
+        {
+            get { return img; }
+            set { img = value; }
+        }
+        public ImageSource Hyrr
         {
             get { return img; }
             set { img = value; }
