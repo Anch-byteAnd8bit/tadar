@@ -12,6 +12,10 @@
       d:DesignHeight="700" d:DesignWidth="900"
       Title="HouseView">
 
+    <Page.Resources >
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Page.Resources>
+
     <Grid x:Name="gris_ent" Background="#FF698DE0" ShowGridLines="False" >
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
@@ -75,7 +79,7 @@
             >
 
                 <Label 
-                
+                Visibility="{Binding Sta, Converter={StaticResource BoolToVisibilityConverter}}"
                 Name="lbl1" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2"
@@ -96,7 +100,9 @@
                 <Label Name="lbl6" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">tomato</Label>
-                <Label Name="lbl7" Margin="10" Foreground="White"
+                <Label 
+                    Visibility="{Binding Vis, Converter={StaticResource BoolToVisibilityConverter}}"
+                    Name="lbl7" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">house</Label>
                 <Label Name="lbl8" Margin="10" Foreground="White"
@@ -112,7 +118,9 @@
             Canvas.Right="1"
             
             >
-                <Label Name="lbl9" Margin="10" Foreground="White"
+                <Label
+                    Visibility="{Binding Wind, Converter={StaticResource BoolToVisibilityConverter}}"
+                    Name="lbl9" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2"
                    
@@ -126,13 +134,17 @@
                 <Label Name="lbl13" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">хол</Label>
-                <Label Name="lbl14" Margin="10" Foreground="White"
+                <Label 
+                    Visibility="{Binding Doori, Converter={StaticResource BoolToVisibilityConverter}}"
+                    Name="lbl14" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">door</Label>
                 <Label Name="lbl15" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">яблах</Label>
-                <Label Name="lbl16" Margin="10" Foreground="White"
+                <Label 
+                    Visibility="{Binding Peni, Converter={StaticResource BoolToVisibilityConverter}}"
+                    Name="lbl16" Margin="10" Foreground="White"
                    FontSize="25"
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">pen</Label>
 
@@ -150,8 +162,8 @@
 
             <Image Height="90" Width="90" Canvas.Top="320" 
                Source="{Binding Door}" Stretch="Fill" Canvas.Left="338"/>
-            <Image Height="90" Width="90" Canvas.Top="400" 
-               Source="{Binding Stairs}" Stretch="Fill" Canvas.Left="267"/>
+            <Image Height="90" Width="90" Canvas.Top="402" 
+               Source="{Binding Stairs}" Stretch="Fill" Canvas.Left="329"/>
             <Image Height="30" Width="30" Canvas.Top="360" 
                Source="{Binding Pen}" Stretch="Fill" Canvas.Left="389"/>
 

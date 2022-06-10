@@ -12,16 +12,66 @@ namespace Tadar.ViewModels
 {
    public class HouseViewModel: BaseViewModel
     {
-
+        private bool visi;
         public HouseViewModel()
         {
             api = API.Instance;
             //EntCommand = new Command(OnSave);
+            Vis = true;
             LoadClick = new Command(ppp);
         }
 
-
+        
         public string word;
+
+        public bool Vis
+        {
+            get { return visi; }
+            private set
+            {
+                visi = value;
+                OnPropertyChanged("Vis");
+            }
+        }
+        
+        public bool Peni
+        {
+            get { return visi; }
+            private set
+            {
+                visi = value;
+                OnPropertyChanged("Peni");
+            }
+        }
+        public bool Sta
+        {
+            get { return visi; }
+            private set
+            {
+                visi = value;
+                OnPropertyChanged("Sta");
+            }
+        }
+
+
+        public bool Doori
+        {
+            get { return visi; }
+            private set
+            {
+                visi = value;
+                OnPropertyChanged("Doori");
+            }
+        }
+        public bool Wind
+        {
+            get { return visi; }
+            private set
+            {
+                visi = value;
+                OnPropertyChanged("Wind");
+            }
+        }
 
         public string Word
         {
@@ -52,6 +102,8 @@ namespace Tadar.ViewModels
                             OnPropertyChanged("House");
                             word = "";
                             OnPropertyChanged(nameof(Word));
+                            visi = false;
+                            OnPropertyChanged(nameof(Vis));
                         }
                         break;
                     case "windows":
@@ -62,6 +114,8 @@ namespace Tadar.ViewModels
                             OnPropertyChanged("Win");
                             word = "";
                             OnPropertyChanged(nameof(Word));
+                            visi = false;
+                            OnPropertyChanged(nameof(Wind));
                         }
                         break;
                     case "door":
@@ -72,6 +126,8 @@ namespace Tadar.ViewModels
                             OnPropertyChanged("Door");
                             word = "";
                             OnPropertyChanged(nameof(Word));
+                            visi = false;
+                            OnPropertyChanged(nameof(Doori));
                         }
                         break;
                     case "stairs":
@@ -82,6 +138,8 @@ namespace Tadar.ViewModels
                             OnPropertyChanged("Stairs");
                             word = "";
                             OnPropertyChanged(nameof(Word));
+                            visi = false;
+                            OnPropertyChanged(nameof(Sta));
                         }
                         break;
                     case "pen":
@@ -92,6 +150,8 @@ namespace Tadar.ViewModels
                             OnPropertyChanged("Pen");
                             word = "";
                             OnPropertyChanged(nameof(Word));
+                            visi = false;
+                            OnPropertyChanged(nameof(Peni));
                         }
                         break;
 

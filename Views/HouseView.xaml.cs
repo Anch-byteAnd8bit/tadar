@@ -33,9 +33,9 @@ namespace Tadar.Views
             Label lbl = (Label)sender;
             DragDrop.DoDragDrop(lbl, lbl, DragDropEffects.Move);
             DragDrop.DoDragDrop(lbl, lbl.Content, DragDropEffects.Copy);
-            if (lbl.Content.ToString()=="windows"|| lbl.Content.ToString() == "door" || lbl.Content.ToString() == "house" || lbl.Content.ToString() == "pen")
-            {
-                lbl.Visibility = Visibility.Hidden; }
+            //if (lbl.Content.ToString()=="windows"|| lbl.Content.ToString() == "door" || lbl.Content.ToString() == "house" || lbl.Content.ToString() == "pen")
+            //{
+            //    lbl.Visibility = Visibility.Hidden; }
         }
     }
 }
