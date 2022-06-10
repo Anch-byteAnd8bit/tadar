@@ -85,7 +85,7 @@ namespace nsAPI.Methods
             urlParams["secure_key"] = api_token;
             urlParams["refbook"] = refbook;
             // Шифруем всё!
-            names.ForEach(name => name = Encryption.AESHelper.EncryptString(name));
+            names.ForEach(name => name = Encryption.AESHelper.EncryptStringB64(name));
             // ВСЕГДА, ПРИ ОТПРАВКЕ POST-ЗАПРОСА, НАДО ДОБАВЛЯТЬ В КОНЦЕ АДРЕСА СЛЭШ!
 
             // Конвертируем объект в строку в формате JSON.

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Encryption;
+using System.IO;
 
 namespace nsAPI.Entities
 {
@@ -32,27 +33,58 @@ namespace nsAPI.Entities
         public string id_User { get; set; }
 
         /// <summary>
-        /// Шифрование.
+        /// Аудиофайл со звучанием слова на хакасском языке в формате ".wav".
+        /// </summary>
+        [JsonProperty("Content")]
+        public string Content { get; set; }
+        /// <summary>
+        /// Путь к аудиофайлу со звучанием слова.
+        /// </summary>
+        [JsonProperty("PathAudio")]
+        public string PathAudio { get; set; }
+
+        /// <summary>
+        /// Шифрование. Если задан путь к аудиоайлу, то шифруется и он в свойство "Content".
         /// </summary>
         public void Encrypte()
         {
-            ID = AESHelper.EncryptString(ID);
-            HakWord = AESHelper.EncryptString(HakWord);
-            RusWord = AESHelper.EncryptString(RusWord);
-            id_TypeWord = AESHelper.EncryptString(id_TypeWord);
-            id_User = AESHelper.EncryptString(id_User);
+            ID = AESHelper.EncryptStringB64(ID);
+            HakWord = AESHelper.EncryptStringB64(HakWord);
+            RusWord = AESHelper.EncryptStringB64(RusWord);
+            id_TypeWord = AESHelper.EncryptStringB64(id_TypeWord);
+            id_User = AESHelper.EncryptStringB64(id_User);
+
+            if (!string.IsNullOrWhiteSpace(PathAudio))
+            {
+                Content = AESHelper.EncryptFileToStringB64(PathAudio);
+            }
+            else
+            {
+                Content = null;
+            }
         }
 
+
         /// <summary>
-        /// Расшифровка.
+        /// Расшифровка. Если приходит файл, то он тоже расшифровыается, в PathToAudio записывается путь к этому файлу.
         /// </summary>
         public void Decrypte()
         {
-            ID = AESHelper.DecryptString(ID);
-            HakWord = AESHelper.DecryptString(HakWord);
-            RusWord = AESHelper.DecryptString(RusWord);
-            id_TypeWord = AESHelper.DecryptString(id_TypeWord);
-            id_User = AESHelper.DecryptString(id_User);
+            ID = AESHelper.DecryptStringB64(ID);
+            HakWord = AESHelper.DecryptStringB64(HakWord);
+            RusWord = AESHelper.DecryptStringB64(RusWord);
+            id_TypeWord = AESHelper.DecryptStringB64(id_TypeWord);
+            id_User = AESHelper.DecryptStringB64(id_User);
+            
+            if (!string.IsNullOrWhiteSpace(Content))
+            {
+                PathAudio = Path.GetTempPath() + "aud\\" + Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".wav";
+                AESHelper.DecryptStringB64ToFile(Content, PathAudio);
+            }
+            else
+            {
+                Content = null;
+            }
         }
 
         public static Word FromJson(string json)
