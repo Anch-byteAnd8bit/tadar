@@ -145,6 +145,8 @@ namespace Tadar.ViewModels
                             OnPropertyChanged(nameof(Word));
                             visi = Visibility.Hidden;
                             OnPropertyChanged(nameof(Vis));
+                            count++;
+                            if (count == 9) MessageBox.Show("Вы собрали дом!");
                         }
                         break;
                     case "кӧзенек":
@@ -157,6 +159,8 @@ namespace Tadar.ViewModels
                             OnPropertyChanged(nameof(Word));
                             visi = Visibility.Hidden;
                             OnPropertyChanged(nameof(Wind));
+                            count++;
+                            if (count == 9) MessageBox.Show("Вы собрали дом!");
                         }
                         break;
                     case "iзiк":
@@ -169,6 +173,8 @@ namespace Tadar.ViewModels
                             OnPropertyChanged(nameof(Word));
                             visi = Visibility.Hidden;
                             OnPropertyChanged(nameof(Doori));
+                            count++;
+                            if (count == 9) MessageBox.Show("Вы собрали дом!");
                         }
                         break;
                     case "пасхыс":
@@ -181,6 +187,8 @@ namespace Tadar.ViewModels
                             OnPropertyChanged(nameof(Word));
                             visi = Visibility.Hidden;
                             OnPropertyChanged(nameof(Sta));
+                            count++;
+                            if (count == 9) MessageBox.Show("Вы собрали дом!");
                         }
                         break;
                     case "iзiк тудазы":
@@ -193,6 +201,8 @@ namespace Tadar.ViewModels
                             OnPropertyChanged(nameof(Word));
                             visi = Visibility.Hidden;
                             OnPropertyChanged(nameof(Peni));
+                            count++;
+                            if (count == 9) MessageBox.Show("Вы собрали дом!");
                         }
                         break;
                     case "кӧзеңе":
@@ -205,6 +215,8 @@ namespace Tadar.ViewModels
                             OnPropertyChanged(nameof(Word));
                             visi = Visibility.Hidden;
                             OnPropertyChanged(nameof(Curt));
+                            count++;
+                            if (count == 9) MessageBox.Show("Вы собрали дом!");
                         }
                         break;
                     case "хыр":
@@ -217,6 +229,8 @@ namespace Tadar.ViewModels
                             OnPropertyChanged(nameof(Word));
                             visi = Visibility.Hidden;
                             OnPropertyChanged(nameof(Hyr));
+                            count++;
+                            if (count == 9) MessageBox.Show("Вы собрали дом!");
                         }
                         break;
                     case "сиден":
@@ -229,6 +243,8 @@ namespace Tadar.ViewModels
                             OnPropertyChanged(nameof(Word));
                             visi = Visibility.Hidden;
                             OnPropertyChanged(nameof(Fenc));
+                            count++;
+                            if (count == 9) MessageBox.Show("Вы собрали дом!");
                         }
                         break;
                     case "хаалха":
@@ -241,6 +257,8 @@ namespace Tadar.ViewModels
                             OnPropertyChanged(nameof(Word));
                             visi = Visibility.Hidden;
                             OnPropertyChanged(nameof(Gat));
+                            count++;
+                            if (count == 9) MessageBox.Show("Вы собрали дом!");
                         }
                         break;
 
