@@ -34,8 +34,27 @@
             Style="{StaticResource MaterialDesignHeadline4TextBlock}"
             Foreground="White"
             >
-           Собери огород
+           Собери дом
         </TextBlock>
+        <TextBlock
+            Grid.Row="0"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Right"
+            Style="{StaticResource MaterialDesignBody1TextBlock}"
+            Foreground="White" Margin="0,0,10,0"
+            >
+            источник картинок
+        </TextBlock>
+        <TextBlock
+            Grid.Row="0"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Right"
+            Style="{StaticResource MaterialDesignBody1TextBlock}"
+            Foreground="White"
+            >
+             <Hyperlink Foreground="White" Click="hyperlink_Click">https://www.flaticon.com/ru/</Hyperlink>
+        </TextBlock>
+
 
         <TextBox 
             x:Name="txtbox"

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,7 +39,11 @@ namespace Tadar.Views
             DragDrop.DoDragDrop(lbl, lbl.Content, DragDropEffects.Copy);
         }
 
-
+        void hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            //  Process.Start("https://www.flaticon.com/ru/"); //открытие ссылки в браузере
+            Process.Start(new ProcessStartInfo("https://www.flaticon.com/ru/") { UseShellExecute = true });
+        }
 
         //private void btn_Click(object sender, RoutedEventArgs e)
         //{
