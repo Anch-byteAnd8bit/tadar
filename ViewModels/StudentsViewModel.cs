@@ -14,13 +14,15 @@ namespace Tadar.ViewModels
     public class StudentsViewModel : BaseViewModel
     {
         private List<RegisteredUser> classroomsusers = new List<RegisteredUser>();
-        private RegisteredClassroom cls;
+        private RegisteredUser std;
+        private string icl;
 
         public StudentsViewModel(string iclass)
         {
 
             LoadClassAsync(iclass);
-            //EnterClick = new Command(Enter_Click);
+            icl = iclass;
+            EnterClick = new Command(Enter_Click);
             BackClick = new Command(Back_Click);
         }
         private void Back_Click(object ob)
@@ -68,19 +70,17 @@ namespace Tadar.ViewModels
             }
         }
 
-        //public Command EnterClick { get; }
-        //private async void Enter_Click(object ob)
-        //{
+        public Command EnterClick { get; }
+        private void Enter_Click(object ob)
+        {
 
-        //    cls = new RegisteredClassroom();
-        //    cls = (RegisteredClassroom)ob;
-        //    string iclass = cls.ID;
-        //    await api.AddStudent(api.MainUser.ID.ToString(), iclass);
-        //    OnPropertyChanged(nameof(Classrooms));
-        //    MessageBox.Show(api.MainUser.Name.ToString() + " в классе " + cls.Name.ToString());
-        //    First.Base_frame.Navigate(new MenuPage());
+            std = new RegisteredUser();
+            std = (RegisteredUser)ob;
+            // string iclass = cls.ID;
+            string istud = std.ID;
+            First.Base_frame.Navigate(new StudMarksPage(icl, istud));
 
-        //}
+        }
 
 
 

@@ -57,7 +57,7 @@ namespace Tadar.ViewModels
         }
 
         public Command EnterClick { get; }
-        private async void Enter_Click(object ob)
+        private void Enter_Click(object ob)
         {
 
             cls = new RegisteredClassroom();

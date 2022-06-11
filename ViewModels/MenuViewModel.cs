@@ -231,6 +231,8 @@ namespace Tadar.ViewModels
         //    fullname = api.MainUser.Surname.ToString() +
         //    api.MainUser.Name.ToString() + 
         //    api.MainUser.Middlename.ToString();
+
+        private string fullname;
         public string Fullname
         {
             // Когда надо вернуть фамилию.
@@ -241,7 +243,7 @@ namespace Tadar.ViewModels
             set
             {
                 // Присваиваем новое значение фамилии.
-                Fullname = value;
+                fullname = value;
                 // Уведомляем форму, что свойство "Surname" изменилось.
                 OnPropertyChanged(nameof(Fullname));
             }

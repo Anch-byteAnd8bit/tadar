@@ -15,7 +15,7 @@
 
     <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False" Height="700" VerticalAlignment="Bottom">
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
             <RowDefinition Height="25*" ></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
 
@@ -28,10 +28,10 @@
         
         <TextBlock Grid.Row="0"
                    Grid.Column="1"
-                   VerticalAlignment="Center" 
+                   VerticalAlignment="Bottom" 
                    Text="Мои классы" 
                    Foreground="White"
-                   FontSize="24" 
+                   FontSize="22" 
                    TextAlignment="Center" 
                    FontWeight="Bold"
                   />
