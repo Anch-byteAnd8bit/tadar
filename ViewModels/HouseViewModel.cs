@@ -12,6 +12,8 @@ namespace Tadar.ViewModels
 {
    public class HouseViewModel: BaseViewModel
     {
+
+        private int count = 0;
         private Visibility visi;
         public HouseViewModel()
         {
@@ -89,6 +91,26 @@ namespace Tadar.ViewModels
             {
                 visi = value;
                 OnPropertyChanged("Hyr");
+            }
+        }
+
+        public Visibility Fenc
+        {
+            get { return visi; }
+            private set
+            {
+                visi = value;
+                OnPropertyChanged("Fenc");
+            }
+        }
+
+        public Visibility Gat
+        {
+            get { return visi; }
+            private set
+            {
+                visi = value;
+                OnPropertyChanged("Fenc");
             }
         }
 
@@ -197,6 +219,31 @@ namespace Tadar.ViewModels
                             OnPropertyChanged(nameof(Hyr));
                         }
                         break;
+                    case "сиден":
+                        var w4 = await api.GetImageByAlias("fence");
+                        if (w4 != null)
+                        {
+                            img = Helpers.Other.StreamToImageSource(w4);
+                            OnPropertyChanged("Fence");
+                            word = "";
+                            OnPropertyChanged(nameof(Word));
+                            visi = Visibility.Hidden;
+                            OnPropertyChanged(nameof(Fenc));
+                        }
+                        break;
+                    case "хаалха":
+                        var w44 = await api.GetImageByAlias("gate");
+                        if (w44 != null)
+                        {
+                            img = Helpers.Other.StreamToImageSource(w44);
+                            OnPropertyChanged("Gate");
+                            word = "";
+                            OnPropertyChanged(nameof(Word));
+                            visi = Visibility.Hidden;
+                            OnPropertyChanged(nameof(Gat));
+                        }
+                        break;
+
 
 
                     default:
@@ -254,6 +301,16 @@ namespace Tadar.ViewModels
             set { img = value; }
         }
         public ImageSource Hyrr
+        {
+            get { return img; }
+            set { img = value; }
+        }
+        public ImageSource Fence
+        {
+            get { return img; }
+            set { img = value; }
+        }
+        public ImageSource Gate
         {
             get { return img; }
             set { img = value; }

@@ -70,7 +70,7 @@
         <Canvas
            
             x:Name="canvas"
-            Grid.Row="1"
+            Grid.Row="1" Margin="-2,0,2,0"
             >
             <StackPanel
             Width="150"
@@ -99,7 +99,8 @@
 
                 <Label Name="lbl6" Margin="10" Foreground="White"
                    FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">tomato</Label>
+                       Visibility="{Binding Fenc}"
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">сиден</Label>
                 <Label 
                     Visibility="{Binding Vis}"
                     Name="lbl7" Margin="10" Foreground="White"
@@ -136,7 +137,8 @@
                BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">меспек</Label>
                 <Label Name="lbl13" Margin="10" Foreground="White"
                    FontSize="25"
-               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">хол</Label>
+                       Visibility="{Binding Gat}"
+               BorderBrush="LightBlue" BorderThickness="2" MouseDown="lbl1_MouseDown">хаалха</Label>
                 <Label 
                     Visibility="{Binding Doori}"
                     Name="lbl14" Margin="10" Foreground="White"
@@ -155,29 +157,36 @@
 
 
 
-            <Image Height="230" Width="200" Canvas.Top="130" 
-               Source="{Binding House}" Stretch="Fill" Canvas.Left="352"/>
+            <Image Height="230" Width="200" Canvas.Top="120" 
+               Source="{Binding House}" Stretch="Fill" Canvas.Left="332"/>
 
-            <Image Height="70" Width="70" Canvas.Top="160" 
-               Source="{Binding Win}" Stretch="Fill" Canvas.Left="360"/>
-            <Image Height="70" Width="70" Canvas.Top="159" 
-               Source="{Binding Win}" Stretch="Fill" Canvas.Left="470"/>
+            <Image Height="70" Width="70" Canvas.Top="147" 
+               Source="{Binding Win}" Stretch="Fill" Canvas.Left="346"/>
+            <Image Height="70" Width="70" Canvas.Top="149" 
+               Source="{Binding Win}" Stretch="Fill" Canvas.Left="452"/>
 
-            <Image Height="90" Width="90" Canvas.Top="268" 
-               Source="{Binding Door}" Stretch="Fill" Canvas.Left="414"/>
-            <Image Height="140" Width="200" Canvas.Top="299" 
-               Source="{Binding Stairs}" Stretch="Fill" Canvas.Left="351"/>
-            <Image Height="30" Width="30" Canvas.Top="300" 
-               Source="{Binding Pen}" Stretch="Fill" Canvas.Left="445"/>
+            <Image Height="90" Width="90" Canvas.Top="258" 
+               Source="{Binding Door}" Stretch="Fill" Canvas.Left="392"/>
+            <Image Height="140" Width="204" Canvas.Top="287" 
+               Source="{Binding Stairs}" Stretch="Fill" Canvas.Left="329"/>
+            <Image Height="30" Width="30" Canvas.Top="288" 
+               Source="{Binding Pen}" Stretch="Fill" Canvas.Left="431"/>
 
-            <Image Height="70" Width="70" Canvas.Top="154" 
-               Source="{Binding Curti}" Stretch="Fill" Canvas.Left="361"/>
-            <Image Height="70" Width="70" Canvas.Top="156" 
-               Source="{Binding Curti}" Stretch="Fill" Canvas.Left="466"/>
+            <Image Height="70" Width="70" Canvas.Top="144" 
+               Source="{Binding Curti}" Stretch="Fill" Canvas.Left="347"/>
+            <Image Height="70" Width="70" Canvas.Top="138" 
+               Source="{Binding Curti}" Stretch="Fill" Canvas.Left="452"/>
 
-            <Image Height="70" Width="200" Canvas.Top="76" 
-               Source="{Binding Hyrr}" Stretch="Fill" Canvas.Left="349"/>
+            <Image Height="70" Width="210" Canvas.Top="66" 
+               Source="{Binding Hyrr}" Stretch="Fill" Canvas.Left="327"/>
 
+            <Image Height="70" Width="210" Canvas.Top="442" 
+               Source="{Binding Fence}" Stretch="Fill" Canvas.Left="491"/>
+            <Image Height="70" Width="210" Canvas.Top="444" 
+               Source="{Binding Fence}" Stretch="Fill" Canvas.Left="186"/>
+
+            <Image Height="70" Width="150" Canvas.Top="442" 
+               Source="{Binding Gate}" Stretch="Fill" Canvas.Left="370"/>
         </Canvas>
 
 
