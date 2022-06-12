@@ -15,9 +15,9 @@
 
     <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False" Height="700" VerticalAlignment="Bottom">
         <Grid.RowDefinitions>
-            <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
             <RowDefinition Height="25*" ></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -25,6 +25,17 @@
             <ColumnDefinition Width="20*"></ColumnDefinition>
             <ColumnDefinition Width="5*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        
+         <Button x:Name="back_but"
+                Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                Content="{materialDesign:PackIcon Kind=Home}"
+                
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Command="{Binding BackClick}"
+                Grid.Column="0"
+                FontSize="20"
+                Width="50" Cursor="Hand"/>
         
         <TextBlock Grid.Row="0"
                    Grid.Column="1"

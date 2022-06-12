@@ -114,7 +114,7 @@ namespace Tadar.ViewModels
             text = new TextWork();
             text.WorkHeader = (WorkHeader)ob;
             text.WorkBody = works.TextWorks.SingleOrDefault(w => w.WorkHeader == text.WorkHeader).WorkBody;
-            First.Base_frame.Navigate(new PerfomingWorkPage(text));
+            First.Base_frame.Navigate(new ListStudTextPage(text));
 
         }
         public Command TextClick

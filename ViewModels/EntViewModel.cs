@@ -19,22 +19,22 @@ namespace Tadar.ViewModels
             api = API.Instance;
             userent = new UserForAuthorization();
             EntCommand = new Command(OnSave);
-            ppp();
+           // ppp();
         }
 
-        private async void ppp()
-        {
-            var s = await api.GetImageByAlias("carrot");
-            if (s != null)
-            {
-                img = Other.StreamToImageSource(s);
-                OnPropertyChanged("Img");
-            }
-            else
-            {
-                Msg.Write(api.LastException.Message);
-            }
-        }
+        //private async void ppp()
+        //{
+        //    var s = await api.GetImageByAlias("carrot");
+        //    if (s != null)
+        //    {
+        //        img = Other.StreamToImageSource(s);
+        //        OnPropertyChanged("Img");
+        //    }
+        //    else
+        //    {
+        //        Msg.Write(api.LastException.Message);
+        //    }
+        //}
 
         private UserForAuthorization userent;
         public Command EntCommand { get; set; }
@@ -52,13 +52,13 @@ namespace Tadar.ViewModels
             }
         }
 
-        private ImageSource img;
+        //private ImageSource img;
 
-        public ImageSource Img
-        {
-            get { return img; }
-            set { img = value; }
-        }
+        //public ImageSource Img
+        //{
+        //    get { return img; }
+        //    set { img = value; }
+        //}
 
 
         public void OnSave(object PassElem)

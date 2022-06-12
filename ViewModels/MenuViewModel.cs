@@ -39,6 +39,19 @@ namespace Tadar.ViewModels
             TheClick = new Command(The_Click);
             // Ассинхронная загрузка списка классов.
             LoadClasssAsync();
+            BackClick = new Command(Back_Click);
+        }
+
+        private void Back_Click(object ob)
+        {
+            api.LogOut();
+            First.Base_frame.Navigate(new FirstPage());
+
+        }
+        public Command BackClick
+        {
+            get;
+            set;
         }
 
         public async void LoadClasssAsync()

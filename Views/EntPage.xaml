@@ -68,9 +68,7 @@
                 HorizontalAlignment="Center" 
                 Width="300" FontSize="24" Height="45"  
                 />
-        <Image Height="48" Margin="122,0,122,0" Grid.Row="5" VerticalAlignment="Center" Grid.Column="1"
-               
-               Source="{Binding Img}" Stretch="Fill"/>
+       
 
 
 
