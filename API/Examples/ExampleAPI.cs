@@ -477,7 +477,7 @@ namespace nsAPI.Examples
         public async Task GetListUserWords()
         {
             SettingsFind set = new SettingsFind { Shift = 0, Count = 5 };
-            List<Word> words = await api.GetUserWords("1", set);
+            List<Word> words = await api.GetUserWordsAsync("1", set);
             Msg.Write(string.Join(" ", words.Select(word => word.RusWord)));
         }
          
@@ -487,7 +487,7 @@ namespace nsAPI.Examples
         public async Task GetListCommonWords()
         {
             SettingsFind set = new SettingsFind { Shift = 0, Count = 5 };
-            List<Word> words = await api.GetCommonWords(set);
+            List<Word> words = await api.GetCommonWordsAsync(set);
             Msg.Write(string.Join(" ", words.Select(word => word.RusWord)));
         }
 
@@ -497,7 +497,7 @@ namespace nsAPI.Examples
         public async Task GetListCombiWords()
         {
             SettingsFind set = new SettingsFind { Shift = 0, Count = 5 };
-            List<Word> words = await api.GetCombiWords("3", set);
+            List<Word> words = await api.GetCombiWordsAsync("3", set);
             Msg.Write(string.Join(" ", words.Select(word => word.RusWord)));
         }
 

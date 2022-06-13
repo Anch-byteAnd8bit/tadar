@@ -473,7 +473,7 @@ namespace nsAPI.Entities
     /// <summary>
     /// Заголовок работы.
     /// </summary>
-    public partial class WorkHeader
+    public partial class WorkHeader : IEquatable<WorkHeader>
     {
         [JsonProperty("ID")]
         public string ID { get; set; }
@@ -553,6 +553,50 @@ namespace nsAPI.Entities
             Description = Encryption.AESHelper.EncryptStringB64(Description);
             DateTimeStart = Encryption.AESHelper.EncryptStringB64(DateTimeStart);
             MaxDuration = Encryption.AESHelper.EncryptStringB64(MaxDuration);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as WorkHeader);
+        }
+
+        public bool Equals(WorkHeader other)
+        {
+            return !(other is null) &&
+                   ID == other.ID &&
+                   id_Class == other.id_Class &&
+                   DateTimeCreate == other.DateTimeCreate &&
+                   id_TypeWork == other.id_TypeWork &&
+                   IsNonMark == other.IsNonMark &&
+                   Name == other.Name &&
+                   Description == other.Description &&
+                   DateTimeStart == other.DateTimeStart &&
+                   MaxDuration == other.MaxDuration;
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 1615881532;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ID);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(id_Class);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(DateTimeCreate);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(id_TypeWork);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(IsNonMark);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Description);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(DateTimeStart);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(MaxDuration);
+            return hashCode;
+        }
+
+        public static bool operator ==(WorkHeader left, WorkHeader right)
+        {
+            return EqualityComparer<WorkHeader>.Default.Equals(left, right);
+        }
+
+        public static bool operator !=(WorkHeader left, WorkHeader right)
+        {
+            return !(left == right);
         }
     }
 

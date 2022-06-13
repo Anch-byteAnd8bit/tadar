@@ -9,7 +9,7 @@ using System.IO;
 
 namespace nsAPI.Entities
 {
-    public class Word
+    public class Word : ICloneable
     {
         [JsonProperty("ID")]
         public string ID { get; set; }
@@ -44,9 +44,9 @@ namespace nsAPI.Entities
         public string PathAudio { get; set; }
 
         /// <summary>
-        /// Шифрование. Если задан путь к аудиоайлу, то шифруется и он в свойство "Content".
+        /// Шифрование. Если задан путь к аудиоайлу, то он сериализуется в свойство "Content".
         /// </summary>
-        public void Encrypte()
+        public void EncrypteAndSerializeContent()
         {
             ID = AESHelper.EncryptStringB64(ID);
             HakWord = AESHelper.EncryptStringB64(HakWord);
@@ -54,9 +54,37 @@ namespace nsAPI.Entities
             id_TypeWord = AESHelper.EncryptStringB64(id_TypeWord);
             id_User = AESHelper.EncryptStringB64(id_User);
 
+            SerializeContent();
+        }
+
+        /// <summary>
+        /// Расшифровка. Если приходит файл, то он тоже расшифровыается, в PathToAudio записывается путь к этому файлу.
+        /// </summary>
+        public void DecrypteAndDeserializeContent()
+        {
+            ID = AESHelper.DecryptStringB64(ID);
+            HakWord = AESHelper.DecryptStringB64(HakWord);
+            RusWord = AESHelper.DecryptStringB64(RusWord);
+            id_TypeWord = AESHelper.DecryptStringB64(id_TypeWord);
+            id_User = AESHelper.DecryptStringB64(id_User);
+
+            DeserializeContent();
+        }
+
+        public void SerializeContent()
+        {
             if (!string.IsNullOrWhiteSpace(PathAudio))
             {
-                Content = AESHelper.EncryptFileToStringB64(PathAudio);
+                // Для работы TripleDES требуется вектор инициализации (IV) и ключ (Key)
+                // Операции шифрования/деширования должны использовать одинаковые значения IV и Key
+                using (var inputStream = File.OpenRead(PathAudio))
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    ms.SetLength(0);
+                    inputStream.CopyTo(ms);
+                    Content = Convert.ToBase64String(ms.ToArray());
+                }
+                PathAudio = null;
             }
             else
             {
@@ -64,22 +92,19 @@ namespace nsAPI.Entities
             }
         }
 
-
-        /// <summary>
-        /// Расшифровка. Если приходит файл, то он тоже расшифровыается, в PathToAudio записывается путь к этому файлу.
-        /// </summary>
-        public void Decrypte()
+        public void DeserializeContent()
         {
-            ID = AESHelper.DecryptStringB64(ID);
-            HakWord = AESHelper.DecryptStringB64(HakWord);
-            RusWord = AESHelper.DecryptStringB64(RusWord);
-            id_TypeWord = AESHelper.DecryptStringB64(id_TypeWord);
-            id_User = AESHelper.DecryptStringB64(id_User);
-            
             if (!string.IsNullOrWhiteSpace(Content))
             {
                 PathAudio = Path.GetTempPath() + "aud\\" + Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".wav";
-                AESHelper.DecryptStringB64ToFile(Content, PathAudio);
+                byte[] encryptedByte = Convert.FromBase64String(Content);
+                using (var inputStream = new MemoryStream(encryptedByte))
+                using (var outputStream = new FileStream(PathAudio, FileMode.Create, FileAccess.Write))
+                {
+                    inputStream.CopyTo(outputStream);
+                }
+                var exs = File.Exists(PathAudio);
+                Content = null;
             }
             else
             {
@@ -96,6 +121,24 @@ namespace nsAPI.Entities
         public string ToJson()
         {
             return JsonConvert.SerializeObject(this, Converter.Settings);
+        }
+
+        public Word GetClone()
+        {
+            return (Word)this.Clone();
+        }
+
+        public object Clone()
+        {
+            Word clone = new Word();
+            clone.ID = ID;
+            clone.HakWord = HakWord;
+            clone.RusWord = RusWord;
+            clone.id_TypeWord = id_TypeWord;
+            clone.id_User = id_User;
+            clone.Content = Content;
+            clone.PathAudio = PathAudio;
+            return clone;
         }
     }
 }

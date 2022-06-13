@@ -16,9 +16,7 @@ namespace Tadar.ViewModels
         Word word = new Word();
         public AddWordViewModel()
         {
-            //api.MainUser.Name
             AddClick = new Command(Add_Click);
-            //DelClick = new Command(Del_Click);
 
             //LoadDictAsync();
 
@@ -29,7 +27,7 @@ namespace Tadar.ViewModels
             };
             // Genders = api.Refbooks[TRefbooks.Genders];
             // Получаем список полов от сервера.
-            GettingGenders();
+            GettingTypesWords();
         }
 
         private List<Refbook> parts;
@@ -53,8 +51,8 @@ namespace Tadar.ViewModels
         {
             get
             {
-                // Ищем в списке полов, объект, у которого свойства ID совпдает с
-                // со свйоством GenderID у регистрируемого пользователя.
+                // Ищем в списке типов слов, объект, у которого свойства ID совпдает с
+                // со свйоством id_TypeWord.
                 // Если такой элемент в списке не найден, то возвращаем первый элемент
                 // из списка.
                 return
@@ -62,13 +60,13 @@ namespace Tadar.ViewModels
             }
             set
             {
-                // Если есть элемент в списке полов, который равен задавемому элементу...
+                // Если есть элемент в списке, который равен задавемому элементу...
                 if (Parts.Exists(el => el == value))
                 {
-                    // ...присваиваем его ID полу регистрируемого пользователя.
+                    // ...присваиваем его ID .
                     word.id_TypeWord = value.ID;
                 }
-                // Иначе, полу регистрируемого пользователя
+                // Иначе, 
                 // присваиваем ID первого элемент списка.
                 else word.id_TypeWord = Parts[0].ID;
                 // Уведомляем интфрейс о том, что это свйоство было изменено.
@@ -76,7 +74,7 @@ namespace Tadar.ViewModels
             }
         }
 
-        private async void GettingGenders()
+        private async void GettingTypesWords()
         {
             Parts = await api.GetTypeWordsAsync();
         }

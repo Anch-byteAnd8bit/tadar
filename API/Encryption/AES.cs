@@ -1,5 +1,8 @@
-﻿using System;
+﻿using nsAPI.Helpers;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
@@ -146,6 +149,10 @@ namespace Encryption
                 }
             }
         }
+
+
+
+
 
         /// <summary>
         /// Шифрует указанный файл алгоритмом AES и конвертирует его в строку формата Base64.

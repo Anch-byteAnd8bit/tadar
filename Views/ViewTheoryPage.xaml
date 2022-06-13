@@ -54,6 +54,7 @@
             Grid.Column="1"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
+            
             Foreground="Black"
             TextWrapping="Wrap"
             IsReadOnly="True"

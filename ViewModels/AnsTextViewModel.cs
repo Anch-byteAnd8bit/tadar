@@ -103,48 +103,8 @@ namespace Tadar.ViewModels
                     {
                         AnsAndWork anss = new AnsAndWork();
 
-                        anss.NumTask = work.WorkBody[i].NumTask;
-                        anss.Word = work.WorkBody[i].Word;
-                        anss.AnsRightid = work.WorkBody[i].RightNum;
-                        switch (anss.AnsRightid)
-                        {
-                            case "1":
-                                anss.AnsRight = work.WorkBody[i].PossibleAnsw1;
-                                break;
-                            case "2":
-                                anss.AnsRight = work.WorkBody[i].PossibleAnsw2;
-                                break;
-                            case "3":
-                                anss.AnsRight = work.WorkBody[i].PossibleAnsw3;
-                                break;
-                            case "4":
-                                anss.AnsRight = work.WorkBody[i].PossibleAnsw4;
-                                break;
-                            default:
-                                break;
-                        }
-
-                        anss.AnsStudid = myanswer.AnswerBody[i].num_Answ;
-                        switch (anss.AnsStudid)
-                        {
-                            case "0":
-                                anss.AnsStud = null;
-                                break;
-                            case "1":
-                                anss.AnsStud = work.WorkBody[i].PossibleAnsw1;
-                                break;
-                            case "2":
-                                anss.AnsStud = work.WorkBody[i].PossibleAnsw2;
-                                break;
-                            case "3":
-                                anss.AnsStud = work.WorkBody[i].PossibleAnsw3;
-                                break;
-                            case "4":
-                                anss.AnsStud = work.WorkBody[i].PossibleAnsw4;
-                                break;
-                            default:
-                                break;
-                        }
+                        anss.Word = work.WorkBody[i].TaskText;
+                        anss.AnsStud = myanswer.AnswerBody[i].AnswText;
                         ansandwork.Add(anss);
                         OnPropertyChanged(nameof(AnswersList));
                     }

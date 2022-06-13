@@ -50,7 +50,8 @@ namespace nsAPI
         private readonly MTheories theories;
         private readonly MAnswers answers;
         private readonly MDict dict;
-        private readonly MPic pic;
+        private readonly MPic pic; 
+        private readonly MServices services;
         /// <summary>
         /// Ключ доступа к API.
         /// </summary>
@@ -106,6 +107,9 @@ namespace nsAPI
             dict = new MDict();
             // Для работы с изображениями.
             pic = new MPic();
+            // Для работы со служебными методами.
+            services = new MServices();
+
             if (File.Exists(pathAccessToken))
             {
                 // Если возможно, то загружаем данные пользователя из файла.
@@ -159,6 +163,8 @@ namespace nsAPI
             dict = new MDict();
             // Для работы с изображениями.
             pic = new MPic();
+            // Для работы со служебными методами.
+            services = new MServices();
             //
             if (loadRefbooks) LoadRefBooks(OnLoaded);
             // Если возможно, то загружаем данные пользователя из файла.
@@ -1166,7 +1172,7 @@ namespace nsAPI
         /// <param name="id_User">Идентификатор пользовтаеля.</param>
         /// <param name="settingsFind">Настройки отбора. Можно не задвать.</param>
         /// <returns>Список слов из пользователского словаря.</returns>
-        public async Task<List<Word>> GetUserWords(string id_User, SettingsFind settingsFind = null)
+        public async Task<List<Word>> GetUserWordsAsync(string id_User, SettingsFind settingsFind = null)
         {
             var d = await dict.GetUserAsync(Access_Token, id_User, settingsFind);
             if (d == null)
@@ -1182,7 +1188,7 @@ namespace nsAPI
         /// </summary>
         /// <param name="settingsFind">Настройки отбора. Можно не задвать.</param>
         /// <returns>Список слов, не принадлежащих пользотваелям.</returns>
-        public async Task<List<Word>> GetCommonWords(SettingsFind settingsFind = null)
+        public async Task<List<Word>> GetCommonWordsAsync(SettingsFind settingsFind = null)
         {
             var d = await dict.GetCommonAsync(Access_Token, settingsFind);
             if (d == null)
@@ -1198,7 +1204,7 @@ namespace nsAPI
         /// <param name="id_User">Идентификатор пользовтаеля.</param>
         /// <param name="settingsFind">Настройки отбора. Можно не задвать.</param>
         /// <returns>Список слов пользователя и слов из общего словаря.</returns>
-        public async Task<List<Word>> GetCombiWords(string id_User, SettingsFind settingsFind = null) {
+        public async Task<List<Word>> GetCombiWordsAsync(string id_User, SettingsFind settingsFind = null) {
             var d = await dict.GetCombinedAsync(Access_Token, id_User, settingsFind);
             if (d == null)
             {
@@ -1243,7 +1249,7 @@ namespace nsAPI
         /// </summary>
         /// <param name="ID">Идентификатор слова</param>
         /// <returns>Слово типа Word, в свойстве "PathAudio" которого, указан путь к аудиофайлу.</returns>
-        public async Task<Word> GetAudioOfWord(string ID)
+        public async Task<Word> GetAudioOfWordAsync(string ID)
         {
             var d = await dict.GetAudioByIDAsync(Access_Token, ID);
             if (d == null)
@@ -1267,9 +1273,49 @@ namespace nsAPI
         //    }
         //    return d;
         //}
+
+        /// <summary>
+        /// Удаляет слово по заданному ID.
+        /// </summary>
+        /// <param name="ID">ID слова.</param>
+        /// <returns>True - если операция выполнена успешно.</returns>
+        public async Task<bool> DelWordAsync(string ID)
+        {
+            var d = await dict.DelByIDAsync(Access_Token, ID);
+            if (!d)
+            {
+                LastException = dict.Response.Exception;
+            }
+            return d;
+        }
+        /// <summary>
+        /// Возвращает данные слово по его ID.
+        /// </summary>
+        /// <param name="ID">ID слова.</param>
+        /// <returns>Данные слова.</returns>
+        public async Task<Word> GetWordByIDAsync(string ID)
+        {
+            var w = await dict.GetByIDAsync(Access_Token, ID);
+            if (w==null)
+            {
+                LastException = dict.Response.Exception;
+            }
+            return w;
+        }
+
+        public async Task<bool> UpdateWordByIDAsync(Word word)
+        {
+            var w = await dict.UpdateWordsAsync(Access_Token, word);
+            if (!w)
+            {
+                LastException = dict.Response.Exception;
+            }
+            return w;
+        }
+        
         #endregion
 
-        #region Picrure
+        #region Picture
         /// <summary>
         /// Возвращает изображение в формате потока Stream.
         /// </summary>
@@ -1315,6 +1361,18 @@ namespace nsAPI
             return i;
         }
 
+        #endregion
+
+        #region Service
+        public async Task<NewVersion> CheckUpdate(string thisAppVersion, string id_User = null)
+        {
+            NewVersion nv = await services.Check(thisAppVersion, id_User);
+            if (nv == null)
+            {
+                LastException = services.Response.Exception;
+            }
+            return nv;
+        }
         #endregion
         //==================================================================================
         //==================================================================================

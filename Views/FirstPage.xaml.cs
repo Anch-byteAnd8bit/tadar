@@ -115,6 +115,7 @@ namespace Tadar.Views
                 //var stream = await eAPI.GetMyPhotoAsync();
                 //img0.Source = Helpers.Other.StreamToImageSource(stream);
                 //eAPI.UpdateTheory();
+
             }
             catch (Exception ex)
             {

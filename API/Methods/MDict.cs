@@ -42,10 +42,9 @@ namespace nsAPI.Methods
             Dictionary<string, string> urlParams = new Dictionary<string, string>();
             urlParams["secure_key"] = api_token;
 
-            // Получаем слова с зашифрованными данными.
-            words.ForEach(word => word.Encrypte());
+            // Получаем слова с зашифрованными свойствами с сериализованными данными.
+            words.ForEach(word => word.EncrypteAndSerializeContent());
             // ВСЕГДА, ПРИ ОТПРАВКЕ POST-ЗАПРОСА, НАДО ДОБАВЛЯТЬ В КОНЦЕ АДРЕСА СЛЭШ!
-
             // Конвертируем объект в строку в формате JSON.
             string wordsJson = JsonConvert.SerializeObject(words);
             // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
@@ -105,7 +104,7 @@ namespace nsAPI.Methods
                     dict.Add(JsonConvert.DeserializeObject<Word>(el.ToString()));
                 });
                 // Расшифровываем данные словаря.
-                dict.ForEach(u => u.Decrypte());
+                dict.ForEach(u => u.DecrypteAndDeserializeContent());
                 // Возвращаем список слов.
                 return dict;
             }
@@ -142,7 +141,7 @@ namespace nsAPI.Methods
                     dict.Add(JsonConvert.DeserializeObject<Word>(el.ToString()));
                 });
                 // Расшифровываем данные словаря.
-                dict.ForEach(u => u.Decrypte());
+                dict.ForEach(u => u.DecrypteAndDeserializeContent());
                 // Возвращаем список слов.
                 return dict;
             }
@@ -180,7 +179,7 @@ namespace nsAPI.Methods
                     dict.Add(JsonConvert.DeserializeObject<Word>(el.ToString()));
                 });
                 // Расшифровываем данные словаря.
-                dict.ForEach(u => u.Decrypte());
+                dict.ForEach(u => u.DecrypteAndDeserializeContent());
                 // Возвращаем список слов.
                 return dict;
             }
@@ -210,7 +209,7 @@ namespace nsAPI.Methods
                 Word w = JsonConvert.DeserializeObject<Word>(httpResponse.Data[0].ToString());
                 
                 // Расшифровываем данные словаря.
-                w.Decrypte();
+                w.DecrypteAndDeserializeContent();
                 // Возвращаем.
                 return w;
             }
@@ -229,5 +228,75 @@ namespace nsAPI.Methods
         public async Task<Word> GetAudioByWordAsync(string api_token, Word word) => 
             await GetAudioByIDAsync(api_token, word.ID);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="api_token"></param>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public async Task<bool> DelByIDAsync(string api_token, string ID)
+        {
+            // Обязательно добавляем в запрос НЕ зашифрованный ключ доступа.
+            Dictionary<string, string> urlParam = new Dictionary<string, string>();
+            urlParam.Add("secure_key", api_token);
+            urlParam.Add("ID", ID);
+            // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
+            var httpResponse = await httpGetAsync("dict.del/", urlParam);
+            return httpResponse.Data?[0].ToString() == "OK";
+        }
+
+        /// <summary>
+        /// Загружает данные слов
+        /// </summary>
+        /// <param name="api_token"></param>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public async Task<Word> GetByIDAsync(string api_token, string ID)
+        {
+            // Обязательно добавляем в запрос НЕ зашифрованный ключ доступа.
+            Dictionary<string, string> urlParam = new Dictionary<string, string>();
+            urlParam.Add("secure_key", api_token);
+            urlParam.Add("ID", ID);
+            // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
+            var httpResponse = await httpGetAsync("dict.getbyuser/", urlParam);
+            if (httpResponse.Data != null)
+            {
+                Word w = JsonConvert.DeserializeObject<Word>(httpResponse.Data[0].ToString());
+                // Расшифровываем данные слова.
+                w.DecrypteAndDeserializeContent();
+                // Возвращаем слово.
+                return w;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public async Task<bool> UpdateWordsAsync(string api_token, Word word)
+        {
+            // Обязательно добавляем в запрос НЕ зашифрованный ключ доступа.
+            Dictionary<string, string> urlParams = new Dictionary<string, string>();
+            urlParams["secure_key"] = api_token;
+
+            // Получаем копию слова с зашифрованными данными.
+            Word wordToSend = word.GetClone();
+            wordToSend.EncrypteAndSerializeContent();
+            // ВСЕГДА, ПРИ ОТПРАВКЕ POST-ЗАПРОСА, НАДО ДОБАВЛЯТЬ В КОНЦЕ АДРЕСА СЛЭШ!
+
+            // Конвертируем объект в строку в формате JSON.
+            string wordJson = JsonConvert.SerializeObject(wordToSend);
+            // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
+            var httpResponse = await httpPostJSONAsync("dict.upd/", wordJson, urlParams);
+            if (httpResponse.Data != null)
+            {
+                // 
+                return httpResponse.Data[0].ToString() == Response.OK;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

@@ -36,8 +36,11 @@ namespace Tadar.ViewModels
                     throw new Exception("api не создан!!!");
                 }
 
-                words = await api.GetCommonWords();
+                words = await api.GetCommonWordsAsync();
+                // Если слов нет, то выходим.
+                if (words == null) return;
 
+                // Афигеть! Сортировка у Ани!
                 words.Sort(delegate (Word teacher1, Word teacher2)
                 { return teacher1.RusWord.CompareTo(teacher2.RusWord); });
 
