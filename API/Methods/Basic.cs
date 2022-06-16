@@ -35,9 +35,9 @@ namespace nsAPI.Methods
     abstract class Basic: IDisposable
     {
         // Ссылка для запросов.
-        protected readonly string apiURL = "http://api.great-duet.localhost/";
+        //protected readonly string apiURL = "http://api.great-duet.localhost/";
         //protected readonly string apiURL = "http://api.great-duet.ru/";
-        //protected readonly string apiURL = "http://10.0.2.2/api/";
+        protected readonly string apiURL = "http://10.0.2.2/api/";
 
         /// <summary>
         /// Вспопогмательная строка при POST-запросах.
@@ -213,12 +213,12 @@ namespace nsAPI.Methods
             }
         }
 
-        /// <summary>
-        /// Получает ответ от сервера в виде потока. [Т.е. нет проверки на то, а точно ли это файл].
-        /// </summary>
-        /// <param name="method"></param>
-        /// <param name="reqParams"></param>
-        /// <returns></returns>
+        ///// <summary>
+        ///// Получает ответ от сервера в виде потока. [Т.е. нет проверки на то, а точно ли это файл].
+        ///// </summary>
+        ///// <param name="method"></param>
+        ///// <param name="reqParams"></param>
+        ///// <returns></returns>
         //protected async Task<Response> httpGetStreamAsync(string method, Dictionary<string, string> reqParams = null)
         //{
         //    // Создаем объект для работы с URL и задаем ему базовый адрес: host + method.

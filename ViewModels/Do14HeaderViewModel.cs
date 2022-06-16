@@ -129,7 +129,7 @@ namespace Tadar.ViewModels
         {
             try
             {
-                string id_TeacherRole = api.Refbooks[TRefbooks.Roles].SingleOrDefault(r => r.Name == "Учитель")?.ID ?? "3";
+                string id_TeacherRole = api.Refbooks.GetRole(TRoles.Teacher)?.ID ?? "3";
                 Classrooms = await api.GetClassroomsByUserIdAsync(api.MainUser.ID, id_TeacherRole);
                 if (Classrooms == null)
                 {

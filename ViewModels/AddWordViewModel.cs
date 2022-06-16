@@ -23,10 +23,10 @@ namespace Tadar.ViewModels
             Parts = new List<Refbook>()
             {
                 new Refbook{ ID = "1", Name = "Существительное"},
-                new Refbook{ ID = "2", Name = "Глагол"},
+                new Refbook{ ID = "2", Name = "Прилагательное"},
+                new Refbook{ ID = "3", Name = "Глагол"},
             };
-            // Genders = api.Refbooks[TRefbooks.Genders];
-            // Получаем список полов от сервера.
+            // Получаем список типов слов от сервера.
             GettingTypesWords();
         }
 
@@ -88,6 +88,8 @@ namespace Tadar.ViewModels
                     throw new Exception("api не создан!!!");
                 }
 
+                // добавлять ID текущего пользователя в слово word
+                word.id_User = api.MainUser.ID;
                 bool wordadd = await api.AddWordAsync(word);
 
                 // OnPropertyChanged(nameof(Word));

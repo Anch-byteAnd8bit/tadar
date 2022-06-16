@@ -13,23 +13,203 @@ using System.Windows;
 
 namespace nsAPI
 {
-    public enum TRefbooks
+    /// <summary>
+    /// Типы гендеров.
+    /// </summary>
+    public enum TGenders
     {
-        Genders,
-        WorkTypes,
-        Roles,
-        States,
-        TypeWords
+        None,
+        Male,
+        Female,
+
     }
+    /// <summary>
+    /// Типы работ.
+    /// </summary>
+    public enum TWorkTypes
+    {
+        None,
+        Test,
+        Text
+    }
+    /// <summary>
+    /// Типы ролей.
+    /// </summary>
+    public enum TRoles
+    {
+        None,
+        Teacher,
+        Student,
+        Admin
+    }
+    /// <summary>
+    /// Типы состояний аккаунта.
+    /// </summary>
+    public enum TStates
+    {
+        None,
+        Active,
+        NotActive,
+        Blocked,
+    }
+    /// <summary>
+    /// Типы слов.
+    /// </summary>
+    public enum TWordTypes
+    {
+        None,
+        Noun,
+        Adjective,
+        Verb
+    }
+    /// <summary>
+    /// Класс, предоставляющий функции загрузки, хренения и обработки справочников.
+    /// </summary>
+    public class RefbooksManager
+    {
+        public bool IsLoaded { get; set; } = false;
+
+        private Dictionary<TWordTypes, Refbook> rbWordTypes;
+        private Dictionary<TWorkTypes, Refbook> rbWorkTypes;
+        private Dictionary<TGenders, Refbook> rbGenders;
+        private Dictionary<TRoles, Refbook> rbRoles;
+        private Dictionary<TStates, Refbook> rbStates;
+
+        private readonly API api;
+
+        private void InitRefbooks()
+        {
+            rbWordTypes = new Dictionary<TWordTypes, Refbook>();
+            rbWorkTypes = new Dictionary<TWorkTypes, Refbook>();
+            rbGenders = new Dictionary<TGenders, Refbook>();
+            rbRoles = new Dictionary<TRoles, Refbook>();
+            rbStates = new Dictionary<TStates, Refbook>();
+        }
+
+        private void ClearRefbooks()
+        {
+            rbWordTypes.Clear();
+            rbWorkTypes.Clear();
+            rbGenders.Clear();
+            rbRoles.Clear();
+            rbStates.Clear();
+        }
+
+        public RefbooksManager(API api)
+        {
+            this.api = api ?? throw new NullReferenceException("При создании объекта загрузки справочников не передеан api!");
+            InitRefbooks();
+        }
+
+        /// <summary>
+        /// Асинхронно загружает справочники.
+        /// </summary>
+        /// <param name="action"></param>
+        public async Task LoadRefBooks(Action action = null)
+        {
+            var lgenders = await api.GetGendersAsync();
+            var ltypeWorks = await api.GetWorkTypesAsync();
+            var lroles = await api.GetRolesAsync();
+            var lstates = await api.GetStatesAsync();
+            var ltypeWords = await api.GetTypeWordsAsync();
+            if ((lgenders != null) && (ltypeWorks != null) && (lroles != null) &&
+                    (lstates != null) && (ltypeWords != null))
+            {
+                IsLoaded = true;
+
+                rbGenders.Add(TGenders.Male, lgenders.SingleOrDefault(g => g.Name == "Мужской"));
+                rbGenders.Add(TGenders.Female, lgenders.SingleOrDefault(g => g.Name == "Женский"));
+
+                rbWordTypes.Add(TWordTypes.Noun, ltypeWords.SingleOrDefault(wt => wt.Name == "Существительное"));
+                rbWordTypes.Add(TWordTypes.Adjective, ltypeWords.SingleOrDefault(wt => wt.Name == "Прилагательное"));
+                rbWordTypes.Add(TWordTypes.Verb, ltypeWords.SingleOrDefault(wt => wt.Name == "Глагол"));
+
+                rbRoles.Add(TRoles.Teacher, lroles.SingleOrDefault(t => t.Name == "Учитель"));
+                rbRoles.Add(TRoles.Student, lroles.SingleOrDefault(t => t.Name == "Ученик"));
+                rbRoles.Add(TRoles.Admin, lroles.SingleOrDefault(t => t.Name == "Администратор"));
+
+                rbStates.Add(TStates.Active, lstates.SingleOrDefault(s => s.Name == "Активный"));
+                rbStates.Add(TStates.NotActive, lstates.SingleOrDefault(s => s.Name == "Не активный"));
+                rbStates.Add(TStates.Blocked, lstates.SingleOrDefault(s => s.Name == "Заблокирован"));
+
+                rbWorkTypes.Add(TWorkTypes.Test, ltypeWorks.SingleOrDefault(tw => tw.Name == "Тест"));
+                rbWorkTypes.Add(TWorkTypes.Text, ltypeWorks.SingleOrDefault(tw => tw.Name == "Письменная работа"));
+                
+            }
+            else
+            {
+                IsLoaded = false;
+                if (api.LastException != null)
+                {
+                    Msg.Write(api.LastException.Message);
+                }
+            }
+        }
+
+        public async Task Reload()
+        {
+            ClearRefbooks();
+            IsLoaded = false;
+            await LoadRefBooks();
+        }
+        /// <summary>
+        /// Тип слова: Существительное, прилагательное или глагол.
+        /// </summary>
+        public Refbook GetWordType(TWordTypes wt) => rbWordTypes?[wt];
+        /// <summary>
+        /// Тип работы: Тест или письменная работа.
+        /// </summary>
+        public Refbook GetWorkType(TWorkTypes wt) => rbWorkTypes?[wt];
+        /// <summary>
+        /// Пол человека: Женский или Мужской.
+        /// </summary>
+        public Refbook GetGender(TGenders g) => rbGenders?[g];
+        /// <summary>
+        /// Состояние аккаунта: Активный, Не активный, Заблокирован.
+        /// </summary>
+        public Refbook GetState(TStates s) => rbStates?[s];
+        /// <summary>
+        /// Роль пользователя: Учитель, ученик или администратор.
+        /// </summary>
+        public Refbook GetRole(TRoles r) => rbRoles?[r];
+
+        /// <summary>
+        /// Список типов слов.
+        /// </summary>
+        public List<Refbook> GetListOfWordTypes() => rbWordTypes?.Select(w => w.Value)?.ToList();
+        /// <summary>
+        /// Список типов работ.
+        /// </summary>
+        public List<Refbook> GetListOfWorkTypes() => rbWorkTypes?.Select(w => w.Value)?.ToList();
+        /// <summary>
+        /// Список полов.
+        /// </summary>
+        public List<Refbook> GetListOfGenders() => rbGenders?.Select(g => g.Value)?.ToList();
+        /// <summary>
+        /// Список состояний аккаунта.
+        /// </summary>
+        public List<Refbook> GetListOfStates() => rbStates?.Select(s => s.Value)?.ToList();
+        /// <summary>
+        /// Список ролей.
+        /// </summary>
+        public List<Refbook> GetListOfRoles() => rbRoles?.Select(r => r.Value)?.ToList();
+    }
+
 
     public class API: IDisposable
     {
-        public Dictionary<TRefbooks, List<Refbook>> Refbooks;
+        public async Task ReloadAllAsync()
+        {
+            await LoadRefBooks();
+            await LoadMainUser();
+        }
 
         /// <summary>
         /// 
         /// </summary>
         public RegisteredUser MainUser = null;
+
+        public RefbooksManager Refbooks = null;
 
         /// <summary>
         /// Путь для хранения файла данных о текущем пользователе.
@@ -41,17 +221,18 @@ namespace nsAPI
         private string api_token = string.Empty; // AT
         // Идентификатор текущего пользователя.
         private string id_user = string.Empty;
-
         //
-        private readonly MUsers users;
-        private readonly MClassrooms classrooms;
-        private readonly MRefBooks refBooks;
-        private readonly MWorks works;
-        private readonly MTheories theories;
-        private readonly MAnswers answers;
-        private readonly MDict dict;
-        private readonly MPic pic; 
-        private readonly MServices services;
+        private readonly string cond = "both";
+        //
+        private MUsers users;
+        private MClassrooms classrooms;
+        private MRefBooks refBooks;
+        private MWorks works;
+        private MTheories theories;
+        private MAnswers answers;
+        private MDict dict;
+        private MPic pic; 
+        private MServices services;
         /// <summary>
         /// Ключ доступа к API.
         /// </summary>
@@ -83,68 +264,13 @@ namespace nsAPI
         public ResponseError LastException { get; set; }
 
         /// <summary>
-        /// Конструктор класса.
+        /// Инициализация класса.
         /// </summary>
         /// <param name="loadRefbooks">Надо ли загружать все справочники.</param>
         /// <param name="OnLoadedRefbooks">Процедура, вызываемая после загрузки справочников.</param>
         /// <param name="loadMainUser">Надо ли загружать данные о текущем пользователе (MainUser)</param>
         /// <param name="OnLoadedMainUser">Процедура, вызываемая после загрузке пользователя.</param>
-        public API(bool loadRefbooks = false, Action OnLoadedRefbooks = null, bool loadMainUser = true, Action OnLoadedMainUser = null)
-        {
-            // Для работы с запросами касающимися пользователей.
-            users = new MUsers();
-            // Для работы с запросами касающимися классов.
-            classrooms = new MClassrooms();
-            // Для работы с запросами касающимися справочников.
-            refBooks = new MRefBooks();
-            // Для работы с запросами касающимися работ.
-            works = new MWorks();
-            // Для работы с запросами касающимися теории.
-            theories = new MTheories();
-            // Для работы с запросами касающимися ответов на работы.
-            answers = new MAnswers();
-            // Для работы с запросами касающимися словарей.
-            dict = new MDict();
-            // Для работы с изображениями.
-            pic = new MPic();
-            // Для работы со служебными методами.
-            services = new MServices();
-
-            if (File.Exists(pathAccessToken))
-            {
-                // Если возможно, то загружаем данные пользователя из файла.
-                LoadUserDataFromFile();
-
-                if (loadRefbooks) LoadRefBooks(OnLoadedRefbooks);
-                if (loadMainUser) LoadMainUser(OnLoadedMainUser);
-            }
-            else
-            {
-                Msg.Write("При попытке считать из файла пользователя произошла ошибка:\n" +
-                    "Не найден файл с данными пользователя.");
-            }
-            instance = this;
-        }
-        public void LogOut()
-        {
-            //Refbooks = null;
-            MainUser = null;
-            ClearUserData();
-        }
-
-        private readonly string cond = "both";
-        /// <summary>
-        /// Конструктор API.
-        /// </summary>
-        /// <param name="loadRefbooks">Надо ли загружать справочники.</param>
-        /// <param name="loadMainUser">Надо ли загружать данные пользовтаеля.</param>
-        /// <param name="cond">Условия вызова процедуры окончания загрузки и/или справочника и/или 
-        /// пользователя. "both" - дождаться загрузки и справочников и пользователя и потом вызвать
-        /// процедуру. "first" - дождаться загрузки первого из них - справочников или пользователя.
-        /// "user" - после загрузки пользователя. "refbooks" - после загрузки справочников.</param>
-        /// <param name="OnLoaded">Процедура вызываемая после загрузки и/или справочника и/или 
-        /// пользователя.</param>
-        public API(bool loadRefbooks = false, bool loadMainUser = true, string cond = "both", Action OnLoaded = null)
+        private void Init(bool loadRefbooks = false, Action OnLoadedRefbooks = null, bool loadMainUser = true, Action OnLoadedMainUser = null, string cond = "both", Action OnLoadedBoth = null)
         {
             cond = cond.ToLower();
             // Для работы с запросами касающимися пользователей.
@@ -165,38 +291,69 @@ namespace nsAPI
             pic = new MPic();
             // Для работы со служебными методами.
             services = new MServices();
-            //
-            if (loadRefbooks) LoadRefBooks(OnLoaded);
-            // Если возможно, то загружаем данные пользователя из файла.
+            // Загрузчик справочников.
+            Refbooks = new RefbooksManager(this);
+
             if (File.Exists(pathAccessToken))
             {
-                LoadUserDataFromFile();
-                if (loadMainUser) LoadMainUser(OnLoaded);
+                // Если возможно, то загружаем данные пользователя из файла.
+                if (LoadUserDataFromFile())
+                {
+                    // Если надо, то загружаем данные подробные пользователя с сервера.
+                    if (loadMainUser) Task.Run(() => LoadMainUser(OnLoadedMainUser, OnLoadedBoth));
+                }
             }
-            else
-            {
-                /*Msg.Write("При попытке считать из файла пользователя произошла ошибка:\n" +
-                    "Не найден файл с данными пользователя.");*/
-            }
+            //else
+            //{
+                //Msg.Write("При попытке считать из файла пользователя произошла ошибка:\n" +
+                //    "Не найден файл с данными пользователя.");
+            //}
+            // Загрузка справочников если нужна.
+            if (loadRefbooks) Task.Run(() => LoadRefBooks(OnLoadedRefbooks, OnLoadedBoth));
             instance = this;
         }
+
+        /// <summary>
+        /// Конструктор класса.
+        /// </summary>
+        /// <param name="loadRefbooks">Надо ли загружать все справочники.</param>
+        /// <param name="OnLoadedRefbooks">Процедура, вызываемая после загрузки справочников.</param>
+        /// <param name="loadMainUser">Надо ли загружать данные о текущем пользователе (MainUser)</param>
+        /// <param name="OnLoadedMainUser">Процедура, вызываемая после загрузке пользователя.</param>
+        public API(bool loadRefbooks = false, Action OnLoadedRefbooks = null, bool loadMainUser = true, Action OnLoadedMainUser = null, string cond = "both", Action OnLoadedBoth = null) =>
+            Init(loadRefbooks, OnLoadedRefbooks, loadMainUser, OnLoadedMainUser, cond, OnLoadedBoth);
+
+        /// <summary>
+        /// Конструктор API.
+        /// </summary>
+        /// <param name="loadRefbooks">Надо ли загружать справочники.</param>
+        /// <param name="loadMainUser">Надо ли загружать данные пользовтаеля.</param>
+        /// <param name="cond">Условия вызова процедуры окончания загрузки и/или справочника и/или 
+        /// пользователя. "both" - дождаться загрузки и справочников и пользователя и потом вызвать
+        /// процедуру. "first" - дождаться загрузки первого из них - справочников или пользователя.
+        /// "user" - после загрузки пользователя. "refbooks" - после загрузки справочников.</param>
+        /// <param name="OnLoaded">Процедура вызываемая после загрузки и/или справочника и/или 
+        /// пользователя.</param>
+        public API(bool loadRefbooks = false, bool loadMainUser = true, string cond = "both", Action OnLoaded = null) =>
+            Init(loadRefbooks, null, loadMainUser, null, cond, OnLoaded);
 
         /// <summary>
         /// Асинхронно загружает пользователя.
         /// </summary>
         /// <param name="action">Процедура, 
         /// которую надо вызвать после успешной загрузки пользователя.</param>
-        private async void LoadMainUser(Action action = null)
+        private async Task LoadMainUser(Action action = null, Action actionBoth = null)
         {
             MainUser = await users.ByIdAsync(Access_Token, id_user);
             if (MainUser != null)
             {
-                if (action != null)
+                if ((cond == "both" && (Refbooks.IsLoaded)) ||
+                    (cond == "first" && (!Refbooks.IsLoaded)) ||
+                    (cond == "user"))
                 {
-                    if ((cond == "both" && (Refbooks.Count == 5)) ||
-                        (cond == "first" && (Refbooks.Count < 5)) ||
-                        (cond == "user"))
-                        action();
+
+                    if (action != null) action();
+                    if (actionBoth != null) actionBoth();
                 }
             }
             else if (LastException != null)
@@ -208,33 +365,15 @@ namespace nsAPI
         /// Асинхронно загружает справочники.
         /// </summary>
         /// <param name="action"></param>
-        private async void LoadRefBooks(Action action = null)
+        private async Task LoadRefBooks(Action action = null, Action actionBoth = null)
         {
-            Refbooks = new Dictionary<TRefbooks, List<Refbook>>();
-            var genders = await GetGendersAsync();
-            var typeWorks = await GetWorkTypesAsync();
-            var roles = await GetRolesAsync();
-            var states = await GetStatesAsync();
-            var typeWords = await GetTypeWordsAsync();
-            if ((genders != null) && (typeWorks != null) && (roles != null) &&
-                    (states != null) && (typeWords != null))
+            await Refbooks.LoadRefBooks();
+            if ((cond == "both" && (MainUser != null)) ||
+                (cond == "first" && (MainUser == null)) ||
+                (cond == "refbooks"))
             {
-                Refbooks.Add(TRefbooks.Genders, genders);
-                Refbooks.Add(TRefbooks.WorkTypes, typeWorks);
-                Refbooks.Add(TRefbooks.Roles, roles);
-                Refbooks.Add(TRefbooks.States, states);
-                Refbooks.Add(TRefbooks.TypeWords, typeWords);
-                if (action != null)
-                {
-                    if ((cond == "both" && (MainUser != null)) ||
-                        (cond == "first" && (MainUser == null)) ||
-                        (cond == "refbooks"))
-                        action();
-                }
-            }
-            else
-            {
-                if (LastException != null) Msg.Write(LastException.Message);
+                if (action != null) action();
+                if (actionBoth != null) actionBoth();
             }
         }
 
@@ -1462,6 +1601,16 @@ namespace nsAPI
             //return false;
         }
 
+        /// <summary>
+        /// Очищает данные текущего пользователя с диска и из памяти.
+        /// </summary>
+        public void LogOut()
+        {
+            //Refbooks = null;
+            MainUser = null;
+            ClearUserData();
+        }
+
         public void Dispose()
         {
             users.Dispose();
@@ -1471,6 +1620,8 @@ namespace nsAPI
             theories.Dispose();
             answers.Dispose();
             dict.Dispose();
+            pic.Dispose();
+            services.Dispose();
         }
     }
 

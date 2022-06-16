@@ -20,11 +20,10 @@ namespace nsAPI.Methods
             urlParams["secure_key"] = api_token;
 
             // Указание правильного типа работы.
-            var wts = API.Instance.Refbooks[TRefbooks.WorkTypes];
-            if (wts != null)
+            var rb = API.Instance.Refbooks;
+            if (rb != null && rb.IsLoaded)
             {
-                Refbook worktype = wts.FirstOrDefault(wt => wt.Name == "Тест");
-                answer.AnswerHeader.id_TypeWork = (worktype?.ID) ?? "1";
+                answer.AnswerHeader.id_TypeWork = (rb.GetWorkType(TWorkTypes.Test)?.ID) ?? "1";
             }
             else answer.AnswerHeader.id_TypeWork = "1";
             var answToSend = answer.Clone();
@@ -62,11 +61,10 @@ namespace nsAPI.Methods
             urlParams["secure_key"] = api_token;
 
             // Указание правильного типа работы.
-            var wts = API.Instance.Refbooks[TRefbooks.WorkTypes];
-            if (wts != null)
+            var rb = API.Instance.Refbooks;
+            if (rb != null && rb.IsLoaded)
             {
-                Refbook worktype = wts.FirstOrDefault(wt => wt.Name == "Письменная работа");
-                answer.AnswerHeader.id_TypeWork = (worktype?.ID) ?? "2";
+                answer.AnswerHeader.id_TypeWork = (rb.GetWorkType(TWorkTypes.Text)?.ID) ?? "2";
             }
             else answer.AnswerHeader.id_TypeWork = "2";
 

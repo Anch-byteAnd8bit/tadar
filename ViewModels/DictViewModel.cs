@@ -35,8 +35,9 @@ namespace Tadar.ViewModels
                 {
                     throw new Exception("api не создан!!!");
                 }
-
-                words = await api.GetCommonWordsAsync();
+                //загружает и общий и пользоватлеьский словари.
+                words = await api.GetCombiWordsAsync(api.MainUser.ID);
+                
                 // Если слов нет, то выходим.
                 if (words == null) return;
 

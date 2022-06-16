@@ -2,7 +2,7 @@
 
 namespace nsAPI.Entities
 {
-    class Classroom
+    public class Classroom
     {
         [JsonProperty("ID")]
         public string ID { get; set; }

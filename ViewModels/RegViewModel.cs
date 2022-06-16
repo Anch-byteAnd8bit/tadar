@@ -29,9 +29,9 @@ namespace Tadar.ViewModels
             // Создаем команду для кнопки. Выполняться при нажатии будет
             // OnSave, а проверять доступна ли кнопка для нажатия,
             // будет метод ValidateSave
-            if (api.Refbooks.ContainsKey(TRefbooks.Genders))
+            if (api.Refbooks.IsLoaded)
             {
-                Genders = api.Refbooks[TRefbooks.Genders];
+                Genders = api.Refbooks.GetListOfGenders();
             }
             else
             {
