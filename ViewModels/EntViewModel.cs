@@ -109,11 +109,11 @@ namespace Tadar.ViewModels
                         {
                             case System.Net.Sockets.SocketError.NetworkDown:
                                 // Проблемы с сетью на этом компе.
-                                Msg.Write("Проблемы с сетью на этом компе.");
+                                Msg.Write("Проблемы с сетью на этом компьютере.");
                                 break;
                             case System.Net.Sockets.SocketError.ConnectionRefused:
                                 // СБрошено соединение - серверный комп работает, но сервер не запущен.
-                                Msg.Write("Веб-сервер не работает, но сервер не запущен.");
+                                Msg.Write("Сервер работает, но веб-сервер не запущен.");
                                 break;
                             case System.Net.Sockets.SocketError.HostNotFound:
                                 // Не нашел хост, что также может говорить об отсутствии интернета,

@@ -62,12 +62,14 @@ namespace Tadar.ViewModels
 
                 TextsList = new ObservableCollection<WorkHeader>();
                 TestsList = new ObservableCollection<WorkHeader>();
-
+               // var ansbywork = await api.GetAnswersByWork(works.TestWorks[0].WorkHeader.ID);
                 for (int i = 0; i < works.TestWorks.Count; i++)
                 {
                     if (works.TestWorks[i].WorkHeader.IsNonMark == "0")
                     {
-                        TestsList.Add(works.TestWorks[i].WorkHeader);
+                      //  if (ansbywork.TestAnswers[i].AnswerBody[1]==null)
+                      //  {
+                            TestsList.Add(works.TestWorks[i].WorkHeader); //}
                     }
                 }
 

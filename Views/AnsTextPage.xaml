@@ -3,12 +3,81 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:Tadar.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="700" d:DesignWidth="900"
       Title="AnsTextPage">
 
-    <Grid>
-        
+    <Grid x:Name="gris_ent" Background="White" ShowGridLines="False" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"></RowDefinition>
+            <RowDefinition Height="20*"></RowDefinition>
+            <RowDefinition Height="35*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0"
+            Text="{Binding NameTest}"
+                   Foreground="Black"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"/>
+        <TextBlock 
+                Grid.Row="1" 
+                Grid.Column="0"
+                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                 FontSize="20"
+                 Width="auto" Height="auto" 
+                  TextAlignment="Left"
+                HorizontalAlignment="Center"
+                 Foreground="Black" Cursor="Arrow"
+                   Text="{Binding NameTask}" >
+
+        </TextBlock>
+        <TextBlock 
+            Grid.Row="2" 
+            Grid.Column="0"
+            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+             FontSize="20"
+             Width="auto" Height="auto" 
+              TextAlignment="Left"
+            HorizontalAlignment="Center"
+             Foreground="Black" Cursor="Arrow"
+               Text="{Binding AnswerStu}" >
+
+        </TextBlock>
+
+
+
+        <materialDesign:RatingBar
+            Grid.Column="0"
+            Grid.ColumnSpan="4"
+            Grid.Row="3"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            x:Name="BasicRatingBar"
+            Value="{Binding Rate, Mode=TwoWay}"/>
+
+        <Button  Style="{StaticResource MaterialDesignFlatMidBgButton}"
+             materialDesign:ButtonAssist.CornerRadius="25" 
+               
+                Command="{Binding SendClick}"
+            Content="Поставить оценку"
+                Grid.Column="0"
+                 Grid.ColumnSpan="4"
+                Grid.Row="4"
+                HorizontalAlignment="Center" 
+                 VerticalAlignment="Center"
+                Width="220" Height="40" FontSize="21" Cursor="Hand"   
+                />
+
+
     </Grid>
 </Page>
