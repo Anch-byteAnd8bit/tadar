@@ -53,8 +53,10 @@ namespace Tadar.ViewModels
                 {
                     for (int i = 0; i < ansbywork.TextAnswers.Count; i++)
                     {
-                        usersid.Add(ansbywork.TextAnswers[i].AnswerHeader.id_UserInClasses);
-
+                        if ((ansbywork.TextAnswers[i].AnswerHeader.Mark == null) || (ansbywork.TextAnswers[i].AnswerHeader.Mark == "NULL"))
+                        {
+                            usersid.Add(ansbywork.TextAnswers[i].AnswerHeader.id_UserInClasses);
+                        }
                     }
                     LoadStudentsAsync(usersid);
                 }

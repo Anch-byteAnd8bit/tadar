@@ -20,7 +20,7 @@ namespace Tadar.ViewModels
         private string idus;
         private Answers answers = new Answers();
         TextAnswer myanswer = new TextAnswer();
-        ObservableCollection<AnsAndWork> ansandwork = new ObservableCollection<AnsAndWork>();
+       // ObservableCollection<AnsAndWork> ansandwork = new ObservableCollection<AnsAndWork>();
         public AnsTextViewModel(string iduser, TextWork text)
         {
             work = text;
@@ -33,6 +33,15 @@ namespace Tadar.ViewModels
         public string NameTest
         {
             get { return work.WorkHeader.Name; }
+        }
+
+        public string NameTask
+        {
+            get { return work.WorkBody[0].TaskText; }
+        }
+        public string AnswerStu
+        { //usr?.FullName??string.Empty;
+            get { return myanswer?.AnswerBody?[0]?.AnswText??string.Empty; }
         }
         private int rate;
         /// <summary>
@@ -88,6 +97,7 @@ namespace Tadar.ViewModels
                         // Я мог решить эту работу толлько один раз, значит ответ будет только
                         // один!! Берем поэтому первый элемент - это и есть мой ответ.
                         myanswer = myAnswers.TextAnswers[0];
+                        OnPropertyChanged(nameof(AnswerStu));
                         //
                         var s = myanswer.AnswerHeader.Mark == "NULL" ? "0" : myanswer.AnswerHeader.Mark;
                         Rate = int.Parse(s);
@@ -98,16 +108,16 @@ namespace Tadar.ViewModels
                         // Что же делать???
                     }
 
-                    //TODO: сохранять works, из него получать список заголовков ВСЕХ работ
-                    for (int i = 0; i < myanswer.AnswerBody.Count; i++)
-                    {
-                        AnsAndWork anss = new AnsAndWork();
+                    ////TODO: сохранять works, из него получать список заголовков ВСЕХ работ
+                    //for (int i = 0; i < myanswer.AnswerBody.Count; i++)
+                    //{
+                    //    AnsAndWork anss = new AnsAndWork();
 
-                        anss.Word = work.WorkBody[i].TaskText;
-                        anss.AnsStud = myanswer.AnswerBody[i].AnswText;
-                        ansandwork.Add(anss);
-                        OnPropertyChanged(nameof(AnswersList));
-                    }
+                    //    anss.Word = work.WorkBody[i].TaskText;
+                    //    anss.AnsStud = myanswer.AnswerBody[i].AnswText;
+                    //    ansandwork.Add(anss);
+                    //    OnPropertyChanged(nameof(AnswersList));
+                    //}
                 }
                 else
                 {
@@ -123,13 +133,13 @@ namespace Tadar.ViewModels
         }
 
 
-        public ObservableCollection<AnsAndWork> AnswersList
-        {
-            get
-            {
-                return ansandwork;
-            }
-        }
+        //public ObservableCollection<AnsAndWork> AnswersList
+        //{
+        //    get
+        //    {
+        //        return ansandwork;
+        //    }
+        //}
 
 
 
