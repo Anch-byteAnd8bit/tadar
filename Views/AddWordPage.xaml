@@ -13,13 +13,13 @@
 
     <Grid x:Name="gris_ent" Background="#FFA25DED" ShowGridLines="False" >
         <Grid.RowDefinitions>
-            <RowDefinition Height="9*"></RowDefinition>
+            <RowDefinition Height="11*"></RowDefinition>
             <RowDefinition Height="20*"></RowDefinition>
             <RowDefinition Height="20*"></RowDefinition>
             <RowDefinition Height="20*"></RowDefinition>
             <RowDefinition Height="20*"></RowDefinition>
             <RowDefinition Height="20*"></RowDefinition>
-            <RowDefinition Height="9*"></RowDefinition>
+            <RowDefinition Height="11*"></RowDefinition>
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
