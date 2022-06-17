@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,8 +34,18 @@ namespace Tadar.Views
             Label lbl = (Label)sender;
             DragDrop.DoDragDrop(lbl, lbl, DragDropEffects.Move);
             DragDrop.DoDragDrop(lbl, lbl.Content, DragDropEffects.Copy);
+
         }
 
+        protected override void OnGiveFeedback(GiveFeedbackEventArgs e)
+        {
+            try
+            {
+                Mouse.SetCursor(Cursors.Hand);
+                e.Handled = true;
+            }
+            finally { }
+        }
 
 
         private void btn_Click(object sender, RoutedEventArgs e)

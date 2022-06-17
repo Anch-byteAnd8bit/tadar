@@ -198,12 +198,6 @@ namespace nsAPI
 
     public class API: IDisposable
     {
-        public async Task ReloadAllAsync()
-        {
-            await LoadRefBooks();
-            await LoadMainUser();
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -300,7 +294,7 @@ namespace nsAPI
                 if (LoadUserDataFromFile())
                 {
                     // Если надо, то загружаем данные подробные пользователя с сервера.
-                    if (loadMainUser) Task.Run(() => LoadMainUser(OnLoadedMainUser, OnLoadedBoth));
+                    if (loadMainUser) LoadMainUser(OnLoadedMainUser, OnLoadedBoth);
                 }
             }
             //else
@@ -309,7 +303,8 @@ namespace nsAPI
                 //    "Не найден файл с данными пользователя.");
             //}
             // Загрузка справочников если нужна.
-            if (loadRefbooks) Task.Run(() => LoadRefBooks(OnLoadedRefbooks, OnLoadedBoth));
+            //if (loadRefbooks) Task.Run(() => LoadRefBooks(OnLoadedRefbooks, OnLoadedBoth));
+            if (loadRefbooks) LoadRefBooks(OnLoadedRefbooks, OnLoadedBoth);
             instance = this;
         }
 
@@ -342,7 +337,7 @@ namespace nsAPI
         /// </summary>
         /// <param name="action">Процедура, 
         /// которую надо вызвать после успешной загрузки пользователя.</param>
-        private async Task LoadMainUser(Action action = null, Action actionBoth = null)
+        private async void LoadMainUser(Action action = null, Action actionBoth = null)
         {
             MainUser = await users.ByIdAsync(Access_Token, id_user);
             if (MainUser != null)
@@ -365,7 +360,7 @@ namespace nsAPI
         /// Асинхронно загружает справочники.
         /// </summary>
         /// <param name="action"></param>
-        private async Task LoadRefBooks(Action action = null, Action actionBoth = null)
+        private async void LoadRefBooks(Action action = null, Action actionBoth = null)
         {
             await Refbooks.LoadRefBooks();
             if ((cond == "both" && (MainUser != null)) ||

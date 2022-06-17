@@ -31,7 +31,7 @@ namespace Tadar.ViewModels
                     id_Work = work.WorkHeader.ID, // ИД работы.
                     DateTimeS = ToConvert.DB_DateTimeToStringDT(DateTime.Now),
                     //DateTimeE = ToConvert.DB_DateTimeToStringDT(DateTime.Now),
-                    id_UserInClasses = api.MainUser.ID,
+                    id_User = api.MainUser.ID,
                     Mark = null
                 },
                 AnswerBody = new List<TextAnswerBody>

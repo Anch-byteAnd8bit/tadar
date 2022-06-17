@@ -26,7 +26,7 @@ namespace Tadar.Views
 
         private void GotoMain()
         {
-            Models.First.Base_frame.Navigate(new MenuPage());
+             First.Base_frame.Navigate(new MenuPage());
         }
 
         private void ent_Click(object sender, RoutedEventArgs e)
