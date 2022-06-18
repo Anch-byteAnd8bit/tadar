@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Media;
 using System.Windows;
 using Tadar.Helpers;
 using Tadar.Models;
@@ -13,19 +14,48 @@ namespace Tadar.ViewModels
 {
   public class DictViewModel : BaseViewModel
     {
-
+        private Word std;
         private List<Word> words = new List<Word>();
         public DictViewModel()
         {
             //api.MainUser.Name
             AddClick = new Command(Add_Click);
             //DelClick = new Command(Del_Click);
-           
+            Sound= new Command(LoadAudAsync);
             LoadDictAsync();
         }
+SoundPlayer sp = new SoundPlayer();
 
-       
+        public async void LoadAudAsync(object ob)
+        {
+            std = new Word();
+            std = (Word)ob;
 
+            try
+            {
+                if (api == null)
+                {
+                    throw new Exception("api не создан!!!");
+                }
+                //загружает и общий и пользоватлеьский словари.
+               var aud = await api.GetAudioOfWordAsync(std.ID);
+
+                // Если слов нет, то выходим.
+                if (aud == null) return;
+                
+                sp.SoundLocation = aud.PathAudio;
+                sp.LoadAsync();
+                sp.Play();
+               // sp.PlayLooping();
+               
+
+                OnPropertyChanged(nameof(WordsList));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
         public async void LoadDictAsync()
         {
@@ -82,6 +112,11 @@ namespace Tadar.ViewModels
 
 
         public Command AddClick
+        {
+            get;
+            set;
+        }
+        public Command Sound
         {
             get;
             set;

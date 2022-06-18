@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using Tadar.Models;
 
@@ -20,6 +21,10 @@ namespace Tadar.Views
 
         private void Back_click(object sender, RoutedEventArgs e)
         {
+            if (Directory.Exists(Path.GetTempPath() + "aud//"))
+            {
+                Directory.Delete(Path.GetTempPath() + "aud//",true);
+            }
             First.Base_frame.GoBack();
         }
 
