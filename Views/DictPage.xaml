@@ -47,12 +47,12 @@
                             HorizontalAlignment="Center"
                             HorizontalContentAlignment="Left"
                             BorderBrush="Transparent"
-                           
+                           Background="Transparent"
                             Command="{Binding ElementName=lvs,
                             Path=DataContext.Sound}" 
                             CommandParameter="{Binding}"
-                            Width="390"
-                            Height="100"
+                            Width="550"
+                            Height="80"
                             >
                         <StackPanel Margin="6">
                         <TextBlock 
