@@ -19,43 +19,44 @@ namespace Tadar.ViewModels
         public DictViewModel()
         {
             //api.MainUser.Name
-            AddClick = new Command(Add_Click);
+            MuClick = new Command(Mu_Click);
+            //AddClick = new Command(Add_Click);
             //DelClick = new Command(Del_Click);
-            Sound= new Command(LoadAudAsync);
+           // Sound= new Command(LoadAudAsync);
             LoadDictAsync();
         }
 SoundPlayer sp = new SoundPlayer();
 
-        public async void LoadAudAsync(object ob)
-        {
-            std = new Word();
-            std = (Word)ob;
+        //public async void LoadAudAsync(object ob)
+        //{
+        //    std = new Word();
+        //    std = (Word)ob;
 
-            try
-            {
-                if (api == null)
-                {
-                    throw new Exception("api не создан!!!");
-                }
-                //загружает и общий и пользоватлеьский словари.
-               var aud = await api.GetAudioOfWordAsync(std.ID);
+        //    try
+        //    {
+        //        if (api == null)
+        //        {
+        //            throw new Exception("api не создан!!!");
+        //        }
+        //        загружает и общий и пользоватлеьский словари.
+        //       var aud = await api.GetAudioOfWordAsync(std.ID);
 
-                // Если слов нет, то выходим.
-                if (aud == null) return;
-                
-                sp.SoundLocation = aud.PathAudio;
-                sp.LoadAsync();
-                sp.Play();
-               // sp.PlayLooping();
-               
+        //        Если слов нет, то выходим.
+        //        if (aud == null) return;
 
-                OnPropertyChanged(nameof(WordsList));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+        //        sp.SoundLocation = aud.PathAudio;
+        //        sp.LoadAsync();
+        //        sp.Play();
+        //        sp.PlayLooping();
+
+
+        //        OnPropertyChanged(nameof(WordsList));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //}
 
         public async void LoadDictAsync()
         {
@@ -99,18 +100,26 @@ SoundPlayer sp = new SoundPlayer();
         }
 
 
-        private void Add_Click(object ob)
-        {
-            First.Base_frame.Navigate(new AddWordPage());
-            //открытие новой страницы с вводом логина и пароля 
-        }
+        //private void Add_Click(object ob)
+        //{
+        //    First.Base_frame.Navigate(new AddWordPage());
+        //    //открытие новой страницы с вводом логина и пароля 
+        //}
         //private void Del_Click(object ob)
         //{
         //    First.Base_frame.Navigate(new marks());
         //    //открытие новой страницы с вводом логина и пароля 
         //}
-
-
+        private void Mu_Click(object ob)
+        {
+            First.Base_frame.Navigate(new MyDictPage());
+            //открытие новой страницы с вводом логина и пароля 
+        }
+        public Command MuClick
+        {
+            get;
+            set;
+        }
         public Command AddClick
         {
             get;

@@ -36,25 +36,16 @@
             
             Grid.Row="1"
             Grid.Column="1" 
-            Width="600"
+            Width="500"
             x:Name="lvs"
             ItemsSource="{Binding WordsList}"
             IsSynchronizedWithCurrentItem="True">
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Button
-                            HorizontalAlignment="Center"
-                            HorizontalContentAlignment="Left"
-                            BorderBrush="Transparent"
-                           Background="Transparent"
-                            Command="{Binding ElementName=lvs,
-                            Path=DataContext.Sound}" 
-                            CommandParameter="{Binding}"
-                            Width="550"
-                            Height="80"
-                            >
-                        <StackPanel Margin="6">
+
+
+                    <StackPanel HorizontalAlignment="Center" Width="440" Margin="6">
                         <TextBlock 
                             HorizontalAlignment="Left" 
                             Grid.Column="0"  
@@ -73,22 +64,30 @@
                         <!--<MediaElement Source="{Binding Sound}" />-->
 
                     </StackPanel>
-                        </Button>
+                       
+                      
+
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
 
+                     <Button
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Left"
+                            
+                            Command="{Binding MuClick}" 
+                            Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                              materialDesign:ButtonAssist.CornerRadius="25" 
+                          Height="45"
+                            Grid.Row="2"
+      
+                            FontSize="25"
+                            Foreground="White" Cursor="Hand"
+                            >
+                            Мой словарь
 
-        <Button Style="{StaticResource MaterialDesignFlatMidBgButton}"
-             materialDesign:ButtonAssist.CornerRadius="25" x:Name="class"
-               Height="45"
-                Command="{Binding AddClick}"
-                Grid.Column="1"
-                Grid.Row="2"
-                Content="Добавить слово"
-                HorizontalAlignment="Center" 
-                Width="255" FontSize="25" Cursor="Hand" 
-                />
+                        </Button>
+       
 
 
 
