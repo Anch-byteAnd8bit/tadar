@@ -41,8 +41,9 @@ namespace Tadar.ViewModels
                 {
                     throw new Exception("api не создан!!!");
                 }
+                string idTeacher = api.Refbooks.GetRole(nsAPI.TRoles.Teacher).ID;
                 classroomsuser =
-                  await api.GetClassroomsByUserIdAsync(api.MainUser.ID,"3");
+                  await api.GetClassroomsByUserIdAsync(api.MainUser.ID, idTeacher);
               
                 //  ClasssList = new ObservableCollection<RegisteredClassroom>();
 
@@ -70,7 +71,7 @@ namespace Tadar.ViewModels
         private void Enter_Click(object ob)
         {
 
-            cls = new RegisteredClassroom();
+            //cls = new RegisteredClassroom();
             cls = (RegisteredClassroom)ob;
             string iclass = cls.ID;
             

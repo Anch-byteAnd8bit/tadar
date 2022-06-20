@@ -16,7 +16,7 @@ namespace Tadar.Views
             DataContext = new MenuViewModel();
         }
 
-        private void TextBlock_TargetUpdated(object sender, System.Windows.Data.DataTransferEventArgs e)
+        private void ListViewItem_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
 
         }
