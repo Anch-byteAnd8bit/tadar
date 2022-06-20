@@ -15,7 +15,7 @@ namespace Helpers
             //Tadar.Helpers.IAppVersionProvider appVer = Xamarin.Forms.DependencyService.Get<Tadar.Helpers.IAppVersionProvider>();
             //Xamarin.Forms.DependencyService.Get<IMessageBox>().Show(text, title ?? "Tadar");
 
-            _ = System.Windows.MessageBox.Show(text);
+            _ = System.Windows.MessageBox.Show(text, title ?? "Tadar");
         }
 
         public static void Write(Exception ex)
