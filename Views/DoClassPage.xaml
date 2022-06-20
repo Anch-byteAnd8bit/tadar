@@ -15,6 +15,7 @@
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="10*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -48,6 +49,25 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
+        <TextBox 
+                 Grid.Row="3" 
+                 Grid.Column="1"
+                 materialDesign:HintAssist.Hint="Пароль для входа в класс"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 FontSize="14"
+                 Width="180" Height="40" 
+                 Background="White"
+                 TextAlignment="Center"
+                 AutoWordSelection="True"
+                 Foreground="Black" Cursor="Arrow" MaxLength="4">
+            <TextBox.Text>
+                <Binding Path="Passkey" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <local:NotEmptyValidationRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
         <TextBox Name="desc" 
                  TextWrapping="Wrap"
@@ -58,7 +78,7 @@
                  materialDesign:HintAssist.Hint="Введите описание класса"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                  FontSize="14"
-                 Width="500" Height="400" 
+                 Width="500" Height="370" 
                  Background="White"
                  TextAlignment="Center"
                  AutoWordSelection="True"
@@ -81,7 +101,7 @@
                Height="45"
                 Command="{Binding RegCommand}"
                 Grid.Column="1"
-                Grid.Row="3"
+                Grid.Row="4"
                 Content="Создать класс"
                 HorizontalAlignment="Center" 
                 Width="255" FontSize="25" Cursor="Hand" 

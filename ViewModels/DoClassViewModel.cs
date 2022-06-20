@@ -21,6 +21,19 @@ namespace Tadar.ViewModels
         }
 
         
+            public string Passkey
+        {
+            // Когда надо вернуть фамилию.
+            get => classroom.Passkey;
+            // Когда надо задать фамилию.
+            set
+            {
+                // Присваиваем новое значение фамилии.
+                classroom.Passkey = value;
+                // Уведомляем форму, что свойство "Surname" изменилось.
+                OnPropertyChanged(nameof(Name));
+            }
+        }
 
         public string Name
         {
