@@ -38,6 +38,7 @@ namespace nsAPI.Methods
         protected readonly string apiURL = "http://api.great-duet.localhost/";
         //protected readonly string apiURL = "http://api.great-duet.ru/";
         //protected readonly string apiURL = "http://10.0.2.2/api/";
+        //protected readonly string apiURL = "http://192.168.0.104/api/";
 
         /// <summary>
         /// Вспопогмательная строка при POST-запросах.

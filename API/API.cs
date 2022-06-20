@@ -13,6 +13,7 @@ using System.Windows;
 
 namespace nsAPI
 {
+    #region Enums refbooks
     /// <summary>
     /// Типы гендеров.
     /// </summary>
@@ -62,6 +63,8 @@ namespace nsAPI
         Adjective,
         Verb
     }
+    #endregion
+
     /// <summary>
     /// Класс, предоставляющий функции загрузки, хренения и обработки справочников.
     /// </summary>
@@ -691,7 +694,6 @@ namespace nsAPI
         #region Classes
         // =========== Классы
 
-
         /// <summary>
         /// Создание нового класа.
         /// </summary>
@@ -774,6 +776,21 @@ namespace nsAPI
         public async Task<bool> AddStudent(string id_user, string id_class)
         {
             var cl = await classrooms.AddStudent(Access_Token, id_user, id_class);
+            if (!cl)
+            {
+                LastException = classrooms.Response.Exception;
+            }
+            return cl;
+        }
+
+        /// <summary>
+        /// Изменение класса. Можно изменить название, описание, пароль на вход
+        /// </summary>
+        /// <param name="classroom"></param>
+        /// <returns>True - при успешном выполнении.</returns>
+        public async Task<bool> UpdateClassAsync(Classroom classroom)
+        {
+            var cl = await classrooms.UpdateClassAsync(Access_Token, classroom);
             if (!cl)
             {
                 LastException = classrooms.Response.Exception;

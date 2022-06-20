@@ -85,12 +85,21 @@ namespace nsAPI.Examples
 
                 ClassroomForReg classroomForReg = new ClassroomForReg
                 {
-                    Name = "Класс номер 1",
-                    Description = "Описание класса номер 1",
-                    id_User = api.MainUser.ID
+                    Name = "Начальная группа",
+                    Description = "Класс для людей до 3 лет",
+                    id_User = api.MainUser.ID,
+                    Passkey = "4882"
                 };
                 // Получаем объект зарегистрированного класса.
                 curClassroom = await api.AddClassroomAsync(classroomForReg);
+                if (curClassroom != null)
+                {
+                    Msg.Write("OK");
+                }
+                else if (api.LastException != null)
+                {
+                    Msg.Write(api.LastException.Message);
+                }
             }
             catch (Exception ex)
             {
@@ -625,6 +634,28 @@ namespace nsAPI.Examples
             {
                 Msg.Write(api.LastException.Message);
             }
+        }
+
+        public async void UpdateClass()
+        {
+            var cl = new Classroom
+            {
+                ID = "5",
+                Name = "Вторые классы. Специальный",
+                Description = "Все вторые классы. Углублёнка",
+                Passkey = null
+            };
+            var res = await api.UpdateClassAsync(cl);
+            if (res)
+            {
+                Msg.Write("OK");
+            }
+            else
+            {
+                Msg.Write(api.LastException.Message);
+            }
+            
+
         }
     }
 }

@@ -88,7 +88,7 @@ namespace Tadar.Views
                 var eAPI = new ExampleAPI();
                 //await eAPI.UserRegAsync();
                 //await eAPI.UserAuthAsync();
-                //await eAPI.CreateClass();
+                await eAPI.CreateClass();
                 //await eAPI.AddTestWork();
                 //await eAPI.AddTextWork();
                 //await eAPI.AddAnswerTestWork_idUserInClasses();
@@ -115,6 +115,7 @@ namespace Tadar.Views
                 //var stream = await eAPI.GetMyPhotoAsync();
                 //img0.Source = Helpers.Other.StreamToImageSource(stream);
                 //eAPI.UpdateTheory();
+                //eAPI.UpdateClass();
 
             }
             catch (Exception ex)

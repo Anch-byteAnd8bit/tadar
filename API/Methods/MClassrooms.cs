@@ -260,5 +260,31 @@ namespace nsAPI.Methods
             }
 
         }
+
+        public async Task<bool> UpdateClassAsync(string api_token, Classroom classroom)
+        {
+            // Обязательно добавляем в запрос НЕ зашифрованный ключ доступа.
+            Dictionary<string, string> urlParams = new Dictionary<string, string>();
+            urlParams["secure_key"] = api_token;
+
+            // Получаем копию слова с зашифрованными данными.
+            Classroom classroomToSend = classroom.GetClone();
+            classroomToSend.Encrypt();
+            // ВСЕГДА, ПРИ ОТПРАВКЕ POST-ЗАПРОСА, НАДО ДОБАВЛЯТЬ В КОНЦЕ АДРЕСА СЛЭШ!
+
+            // Конвертируем объект в строку в формате JSON.
+            string classroomJson = JsonConvert.SerializeObject(classroomToSend);
+            // Получаем ответ от сервера в виде строки. В строке должен быть ответ в формате JSON.
+            var httpResponse = await httpPostJSONAsync("class.upd/", classroomJson, urlParams);
+            if (httpResponse.Data != null)
+            {
+                // 
+                return httpResponse.Data[0].ToString() == Response.OK;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
