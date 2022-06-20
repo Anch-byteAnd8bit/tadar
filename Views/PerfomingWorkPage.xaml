@@ -96,7 +96,7 @@
                  FontSize="18"
                  Width="650" Height="400" 
                  Background="White"
-                 TextAlignment="Center"
+                 TextAlignment="Left"
                  AutoWordSelection="True"
                  Foreground="Black" Cursor="Arrow">
                 <TextBox.Text>
