@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -26,6 +27,19 @@ namespace Tadar.Views
         {
             InitializeComponent();
             DataContext = new Test14ViewModel(work);
+        }
+        private void ListBox_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                ScrollBar.LineUpCommand.Execute(null, e.OriginalSource as IInputElement);
+               
+            }
+            if (e.Delta < 0)
+            {
+                 ScrollBar.LineDownCommand.Execute(null, e.OriginalSource as IInputElement);
+            }
+            e.Handled = true;
         }
     }
 }

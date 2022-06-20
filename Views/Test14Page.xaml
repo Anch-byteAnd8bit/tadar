@@ -43,9 +43,12 @@
             Grid.Row="1"
             Grid.Column="1" 
             x:Name="lvs"
+            materialDesign:ScrollBarAssist.ThumbWidth="1"
+            PreviewMouseWheel="ListBox_PreviewMouseWheel"
             ItemsSource="{Binding TasksList}"
             IsSynchronizedWithCurrentItem="True">
 
+           
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Background="White" Margin="2">
@@ -61,8 +64,8 @@
                              Grid.Row="1" 
                              Grid.Column="1"
                              Style="{StaticResource MaterialDesignBody1TextBlock}" 
-                             FontSize="22"
-                             Width="500" Height="40" 
+                             FontSize="25"
+                             Width="500" Height="50" 
                              Background="#FFE4C1FC"
                              TextAlignment="Center"
                              Foreground="Black" Cursor="Arrow"
@@ -75,28 +78,32 @@
                             Margin="2"
                             >
                             <RadioButton
+                                Width="500" Height="40" 
                                             GroupName="{Binding ID}"
                                             Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
-                                            FontSize="16"
+                                            FontSize="23"
                                             Content="{ Binding PossibleAnsw1}"
                                             
                                             IsChecked="{Binding selAnsws[0]}"/>
                             <RadioButton
+                                Width="500" Height="40" 
                                             GroupName="{Binding ID}"
                                             Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
-                                            FontSize="16"
+                                            FontSize="23"
                                             Content="{ Binding PossibleAnsw2}"
                                             IsChecked="{Binding selAnsws[1]}"/>
                             <RadioButton
+                                Width="500" Height="40" 
                                             GroupName="{Binding ID}"
                                             Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
-                                            FontSize="16"
+                                            FontSize="23"
                                             Content="{ Binding PossibleAnsw3}"
                                             IsChecked="{Binding selAnsws[2]}"/>
                             <RadioButton
+                                Width="500" Height="40" 
                                             GroupName="{Binding ID}"
                                             Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
-                                            FontSize="16"
+                                            FontSize="23"
                                             Content="{ Binding PossibleAnsw4}"
                                             IsChecked="{Binding selAnsws[3]}"/>
                         </StackPanel>

@@ -84,10 +84,8 @@
                             <TextBlock
                                 Foreground="Black"
                                 FontSize="17" FontWeight="Bold"
-                                HorizontalAlignment="Center"
-                                >
-                                Войти в класс
-                            </TextBlock>
+                                HorizontalAlignment="Left"
+                                >Войти в класс</TextBlock>
                         </StackPanel>
                     </Button>
 
