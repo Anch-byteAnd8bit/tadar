@@ -37,6 +37,8 @@
 
         <TextBox Name="f_Box" 
                  Grid.Row="1" 
+                 GotFocus="SomeTextBox_GotFocus"
+                 LostFocus="SomeTextBox_LostFocus"
                  TextWrapping="Wrap"
                  VerticalScrollBarVisibility="Visible"
                  AcceptsReturn="True"
@@ -64,6 +66,8 @@
                  Grid.Column="1"
                  HorizontalAlignment="Center"
                 TextWrapping="Wrap"
+            GotFocus="SomeTextBox_GotFocus"
+                 LostFocus="SomeTextBox_LostFocus"
                  VerticalScrollBarVisibility="Visible"
                  AcceptsReturn="True"
                  materialDesign:HintAssist.Hint="Введите описание теста"
@@ -129,66 +133,54 @@
             HorizontalAlignment="Left"
             Grid.Row="1" Grid.RowSpan="3"
             Grid.Column="2" Margin="78,0,0,0" >
-            <Button
-                Click="BigOClick"
-            Margin="3"
-           Width="40"
-            Height="40"
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+            <Button x:Name="btnO"
+                    Margin="3"
+                    Width="40"
+                    Height="40"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    ToolTip="MaterialDesignFloatingActionLightButton">
                 Ӧ
             </Button>
 
-            <Button
-                Click="BigIClick"
-                 Margin="3"
-           Width="40"
-            Height="40"
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+            <Button x:Name="btnI"
+                    Margin="3"
+                    Width="40"
+                    Height="40"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    ToolTip="MaterialDesignFloatingActionLightButton">
                 І
             </Button>
 
-            <Button
-                Click="BigYClick"
-                 Margin="3"
-           Width="40"
-            Height="40"
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+            <Button x:Name="btnY"
+                    Margin="3"
+                    Width="40"
+                    Height="40"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    ToolTip="MaterialDesignFloatingActionLightButton">
                 Ӱ
             </Button>
-            <Button
-                Click="BigFClick"
-                 Margin="3"
-       Width="40"
-            Height="40"
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+            <Button x:Name="btnF"
+                    Margin="3"
+                    Width="40"
+                    Height="40"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    ToolTip="MaterialDesignFloatingActionLightButton">
                 Ғ
             </Button>
-            <Button
-                Click="BigNClick"
-                 Margin="3"
-           Width="40"
-            Height="40"
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+            <Button x:Name="btnN"
+                    Margin="3"
+                    Width="40"
+                    Height="40"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    ToolTip="MaterialDesignFloatingActionLightButton">
                 Ң
             </Button>
-            <Button
-                Click="BigJClick"
-                 Margin="3"
-          Width="40"
-            Height="40"
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+            <Button x:Name="btnJ"
+                    Margin="3"
+                    Width="40"
+                    Height="40"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    ToolTip="MaterialDesignFloatingActionLightButton">
                 Ҷ
             </Button>
         </StackPanel>
@@ -199,66 +191,53 @@
             HorizontalAlignment="Left" Grid.Row="1"
             Grid.Column="2" Margin="13,0,0,0" 
             Grid.RowSpan="3">
-            <Button
-                Click="SmOClick"
-           Width="40"
-            Height="40"
-                 Margin="3"
-            
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+            <Button x:Name="btno"
+                    Width="40"
+                    Height="40"
+                    Margin="3"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    ToolTip="MaterialDesignFloatingActionLightButton">
                 ӧ
             </Button>
 
-            <Button
-                Click="SmIClick"
-                 Margin="3"
-          Width="40"
-            Height="40"
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+            <Button x:Name="btni"
+                    Margin="3"
+                    Width="40"
+                    Height="40"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    ToolTip="MaterialDesignFloatingActionLightButton">
                 і
             </Button>
-            <Button
-                Click="SmYClick"
-                 Margin="3"
-           Width="40"
-            Height="40"
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+            <Button x:Name="btny"
+                    Margin="3"
+                    Width="40"
+                    Height="40"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    ToolTip="MaterialDesignFloatingActionLightButton">
                 ӱ
             </Button>
-            <Button
-                Click="SmFClick"
-                 Margin="3"
-          Width="40"
-            Height="40"
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+            <Button x:Name="btnf"
+                    Margin="3"
+                    Width="40"
+                    Height="40"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    ToolTip="MaterialDesignFloatingActionLightButton">
                 ғ
             </Button>
-            <Button
-                Click="SmNClick"
-                 Margin="3"
-          Width="40"
-            Height="40"
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+            <Button x:Name="btnn"
+                    Margin="3"
+                    Width="40"
+                    Height="40"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    ToolTip="MaterialDesignFloatingActionLightButton">
                 ң
             </Button>
-            <Button
-                Click="SmJClick"
-                 Margin="3"
-          Width="40"
-            Height="40"
-         Style="{StaticResource MaterialDesignFloatingActionButton}"
-        ToolTip="MaterialDesignFloatingActionLightButton"
-        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+            <Button x:Name="btnj"
+                    Margin="3"
+                    Width="40"
+                    Height="40"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    ToolTip="MaterialDesignFloatingActionLightButton">
                 ҷ
             </Button>
         </StackPanel>

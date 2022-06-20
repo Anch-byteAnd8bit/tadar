@@ -55,6 +55,7 @@
                   >
             <ListView.ItemTemplate>
                 <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
                     <Button
                             HorizontalAlignment="Center"
                             HorizontalContentAlignment="Left"
@@ -63,8 +64,8 @@
                             Command="{Binding ElementName=lv,
                             Path=DataContext.EnterClick}" 
                             CommandParameter="{Binding}"
-                            Width="390"
-                            Height="100"
+                            Width="250"
+                            Height="80"
                             >
                         <StackPanel Margin="2">
                             <TextBlock
@@ -82,7 +83,23 @@
 
                         </StackPanel>
                     </Button>
-
+                        <Button
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Left"
+                            BorderBrush="Transparent"
+                            Background="White"
+                            Command="{Binding ElementName=lv,
+                            Path=DataContext.DeleteClick}" 
+                            CommandParameter="{Binding}"
+                            Width="140"
+                            Height="80"
+                            FontSize="17"
+                            Foreground="Black"
+                            >
+                            Удалить
+                            
+                        </Button>
+                    </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

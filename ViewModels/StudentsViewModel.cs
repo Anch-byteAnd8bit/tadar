@@ -15,6 +15,7 @@ namespace Tadar.ViewModels
     {
         private List<RegisteredUser> classroomsusers = new List<RegisteredUser>();
         private RegisteredUser std;
+        private RegisteredUser st;
         private string icl;
 
         public StudentsViewModel(string iclass)
@@ -23,6 +24,7 @@ namespace Tadar.ViewModels
             LoadClassAsync(iclass);
             icl = iclass;
             EnterClick = new Command(Enter_Click);
+            DeleteClick = new Command(Delete_Click);
             BackClick = new Command(Back_Click);
         }
         private void Back_Click(object ob)
@@ -47,6 +49,13 @@ namespace Tadar.ViewModels
                 }
                 classroomsusers =
                   await api.GetUsersByClassIdAsync(iclass);
+                for (int i = 0; i < classroomsusers.Count; i++)
+                {
+                    if (classroomsusers[i].ID== api.MainUser.ID)
+                        {
+                        classroomsusers.Remove(classroomsusers[i]);
+                    }
+                }
 
                 //  ClasssList = new ObservableCollection<RegisteredClassroom>();
 
@@ -68,6 +77,30 @@ namespace Tadar.ViewModels
                 // Задаем новый выбранный жлемент из списка.
                 // SelectedClassroom = Classrooms[0];
             }
+        }
+        public Command DeleteClick { get; }
+        private void Delete_Click(object ob)
+        {
+
+            st = new RegisteredUser();
+            st = (RegisteredUser)ob;
+            // string iclass = cls.ID;
+            string istud = st.ID;
+            if (MessageBox.Show("Удалить из класса этого ученика?", "Уточнение", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+                //do no stuff
+            }
+            else
+            {
+                var del = api.DelStudent(istud,icl);
+            LoadClassAsync(icl);
+                //do yes stuff
+            }
+
+           
+           // OnPropertyChanged(nameof(Classrooms));
+            //First.Base_frame.Navigate(new StudMarksPage(icl, istud));
+
         }
 
         public Command EnterClick { get; }

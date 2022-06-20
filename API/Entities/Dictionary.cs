@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Encryption;
 using System.IO;
+using Helpers;
 
 namespace nsAPI.Entities
 {
@@ -96,13 +97,23 @@ namespace nsAPI.Entities
         {
             if (!string.IsNullOrWhiteSpace(Content))
             {
-                PathAudio = Path.GetTempPath() + "aud\\" + Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".wav";
+                PathAudio = Path.GetTempPath() + "aud//" + Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".wav";
                 byte[] encryptedByte = Convert.FromBase64String(Content);
+                try
+                {
+                  Directory.CreateDirectory(Path.GetDirectoryName(PathAudio));
                 using (var inputStream = new MemoryStream(encryptedByte))
                 using (var outputStream = new FileStream(PathAudio, FileMode.Create, FileAccess.Write))
                 {
                     inputStream.CopyTo(outputStream);
                 }
+                }
+                catch (Exception x)
+                {
+                    Msg.Write(x.Message);
+                    throw;
+                }
+               
                 var exs = File.Exists(PathAudio);
                 Content = null;
             }

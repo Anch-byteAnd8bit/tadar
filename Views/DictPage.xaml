@@ -43,7 +43,18 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Margin="6">
+                    <Button
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Left"
+                            BorderBrush="Transparent"
+                           Background="Transparent"
+                            Command="{Binding ElementName=lvs,
+                            Path=DataContext.Sound}" 
+                            CommandParameter="{Binding}"
+                            Width="550"
+                            Height="80"
+                            >
+                        <StackPanel Margin="6">
                         <TextBlock 
                             HorizontalAlignment="Left" 
                             Grid.Column="0"  
@@ -57,8 +68,12 @@
                             <Run Text="{Binding RusWord}"  FontSize="25"
                             Foreground="White"></Run>
                         </TextBlock>
-                        
+                       
+
+                        <!--<MediaElement Source="{Binding Sound}" />-->
+
                     </StackPanel>
+                        </Button>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

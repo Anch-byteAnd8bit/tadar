@@ -1,4 +1,5 @@
-﻿using nsAPI.Entities;
+﻿using nsAPI;
+using nsAPI.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -124,17 +125,35 @@ namespace Tadar.ViewModels
 
 
 
+        
         private async void GettingClassrooms()
         {
             try
             {
-                Classrooms = await api.GetAllClassess();
+                string id_TeacherRole = api.Refbooks.GetRole(TRoles.Teacher)?.ID ?? "3";
+                Classrooms = await api.GetClassroomsByUserIdAsync(api.MainUser.ID, id_TeacherRole);
+                if (Classrooms == null)
+                {
+                    if (api.LastException != null && api.LastException.TypeError == TError.DefinedError)
+                    {
+                        if (api.LastException.CodeAPI == CODE_ERROR.ERR_ClassNotFound)
+                        {
+                            // Классы не найдены.
+                        }
+                    }
+                }
             }
             catch (Exception)
             {
                 Classrooms = null;
             }
         }
+
+
+
+
+
+
 
 
 

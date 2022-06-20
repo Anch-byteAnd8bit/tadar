@@ -92,7 +92,7 @@ namespace Tadar.ViewModels
                 // добавлять ID текущего пользователя в слово word
                 word.id_User = api.MainUser.ID;
                 bool wordadd = await api.AddWordAsync(word);
-                //if (!wordadd) Msg.Write(api.LastException.Message);
+                if (!wordadd) Msg.Write(api.LastException.Message);
                 // OnPropertyChanged(nameof(Word));
                 First.Base_frame.Navigate(new DictPage());
             }
