@@ -55,11 +55,12 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Button
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Button
                         Background="Transparent"
                         BorderBrush="Transparent"
                         Height="50"
-                        Width="600"
+                        Width="400"
                             Command="{Binding ElementName=lvs, Path=DataContext.TestClick}"
                             CommandParameter="{Binding}"
                         HorizontalContentAlignment="Left">
@@ -68,6 +69,27 @@
                             
                         </StackPanel>
                     </Button>
+                        <Button
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            BorderBrush="Transparent"
+                            Background="Transparent"
+                            Command="{Binding ElementName=lvs,
+                            Path=DataContext.MuClick}" 
+                            CommandParameter="{Binding}"
+                            Width="140"
+                            Height="80"
+                            FontSize="17"
+                            Visibility="{Binding ElementName=lvs,
+                            Path=DataContext.Pota}"
+                            Foreground="White"
+                            >
+                            Удалить
+
+                        </Button>
+
+
+                    </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

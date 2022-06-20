@@ -14,17 +14,85 @@ namespace Tadar.ViewModels
 {
     class TheoryThemeViewModel : BaseViewModel
     {
+        private Theory st;
         private List <Theory> themes;
+        private List<RegisteredUser> classroomsusers = new List<RegisteredUser>();
         private Theory theory;
+        private RegisteredUser std;
         private string idclass;
+        private Visibility visi;
         public TheoryThemeViewModel(string clsid)
         {
             idclass = clsid;
             TestClick = new Command(Test_Click);
             // TextClick = new Command(Text_Click);
             LoadTestsAsync(idclass);
+            LoadClassAsync(clsid);
             BackClick = new Command(Back_Click);
+            MuClick = new Command(Mu_Click);
+            visi = Visibility.Hidden;
+            OnPropertyChanged("Pota");
+            //if (api.MainUser.ID== classroomsusers[0].ID)
+            //{
+            //    visi = Visibility.Visible;
+            //}
+        }
+        public async void LoadClassAsync(string iclass)
+        {
+            try
+            {
+                if (api == null)
+                {
+                    throw new Exception("api не создан!!!");
+                }
+                classroomsusers =
+                  await api.GetUsersByClassIdAsync(iclass,"3");
+                if (api.MainUser.ID == classroomsusers[0].ID)
+                {
+                    visi = Visibility.Visible;
+                    OnPropertyChanged("Pota");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
+
+        private void Mu_Click(object ob)
+        {
+            st = new Theory();
+            st = (Theory)ob;
+            // string iclass = cls.ID;
+            string istud = st.ID;
+            if (MessageBox.Show("Удалить эту тему?", "Уточнение", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+                //do no stuff
+            }
+            else
+            {
+                var del = api.DelTheory(istud);
+                LoadTestsAsync(idclass);
+                // OnPropertyChanged(nameof(WordsList));
+                //do yes stuff
+            }
+            //открытие новой страницы с вводом логина и пароля 
+        }
+        public Command MuClick
+        {
+            get;
+            set;
+        }
+
+        public Visibility Pota
+        {
+            get { return visi; }
+            private set
+            {
+                visi = value;
+                OnPropertyChanged("Pota");
+            }
         }
         private void Back_Click(object ob)
         {
