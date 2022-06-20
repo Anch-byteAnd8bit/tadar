@@ -4,7 +4,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:viewmodels="clr-namespace:Tadar.ViewModels"
+      xmlns:viewmodels="clr-namespace:Tadar.ViewModels" xmlns:ie="http://schemas.microsoft.com/xaml/behaviors"
       d:DataContext="{d:DesignInstance Type=viewmodels:MenuViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="900"
@@ -51,13 +51,12 @@
             Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
             VerticalAlignment="Top" />
 
-        <ScrollViewer Grid.Row="4" >
+        <ScrollViewer Grid.Row="4">
             <StackPanel Grid.Row="4" Background="White" Orientation="Horizontal">
                 <StackPanel Grid.Row="4"  Width="20" HorizontalAlignment="Left">
                     <ListView ItemsSource="{Binding Marks}" 
                           materialDesign:ListBoxItemAssist.ShowSelection="False"
-                          IsSynchronizedWithCurrentItem="True" Grid.Row="2"
-                  >
+                          IsSynchronizedWithCurrentItem="True" Grid.Row="2">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Margin="1">
@@ -75,8 +74,7 @@
                 <StackPanel Grid.Row="4"  HorizontalAlignment="Left" Margin="0 0 0 0">
                     <ListView ItemsSource="{Binding Marks}" 
                           materialDesign:ListBoxItemAssist.ShowSelection="False"
-                          IsSynchronizedWithCurrentItem="True"
-                  >
+                          IsSynchronizedWithCurrentItem="True">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Margin="1">
@@ -105,22 +103,24 @@
 
         <ScrollViewer Grid.Row="2" >
             <StackPanel Grid.Row="2" Background="White">
-                <ListView ItemsSource="{Binding Classrooms}" 
+                <ListView x:Name="UIClassrooms" ItemsSource="{Binding Classrooms}" 
                           materialDesign:ListBoxItemAssist.ShowSelection="False"
-                          IsSynchronizedWithCurrentItem="True" Grid.Row="2"
-                  >
+                          IsSynchronizedWithCurrentItem="True" Grid.Row="2">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="1">
-
-                                <TextBlock
-                                    Foreground="#FF673AB7"
-           
-                                    Style="{StaticResource MaterialDesignBody1TextBlock}"
-                                    Text="{Binding Name}" />
+                                <TextBlock Text="{Binding Name}"
+                                           Foreground="#FF673AB7"
+                                           Style="{StaticResource MaterialDesignBody1TextBlock}">
+                                </TextBlock>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
+                    <ie:Interaction.Triggers>
+                        <ie:EventTrigger EventName="MouseDoubleClick">
+                            <ie:InvokeCommandAction Command="{Binding ShowClassDetailCommand}"  CommandParameter="{Binding ElementName=UIClassrooms, Path=SelectedItem}"/>
+                        </ie:EventTrigger>
+                    </ie:Interaction.Triggers>
                 </ListView>
             </StackPanel>
         </ScrollViewer>

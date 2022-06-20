@@ -15,6 +15,7 @@ namespace Tadar.ViewModels
     {
         private List<RegisteredClassroom> classrooms = new List<RegisteredClassroom>();
         private ObservableCollection<WorkAndMark> marks = new ObservableCollection<WorkAndMark>();
+        public Command ShowClassDetailCommand { get; }
         public MenuViewModel()
         {
             api = nsAPI.API.Instance;
@@ -40,6 +41,14 @@ namespace Tadar.ViewModels
             // Ассинхронная загрузка списка классов.
             LoadClasssAsync();
             BackClick = new Command(Back_Click);
+            ShowClassDetailCommand = new Command(OnShowClassDetail);
+        }
+        private void OnShowClassDetail(object obj)
+        {
+            var classd = obj as RegisteredClassroom;
+            if (classd == null) return;
+
+            First.Base_frame.Navigate(new StudentsPage(classd.ID));
         }
 
         private void Back_Click(object ob)
