@@ -102,10 +102,29 @@ namespace Tadar.ViewModels
             cls = new RegisteredClassroom();
             cls = (RegisteredClassroom)ob;
             string iclass = cls.ID;
-            await api.AddStudent(api.MainUser.ID.ToString(), iclass);
-            OnPropertyChanged(nameof(Classrooms));
-            MessageBox.Show(api.MainUser.Name.ToString() + " в классе " + cls.Name.ToString());
-            First.Base_frame.Navigate(new MenuPage());
+            PasswordWindow passwordWindow = new PasswordWindow();
+            
+            if (passwordWindow.ShowDialog() == true)
+            {
+                if (passwordWindow.Password == cls.Passkey)
+                {
+                   // MessageBox.Show("Авторизация пройдена");
+                    await api.AddStudent(api.MainUser.ID.ToString(), iclass);
+                    OnPropertyChanged(nameof(Classrooms));
+                    MessageBox.Show(api.MainUser.Name.ToString() + " в классе " + cls.Name.ToString());
+                    First.Base_frame.Navigate(new MenuPage());
+
+                }
+                else
+                    MessageBox.Show("Неверный пароль");
+            }
+            else
+            {
+                MessageBox.Show("Авторизация не пройдена");
+            }
+
+
+            
 
         }
         private void Class_Click(object ob)
